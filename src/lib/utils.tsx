@@ -4,11 +4,12 @@ import { nanoid } from 'nanoid'
 import React from 'react'
 import { DndItem, DndState, DndStateItemEntity, DndStateLayout, RenderProps } from './types'
 import DndItemPreview from './components/DndItemPreview'
+// @ts-ignore
+import reactToCSS from 'react-style-object-to-css'
 
 export const removeItem = (renderProps: RenderProps, id: string) => {
-    if (id === renderProps.active) {
-        renderProps.onActiveChange(null)
-    }
+    renderProps.onActiveChange(null)
+    renderProps.onTabChange(0)
     const stateItem = renderProps.state.entities[id]
     renderProps.setState((existingState) => {
         const updatedEntities = omitBy(existingState.entities, (e, i) => i === id)
@@ -106,6 +107,34 @@ export const renderItems = (
         )
     })
 
+export const exportItems = (
+    items: DndStateItemEntity[] = [],
+    renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
+) =>
+    items
+        ?.map((item) => {
+            const updatedRenderProps = { ...renderProps, item }
+            const stateItem = renderProps.state.entities[item.id]
+            return `
+                <div style="position: relative">
+                    ${renderProps.itemsMap[stateItem.parent]?.export?.(updatedRenderProps)}
+                </div>
+            `
+        })
+        .join('\n')
+
+export const exportToHtml = (
+    renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
+) => {
+    return `
+        <div style="${styleToCss(renderProps.state?.layout?.state?.layoutStyle)}">
+            <div style="${styleToCss(renderProps.state?.layout?.state?.contentStyle)}">
+                ${exportItems(renderProps.state.items, renderProps)}
+            </div>
+        </div>
+    `
+}
+
 export const useLocalStorage = <T extends any = any>(
     key: string,
     defaultValue: T
@@ -144,3 +173,5 @@ export const createDndState = (initialState?: Partial<DndState>): DndState => {
         layout
     }
 }
+
+export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)

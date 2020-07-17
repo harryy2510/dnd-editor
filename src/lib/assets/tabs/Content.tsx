@@ -53,7 +53,8 @@ const useStyles = makeStyles(
         list: {
             '& $button': {
                 border: `1px solid ${divider}`,
-                borderRadius
+                borderRadius,
+                transform: 'none!important'
             },
             '& $grid': {
                 marginBottom: spacing(1.25)
@@ -71,7 +72,7 @@ const DndEditorContent: React.FC<DndEditorContentProps> = () => {
     const groupedItems: Record<ItemType, DndItem[]> = groupBy(items, 'type') as any
     return (
         <>
-            {groupedItems.component.length > 0 && (
+            {groupedItems?.component?.length > 0 && (
                 <>
                     <Typography variant="body2" gutterBottom>
                         <Trans>Components</Trans>
@@ -102,10 +103,10 @@ const DndEditorContent: React.FC<DndEditorContentProps> = () => {
                     </ReactSortable>
                 </>
             )}
-            {groupedItems.component.length > 0 && groupedItems.grid.length > 0 && (
+            {groupedItems?.component?.length > 0 && groupedItems?.grid?.length > 0 && (
                 <Divider className={classes.divider} />
             )}
-            {groupedItems.grid.length > 0 && (
+            {groupedItems?.grid?.length > 0 && (
                 <>
                     <Typography variant="body2" gutterBottom>
                         <Trans>Grids</Trans>

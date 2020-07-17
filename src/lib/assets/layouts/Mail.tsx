@@ -7,14 +7,22 @@ export default {
     settings: {
         initialValues: {
             contentStyle: {
+                minHeight: '100%',
+                width: '100%',
+                position: 'relative',
                 maxWidth: 600,
-                borderRadius: '0px'
+                borderRadius: '0px',
+                boxSizing: 'border-box'
             },
             layoutStyle: {
-                display: 'flex',
+                height: '100%',
+                width: '100%',
+                overflow: 'auto',
                 backgroundColor: '#eee',
+                display: 'flex',
                 padding: '16px',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                boxSizing: 'border-box'
             }
         },
         items: [

@@ -1,22 +1,48 @@
 import { Trans } from '@lingui/macro'
 import { RadioButtonCheckedOutlined } from '@material-ui/icons'
 import React from 'react'
-import { DndItem, RenderProps } from '../../types'
+import { DndItem } from '../../types'
+import { styleToCss } from '../../utils'
 
 export default {
     id: 'button',
     type: 'component',
     icon: RadioButtonCheckedOutlined,
     label: <Trans>Button</Trans>,
-    render: (renderProps: RenderProps) => {
+    render: (renderProps) => {
         const stateItem = renderProps.state.entities[renderProps.item!.id]
-        return <button style={stateItem.state?.style}>{stateItem.state?.label}</button>
+        return (
+            <div style={stateItem.state?.containerStyle}>
+                <button style={stateItem.state?.style}>{stateItem.state?.label}</button>
+            </div>
+        )
+    },
+    export: (renderProps) => {
+        const stateItem = renderProps.state.entities[renderProps.item!.id]
+        return `
+            <div style="${styleToCss(stateItem.state?.containerStyle)}">
+                <button style="${styleToCss(stateItem.state?.style)}">
+                    ${stateItem.state?.label ?? ''}
+                </button>
+            </div>
+        `
     },
     settings: {
         initialValues: {
             label: 'Click Me!',
             style: {
-                padding: '8px 16px'
+                border: 'none',
+                boxShadow: 'none',
+                padding: '8px 16px',
+                color: '#ffffff',
+                backgroundColor: '#211f1f',
+                borderRadius: '4px'
+            },
+            containerStyle: {
+                display: 'flex',
+                padding: '4px',
+                alignItems: 'center',
+                justifyContent: 'center'
             }
         },
         items: [
@@ -24,6 +50,16 @@ export default {
                 id: 'label',
                 type: 'input',
                 label: <Trans>Label</Trans>
+            },
+            {
+                id: 'style.color',
+                type: 'color',
+                label: <Trans>Text Color</Trans>
+            },
+            {
+                id: 'style.backgroundColor',
+                type: 'color',
+                label: <Trans>Background Color</Trans>
             },
             {
                 id: 'style.padding',
@@ -45,7 +81,7 @@ export default {
                 ]
             },
             {
-                id: 'layoutStyle.justifyContent',
+                id: 'containerStyle.justifyContent',
                 type: 'dropdown',
                 label: <Trans>Align</Trans>,
                 items: [
@@ -64,7 +100,7 @@ export default {
                 ]
             },
             {
-                id: 'contentStyle.borderRadius',
+                id: 'style.borderRadius',
                 type: 'dropdown',
                 label: <Trans>Border Radius</Trans>,
                 items: [

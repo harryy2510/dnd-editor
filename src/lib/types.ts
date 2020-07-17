@@ -1,9 +1,17 @@
-import { IconProps, Theme } from '@material-ui/core'
+import { IconProps, SvgIconProps, Theme } from '@material-ui/core'
 import { FormikValues } from 'formik'
 import React from 'react'
 
 export type Primitive = string | boolean | number
 export type ItemType = 'component' | 'grid' | 'block'
+export type DeviceType = 'laptop' | 'tablet' | 'mobile'
+
+export interface Device {
+    type: DeviceType
+    label: React.ReactElement
+    icon: React.ComponentType<SvgIconProps>
+}
+
 export type RenderProps = DndEditorContextProps & {
     item: DndStateItemEntity
     theme: Theme
@@ -21,6 +29,9 @@ export type DndBaseSetting = {
 export type DndColorSetting = DndBaseSetting & {
     type: 'color'
 }
+export type DndCodeSetting = DndBaseSetting & {
+    type: 'code'
+}
 export type DndInputSetting = DndBaseSetting & {
     type: 'input'
 }
@@ -36,6 +47,7 @@ export type DndRadioSetting = DndBaseSetting & {
     items: DndSettingItem[]
 }
 export type DndSetting =
+    | DndCodeSetting
     | DndColorSetting
     | DndInputSetting
     | DndDropdownSetting
@@ -120,8 +132,11 @@ export interface DndStateItem {
     items?: DndStateItem[][]
 }
 
-export interface DndPreviewProps {}
+export interface DndPreviewProps {
+    renderProps: RenderProps
+}
 export interface DndEditorSettingsProps {}
 export interface DndEditorPreviewProps {}
 export interface DndEditorPreferenceProps {}
 export interface DndEditorContentProps {}
+export interface DndEditorBlockProps {}

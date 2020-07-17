@@ -1,12 +1,12 @@
 import { Theme } from '@material-ui/core'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { makeStyles, useTheme } from '@material-ui/styles'
+import clsx from 'clsx'
 import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
-import { DndEditorPreviewProps, RenderProps } from '../types'
-import { setList, renderItems } from '../utils'
-import clsx from 'clsx'
+import { DndEditorPreviewProps } from '../types'
+import { renderItems, setList } from '../utils'
 import DndPreview from './DndPreview'
 
 const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: Theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: T
                 fontSize: '1.8rem'
             }
         },
-        '& .dnd-grid-item': {
+        '& .dnd-grid-item, & .dnd-block-item': {
             width: '100%',
             margin: 0,
             backgroundColor: fade(primary.main, 0.08)
@@ -59,29 +59,15 @@ const DndEditorPreview: React.FC<DndEditorPreviewProps> = ({}) => {
         editorContext.onActiveChange(null)
     }
     return (
-        <DndPreview>
-            <div
-                onClick={handleClick}
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    overflow: 'auto',
-                    backgroundColor: theme.palette.background.default,
-                    ...(editorContext?.state?.layout?.state?.layoutStyle ?? {})
-                }}
-            >
+        <DndPreview renderProps={renderProps}>
+            <div onClick={handleClick} style={editorContext?.state?.layout?.state?.layoutStyle}>
                 <ReactSortable
                     animation={150}
-                    group={{ name: 'root', put: ['grids'] }}
+                    group={{ name: 'root', put: ['grids', 'blocks'] }}
                     list={editorContext.state.items}
                     setList={setList(renderProps)}
                     className={clsx(classes.root)}
-                    style={{
-                        minHeight: '100%',
-                        width: '100%',
-                        position: 'relative',
-                        ...(editorContext?.state?.layout?.state?.contentStyle ?? {})
-                    }}
+                    style={editorContext?.state?.layout?.state?.contentStyle}
                 >
                     {renderItems(editorContext.state.items, renderProps)}
                 </ReactSortable>

@@ -30,6 +30,12 @@ import { SketchPicker } from 'react-color'
 import { Trans } from '@lingui/macro'
 import { useDebouncedCallback } from 'use-debounce'
 
+import AceEditor from 'react-ace'
+import 'ace-builds/src-min-noconflict/mode-html'
+import 'ace-builds/src-min-noconflict/theme-monokai'
+import 'ace-builds/src-min-noconflict/ext-searchbox'
+import 'ace-builds/src-min-noconflict/ext-language_tools'
+
 const useStyles = makeStyles(({}: Theme) => ({
     root: {},
     childItem1: {
@@ -218,6 +224,28 @@ const DndEditorSettings: React.FC<DndEditorSettingsProps> = ({}) => {
                                 />
                             ))}
                         </RadioGroup>
+                    </ListItemText>
+                )
+            case 'code':
+                return (
+                    <ListItemText disableTypography>
+                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                            {item.label}
+                        </Typography>
+                        <AceEditor
+                            mode="html"
+                            theme="monokai"
+                            name={`code-editor-${item.id}`}
+                            value={get(formik.values, item.id)}
+                            onChange={(e) => formik.setFieldValue(item.id, e, true)}
+                            setOptions={{
+                                useWorker: false,
+                                enableBasicAutocompletion: true,
+                                enableLiveAutocompletion: true,
+                                showLineNumbers: true,
+                                tabSize: 2
+                            }}
+                        />
                     </ListItemText>
                 )
         }

@@ -2,14 +2,7 @@ import { Trans } from '@lingui/macro'
 import { CodeOutlined } from '@material-ui/icons'
 import React from 'react'
 import { DndItem, RenderProps } from '../../types'
-import { updateItem } from '../../utils'
-
-import 'froala-editor/css/froala_style.min.css'
-import 'froala-editor/css/froala_editor.pkgd.min.css'
-import 'froala-editor/js/plugins.pkgd.min.js'
-
-// @ts-ignore
-import FroalaEditorComponent from 'react-froala-wysiwyg'
+import { styleToCss } from '../../utils'
 
 export default {
     id: 'html',
@@ -17,28 +10,40 @@ export default {
     icon: CodeOutlined,
     label: <Trans>Html</Trans>,
     render: (renderProps: RenderProps) => {
-        const config = {
-            placeholderText: 'Edit Your Content Here!',
-            charCounterCount: false,
-            toolbarInline: true
-        }
         const stateItem = renderProps.state.entities[renderProps.item.id]
-        const handleChange = (newValue: string) => {
-            updateItem(renderProps, { html: newValue })
-        }
         return (
-            <FroalaEditorComponent
-                config={config}
-                model={stateItem.state?.html}
-                onModelChange={handleChange}
-                tag="textarea"
+            <div
+                style={stateItem.state?.containerStyle}
+                dangerouslySetInnerHTML={{ __html: stateItem.state?.html }}
             />
         )
     },
+    export: (renderProps) => {
+        const stateItem = renderProps.state.entities[renderProps.item!.id]
+        return `
+            <div style="${styleToCss(stateItem.state?.containerStyle)}">
+                ${stateItem.state?.html ?? ''}
+            </div>
+        `
+    },
     settings: {
         initialValues: {
-            html: ''
+            html: '',
+            containerStyle: {
+                minHeight: '40px',
+                backgroundColor: '#fff'
+            }
         },
-        items: []
+        items: [
+            {
+                id: 'containerStyle.backgroundColor',
+                type: 'color',
+                label: <Trans>Background Color</Trans>
+            },
+            {
+                type: 'code',
+                id: 'html'
+            }
+        ]
     }
 } as DndItem
