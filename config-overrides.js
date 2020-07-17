@@ -50,8 +50,8 @@ module.exports = override(
     // Disable EsLint
     disableEsLint(),
     // React Refresh
-    addBabelPlugin('react-refresh/babel'),
-    addWebpackPlugin(new ReactRefreshWebpackPlugin()),
+    isDevelopment && addBabelPlugin('react-refresh/babel'),
+    isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
 
     // Adding progressbar plugin
     isDevelopment && addWebpackPlugin(new SimpleProgressWebpackPlugin({ format: 'compact' }))
