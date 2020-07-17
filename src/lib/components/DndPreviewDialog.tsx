@@ -16,7 +16,7 @@ import { makeStyles, useTheme } from '@material-ui/styles'
 import clsx from 'clsx'
 import React from 'react'
 import { useDndEditorContext } from '../DndEditorProvider'
-import { Device, DeviceType, RenderProps } from '../types'
+import { Device, DeviceType, DndStateItemEntity, RenderProps } from '../types'
 import './DndPreview.css'
 import { exportToHtml } from '../utils'
 
@@ -63,7 +63,7 @@ interface Props extends Omit<DialogProps, 'children'> {
     devices: Device[]
     device: DeviceType
     onDeviceChange: (e: DeviceType) => void
-    renderProps: RenderProps
+    renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
 }
 
 const DndPreviewDialog: React.FC<Props> = ({

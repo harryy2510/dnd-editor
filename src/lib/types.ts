@@ -133,7 +133,7 @@ export interface DndStateItem {
 }
 
 export interface DndPreviewProps {
-    renderProps: RenderProps
+    renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
 }
 export interface DndEditorSettingsProps {}
 export interface DndEditorPreviewProps {}

@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
-import { DndEditorPreviewProps } from '../types'
+import { DndEditorPreviewProps, RenderProps } from '../types'
 import { renderItems, setList } from '../utils'
 import DndPreview from './DndPreview'
 

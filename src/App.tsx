@@ -1,13 +1,13 @@
-import { CssBaseline, Box } from '@material-ui/core'
+import { Box, CssBaseline } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import React from 'react'
 import { DndEditor } from './lib'
 import { DndState } from './lib/types'
-import { useLocalStorage, createDndState } from './lib/utils'
+import { createDndState } from './lib/utils'
 
 function App() {
-    const [value, onChange] = useLocalStorage<DndState>(`dnd-state-test`, createDndState())
+    const [value, onChange] = React.useState<DndState>(createDndState())
     return (
         <ThemeProvider theme={createMuiTheme()}>
             <CssBaseline />
