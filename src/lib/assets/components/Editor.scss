@@ -1,0 +1,18 @@
+.ql-container.ql-bubble {
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+    height: auto;
+
+    .ql-editor {
+        line-height: inherit;
+        overflow-y: inherit;
+        padding: 0;
+        text-align: inherit;
+    }
+
+    .ql-tooltip {
+        z-index: 1;
+        width: 466px;
+    }
+}

@@ -1,10 +1,34 @@
-import { IconProps, SvgIconProps, Theme } from '@material-ui/core'
-import { FormikValues } from 'formik'
+import { GridSize, SvgIconProps } from '@material-ui/core'
 import React from 'react'
 
 export type Primitive = string | boolean | number
-export type ItemType = 'component' | 'grid' | 'block'
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
+export type SettingItemType =
+    | 'text'
+    | 'image'
+    | 'button'
+    | 'backgroundColor'
+    | 'backgroundImage'
+    | 'generalSettings'
+
+export type SettingComponentType =
+    | 'backgroundColor'
+    | 'border'
+    | 'borderColor'
+    | 'borderRadius'
+    | 'buttonAlign'
+    | 'buttonType'
+    | 'fontColor'
+    | 'fontFamily'
+    | 'fontWeight'
+    | 'height'
+    | 'linkColor'
+    | 'padding'
+    | 'size'
+    | 'space'
+    | 'spacing'
+    | 'textAlign'
+    | 'width'
 
 export interface Device {
     type: DeviceType
@@ -12,91 +36,81 @@ export interface Device {
     icon: React.ComponentType<SvgIconProps>
 }
 
-export type RenderProps = DndEditorContextProps & {
-    item: DndStateItemEntity
-    theme: Theme
+export type InitialValues = {
+    label?: string
+    style?: {
+        container?: React.CSSProperties
+        content?: React.CSSProperties
+    } & {
+        [key: string]: React.CSSProperties
+    }
 }
 
-export interface DndSettingItem {
+export type DndStateItem = {
+    id: string
+    parent: {
+        id: string
+        type: DndItem['type'] | DndTemplateItem['type']
+    }
+    values: InitialValues & {
+        [key: string]: InitialValues
+    }
+}
+
+export type DndComponentSetting = {
+    type: SettingComponentType
+    grid?: GridSize
+    id: string
+}
+
+export type DndItemSetting = {
+    id: string
     label: React.ReactNode
-    value: Primitive
+    type: SettingItemType
+    settings?: DndComponentSetting[]
 }
-export type DndBaseSetting = {
+
+export type DndComponentItem = {
+    render: (renderProps: RenderProps, id?: string) => React.ReactNode
+    export: (renderProps: RenderProps, id?: string) => string
+    initialValues?: DndStateItem['values']
+    settings?: DndComponentSetting[]
+}
+
+export type DndBaseItem = {
+    render: (renderProps: RenderProps, children?: React.ReactNode) => React.ReactNode
+    export: (renderProps: RenderProps, children?: string) => string
     id: string
-    label?: React.ReactNode
-    placeholder?: string
-}
-export type DndColorSetting = DndBaseSetting & {
-    type: 'color'
-}
-export type DndCodeSetting = DndBaseSetting & {
-    type: 'code'
-}
-export type DndInputSetting = DndBaseSetting & {
-    type: 'input'
-}
-export type DndDropdownSetting = DndBaseSetting & {
-    type: 'dropdown'
-    items: DndSettingItem[]
-}
-export type DndCheckboxSetting = DndBaseSetting & {
-    type: 'checkbox'
-}
-export type DndRadioSetting = DndBaseSetting & {
-    type: 'radio'
-    items: DndSettingItem[]
-}
-export type DndSetting =
-    | DndCodeSetting
-    | DndColorSetting
-    | DndInputSetting
-    | DndDropdownSetting
-    | DndCheckboxSetting
-    | DndRadioSetting
-
-export interface DndSettingsProps {
-    items: DndSetting[]
-    initialValues: FormikValues
-    validationSchema?: any
-}
-
-export interface DndItem {
-    id: string
-    type: ItemType
-    render: (renderProps: RenderProps) => React.ReactNode
-
-    label?: React.ReactNode
-    icon?: React.ComponentType<IconProps>
-    component?: React.ReactNode
-
-    settings?: DndSettingsProps
+    label: React.ReactNode
     priority?: number
-    export?: (renderProps: RenderProps) => string
+    initialValues?: DndStateItem['values']
+    settings?: DndItemSetting[]
 }
-
-export interface DndLayout {
-    id: string
-    settings?: DndSettingsProps
-}
-
-export interface DndStateLayout {
-    id: string
-    state?: FormikValues
-}
-
-export interface DndTab {
-    id: string
-    label: React.ReactNode
+export type DndLayoutItem = DndBaseItem & {
+    type: 'layout'
     component: React.ReactNode
+}
+export type DndGroupItem = DndBaseItem & {
+    type: 'group'
+    icon: React.ComponentType<SvgIconProps>
+}
+export type DndBlockItem = DndBaseItem & {
+    type: 'block'
+    parent: string
+    image: string
+}
+export type DndItem = DndLayoutItem | DndGroupItem | DndBlockItem
+
+export type DndTemplateItem = Omit<DndBaseItem, 'label'> & {
+    type: 'template'
 }
 
 export interface DndStateItemEntity {
     id: string
     items?: DndStateItemEntity[][]
+    layoutId?: string
 }
-
 export interface DndState {
-    layout: DndStateLayout
     items: DndStateItemEntity[]
     entities: Record<string, DndStateItem>
 }
@@ -105,38 +119,13 @@ export interface DndEditorContextProps {
     setState: React.Dispatch<React.SetStateAction<DndState>>
     state: DndState
 
-    layout: DndLayout
+    template: DndTemplateItem
     itemsMap: Record<string, DndItem>
     items: DndItem[]
-    tabs: DndTab[]
-    tab: number
-    onTabChange: React.Dispatch<React.SetStateAction<number>>
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
 }
-export interface DndEditorProps {
-    value?: Partial<DndState>
-    onChange?: (newValue: DndState) => void
-    items?: DndItem[]
-    layout?: DndLayout
-    tabs?: DndTab[]
-}
 
-export interface DndStateItem {
-    id: string
-    parent: string
-    type: ItemType
-    gridId?: string
-    gridIndex?: number
-    state?: FormikValues
-    items?: DndStateItem[][]
+export type RenderProps = DndEditorContextProps & {
+    item?: DndStateItemEntity
 }
-
-export interface DndPreviewProps {
-    renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
-}
-export interface DndEditorSettingsProps {}
-export interface DndEditorPreviewProps {}
-export interface DndEditorPreferenceProps {}
-export interface DndEditorContentProps {}
-export interface DndEditorBlockProps {}

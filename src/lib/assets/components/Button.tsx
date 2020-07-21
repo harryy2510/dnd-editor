@@ -1,127 +1,76 @@
-import { Trans } from '@lingui/macro'
-import { RadioButtonCheckedOutlined } from '@material-ui/icons'
 import React from 'react'
-import { DndItem } from '../../types'
-import { styleToCss } from '../../utils'
+import { DndComponentItem, RenderProps } from '../../types'
+import { styleToCss, updateItem } from '../../utils'
+import Editor from './Editor'
 
 export default {
-    id: 'button',
-    type: 'component',
-    icon: RadioButtonCheckedOutlined,
-    label: <Trans>Button</Trans>,
-    render: (renderProps) => {
-        const stateItem = renderProps.state.entities[renderProps.item!.id]
+    render: (renderProps: RenderProps, id: string) => {
+        if (!renderProps.item || !id) {
+            return null
+        }
+        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const handleChange = (value: string) =>
+            updateItem(renderProps, renderProps.item!.id, { [`${id}.label`]: value })
         return (
-            <div style={stateItem.state?.containerStyle}>
-                <button style={stateItem.state?.style}>{stateItem.state?.label}</button>
+            <div style={state.style?.container}>
+                <button style={state.style?.content}>
+                    <Editor value={state.label} onChange={handleChange} />
+                </button>
             </div>
         )
     },
-    export: (renderProps) => {
-        const stateItem = renderProps.state.entities[renderProps.item!.id]
+    export: (renderProps: RenderProps, id: string) => {
+        if (!renderProps.item || !id) {
+            return null
+        }
+        const state = renderProps.state.entities[renderProps.item.id].values[id]
         return `
-            <div style="${styleToCss(stateItem.state?.containerStyle)}">
-                <button style="${styleToCss(stateItem.state?.style)}">
-                    ${stateItem.state?.label ?? ''}
+            <div style="${styleToCss(state.style?.container)}">
+                <button style="${state.style?.content}">
+                    ${state.label}
                 </button>
             </div>
         `
     },
-    settings: {
-        initialValues: {
-            label: 'Click Me!',
-            style: {
-                border: 'none',
-                boxShadow: 'none',
-                padding: '8px 16px',
-                color: '#ffffff',
-                backgroundColor: '#211f1f',
-                borderRadius: '4px'
-            },
-            containerStyle: {
+    initialValues: {
+        label: 'Button',
+        style: {
+            container: {
+                padding: '8px',
                 display: 'flex',
-                padding: '4px',
                 alignItems: 'center',
                 justifyContent: 'center'
+            },
+            content: {
+                boxShadow: 'none',
+                fontSize: '14px',
+                fontFamily: 'Poppins, sans-serif',
+                lineHeight: '',
+                fontWeight: 500,
+                letterSpacing: '',
+                color: '#fff',
+                backgroundColor: '#3f51b5',
+                borderRadius: '4px',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#3f51b5',
+                padding: '14px 28px 14px 28px'
             }
-        },
-        items: [
-            {
-                id: 'label',
-                type: 'input',
-                label: <Trans>Label</Trans>
-            },
-            {
-                id: 'style.color',
-                type: 'color',
-                label: <Trans>Text Color</Trans>
-            },
-            {
-                id: 'style.backgroundColor',
-                type: 'color',
-                label: <Trans>Background Color</Trans>
-            },
-            {
-                id: 'style.padding',
-                type: 'dropdown',
-                label: <Trans>Size</Trans>,
-                items: [
-                    {
-                        label: <Trans>Small</Trans>,
-                        value: '4px'
-                    },
-                    {
-                        label: <Trans>Medium</Trans>,
-                        value: '8px 16px'
-                    },
-                    {
-                        label: <Trans>Large</Trans>,
-                        value: '16px 32px'
-                    }
-                ]
-            },
-            {
-                id: 'containerStyle.justifyContent',
-                type: 'dropdown',
-                label: <Trans>Align</Trans>,
-                items: [
-                    {
-                        label: <Trans>Left</Trans>,
-                        value: 'flex-start'
-                    },
-                    {
-                        label: <Trans>Center</Trans>,
-                        value: 'center'
-                    },
-                    {
-                        label: <Trans>Right</Trans>,
-                        value: 'flex-end'
-                    }
-                ]
-            },
-            {
-                id: 'style.borderRadius',
-                type: 'dropdown',
-                label: <Trans>Border Radius</Trans>,
-                items: [
-                    {
-                        label: <Trans>None</Trans>,
-                        value: '0px'
-                    },
-                    {
-                        label: <Trans>Small</Trans>,
-                        value: '4px'
-                    },
-                    {
-                        label: <Trans>Medium</Trans>,
-                        value: '8px'
-                    },
-                    {
-                        label: <Trans>Large</Trans>,
-                        value: '16px'
-                    }
-                ]
-            }
-        ]
-    }
-} as DndItem
+        }
+    },
+    settings: [
+        { id: 'buttonType', type: 'buttonType', grid: 12 },
+        { id: 'style.content.fontSize', type: 'size', grid: 4 },
+        { id: 'style.content.fontFamily', type: 'fontFamily', grid: 8 },
+        { id: 'style.content.lineHeight', type: 'height', grid: 4 },
+        { id: 'style.content.fontWeight', type: 'fontWeight', grid: 8 },
+        { id: 'style.content.letterSpacing', type: 'space', grid: 4 },
+        { id: 'style.content.color', type: 'fontColor', grid: 8 },
+        { id: 'style.container.justifyContent', type: 'buttonAlign', grid: 12 },
+        { id: 'style.content.backgroundColor', type: 'backgroundColor', grid: 12 },
+        { id: 'style.content.borderRadius', type: 'borderRadius', grid: 12 },
+        { id: 'style.content.borderWidth', type: 'border', grid: 4 },
+        { id: 'style.content.borderColor', type: 'borderColor', grid: 8 },
+        { id: 'style.content.padding', type: 'padding', grid: 12 }
+    ]
+} as DndComponentItem

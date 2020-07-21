@@ -1,31 +1,21 @@
 import { Theme } from '@material-ui/core'
 import { fade } from '@material-ui/core/styles/colorManipulator'
-import { makeStyles, useTheme } from '@material-ui/styles'
-import clsx from 'clsx'
+import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
-import { DndEditorPreviewProps, RenderProps } from '../types'
 import { renderItems, setList } from '../utils'
-import DndPreview from './DndPreview'
 
 const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: Theme) => ({
+    document: {
+        height: '100%',
+        width: '100%'
+    },
     root: {
-        '& .dnd-component-item': {
-            maxHeight: 40,
-            width: '100%',
-            backgroundColor: fade(primary.main, 0.08),
-            margin: 0,
-            '& .MuiTypography-root': {
-                display: 'none'
-            },
-            '& .MuiSvgIcon-fontSizeLarge': {
-                fontSize: '1.8rem'
-            }
-        },
-        '& .dnd-grid-item, & .dnd-block-item': {
-            width: '100%',
-            margin: 0,
+        height: '100%',
+        width: '100%',
+        '& .dnd-item': {
+            height: 40,
             backgroundColor: fade(primary.main, 0.08)
         },
         '& .dnd-grid': {
@@ -46,33 +36,28 @@ const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: T
     }
 }))
 
-const DndEditorPreview: React.FC<DndEditorPreviewProps> = ({}) => {
+const DndEditorPreview: React.FC = () => {
     const classes = useStyles()
-    const editorContext = useDndEditorContext()
-    const theme = useTheme<Theme>()
-    const renderProps = {
-        ...editorContext,
-        theme
-    }
+    const renderProps = useDndEditorContext()
     const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
         ev.stopPropagation()
-        editorContext.onActiveChange(null)
+        renderProps.onActiveChange(null)
     }
+    const children = (
+        <ReactSortable
+            animation={300}
+            group={{ name: 'shared', put: ['shared'] }}
+            list={renderProps.state.items}
+            setList={setList(renderProps)}
+            className={classes.root}
+        >
+            {renderItems(renderProps.state.items, renderProps)}
+        </ReactSortable>
+    )
     return (
-        <DndPreview renderProps={renderProps}>
-            <div onClick={handleClick} style={editorContext?.state?.layout?.state?.layoutStyle}>
-                <ReactSortable
-                    animation={150}
-                    group={{ name: 'root', put: ['grids', 'blocks'] }}
-                    list={editorContext.state.items}
-                    setList={setList(renderProps)}
-                    className={clsx(classes.root)}
-                    style={editorContext?.state?.layout?.state?.contentStyle}
-                >
-                    {renderItems(editorContext.state.items, renderProps)}
-                </ReactSortable>
-            </div>
-        </DndPreview>
+        <div className={classes.document} onClick={handleClick}>
+            {renderProps.template.render(renderProps, children)}
+        </div>
     )
 }
 

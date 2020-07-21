@@ -1,29 +1,17 @@
-import { nanoid } from 'nanoid'
 import React from 'react'
-import { Mail } from './assets/layouts'
+
+import * as Templates from './assets/templates'
 import { DndEditorContextProps } from './types'
+import { createDndState } from './utils'
 
 export const DndEditorContext = React.createContext<DndEditorContextProps>({
     active: null,
-    tabs: [],
-    state: {
-        entities: {},
-        layout: {
-            id: nanoid(),
-            state: {
-                layoutStyle: {},
-                contentStyle: {}
-            }
-        },
-        items: []
-    },
-    layout: Mail,
+    state: createDndState(),
     items: [],
     itemsMap: {},
-    tab: 0,
-    onTabChange: () => undefined,
     onActiveChange: () => undefined,
-    setState: () => undefined
+    setState: () => undefined,
+    template: Templates.Mail
 })
 
 export const useDndEditorContext = () => React.useContext(DndEditorContext)

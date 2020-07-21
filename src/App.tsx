@@ -6,10 +6,26 @@ import { DndEditor } from './lib'
 import { DndState } from './lib/types'
 import { createDndState } from './lib/utils'
 
+export const useLocalStorage = <T extends any = any>(
+    key: string,
+    defaultValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
+    const [value, setValue] = React.useState<T>(() => {
+        const storedValue = window.localStorage.getItem(key)
+        return storedValue !== null ? JSON.parse(storedValue) : defaultValue
+    })
+    React.useEffect(() => {
+        window.localStorage.setItem(key, JSON.stringify(value))
+    }, [key, value])
+    return [value, setValue]
+}
+
 function App() {
-    const [value, onChange] = React.useState<DndState>(createDndState())
+    const [value, onChange] = useLocalStorage<DndState>('dnd-test', createDndState())
     return (
-        <ThemeProvider theme={createMuiTheme()}>
+        <ThemeProvider
+            theme={createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } })}
+        >
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
                 <DndEditor value={value} onChange={onChange} />
