@@ -39,7 +39,7 @@ const useStyles = makeStyles(
             opacity: 0,
             zIndex: 4,
             transition: transitions.create('opacity'),
-            backgroundColor: action.hover
+            backgroundColor: action.focus
         },
         input: {
             position: 'absolute',
@@ -61,21 +61,46 @@ const useStyles = makeStyles(
         },
         icon: {
             fontSize: 28
+        },
+        preview: {
+            height: '100%',
+            width: '100%',
+            padding: spacing(0.4)
+        },
+        img: {
+            maxWidth: '100%',
+            maxHeight: '100%',
+            margin: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
         }
     })
 )
 
 const Uploader: React.FC<InputProps> = (props) => {
     const classes = useStyles()
+    const imgSrc = props.value
     return (
         <div className={classes.container}>
-            <div className={classes.placeholder}>
-                <CloudUploadOutlined className={classes.icon} />
-                <Typography variant="caption">
-                    <Trans>Drag and drop or click to upload</Trans>
-                </Typography>
-            </div>
-            <div className={classes.overlay} />
+            {imgSrc ? (
+                <>
+                    <div className={classes.overlay} />
+                    <div className={classes.preview}>
+                        <img src={imgSrc} className={classes.img} alt="" />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className={classes.overlay} />
+                    <div className={classes.placeholder}>
+                        <CloudUploadOutlined className={classes.icon} />
+                        <Typography variant="caption">
+                            <Trans>Drag and drop or click to upload</Trans>
+                        </Typography>
+                    </div>
+                </>
+            )}
             <input type="file" className={classes.input} />
         </div>
     )

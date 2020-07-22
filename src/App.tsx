@@ -21,7 +21,7 @@ export const useLocalStorage = <T extends any = any>(
 }
 
 function App() {
-    const [value, onChange] = useLocalStorage<DndState>('dnd-test', createDndState())
+    const [value, onChange] = useLocalStorage<DndState>('dnd-test-2', createDndState())
     return (
         <ThemeProvider
             theme={createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } })}
