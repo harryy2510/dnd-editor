@@ -1,9 +1,10 @@
 import { FormikValues } from 'formik'
-import { cloneDeep, isEqual, omit, set } from 'lodash-es'
+import { cloneDeep, isEqual, omit, set, omitBy } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
+import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
 import {
     DndState,
@@ -15,23 +16,23 @@ import {
 } from './types'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
-    // renderProps.onActiveChange(null)
-    // renderProps.onTabChange(0)
-    // const stateItem = renderProps.state.entities[id]
-    // renderProps.setState((existingState) => {
-    //     const updatedEntities = omitBy(existingState.entities, (e, i) => i === id)
-    //     const updatedItems = stateItem.gridId
-    //         ? existingState.items.map((item) => ({
-    //               ...item,
-    //               items: item.items?.map((child) => child.filter((ch) => ch.id !== id))
-    //           }))
-    //         : existingState.items.filter((item) => item.id !== id)
-    //     return {
-    //         ...existingState,
-    //         items: updatedItems,
-    //         entities: updatedEntities
-    //     }
-    // })
+    if (id) {
+        renderProps.onActiveChange(null)
+        renderProps.setState((existingState) => {
+            const updatedEntities = omitBy(existingState.entities, (e, i) => i === id)
+            const updatedItems = existingState.items
+                .filter((item) => item.id !== id)
+                .map((item) => ({
+                    ...item,
+                    items: item.items?.map((child) => child.filter((ch) => ch.id !== id))
+                }))
+            return {
+                ...existingState,
+                items: updatedItems,
+                entities: updatedEntities
+            }
+        })
+    }
 }
 
 export const updateItem = (renderProps: RenderProps, id: string, update: FormikValues) => {
@@ -61,7 +62,10 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             ...renderProps.state.entities,
             [id]: {
                 id,
-                values: newItem.initialValues ?? {},
+                values: {
+                    ...(newItem.initialValues ?? {}),
+                    __container: Container.initialValues
+                },
                 parent: { id: newItem.id, type: newItem.type }
             }
         },
@@ -96,7 +100,10 @@ export const setChildList = (renderProps: RenderProps, layoutId: string, index: 
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: rawItem.initialValues ?? {}
+            values: {
+                ...(rawItem.initialValues ?? {}),
+                __container: Container.initialValues
+            }
         }
     }
     const stateToSet = {
@@ -132,7 +139,10 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: rawItem.initialValues ?? {}
+            values: {
+                ...(rawItem.initialValues ?? {}),
+                __container: Container.initialValues
+            }
         }
     }
     const stateToSet = {
@@ -162,7 +172,10 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
         const stateItem = renderProps.state.entities[item.id]
         return (
             <DndItemPreview key={item.id} {...updatedRenderProps}>
-                {renderProps.itemsMap[stateItem.parent.id]?.render?.(updatedRenderProps)}
+                {Container.render(
+                    updatedRenderProps,
+                    renderProps.itemsMap[stateItem.parent.id]?.render?.(updatedRenderProps)
+                )}
             </DndItemPreview>
         )
     })
@@ -177,7 +190,10 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
 //             const stateItem = renderProps.state.entities[item.id]
 //             return `
 //                 <div style="position: relative">
-//                     ${renderProps.itemsMap[stateItem.parent]?.export?.(updatedRenderProps)}
+//                     ${Container.export(
+//                         updatedRenderProps,
+//                         renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+//                     )}
 //                 </div>
 //             `
 //         })

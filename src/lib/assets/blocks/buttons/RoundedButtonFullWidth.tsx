@@ -15,9 +15,7 @@ export default {
         'button-1': merge({}, Button.initialValues, {
             label: 'Rounded Button',
             style: {
-                content: {
-                    width: '100%'
-                }
+                width: '100%'
             }
         })
     },

@@ -28,7 +28,10 @@ const useStyles = makeStyles(
             padding: spacing(2, 0),
             '& $item': {
                 marginBottom: spacing(1.5),
-                border: `1px solid ${divider}`
+                border: `1px solid ${divider}`,
+                '&:hover': {
+                    boxShadow: `2px 2px 10px ${action.focus}`
+                }
             },
             '& .dnd-layout-item': {
                 height: 28
@@ -102,7 +105,7 @@ const useStyles = makeStyles(
         imgItem: {
             backgroundColor: background.paper,
             marginBottom: spacing(4),
-            boxShadow: `1px 1px 8px ${action.focus}`,
+            boxShadow: `1px 1px 4px ${action.focus}`,
             width: '100%',
             height: 64,
             borderRadius,
@@ -113,6 +116,9 @@ const useStyles = makeStyles(
                 maxWidth: '95%',
                 maxHeight: '50%',
                 borderRadius: 'inherit'
+            },
+            '&:hover': {
+                boxShadow: `2px 2px 10px ${action.focus}`
             }
         },
         list: {

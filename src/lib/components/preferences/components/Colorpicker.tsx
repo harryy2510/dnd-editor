@@ -1,10 +1,10 @@
+import { InputAdornment, Popover, Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
 import { nanoid } from 'nanoid'
 import React from 'react'
-import { InputAdornment, Theme, Popover } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import Input from './Input'
 import { SketchPicker, SketchPickerProps } from 'react-color'
-import { bindPopover, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
+import Input from './Input'
 
 const useStyles = makeStyles(({ spacing, palette: { divider } }: Theme) => ({
     inputRoot: {
@@ -25,9 +25,16 @@ export interface ColorpickerProps extends Omit<SketchPickerProps, 'value' | 'onC
     label?: React.ReactNode
     value: string
     onChange: (value: string) => void
+    parentId: string
 }
 
-const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...props }) => {
+const Colorpicker: React.FC<ColorpickerProps> = ({
+    label,
+    value,
+    onChange,
+    parentId,
+    ...props
+}) => {
     const popupState = usePopupState({
         popupId: nanoid(),
         variant: 'popover'
@@ -38,6 +45,7 @@ const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...pr
             <span className={classes.icon} style={{ backgroundColor: value }} />
         </InputAdornment>
     )
+
     const colorPicker = (
         <Popover {...bindPopover(popupState)}>
             <SketchPicker
@@ -55,14 +63,18 @@ const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...pr
                 label={label}
                 InputProps={{
                     readOnly: true,
-                    startAdornment,
+                    startAdornment: value ? startAdornment : undefined,
                     classes: {
                         root: classes.inputRoot,
                         inputAdornedStart: classes.inputAdornedStart
                     }
                 }}
+                placeholder="Transparent"
                 value={value}
+                onChange={onChange}
+                parentId={parentId}
                 {...bindTrigger(popupState)}
+                clearable
             />
             {colorPicker}
         </>

@@ -3,13 +3,7 @@ import React from 'react'
 
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
-export type SettingItemType =
-    | 'text'
-    | 'image'
-    | 'button'
-    | 'backgroundColor'
-    | 'backgroundImage'
-    | 'generalSettings'
+export type SettingItemType = 'text' | 'image' | 'button' | 'container' | 'template'
 
 export type SettingComponentType =
     | 'backgroundColor'
@@ -22,12 +16,15 @@ export type SettingComponentType =
     | 'fontFamily'
     | 'fontWeight'
     | 'height'
+    | 'image'
+    | 'imagePadding'
     | 'linkColor'
     | 'padding'
     | 'size'
     | 'space'
     | 'spacing'
     | 'textAlign'
+    | 'url'
     | 'width'
 
 export interface Device {
@@ -38,12 +35,8 @@ export interface Device {
 
 export type InitialValues = {
     label?: string
-    style?: {
-        container?: React.CSSProperties
-        content?: React.CSSProperties
-    } & {
-        [key: string]: React.CSSProperties
-    }
+    style?: React.CSSProperties
+    [key: string]: any
 }
 
 export type DndStateItem = {
@@ -52,9 +45,7 @@ export type DndStateItem = {
         id: string
         type: DndItem['type'] | DndTemplateItem['type']
     }
-    values: InitialValues & {
-        [key: string]: InitialValues
-    }
+    values: InitialValues
 }
 
 export type DndComponentSetting = {
@@ -70,10 +61,17 @@ export type DndItemSetting = {
     settings?: DndComponentSetting[]
 }
 
+export type DndContainerItem = {
+    render: (renderProps: RenderProps, children?: React.ReactNode) => React.ReactNode
+    export: (renderProps: RenderProps, children?: string) => string
+    initialValues: InitialValues
+    settings?: DndItemSetting[]
+}
+
 export type DndComponentItem = {
     render: (renderProps: RenderProps, id?: string) => React.ReactNode
     export: (renderProps: RenderProps, id?: string) => string
-    initialValues?: DndStateItem['values']
+    initialValues?: InitialValues
     settings?: DndComponentSetting[]
 }
 
@@ -83,7 +81,7 @@ export type DndBaseItem = {
     id: string
     label: React.ReactNode
     priority?: number
-    initialValues?: DndStateItem['values']
+    initialValues?: InitialValues
     settings?: DndItemSetting[]
 }
 export type DndLayoutItem = DndBaseItem & {

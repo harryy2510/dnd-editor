@@ -15,10 +15,8 @@ export default {
         'button-1': merge({}, Button.initialValues, {
             label: 'Sharp Button',
             style: {
-                content: {
-                    borderRadius: '0px',
-                    width: '100%'
-                }
+                borderRadius: '0px',
+                width: '100%'
             }
         })
     },

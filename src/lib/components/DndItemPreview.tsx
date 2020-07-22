@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { bindHover, bindPopper, usePopupState } from 'material-ui-popup-state/hooks'
 import React from 'react'
+import PubSub from '../PubSub'
 import { RenderProps } from '../types'
 import { removeItem } from '../utils'
 
@@ -76,6 +77,10 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             ev.stopPropagation()
             onActiveChange(item ? item.id : null)
         }
+        const handleSettingsClick = (ev: React.MouseEvent<any>) => {
+            handleClick(ev)
+            PubSub.publish('component/click', { type: 'container', data: '__container' })
+        }
         const handleDelete = (ev: React.MouseEvent<HTMLButtonElement>) => {
             ev.stopPropagation()
             removeItem(renderProps, item?.id)
@@ -92,7 +97,10 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                             className={clsx(classes.actions, item?.layoutId && classes.row)}
                         >
                             <Tooltip title={<Trans>Settings</Trans>}>
-                                <ButtonBase onClick={handleClick} className={classes.button}>
+                                <ButtonBase
+                                    onClick={handleSettingsClick}
+                                    className={classes.button}
+                                >
                                     <SettingsOutlined fontSize="inherit" />
                                 </ButtonBase>
                             </Tooltip>

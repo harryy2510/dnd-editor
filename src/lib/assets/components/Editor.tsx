@@ -6,25 +6,11 @@ import './Editor.scss'
 
 const defaultModules: StringMap = {
     toolbar: [
-        [{ header: [1, 2, false] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-        ['link', 'clean']
+        ['bold', 'italic', 'underline', 'strike', { list: 'ordered' }, { list: 'bullet' }, 'clean']
     ]
 }
 
-const defaultFormats: string[] = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link'
-]
+const defaultFormats: string[] = ['bold', 'italic', 'underline', 'strike', 'list', 'bullet']
 
 interface Props {
     modules?: StringMap

@@ -1,4 +1,5 @@
 import React from 'react'
+import Container from '../../assets/Container'
 import { useDndEditorContext } from '../../DndEditorProvider'
 import SettingsBase from './SettingsBase'
 
@@ -7,7 +8,7 @@ interface Props {
     setExpanded: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ImageSettings: React.FC<Props> = (props) => {
+const ContainerSettings: React.FC<Props> = (props) => {
     const editorContext = useDndEditorContext()
     const activeItem = editorContext.active
         ? editorContext.itemsMap[editorContext.state.entities[editorContext.active].parent.id]
@@ -15,7 +16,7 @@ const ImageSettings: React.FC<Props> = (props) => {
     if (!activeItem || !editorContext.active) {
         return null
     }
-    const settings = activeItem.settings?.filter((s) => s.type === 'image')
+    const settings = Container.settings
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
 
     return (
@@ -29,4 +30,4 @@ const ImageSettings: React.FC<Props> = (props) => {
     )
 }
 
-export default ImageSettings
+export default ContainerSettings

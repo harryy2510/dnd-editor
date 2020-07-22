@@ -21,7 +21,7 @@ export default (id: string, label: React.ReactNode, grids: number[]): DndLayoutI
         }
         const stateItem = renderProps.state.entities[renderProps.item.id]
         return (
-            <div style={stateItem.values?.style?.container}>
+            <div style={stateItem.values?.style}>
                 {grids.map((i, j) => {
                     return (
                         <ReactSortable
@@ -34,7 +34,7 @@ export default (id: string, label: React.ReactNode, grids: number[]): DndLayoutI
                             list={renderProps.item?.items?.[j] ?? []}
                             setList={setChildList(renderProps, stateItem.id, j)}
                             className="dnd-grid"
-                            style={{ ...stateItem.values?.style?.content, flex: i }}
+                            style={{ flex: i }}
                         >
                             {renderItems(renderProps.item?.items?.[j] ?? [], renderProps)}
                         </ReactSortable>
@@ -67,12 +67,9 @@ export default (id: string, label: React.ReactNode, grids: number[]): DndLayoutI
     },
     initialValues: {
         style: {
-            container: {
-                width: '100%',
-                minHeight: 40,
-                display: 'flex'
-            },
-            content: {}
+            width: '100%',
+            minHeight: 40,
+            display: 'flex'
         }
     }
 })

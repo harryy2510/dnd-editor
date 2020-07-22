@@ -15,10 +15,8 @@ export default {
         'button-1': merge({}, Button.initialValues, {
             label: 'Circular Button',
             style: {
-                content: {
-                    borderRadius: '32px',
-                    width: '100%'
-                }
+                borderRadius: '50px',
+                width: '100%'
             }
         })
     },

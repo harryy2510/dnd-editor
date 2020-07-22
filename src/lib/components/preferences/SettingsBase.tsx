@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core'
 import { ArrowDropDownOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikValues } from 'formik'
 import { get } from 'lodash-es'
 import React from 'react'
-import { DndItemSetting, DndStateItem, InitialValues, RenderProps } from '../../types'
+import { DndItemSetting, InitialValues, RenderProps } from '../../types'
 import { updateItem } from '../../utils'
 import FormObserver from './components/FormObserver'
 import Field from './items/Field'
@@ -34,25 +34,36 @@ const useStyles = makeStyles(({}: Theme) => ({
 }))
 
 interface Props {
-    initialValues?: DndStateItem['values']
+    initialValues?: InitialValues
     settings?: DndItemSetting[]
     renderProps: RenderProps
     id: string
+    expanded: string
+    setExpanded: React.Dispatch<React.SetStateAction<string>>
+    defaultExpanded?: boolean
 }
 
-const SettingsBase: React.FC<Props> = ({ initialValues = {}, settings = [], renderProps, id }) => {
-    const [expanded, setExpanded] = React.useState('')
+const SettingsBase: React.FC<Props> = ({
+    initialValues = {},
+    settings = [],
+    renderProps,
+    id,
+    expanded,
+    setExpanded,
+    defaultExpanded
+}) => {
     const handleChange = (childId: string) => (newValues: InitialValues) => {
         updateItem(renderProps, id, { [childId]: newValues })
     }
     const classes = useStyles()
-    const canExpand = settings.length > 1
+    const canExpand = !Boolean(defaultExpanded) && settings.length > 1
 
     return (
         <>
             {settings?.map((setting, i) => {
                 const isExpanded = expanded === setting.id || !canExpand
                 const color = isExpanded ? 'primary' : 'inherit'
+                const parentId = `${id}-${setting.id}`
                 return (
                     <Accordion
                         square
@@ -73,15 +84,22 @@ const SettingsBase: React.FC<Props> = ({ initialValues = {}, settings = [], rend
                         </AccordionSummary>
                         <AccordionDetails>
                             <Formik
+                                enableReinitialize
                                 key={i}
-                                initialValues={get(initialValues, setting.id) ?? {}}
+                                initialValues={
+                                    (get(initialValues, setting.id) as FormikValues) ?? {}
+                                }
                                 onSubmit={handleChange(setting.id)}
                             >
                                 <Form>
                                     <Grid container spacing={2}>
                                         {setting.settings?.map((st, i) => (
                                             <Grid item xs={st.grid ?? 12} key={i}>
-                                                <Field name={st.id} type={st.type} />
+                                                <Field
+                                                    name={st.id}
+                                                    type={st.type}
+                                                    parentId={parentId}
+                                                />
                                             </Grid>
                                         ))}
                                     </Grid>

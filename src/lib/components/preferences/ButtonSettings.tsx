@@ -2,7 +2,12 @@ import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 import SettingsBase from './SettingsBase'
 
-const ButtonSettings: React.FC = () => {
+interface Props {
+    expanded: string
+    setExpanded: React.Dispatch<React.SetStateAction<string>>
+}
+
+const ButtonSettings: React.FC<Props> = (props) => {
     const editorContext = useDndEditorContext()
     const activeItem = editorContext.active
         ? editorContext.itemsMap[editorContext.state.entities[editorContext.active].parent.id]
@@ -15,6 +20,7 @@ const ButtonSettings: React.FC = () => {
 
     return (
         <SettingsBase
+            {...props}
             renderProps={editorContext}
             initialValues={values}
             settings={settings}

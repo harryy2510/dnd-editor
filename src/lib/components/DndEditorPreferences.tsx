@@ -5,8 +5,7 @@ import {
     ImageOutlined,
     PaletteOutlined,
     SettingsOutlined,
-    TextFieldsOutlined,
-    WallpaperOutlined
+    TextFieldsOutlined
 } from '@material-ui/icons'
 import { groupBy } from 'lodash-es'
 import React from 'react'
@@ -14,9 +13,10 @@ import { Theme, Grid, Tooltip } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { useDndEditorContext } from '../DndEditorProvider'
-import BackgroundImageSettings from './preferences/BackgroundImageSettings'
-import BackgroundColorSettings from './preferences/BackgroundColorSettings'
-import GeneralSettings from './preferences/GeneralSettings'
+import PubSub from '../PubSub'
+import { SettingItemType } from '../types'
+import ContainerSettings from './preferences/ContainerSettings'
+import TemplateSettings from './preferences/TemplateSettings'
 import ImageSettings from './preferences/ImageSettings'
 import TextSettings from './preferences/TextSettings'
 import ButtonSettings from './preferences/ButtonSettings'
@@ -71,38 +71,32 @@ const useStyles = makeStyles(
 const tabs = [
     {
         id: 'text',
-        component: <TextSettings />,
+        component: TextSettings,
         label: <Trans>Edit Text</Trans>,
         icon: TextFieldsOutlined
     },
     {
         id: 'image',
-        component: <ImageSettings />,
+        component: ImageSettings,
         label: <Trans>Edit Image</Trans>,
         icon: ImageOutlined
     },
     {
         id: 'button',
-        component: <ButtonSettings />,
+        component: ButtonSettings,
         label: <Trans>Edit Button</Trans>,
         icon: CropLandscapeOutlined
     },
     {
-        id: 'backgroundColor',
-        component: <BackgroundColorSettings />,
-        label: <Trans>Edit Background Color</Trans>,
+        id: 'container',
+        component: ContainerSettings,
+        label: <Trans>Edit Container</Trans>,
         icon: PaletteOutlined
     },
     {
-        id: 'backgroundImage',
-        component: <BackgroundImageSettings />,
-        label: <Trans>Edit Background Image</Trans>,
-        icon: WallpaperOutlined
-    },
-    {
-        id: 'generalSettings',
-        component: <GeneralSettings />,
-        label: <Trans>Edit General Settings</Trans>,
+        id: 'template',
+        component: TemplateSettings,
+        label: <Trans>Edit Template</Trans>,
         icon: SettingsOutlined
     }
 ]
@@ -110,11 +104,16 @@ const tabs = [
 const DndEditorPreferences: React.FC = () => {
     const classes = useStyles()
     const { itemsMap, state, active } = useDndEditorContext()
-    const [tab, setTab] = React.useState('generalSettings')
-    const activeTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
+    const [tab, setTab] = React.useState<SettingItemType>('template')
+    const [expanded, setExpanded] = React.useState('')
+    const ActiveTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
     const activeItem = active ? itemsMap[state.entities[active].parent.id] : null
     const availableSettings = React.useMemo(
-        () => [...Object.keys(groupBy(activeItem?.settings, 'type')), 'generalSettings'],
+        () => [
+            ...Object.keys(groupBy(activeItem?.settings, 'type')),
+            ...(activeItem ? ['container'] : []),
+            'template'
+        ],
         [active]
     )
     const filteredTabs = React.useMemo(() => tabs.filter((t) => availableSettings.includes(t.id)), [
@@ -122,9 +121,16 @@ const DndEditorPreferences: React.FC = () => {
     ])
     React.useEffect(() => {
         if (!filteredTabs.some((t) => t.id === tab)) {
-            setTab('generalSettings')
+            setTab('template')
         }
-    }, [active])
+    }, [active, tab])
+    React.useEffect(() => {
+        const subId = PubSub.subscribe('component/click', (data) => {
+            setTab((data?.type as SettingItemType) ?? 'template')
+            setExpanded(data?.data ?? '')
+        })
+        return () => PubSub.unsubscribe(subId)
+    }, [])
     return (
         <Grid container className={classes.root}>
             <Grid item className={classes.actions}>
@@ -144,7 +150,7 @@ const DndEditorPreferences: React.FC = () => {
                 </ToggleButtonGroup>
             </Grid>
             <Grid item className={classes.content}>
-                {activeTab}
+                {ActiveTab && <ActiveTab expanded={expanded} setExpanded={setExpanded} />}
             </Grid>
         </Grid>
     )
