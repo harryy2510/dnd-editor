@@ -48,7 +48,7 @@ export const updateItem = (renderProps: RenderProps, id: string, update: FormikV
                 ...existingState.entities,
                 [obj.id]: {
                     ...obj,
-                    values: newValues
+                    values: cloneDeep(newValues)
                 }
             }
         }
@@ -62,10 +62,10 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             ...renderProps.state.entities,
             [id]: {
                 id,
-                values: {
+                values: cloneDeep({
                     ...(newItem.initialValues ?? {}),
                     __container: Container.initialValues
-                },
+                }),
                 parent: { id: newItem.id, type: newItem.type }
             }
         },
@@ -100,10 +100,10 @@ export const setChildList = (renderProps: RenderProps, layoutId: string, index: 
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: {
+            values: cloneDeep({
                 ...(rawItem.initialValues ?? {}),
                 __container: Container.initialValues
-            }
+            })
         }
     }
     const stateToSet = {
@@ -139,10 +139,10 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: {
+            values: cloneDeep({
                 ...(rawItem.initialValues ?? {}),
                 __container: Container.initialValues
-            }
+            })
         }
     }
     const stateToSet = {

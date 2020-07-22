@@ -69,7 +69,6 @@ export default {
         }
     },
     settings: [
-        // { id: 'buttonType', type: 'buttonType', grid: 12 },
         { id: 'url', type: 'url', grid: 12 },
         { id: 'style.fontSize', type: 'size', grid: 4 },
         { id: 'style.fontFamily', type: 'fontFamily', grid: 8 },

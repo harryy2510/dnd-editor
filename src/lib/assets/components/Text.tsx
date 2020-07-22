@@ -40,7 +40,7 @@ export default {
             lineHeight: '18px',
             fontWeight: 500,
             letterSpacing: '0px',
-            color: '#000'
+            color: ''
         }
     },
     settings: [
