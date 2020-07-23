@@ -28,10 +28,10 @@ export default {
         const state = renderProps.state.entities[renderProps.item.id].values
         return `
             <div style="${styleToCss(state.item.style)}">
-                ${Image.render(renderProps, 'image-1')}
+                ${Image.export(renderProps, 'image-1')}
             </div>
             <div style="${styleToCss(state.item.style)}"> 
-                ${Text.render(renderProps, 'text-1')}
+                ${Text.export(renderProps, 'text-1')}
             </div>
         `
     },
