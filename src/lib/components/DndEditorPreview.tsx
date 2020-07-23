@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Container, Theme } from '@material-ui/core'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
@@ -6,14 +6,20 @@ import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
 import { renderItems, setList } from '../utils'
 
-const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: Theme) => ({
+const useStyles = makeStyles(({ palette: { action, primary }, spacing }: Theme) => ({
+    '@global': {
+        'body.is-dragging .dnd-grid': {
+            '&:empty:before': {
+                backgroundColor: action.selected
+            }
+        }
+    },
     document: {
-        height: '100%',
-        width: '100%'
+        padding: spacing(4, 2)
     },
     root: {
-        height: '100%',
         width: '100%',
+        minHeight: 240,
         '& .dnd-item': {
             height: 40,
             backgroundColor: fade(primary.main, 0.08)
@@ -27,9 +33,7 @@ const useStyles = makeStyles(({ palette: { text, action, primary }, spacing }: T
                 pointerEvents: 'none',
                 width: `calc(100% - ${spacing(1)}px)`,
                 height: `calc(100% - ${spacing(1)}px)`,
-                color: text.disabled,
                 padding: spacing(2),
-                backgroundColor: action.selected,
                 margin: spacing(0.5)
             }
         }
@@ -50,14 +54,16 @@ const DndEditorPreview: React.FC = () => {
             list={renderProps.state.items}
             setList={setList(renderProps)}
             className={classes.root}
+            onStart={() => document.body.classList.add('is-dragging')}
+            onEnd={() => document.body.classList.remove('is-dragging')}
         >
             {renderItems(renderProps.state.items, renderProps)}
         </ReactSortable>
     )
     return (
-        <div className={classes.document} onClick={handleClick}>
-            {renderProps.template.render(renderProps, children)}
-        </div>
+        <Container className={classes.document} maxWidth="md" onClick={handleClick}>
+            <>{renderProps.template.render(renderProps, children)}</>
+        </Container>
     )
 }
 

@@ -3,11 +3,11 @@ import { get } from 'lodash-es'
 import React from 'react'
 import { Primitive, SettingComponentType } from '../../../types'
 
+import Align from './Align'
 import BackgroundColor from './BackgroundColor'
 import Border from './Border'
 import BorderColor from './BorderColor'
 import BorderRadius from './BorderRadius'
-import ButtonAlign from './ButtonAlign'
 import ButtonType from './ButtonType'
 import FontColor from './FontColor'
 import FontFamily from './FontFamily'
@@ -25,11 +25,11 @@ import Url from './Url'
 import Width from './Width'
 
 const fields: Record<string, React.FC<any>> = {
+    align: Align,
     backgroundColor: BackgroundColor,
     border: Border,
     borderColor: BorderColor,
     borderRadius: BorderRadius,
-    buttonAlign: ButtonAlign,
     buttonType: ButtonType,
     fontColor: FontColor,
     fontFamily: FontFamily,

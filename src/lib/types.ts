@@ -6,11 +6,11 @@ export type DeviceType = 'laptop' | 'tablet' | 'mobile'
 export type SettingItemType = 'text' | 'image' | 'button' | 'container' | 'template'
 
 export type SettingComponentType =
+    | 'align'
     | 'backgroundColor'
     | 'border'
     | 'borderColor'
     | 'borderRadius'
-    | 'buttonAlign'
     | 'buttonType'
     | 'fontColor'
     | 'fontFamily'

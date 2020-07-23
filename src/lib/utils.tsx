@@ -77,6 +77,7 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
         ]
     }
     renderProps.setState(newState)
+    renderProps.onActiveChange(id)
 }
 
 export const setChildList = (renderProps: RenderProps, layoutId: string, index: number) => (
@@ -105,6 +106,9 @@ export const setChildList = (renderProps: RenderProps, layoutId: string, index: 
                 __container: Container.initialValues
             })
         }
+        setTimeout(() => {
+            renderProps.onActiveChange(id)
+        })
     }
     const stateToSet = {
         entities: updatedNewEntities,

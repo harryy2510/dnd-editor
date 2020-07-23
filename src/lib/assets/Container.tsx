@@ -16,8 +16,14 @@ export default {
                 PubSub.publish('component/click', { type: 'container', data: '__container' })
             }
         }
+        const modifiedStyle = {
+            ...state.style,
+            ...(state.style.backgroundImage
+                ? { backgroundImage: `url(${state.style.backgroundImage})` }
+                : {})
+        }
         return (
-            <div onClick={handleClick} style={state.style}>
+            <div onClick={handleClick} style={modifiedStyle}>
                 {children}
             </div>
         )
@@ -27,8 +33,14 @@ export default {
             return null
         }
         const state = renderProps.state.entities[renderProps.item.id]?.values?.__container
+        const modifiedStyle = {
+            ...state.style,
+            ...(state.style.backgroundImage
+                ? { backgroundImage: `url(${state.style.backgroundImage})` }
+                : {})
+        }
         return `
-            <div style="${styleToCss(state.style)}">
+            <div style="${styleToCss(modifiedStyle)}">
                 ${children}
             </div>
         `
@@ -39,15 +51,19 @@ export default {
             backgroundColor: '',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            backgroundImage: '',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover'
         }
     },
     settings: [
         {
             id: '__container',
             settings: [
+                { id: 'style.backgroundImage', type: 'image', grid: 12 },
                 { id: 'style.padding', type: 'imagePadding', grid: 12 },
-                { id: 'style.justifyContent', type: 'buttonAlign', grid: 12 },
+                { id: 'style.justifyContent', type: 'align', grid: 12 },
                 { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 }
             ],
             label: <Trans>Container</Trans>,

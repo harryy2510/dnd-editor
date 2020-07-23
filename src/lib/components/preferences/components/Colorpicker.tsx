@@ -69,7 +69,7 @@ const Colorpicker: React.FC<ColorpickerProps> = ({
                         inputAdornedStart: classes.inputAdornedStart
                     }
                 }}
-                placeholder="Transparent"
+                placeholder="Default"
                 value={value}
                 onChange={onChange}
                 parentId={parentId}

@@ -8,7 +8,7 @@ import React from 'react'
 import { ToggleButtonOption } from '../components/StyledToggleButtons'
 import ToggleButtons, { ToggleButtonsProps } from '../components/ToggleButtons'
 
-const ButtonAlign: React.FC<ToggleButtonsProps> = (props) => {
+const Align: React.FC<ToggleButtonsProps> = (props) => {
     const options: ToggleButtonOption[] = [
         {
             icon: FormatAlignLeftOutlined,
@@ -23,7 +23,7 @@ const ButtonAlign: React.FC<ToggleButtonsProps> = (props) => {
             id: 'flex-end'
         }
     ]
-    return <ToggleButtons options={options} label={<Trans>Button Align</Trans>} {...props} />
+    return <ToggleButtons options={options} label={<Trans>Align</Trans>} {...props} />
 }
 
-export default ButtonAlign
+export default Align

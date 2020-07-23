@@ -55,7 +55,7 @@ export default {
             textDecoration: 'none',
             boxShadow: 'none',
             fontSize: '14px',
-            fontFamily: 'Poppins, sans-serif',
+            fontFamily: '',
             lineHeight: '14px',
             fontWeight: 500,
             letterSpacing: '0px',

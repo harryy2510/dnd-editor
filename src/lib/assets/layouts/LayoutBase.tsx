@@ -31,6 +31,8 @@ export default (id: string, label: React.ReactNode, grids: number[]): DndLayoutI
                                 name: 'shared',
                                 put: ['shared']
                             }}
+                            onStart={() => document.body.classList.add('is-dragging')}
+                            onEnd={() => document.body.classList.remove('is-dragging')}
                             list={renderProps.item?.items?.[j] ?? []}
                             setList={setChildList(renderProps, stateItem.id, j)}
                             className="dnd-grid"

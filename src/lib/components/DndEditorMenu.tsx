@@ -178,6 +178,8 @@ const DndEditorMenu: React.FC = () => {
                                         sort={false}
                                         setList={() => undefined}
                                         className={classes.list}
+                                        onStart={() => document.body.classList.add('is-dragging')}
+                                        onEnd={() => document.body.classList.remove('is-dragging')}
                                     >
                                         {hoveredItems?.map((hvItem, i) => (
                                             <ButtonBase
@@ -238,6 +240,8 @@ const DndEditorMenu: React.FC = () => {
                         sort={false}
                         setList={() => undefined}
                         className={classes.content}
+                        onStart={() => document.body.classList.add('is-dragging')}
+                        onEnd={() => document.body.classList.remove('is-dragging')}
                     >
                         {groupedItems.layout.map((item: any, i) => (
                             <ButtonBase

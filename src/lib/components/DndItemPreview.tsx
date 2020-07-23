@@ -15,24 +15,28 @@ interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
 const useStyles = makeStyles(
     ({ palette: { primary, text }, spacing, shape: { borderRadius } }: Theme) => ({
         root: {
-            position: 'relative'
+            position: 'relative',
+            zIndex: 0
         },
         active: {
             outline: `1px solid ${primary.main}`
         },
         actions: {
+            marginRight: 4,
             display: 'flex',
             flexDirection: 'column',
             '&$row': {
+                marginRight: 0,
+                marginTop: 4,
                 flexDirection: 'row'
             }
         },
         button: {
-            margin: spacing(0.5),
-            padding: spacing(0.5),
+            margin: spacing(0.25),
+            padding: spacing(0.25),
             borderRadius,
             color: text.secondary,
-            fontSize: '1.5rem',
+            fontSize: '1.2rem',
             '&:hover': {
                 backgroundColor: fade(primary.main, 0.1),
                 color: primary.main

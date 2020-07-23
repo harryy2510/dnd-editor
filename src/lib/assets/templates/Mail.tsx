@@ -43,7 +43,7 @@ export default {
                 boxSizing: 'border-box',
                 backgroundColor: '#fff',
                 fontFamily: 'Poppins, sans-serif',
-                padding: '0px',
+                padding: '0px 0px 0px 0px',
                 color: '#000'
             }
         }
@@ -66,7 +66,6 @@ export default {
                 { id: 'style.fontFamily', type: 'fontFamily', grid: 12 },
                 { id: 'style.color', type: 'fontColor', grid: 12 },
                 { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 },
-                { id: 'style.width', type: 'width', grid: 12 },
                 { id: 'style.padding', type: 'padding', grid: 12 },
                 { id: 'style.borderRadius', type: 'borderRadius', grid: 12 }
             ]

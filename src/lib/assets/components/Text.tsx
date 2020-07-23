@@ -36,7 +36,7 @@ export default {
         label: 'Text',
         style: {
             fontSize: '14px',
-            fontFamily: 'Poppins, sans-serif',
+            fontFamily: '',
             lineHeight: '18px',
             fontWeight: 500,
             letterSpacing: '0px',
