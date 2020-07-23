@@ -23,6 +23,7 @@ import Space from './Space'
 import Spacing from './Spacing'
 import TextAlign from './TextAlign'
 import Url from './Url'
+import VerticalAlign from './VerticalAlign'
 import Width from './Width'
 
 const fields: Record<string, React.FC<any>> = {
@@ -46,6 +47,7 @@ const fields: Record<string, React.FC<any>> = {
     spacing: Spacing,
     textAlign: TextAlign,
     url: Url,
+    verticalAlign: VerticalAlign,
     width: Width
 }
 

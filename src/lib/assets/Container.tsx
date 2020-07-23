@@ -54,7 +54,8 @@ export default {
             justifyContent: 'center',
             backgroundImage: '',
             backgroundPosition: 'center center',
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
+            width: '100%'
         }
     },
     settings: [
@@ -64,6 +65,7 @@ export default {
                 { id: 'style.backgroundImage', type: 'image', grid: 12 },
                 { id: 'style.padding', type: 'imagePadding', grid: 12 },
                 { id: 'style.justifyContent', type: 'align', grid: 12 },
+                { id: 'style.alignItems', type: 'verticalAlign', grid: 12 },
                 { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 }
             ],
             label: <Trans>Container</Trans>,

@@ -26,6 +26,7 @@ export type SettingComponentType =
     | 'spacing'
     | 'textAlign'
     | 'url'
+    | 'verticalAlign'
     | 'width'
 
 export interface Device {
