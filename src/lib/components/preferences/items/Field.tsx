@@ -9,6 +9,7 @@ import Border from './Border'
 import BorderColor from './BorderColor'
 import BorderRadius from './BorderRadius'
 import ButtonType from './ButtonType'
+import Color from './Color'
 import FontColor from './FontColor'
 import FontFamily from './FontFamily'
 import FontWeight from './FontWeight'
@@ -31,6 +32,7 @@ const fields: Record<string, React.FC<any>> = {
     borderColor: BorderColor,
     borderRadius: BorderRadius,
     buttonType: ButtonType,
+    color: Color,
     fontColor: FontColor,
     fontFamily: FontFamily,
     fontWeight: FontWeight,
@@ -50,10 +52,9 @@ const fields: Record<string, React.FC<any>> = {
 interface Props {
     name: string
     type: SettingComponentType
-    parentId: string
 }
 
-const Field: React.FC<Props> = ({ name, type, parentId }) => {
+const Field: React.FC<Props> = ({ name, type }) => {
     const Component = fields[type]
     const formik = useFormikContext()
     let props: any = {}
@@ -62,7 +63,7 @@ const Field: React.FC<Props> = ({ name, type, parentId }) => {
         props.onChange = (value: Primitive) => formik.setFieldValue(name, value, true)
     }
     if (Component) {
-        return <Component {...props} parentId={parentId} />
+        return <Component {...props} />
     }
     return null
 }

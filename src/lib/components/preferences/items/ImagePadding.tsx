@@ -55,7 +55,6 @@ const ImagePadding: React.FC<InputProps> = (props) => {
                 value={toggleValue}
                 options={options}
                 onChange={handleToggleChange}
-                parentId={props.parentId}
             />
             {toggleValue !== 'merge' && (
                 <div className={classes.flex}>
@@ -63,25 +62,21 @@ const ImagePadding: React.FC<InputProps> = (props) => {
                         helperText={<Trans>Top</Trans>}
                         value={values[0]}
                         onChange={handleChange(0)}
-                        parentId={props.parentId}
                     />
                     <StyledTextField
                         helperText={<Trans>Right</Trans>}
                         value={values[1]}
                         onChange={handleChange(1)}
-                        parentId={props.parentId}
                     />
                     <StyledTextField
                         helperText={<Trans>Bottom</Trans>}
                         value={values[2]}
                         onChange={handleChange(2)}
-                        parentId={props.parentId}
                     />
                     <StyledTextField
                         helperText={<Trans>Left</Trans>}
                         value={values[3]}
                         onChange={handleChange(3)}
-                        parentId={props.parentId}
                     />
                 </div>
             )}

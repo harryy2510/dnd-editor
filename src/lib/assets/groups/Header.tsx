@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro'
-import { CodeOutlined } from '@material-ui/icons'
+import { ImageAspectRatioOutlined } from '@material-ui/icons'
 import React from 'react'
 import { DndGroupItem } from '../../types'
 
 export default {
-    id: 'html',
+    id: 'header',
     type: 'group',
-    icon: CodeOutlined,
-    label: <Trans>Html</Trans>
+    icon: ImageAspectRatioOutlined,
+    label: <Trans>Headers</Trans>
 } as DndGroupItem

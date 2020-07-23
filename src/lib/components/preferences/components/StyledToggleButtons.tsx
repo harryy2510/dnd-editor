@@ -55,7 +55,6 @@ export interface StyledToggleButtonsProps
     options: ToggleButtonOption[]
     value: string
     onChange: (value: string) => void
-    parentId: string
 }
 
 const StyledToggleButtons: React.FC<StyledToggleButtonsProps> = ({

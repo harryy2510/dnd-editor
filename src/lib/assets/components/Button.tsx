@@ -41,9 +41,7 @@ export default {
         }
         const state = renderProps.state.entities[renderProps.item.id].values[id]
         return `
-            <a id="${renderProps.item.id}-${id}" style="${styleToCss(state.style)}" ${
-            state.url ? 'href="' + state.url + '"' : ''
-        }>
+            <a style="${styleToCss(state.style)}" ${state.url ? 'href="' + state.url + '"' : ''}>
                 ${state.label}
             </a>
         `
@@ -65,11 +63,13 @@ export default {
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: '#3f51b5',
-            padding: '14px 28px 14px 28px'
+            padding: '14px 28px 14px 28px',
+            textAlign: 'center'
         }
     },
     settings: [
         { id: 'url', type: 'url', grid: 12 },
+        { id: 'style.textAlign', type: 'textAlign', grid: 12 },
         { id: 'style.fontSize', type: 'size', grid: 4 },
         { id: 'style.fontFamily', type: 'fontFamily', grid: 8 },
         { id: 'style.lineHeight', type: 'height', grid: 4 },

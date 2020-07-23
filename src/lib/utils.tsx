@@ -1,31 +1,21 @@
+import { Trans } from '@lingui/macro'
 import { FormikValues } from 'formik'
-import { cloneDeep, isEqual, omit, set, omitBy } from 'lodash-es'
+import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
-import {
-    DndState,
-    RenderProps,
-    DndStateItemEntity,
-    DndItem,
-    DndTemplateItem,
-    InitialValues
-} from './types'
+import emailTemplate from './emailTemplate'
+import { DndItem, DndState, DndStateItemEntity, DndTemplateItem, RenderProps } from './types'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
         renderProps.onActiveChange(null)
         renderProps.setState((existingState) => {
             const updatedEntities = omitBy(existingState.entities, (e, i) => i === id)
-            const updatedItems = existingState.items
-                .filter((item) => item.id !== id)
-                .map((item) => ({
-                    ...item,
-                    items: item.items?.map((child) => child.filter((ch) => ch.id !== id))
-                }))
+            const updatedItems = existingState.items.filter((item) => item.id !== id)
             return {
                 ...existingState,
                 items: updatedItems,
@@ -62,10 +52,7 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             ...renderProps.state.entities,
             [id]: {
                 id,
-                values: cloneDeep({
-                    ...(newItem.initialValues ?? {}),
-                    __container: Container.initialValues
-                }),
+                values: merge({}, { __container: Container.initialValues }, newItem.initialValues),
                 parent: { id: newItem.id, type: newItem.type }
             }
         },
@@ -78,51 +65,6 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
     }
     renderProps.setState(newState)
     renderProps.onActiveChange(id)
-}
-
-export const setChildList = (renderProps: RenderProps, layoutId: string, index: number) => (
-    newState: DndStateItemEntity[]
-) => {
-    const rawItemIndex = newState.findIndex((item) => Boolean(((item as unknown) as DndItem).type))
-    let updatedNewState = cloneDeep(newState).map((item) => ({ ...item, layoutId }))
-    const updatedNewEntities = {
-        ...renderProps.state.entities
-    }
-    if (rawItemIndex > -1) {
-        const id = nanoid()
-        const rawItem = (newState[rawItemIndex] as unknown) as DndItem
-        updatedNewState[rawItemIndex] = {
-            id,
-            layoutId
-        }
-        updatedNewEntities[id] = {
-            id,
-            parent: {
-                id: rawItem.id,
-                type: rawItem.type
-            },
-            values: cloneDeep({
-                ...(rawItem.initialValues ?? {}),
-                __container: Container.initialValues
-            })
-        }
-        setTimeout(() => {
-            renderProps.onActiveChange(id)
-        })
-    }
-    const stateToSet = {
-        entities: updatedNewEntities,
-        items: renderProps.state.items.map((item) => {
-            if (item.id === layoutId) {
-                if (!item.items) {
-                    item.items = []
-                }
-                item.items[index] = updatedNewState
-            }
-            return item
-        })
-    }
-    renderProps.setState(stateToSet)
 }
 
 export const setList = (renderProps: RenderProps) => (newState: DndStateItemEntity[]) => {
@@ -143,10 +85,7 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: cloneDeep({
-                ...(rawItem.initialValues ?? {}),
-                __container: Container.initialValues
-            })
+            values: merge({}, { __container: Container.initialValues }, rawItem.initialValues)
         }
     }
     const stateToSet = {
@@ -170,6 +109,14 @@ export const useDidMountEffect = (effect: React.EffectCallback, deps?: React.Dep
     }, deps)
 }
 
+export const useDeepCompare = <T extends any>(value: T): T => {
+    const latestValue = React.useRef(value)
+    if (!isEqual(latestValue.current, value)) {
+        latestValue.current = value
+    }
+    return latestValue.current
+}
+
 export const renderItems = (items: DndStateItemEntity[] = [], renderProps: RenderProps) =>
     items?.map((item) => {
         const updatedRenderProps = { ...renderProps, item }
@@ -184,36 +131,41 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
         )
     })
 
-// export const exportItems = (
-//     items: DndStateItemEntity[] = [],
-//     renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
-// ) =>
-//     items
-//         ?.map((item) => {
-//             const updatedRenderProps = { ...renderProps, item }
-//             const stateItem = renderProps.state.entities[item.id]
-//             return `
-//                 <div style="position: relative">
-//                     ${Container.export(
-//                         updatedRenderProps,
-//                         renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-//                     )}
-//                 </div>
-//             `
-//         })
-//         .join('\n')
-//
-// export const exportToHtml = (
-//     renderProps: Omit<RenderProps, 'item'> & { item?: DndStateItemEntity }
-// ) => {
-//     return `
-//         <div style="${styleToCss(renderProps.state?.layout?.state?.layoutStyle)}">
-//             <div style="${styleToCss(renderProps.state?.layout?.state?.contentStyle)}">
-//                 ${exportItems(renderProps.state.items, renderProps)}
-//             </div>
-//         </div>
-//     `
-// }
+export const exportItems = (items: DndStateItemEntity[] = [], renderProps: RenderProps) =>
+    items
+        ?.map((item) => {
+            const updatedRenderProps = { ...renderProps, item }
+            const stateItem = renderProps.state.entities[item.id]
+            return `
+                <div style="position: relative">
+                    ${Container.export(
+                        updatedRenderProps,
+                        renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+                    )}
+                </div>
+            `
+        })
+        .join('\n')
+
+export const exportToHtml = (renderProps: RenderProps): string => {
+    const body = `
+        ${renderProps.template.export(
+            renderProps,
+            exportItems(renderProps.state.items, renderProps)
+        )}
+    `
+    const head = document.getElementById('google-fonts')?.outerHTML ?? ''
+    const replacer = {
+        '{{head}}': head,
+        '{{body}}': body,
+        '{{footer}}': ''
+    }
+    let template = emailTemplate
+    forEach(replacer, (value, key) => {
+        template = template.replace(key, value)
+    })
+    return template
+}
 
 export const createDndState = (
     initialState?: Partial<DndState>,
@@ -241,3 +193,202 @@ export const createDndState = (
 }
 
 export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)
+
+export const useFonts = () => {
+    const fontWeights = [
+        {
+            label: <Trans>300 Thin</Trans>,
+            id: 300
+        },
+        {
+            label: <Trans>400 Regular</Trans>,
+            id: 400
+        },
+        {
+            label: <Trans>500 Semi Bold</Trans>,
+            id: 500
+        },
+        {
+            label: <Trans>600 Bold</Trans>,
+            id: 600
+        }
+    ]
+    const fontFamily = [
+        {
+            label: 'Alegreya',
+            id: 'Alegreya'
+        },
+        {
+            label: 'B612',
+            id: 'B612'
+        },
+        {
+            label: 'Muli',
+            id: 'Muli'
+        },
+        {
+            label: 'Titillium Web',
+            id: 'Titillium Web'
+        },
+        {
+            label: 'Varela',
+            id: 'Varela'
+        },
+        {
+            label: 'Vollkorn',
+            id: 'Vollkorn'
+        },
+        {
+            label: 'IBM Plex',
+            id: 'IBM Plex'
+        },
+        {
+            label: 'Crimson Text',
+            id: 'Crimson Text'
+        },
+        {
+            label: 'BioRhyme',
+            id: 'BioRhyme'
+        },
+        {
+            label: 'Karla',
+            id: 'Karla'
+        },
+        {
+            label: 'Lora',
+            id: 'Lora'
+        },
+        {
+            label: 'Frank Ruhl Libre',
+            id: 'Frank Ruhl Libre'
+        },
+        {
+            label: 'Playfair Display',
+            id: 'Playfair Display'
+        },
+        {
+            label: 'Archivo',
+            id: 'Archivo'
+        },
+        {
+            label: 'Spectral',
+            id: 'Spectral'
+        },
+        {
+            label: 'Fjalla One',
+            id: 'Fjalla One'
+        },
+        {
+            label: 'Roboto',
+            id: 'Roboto'
+        },
+        {
+            label: 'Montserrat',
+            id: 'Montserrat'
+        },
+        {
+            label: 'Rubik',
+            id: 'Rubik'
+        },
+        {
+            label: 'Source Sans',
+            id: 'Source Sans'
+        },
+        {
+            label: 'Cardo',
+            id: 'Cardo'
+        },
+        {
+            label: 'Cormorant',
+            id: 'Cormorant'
+        },
+        {
+            label: 'Work Sans',
+            id: 'Work Sans'
+        },
+        {
+            label: 'Rakkas',
+            id: 'Rakkas'
+        },
+        {
+            label: 'Concert One',
+            id: 'Concert One'
+        },
+        {
+            label: 'Yatra One',
+            id: 'Yatra One'
+        },
+        {
+            label: 'Arvo',
+            id: 'Arvo'
+        },
+        {
+            label: 'Lato',
+            id: 'Lato'
+        },
+        {
+            label: 'Abril FatFace',
+            id: 'Abril FatFace'
+        },
+        {
+            label: 'Ubuntu',
+            id: 'Ubuntu'
+        },
+        {
+            label: 'PT Serif',
+            id: 'PT Serif'
+        },
+        {
+            label: 'Old Standard TT',
+            id: 'Old Standard TT'
+        },
+        {
+            label: 'Oswald',
+            id: 'Oswald'
+        },
+        {
+            label: 'PT Sans',
+            id: 'PT Sans'
+        },
+        {
+            label: 'Poppins',
+            id: 'Poppins'
+        },
+        {
+            label: 'Fira Sans',
+            id: 'Fira Sans'
+        },
+        {
+            label: 'Nunito',
+            id: 'Nunito'
+        },
+        {
+            label: 'Oxygen',
+            id: 'Oxygen'
+        },
+        {
+            label: 'Exo 2',
+            id: 'Exo 2'
+        },
+        {
+            label: 'Open Sans',
+            id: 'Open Sans'
+        },
+        {
+            label: 'Merriweather',
+            id: 'Merriweather'
+        },
+        {
+            label: 'Noto Sans',
+            id: 'Noto Sans'
+        },
+        {
+            label: 'Source Sans Pro',
+            id: 'Source Sans Pro'
+        }
+    ]
+    return {
+        fontWeights,
+        fontFamily
+    }
+}

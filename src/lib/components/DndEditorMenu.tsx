@@ -7,6 +7,7 @@ import {
     Popper,
     Theme
 } from '@material-ui/core'
+import { AddOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import { groupBy } from 'lodash-es'
 import React from 'react'
@@ -21,25 +22,21 @@ const useStyles = makeStyles(
     ({
         spacing,
         typography: { caption, fontWeightBold },
-        palette: { divider, text, action, background },
-        shape: { borderRadius }
+        palette: { text, action, background, primary, grey },
+        shape: { borderRadius },
+        transitions
     }: Theme) => ({
         root: {
-            padding: spacing(2, 0),
+            padding: spacing(4, 0),
             '& $item': {
-                marginBottom: spacing(1.5),
-                border: `1px solid ${divider}`,
-                '&:hover': {
-                    boxShadow: `2px 2px 10px ${action.focus}`
+                marginBottom: spacing(0.5),
+                '&:hover, &$hovered': {
+                    backgroundColor: grey[200],
+                    color: text.primary
                 }
-            },
-            '& .dnd-layout-item': {
-                height: 28
             }
         },
-        section: {
-            padding: spacing(2)
-        },
+        hovered: {},
         heading: {
             ...caption,
             marginBottom: spacing(1),
@@ -48,52 +45,37 @@ const useStyles = makeStyles(
             textTransform: 'uppercase',
             letterSpacing: '1px'
         },
-        content: {
-            marginBottom: spacing(2)
-        },
         item: {
             width: '100%',
-            padding: spacing(0.5),
-            borderRadius
-        },
-        layout: {
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            height: '100%',
-            '& > *': {
-                display: 'flex',
-                height: '100%',
-                backgroundColor: action.hover,
-                border: `2px solid ${action.focus}`
-            }
+            color: text.secondary,
+            padding: spacing(0.5)
         },
         block: {
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
+            '&:hover $addIcon': {
+                opacity: 1
+            }
         },
         element: {
             display: 'flex',
-            flexDirection: 'column',
             width: '100%',
             height: '100%',
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: spacing(1, 0, 0.5),
+            padding: spacing(1),
             ...caption,
             fontWeight: 500,
-            color: text.secondary,
-            textTransform: 'uppercase',
+            textTransform: 'none',
             '& .MuiSvgIcon-root': {
-                marginBottom: spacing(1)
+                marginRight: spacing(1)
             }
         },
         popper: {
             height: `calc(100% - ${spacing(1.5)}px)`,
             width: spacing(40),
-            padding: spacing(0, 3)
+            padding: spacing(0, 1)
         },
         card: {
             width: '100%',
@@ -103,6 +85,7 @@ const useStyles = makeStyles(
             overflow: 'auto'
         },
         imgItem: {
+            position: 'relative',
             backgroundColor: background.paper,
             marginBottom: spacing(4),
             boxShadow: `1px 1px 4px ${action.focus}`,
@@ -113,7 +96,7 @@ const useStyles = makeStyles(
             alignItems: 'center',
             justifyContent: 'center',
             '& img': {
-                maxWidth: '95%',
+                maxWidth: '85%',
                 maxHeight: '50%',
                 borderRadius: 'inherit'
             },
@@ -123,6 +106,20 @@ const useStyles = makeStyles(
         },
         list: {
             width: '100%'
+        },
+        addIcon: {
+            opacity: 0,
+            position: 'absolute',
+            right: -12,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 24,
+            height: 24,
+            backgroundColor: primary.main,
+            color: primary.contrastText,
+            borderRadius: 24,
+            boxShadow: `2px 2px 20px ${action.active}`,
+            transition: transitions.create('opacity')
         }
     })
 )
@@ -166,6 +163,7 @@ const DndEditorMenu: React.FC = () => {
                     className={classes.popper}
                     {...bindPopper(popupState)}
                     keepMounted={false}
+                    onMouseLeave={() => popupState.close()}
                 >
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps}>
@@ -178,8 +176,6 @@ const DndEditorMenu: React.FC = () => {
                                         sort={false}
                                         setList={() => undefined}
                                         className={classes.list}
-                                        onStart={() => document.body.classList.add('is-dragging')}
-                                        onEnd={() => document.body.classList.remove('is-dragging')}
                                     >
                                         {hoveredItems?.map((hvItem, i) => (
                                             <ButtonBase
@@ -198,6 +194,10 @@ const DndEditorMenu: React.FC = () => {
                                                     </span>
                                                     <span className={classes.imgItem}>
                                                         <img src={hvItem.image} alt="" />
+                                                        <AddOutlined
+                                                            fontSize="small"
+                                                            className={classes.addIcon}
+                                                        />
                                                     </span>
                                                 </span>
                                             </ButtonBase>
@@ -210,51 +210,27 @@ const DndEditorMenu: React.FC = () => {
                 </Popper>
             </ClickAwayListener>
             <div className={classes.root}>
-                <div className={classes.section}>
-                    <div className={classes.heading}>Elements</div>
-                    <div className={classes.content}>
-                        {groupedItems.group
-                            .filter((item) => groupedBlocks[item.id])
-                            .map((item: any, i) => (
-                                <ButtonBase
-                                    key={i}
-                                    {...bindHover(popupState)}
-                                    disableRipple
-                                    className={clsx(classes.item, 'dnd-group-item', 'dnd-item')}
-                                    onMouseEnter={handleMouseEnter(item)}
-                                >
-                                    <span className={classes.element}>
-                                        <item.icon fontSize="large" />
-                                        <span>{item.label}</span>
-                                    </span>
-                                </ButtonBase>
-                            ))}
-                    </div>
-                </div>
-                <div className={classes.section}>
-                    <div className={classes.heading}>Layouts</div>
-                    <ReactSortable
-                        animation={300}
-                        group={{ name: 'shared', pull: 'clone', put: false }}
-                        list={groupedItems.layout}
-                        sort={false}
-                        setList={() => undefined}
-                        className={classes.content}
-                        onStart={() => document.body.classList.add('is-dragging')}
-                        onEnd={() => document.body.classList.remove('is-dragging')}
-                    >
-                        {groupedItems.layout.map((item: any, i) => (
-                            <ButtonBase
-                                key={i}
-                                disableRipple
-                                onClick={handleAddItem(item)}
-                                className={clsx(classes.item, 'dnd-layout-item', 'dnd-item')}
-                            >
-                                <span className={classes.layout}>{item.component}</span>
-                            </ButtonBase>
-                        ))}
-                    </ReactSortable>
-                </div>
+                {groupedItems.group
+                    .filter((item) => groupedBlocks[item.id])
+                    .map((item: any, i) => (
+                        <ButtonBase
+                            key={i}
+                            {...bindHover(popupState)}
+                            disableRipple
+                            className={clsx(
+                                classes.item,
+                                'dnd-group-item',
+                                'dnd-item',
+                                hovered === item.id && popupState.isOpen && classes.hovered
+                            )}
+                            onMouseEnter={handleMouseEnter(item)}
+                        >
+                            <span className={classes.element}>
+                                <item.icon fontSize="small" />
+                                <span>{item.label}</span>
+                            </span>
+                        </ButtonBase>
+                    ))}
             </div>
         </>
     )

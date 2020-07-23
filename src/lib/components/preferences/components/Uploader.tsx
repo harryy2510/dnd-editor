@@ -169,7 +169,7 @@ const Uploader: React.FC<InputProps> = (props) => {
                 type="file"
                 className={classes.input}
             />
-            {imgSrc ? (
+            {imgSrc.current ? (
                 <>
                     <div className={clsx(classes.overlay, classes.darkOverlay)}>
                         <CloudUploadOutlined className={classes.icon} />

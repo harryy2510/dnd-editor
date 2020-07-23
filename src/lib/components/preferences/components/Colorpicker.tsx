@@ -25,16 +25,9 @@ export interface ColorpickerProps extends Omit<SketchPickerProps, 'value' | 'onC
     label?: React.ReactNode
     value: string
     onChange: (value: string) => void
-    parentId: string
 }
 
-const Colorpicker: React.FC<ColorpickerProps> = ({
-    label,
-    value,
-    onChange,
-    parentId,
-    ...props
-}) => {
+const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...props }) => {
     const popupState = usePopupState({
         popupId: nanoid(),
         variant: 'popover'
@@ -72,7 +65,6 @@ const Colorpicker: React.FC<ColorpickerProps> = ({
                 placeholder="Default"
                 value={value}
                 onChange={onChange}
-                parentId={parentId}
                 {...bindTrigger(popupState)}
                 clearable
             />

@@ -6,14 +6,7 @@ import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
 import { renderItems, setList } from '../utils'
 
-const useStyles = makeStyles(({ palette: { action, primary }, spacing }: Theme) => ({
-    '@global': {
-        'body.is-dragging .dnd-grid': {
-            '&:empty:before': {
-                backgroundColor: action.selected
-            }
-        }
-    },
+const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) => ({
     document: {
         padding: spacing(4, 2)
     },
@@ -22,19 +15,10 @@ const useStyles = makeStyles(({ palette: { action, primary }, spacing }: Theme) 
         minHeight: 240,
         '& .dnd-item': {
             height: 40,
-            backgroundColor: fade(primary.main, 0.08)
-        },
-        '& .dnd-grid': {
-            '&:empty:before': {
-                content: '""',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                pointerEvents: 'none',
-                width: `calc(100% - ${spacing(1)}px)`,
-                height: `calc(100% - ${spacing(1)}px)`,
-                padding: spacing(2),
-                margin: spacing(0.5)
+            backgroundColor: fade(primary.main, 0.08),
+            border: `2px dashed ${primary.main}`,
+            '& > *': {
+                opacity: 0
             }
         }
     }
@@ -54,8 +38,6 @@ const DndEditorPreview: React.FC = () => {
             list={renderProps.state.items}
             setList={setList(renderProps)}
             className={classes.root}
-            onStart={() => document.body.classList.add('is-dragging')}
-            onEnd={() => document.body.classList.remove('is-dragging')}
         >
             {renderItems(renderProps.state.items, renderProps)}
         </ReactSortable>

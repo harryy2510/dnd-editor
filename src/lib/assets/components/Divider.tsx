@@ -10,38 +10,28 @@ export default {
         }
         const state = renderProps.state.entities[renderProps.item.id].values[id]
         const handleClick = () => {
-            PubSub.publish('component/click', { type: 'image', data: id })
+            PubSub.publish('component/divider', { type: 'text', data: id })
         }
-        return (
-            <img
-                id={`${renderProps.item.id}-${id}`}
-                src={state.url}
-                onClick={handleClick}
-                style={state.style}
-                alt=""
-            />
-        )
+        return <hr id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state.style} />
     },
     export: (renderProps: RenderProps, id: string) => {
         if (!renderProps.item || !id) {
             return null
         }
         const state = renderProps.state.entities[renderProps.item.id].values[id]
-        return `<img src="${state.url ?? ''}"  style="${styleToCss(state.style)}" alt="">`
+        return `<hr style="${styleToCss(state.style)}">`
     },
     initialValues: {
-        label: 'Image',
-        url: 'http://placehold.jp/24/ccc/444/480x240.png?text=Image',
+        label: 'Divider',
         style: {
             width: '100%',
-            height: 'auto',
-            borderRadius: '4px'
+            borderColor: 'transparent',
+            borderWidth: '1px',
+            borderStyle: 'solid'
         }
     },
     settings: [
-        { id: 'url', type: 'image', grid: 12 },
         { id: 'style.width', type: 'width', grid: 6 },
-        { id: 'style.height', type: 'height', grid: 6 },
-        { id: 'style.borderRadius', type: 'borderRadius', grid: 12 }
+        { id: 'style.borderWidth', type: 'height', grid: 6 }
     ]
 } as DndComponentItem

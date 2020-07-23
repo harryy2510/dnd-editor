@@ -58,7 +58,6 @@ const BorderRadius: React.FC<InputProps> = (props) => {
                     options={options}
                     value={props.value}
                     onChange={props.onChange}
-                    parentId={props.parentId}
                 />
             </div>
         </div>

@@ -108,10 +108,14 @@ const DndEditorPreferences: React.FC = () => {
     const [expanded, setExpanded] = React.useState('')
     const ActiveTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
     const activeItem = active ? itemsMap[state.entities[active].parent.id] : null
+
+    const groupedSettings = Object.keys(groupBy(activeItem?.settings, 'type'))
+    const showContainerTab = groupedSettings.length > 1
+
     const availableSettings = React.useMemo(
         () => [
-            ...Object.keys(groupBy(activeItem?.settings, 'type')),
-            ...(activeItem ? ['container'] : []),
+            ...groupedSettings,
+            ...(activeItem && showContainerTab ? ['container'] : []),
             'template'
         ],
         [active]
@@ -127,7 +131,9 @@ const DndEditorPreferences: React.FC = () => {
     React.useEffect(() => {
         const subId = PubSub.subscribe('component/click', (data) => {
             setTab((data?.type as SettingItemType) ?? 'template')
-            setExpanded(data?.data ?? '')
+            setExpanded(
+                (data?.data === '__container' && !showContainerTab ? expanded : data?.data) ?? ''
+            )
         })
         return () => PubSub.unsubscribe(subId)
     }, [])
@@ -150,7 +156,13 @@ const DndEditorPreferences: React.FC = () => {
                 </ToggleButtonGroup>
             </Grid>
             <Grid item className={classes.content}>
-                {ActiveTab && <ActiveTab expanded={expanded} setExpanded={setExpanded} />}
+                {ActiveTab && (
+                    <ActiveTab
+                        showContainerTab={showContainerTab}
+                        expanded={expanded}
+                        setExpanded={setExpanded}
+                    />
+                )}
             </Grid>
         </Grid>
     )

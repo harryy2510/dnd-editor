@@ -27,7 +27,7 @@ export default {
         }
         const state = renderProps.state.entities[renderProps.item.id].values[id]
         return `
-            <span id="${renderProps.item.id}-${id}" style="${styleToCss(state.style)}">
+            <span style="${styleToCss(state.style)}">
                 ${state.label}
             </span>
         `
@@ -38,7 +38,7 @@ export default {
             fontSize: '14px',
             fontFamily: '',
             lineHeight: '18px',
-            fontWeight: 500,
+            fontWeight: 400,
             letterSpacing: '0px',
             color: ''
         }

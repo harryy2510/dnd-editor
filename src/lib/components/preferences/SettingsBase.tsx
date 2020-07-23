@@ -63,7 +63,6 @@ const SettingsBase: React.FC<Props> = ({
             {settings?.map((setting, i) => {
                 const isExpanded = expanded === setting.id || !canExpand
                 const color = isExpanded ? 'primary' : 'inherit'
-                const parentId = `${id}-${setting.id}`
                 return (
                     <Accordion
                         square
@@ -95,11 +94,7 @@ const SettingsBase: React.FC<Props> = ({
                                     <Grid container spacing={2}>
                                         {setting.settings?.map((st, i) => (
                                             <Grid item xs={st.grid ?? 12} key={i}>
-                                                <Field
-                                                    name={st.id}
-                                                    type={st.type}
-                                                    parentId={parentId}
-                                                />
+                                                <Field name={st.id} type={st.type} />
                                             </Grid>
                                         ))}
                                     </Grid>

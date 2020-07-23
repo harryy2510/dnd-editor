@@ -6,6 +6,7 @@ import SettingsBase from './SettingsBase'
 interface Props {
     expanded: string
     setExpanded: React.Dispatch<React.SetStateAction<string>>
+    showContainerTab: boolean
 }
 
 const ContainerSettings: React.FC<Props> = (props) => {

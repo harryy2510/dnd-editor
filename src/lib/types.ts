@@ -12,6 +12,7 @@ export type SettingComponentType =
     | 'borderColor'
     | 'borderRadius'
     | 'buttonType'
+    | 'color'
     | 'fontColor'
     | 'fontFamily'
     | 'fontWeight'
@@ -84,10 +85,6 @@ export type DndBaseItem = {
     initialValues?: InitialValues
     settings?: DndItemSetting[]
 }
-export type DndLayoutItem = DndBaseItem & {
-    type: 'layout'
-    component: React.ReactNode
-}
 export type DndGroupItem = DndBaseItem & {
     type: 'group'
     icon: React.ComponentType<SvgIconProps>
@@ -97,7 +94,7 @@ export type DndBlockItem = DndBaseItem & {
     parent: string
     image: string
 }
-export type DndItem = DndLayoutItem | DndGroupItem | DndBlockItem
+export type DndItem = DndGroupItem | DndBlockItem
 
 export type DndTemplateItem = Omit<DndBaseItem, 'label'> & {
     type: 'template'
@@ -105,8 +102,6 @@ export type DndTemplateItem = Omit<DndBaseItem, 'label'> & {
 
 export interface DndStateItemEntity {
     id: string
-    items?: DndStateItemEntity[][]
-    layoutId?: string
 }
 export interface DndState {
     items: DndStateItemEntity[]

@@ -25,8 +25,6 @@ export default {
     initialValues: {
         outer: {
             style: {
-                width: '100%',
-                height: '100%',
                 backgroundColor: '#eee',
                 display: 'flex',
                 padding: '16px 16px 16px 16px',
@@ -36,7 +34,6 @@ export default {
         },
         inner: {
             style: {
-                minHeight: '100%',
                 position: 'relative',
                 width: 600,
                 borderRadius: '0px',

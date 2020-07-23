@@ -43,7 +43,6 @@ export interface StyledTextFieldProps
     extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onChange'> {
     value: string
     onChange: (value: string) => void
-    parentId: string
     clearable?: boolean
 }
 

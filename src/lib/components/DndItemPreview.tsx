@@ -24,12 +24,7 @@ const useStyles = makeStyles(
         actions: {
             marginRight: 4,
             display: 'flex',
-            flexDirection: 'column',
-            '&$row': {
-                marginRight: 0,
-                marginTop: 4,
-                flexDirection: 'row'
-            }
+            flexDirection: 'column'
         },
         button: {
             margin: spacing(0.25),
@@ -41,8 +36,7 @@ const useStyles = makeStyles(
                 backgroundColor: fade(primary.main, 0.1),
                 color: primary.main
             }
-        },
-        row: {}
+        }
     })
 )
 
@@ -90,16 +84,21 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             removeItem(renderProps, item?.id)
         }
         return (
-            <>
-                <ClickAwayListener onClickAway={() => popupState.close()}>
-                    <Popper
-                        {...bindPopper(popupState)}
-                        placement={item?.layoutId ? 'bottom-start' : 'left-start'}
-                    >
-                        <Card
-                            variant="outlined"
-                            className={clsx(classes.actions, item?.layoutId && classes.row)}
-                        >
+            <ClickAwayListener onClickAway={() => popupState.close()}>
+                <div
+                    {...bindHover(popupState)}
+                    ref={ref}
+                    {...props}
+                    onClick={handleClick}
+                    className={clsx(
+                        classes.root,
+                        props.className,
+                        active === item?.id && classes.active
+                    )}
+                >
+                    {children}
+                    <Popper {...bindPopper(popupState)} placement="left-start">
+                        <Card variant="outlined" className={classes.actions}>
                             <Tooltip title={<Trans>Settings</Trans>}>
                                 <ButtonBase
                                     onClick={handleSettingsClick}
@@ -115,21 +114,8 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                             </Tooltip>
                         </Card>
                     </Popper>
-                </ClickAwayListener>
-                <div
-                    {...bindHover(popupState)}
-                    ref={ref}
-                    {...props}
-                    onClick={handleClick}
-                    className={clsx(
-                        classes.root,
-                        props.className,
-                        active === item?.id && classes.active
-                    )}
-                >
-                    {children}
                 </div>
-            </>
+            </ClickAwayListener>
         )
     }
 )

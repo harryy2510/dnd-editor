@@ -7,5 +7,5 @@ export default {
     id: 'divider',
     icon: RemoveOutlined,
     type: 'group',
-    label: <Trans>Dividers</Trans>
+    label: <Trans>Separator</Trans>
 } as DndGroupItem
