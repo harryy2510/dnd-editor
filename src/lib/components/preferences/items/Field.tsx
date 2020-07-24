@@ -53,19 +53,21 @@ const fields: Record<string, React.FC<any>> = {
 
 interface Props {
     name: string
-    type: SettingComponentType
+    type?: SettingComponentType
+    Component?: React.ComponentType<any>
+    [key: string]: any
 }
 
-const Field: React.FC<Props> = ({ name, type }) => {
-    const Component = fields[type]
+const Field: React.FC<Props> = ({ name, type, Component: _Component, ...props }) => {
+    const Component = _Component || (type && fields[type])
     const formik = useFormikContext()
-    let props: any = {}
+    let formikProps: any = {}
     if (formik) {
-        props.value = get(formik.values, name)
-        props.onChange = (value: Primitive) => formik.setFieldValue(name, value, true)
+        formikProps.value = get(formik.values, name)
+        formikProps.onChange = (value: Primitive) => formik.setFieldValue(name, value, true)
     }
     if (Component) {
-        return <Component {...props} />
+        return <Component {...props} {...formikProps} />
     }
     return null
 }

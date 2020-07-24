@@ -30,6 +30,9 @@ const useStyles = makeStyles(({}: Theme) => ({
     },
     label: {
         fontWeight: 500
+    },
+    form: {
+        width: '100%'
     }
 }))
 
@@ -50,7 +53,8 @@ const SettingsBase: React.FC<Props> = ({
     id,
     expanded,
     setExpanded,
-    defaultExpanded
+    defaultExpanded,
+    children
 }) => {
     const handleChange = (childId: string) => (newValues: InitialValues) => {
         updateItem(renderProps, id, { [childId]: newValues })
@@ -90,13 +94,14 @@ const SettingsBase: React.FC<Props> = ({
                                 }
                                 onSubmit={handleChange(setting.id)}
                             >
-                                <Form>
+                                <Form className={classes.form}>
                                     <Grid container spacing={2}>
-                                        {setting.settings?.map((st, i) => (
-                                            <Grid item xs={st.grid ?? 12} key={i}>
-                                                <Field name={st.id} type={st.type} />
-                                            </Grid>
-                                        ))}
+                                        {children ||
+                                            setting.settings?.map((st, i) => (
+                                                <Grid item xs={st.grid ?? 12} key={i}>
+                                                    <Field name={st.id} type={st.type} />
+                                                </Grid>
+                                            ))}
                                     </Grid>
                                     <FormObserver onChange={handleChange(setting.id)} />
                                 </Form>

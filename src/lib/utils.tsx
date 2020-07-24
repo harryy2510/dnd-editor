@@ -392,3 +392,12 @@ export const useFonts = () => {
         fontFamily
     }
 }
+
+export const smartyTags = [
+    '{{Customer.FirstName}}',
+    '{{Customer.LastName}}',
+    '{{Customer.Email}}',
+    '{{Appointment.ServiceName}}',
+    '{{Appointment.StaffName}}',
+    '{{Appointment.Time}}'
+]

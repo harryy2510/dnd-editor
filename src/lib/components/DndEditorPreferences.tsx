@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import {
     CropLandscapeOutlined,
+    DeviceHubOutlined,
     ImageOutlined,
     PaletteOutlined,
     SettingsOutlined,
@@ -15,6 +16,7 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { useDndEditorContext } from '../DndEditorProvider'
 import PubSub from '../PubSub'
 import { SettingItemType } from '../types'
+import ConditionSettings from './preferences/ConditionSettings'
 import ContainerSettings from './preferences/ContainerSettings'
 import TemplateSettings from './preferences/TemplateSettings'
 import ImageSettings from './preferences/ImageSettings'
@@ -94,6 +96,12 @@ const tabs = [
         icon: PaletteOutlined
     },
     {
+        id: 'condition',
+        component: ConditionSettings,
+        label: <Trans>Edit Conditions</Trans>,
+        icon: DeviceHubOutlined
+    },
+    {
         id: 'template',
         component: TemplateSettings,
         label: <Trans>Edit Template</Trans>,
@@ -116,6 +124,7 @@ const DndEditorPreferences: React.FC = () => {
         () => [
             ...groupedSettings,
             ...(activeItem && showContainerTab ? ['container'] : []),
+            ...(activeItem ? ['condition'] : []),
             'template'
         ],
         [active]

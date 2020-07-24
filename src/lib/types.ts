@@ -29,6 +29,21 @@ export type SettingComponentType =
     | 'verticalAlign'
     | 'width'
 
+export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN' | 'NOT_IN'
+export type ConditionType = 'AND' | 'OR'
+export type ConditionDisplay = 'ALWAYS' | 'DISPLAY' | 'NOT_DISPLAY'
+export type ConditionRule = {
+    id: string
+    operator: ConditionOperator
+    value: Primitive
+}
+
+export interface Condition {
+    type: ConditionType
+    display: ConditionDisplay
+    rules: ConditionRule[]
+}
+
 export interface Device {
     type: DeviceType
     label: React.ReactElement
