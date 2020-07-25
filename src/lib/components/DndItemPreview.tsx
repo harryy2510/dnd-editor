@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { ButtonBase, Card, ClickAwayListener, Popper, Theme, Tooltip } from '@material-ui/core'
 import { fade } from '@material-ui/core/styles/colorManipulator'
-import { DeleteOutlined, SettingsOutlined } from '@material-ui/icons'
+import { DeleteOutlined, OpenWithOutlined, SettingsOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { bindHover, bindPopper, usePopupState } from 'material-ui-popup-state/hooks'
@@ -16,11 +16,15 @@ const useStyles = makeStyles(
     ({ palette: { primary, text }, spacing, shape: { borderRadius } }: Theme) => ({
         root: {
             position: 'relative',
-            zIndex: 0
+            zIndex: 0,
+            margin: spacing(0, -8),
+            padding: spacing(0, 8)
         },
         active: {
-            outline: `1px solid ${primary.main}`,
-            zIndex: 1
+            zIndex: 1,
+            '& > *:not($popper)': {
+                outline: `1px solid ${primary.main}`
+            }
         },
         actions: {
             marginRight: 4,
@@ -37,6 +41,10 @@ const useStyles = makeStyles(
                 backgroundColor: fade(primary.main, 0.1),
                 color: primary.main
             }
+        },
+        popper: {
+            transform: 'none!important',
+            left: `${spacing(3)}px!important`
         }
     })
 )
@@ -101,8 +109,15 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                         {...bindPopper(popupState)}
                         open={popupState.isOpen || isActive}
                         placement="left-start"
+                        disablePortal
+                        className={classes.popper}
                     >
                         <Card variant="outlined" className={classes.actions}>
+                            <Tooltip title={<Trans>Move</Trans>}>
+                                <ButtonBase className={clsx(classes.button, 'sortable-handle')}>
+                                    <OpenWithOutlined fontSize="inherit" />
+                                </ButtonBase>
+                            </Tooltip>
                             <Tooltip title={<Trans>Settings</Trans>}>
                                 <ButtonBase
                                     onClick={handleSettingsClick}

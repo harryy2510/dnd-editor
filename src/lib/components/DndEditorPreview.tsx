@@ -38,6 +38,7 @@ const DndEditorPreview: React.FC = () => {
             list={renderProps.state.items}
             setList={setList(renderProps)}
             className={classes.root}
+            handle=".sortable-handle"
         >
             {renderItems(renderProps.state.items, renderProps)}
         </ReactSortable>
