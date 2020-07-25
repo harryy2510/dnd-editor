@@ -13,7 +13,7 @@ import { removeItem } from '../utils'
 interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
 
 const useStyles = makeStyles(
-    ({ palette: { primary, text }, spacing, shape: { borderRadius }, zIndex }: Theme) => ({
+    ({ palette: { primary, text }, spacing, shape: { borderRadius } }: Theme) => ({
         root: {
             position: 'relative',
             zIndex: 0
@@ -37,9 +37,6 @@ const useStyles = makeStyles(
                 backgroundColor: fade(primary.main, 0.1),
                 color: primary.main
             }
-        },
-        popper: {
-            zIndex: zIndex.tooltip
         }
     })
 )
@@ -104,7 +101,6 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                         {...bindPopper(popupState)}
                         open={popupState.isOpen || isActive}
                         placement="left-start"
-                        className={classes.popper}
                     >
                         <Card variant="outlined" className={classes.actions}>
                             <Tooltip title={<Trans>Settings</Trans>}>
