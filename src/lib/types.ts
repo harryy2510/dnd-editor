@@ -31,7 +31,7 @@ export type SettingComponentType =
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN' | 'NOT_IN'
 export type ConditionType = 'AND' | 'OR'
-export type ConditionDisplay = 'ALWAYS' | 'DISPLAY' | 'NOT_DISPLAY'
+export type ConditionDisplay = 'ALWAYS' | 'DISPLAY'
 export type ConditionRule = {
     id: string
     operator: ConditionOperator
@@ -133,6 +133,9 @@ export interface DndEditorContextProps {
     items: DndItem[]
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
+
+    smartyTags?: string[]
+    sampleData?: any
 }
 
 export type RenderProps = DndEditorContextProps & {

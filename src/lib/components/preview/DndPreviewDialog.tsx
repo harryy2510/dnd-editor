@@ -24,6 +24,8 @@ import { useDndEditorContext } from '../../DndEditorProvider'
 import { Device, DeviceType } from '../../types'
 import { exportToHtml } from '../../utils'
 import './DndPreviewDialog.css'
+import { Liquid } from 'liquidjs'
+const engine = new Liquid()
 
 const useStyles = makeStyles(
     ({ spacing, shape: { borderRadius }, palette: { primary, text, divider } }: Theme) => ({
@@ -101,9 +103,9 @@ const DndPreviewDialog: React.FC<DndPreviewDialogProps> = (props) => {
         if (!props.open) {
             return null
         }
-        const childComponent = (
-            <iframe className={classes.iframe} srcDoc={exportToHtml(editorContext)} />
-        )
+        const html = exportToHtml(editorContext)
+        const parsedHtml = engine.parseAndRenderSync(html, editorContext.sampleData)
+        const childComponent = <iframe className={classes.iframe} srcDoc={parsedHtml} />
         switch (device) {
             case 'tablet':
                 return (

@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro'
-import { RemoveOutlined } from '@material-ui/icons'
+import { AppsOutlined } from '@material-ui/icons'
 import React from 'react'
 import { DndGroupItem } from '../../types'
 
 export default {
-    id: 'divider',
-    icon: RemoveOutlined,
+    id: 'basic-elements',
     type: 'group',
-    label: <Trans>Separator</Trans>,
-    priority: 4
+    icon: AppsOutlined,
+    label: <Trans>Basic Elements</Trans>,
+    priority: 1
 } as DndGroupItem

@@ -14,7 +14,7 @@ const useStyles = makeStyles(
             borderRadius,
             position: 'fixed',
             bottom: spacing(2),
-            left: spacing(18),
+            left: spacing(23),
             overflow: 'hidden',
             zIndex: 1
         },

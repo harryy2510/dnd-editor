@@ -5,7 +5,6 @@ import { keyBy } from 'lodash-es'
 import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 import { Condition, DndItemSetting } from '../../types'
-import { smartyTags } from '../../utils'
 import Dropdown, { DropdownOption } from './components/Dropdown'
 import Input from './components/Input'
 import SettingsBase from './SettingsBase'
@@ -25,10 +24,6 @@ const displayOptions: DropdownOption[] = [
     {
         id: 'DISPLAY',
         label: <Trans>Display if</Trans>
-    },
-    {
-        id: 'NOT_DISPLAY',
-        label: <Trans>Do not display if</Trans>
     }
 ]
 const operatorOptions: DropdownOption[] = [
@@ -40,6 +35,7 @@ const operatorOptions: DropdownOption[] = [
 
 const ConditionRule: React.FC = () => {
     const { values } = useFormikContext<Condition>()
+    const { smartyTags } = useDndEditorContext()
     return (
         <>
             <Grid item xs={12}>
@@ -49,7 +45,6 @@ const ConditionRule: React.FC = () => {
                     defaultValue="ALWAYS"
                     SelectProps={{ displayEmpty: true }}
                     options={displayOptions}
-                    label={<Trans>Display</Trans>}
                 />
             </Grid>
             {Boolean(values.display && values.display !== 'ALWAYS') && (
@@ -58,25 +53,16 @@ const ConditionRule: React.FC = () => {
                         <Field
                             name="rules.0.id"
                             Component={Dropdown}
-                            label={<Trans>Field</Trans>}
                             options={smartyTags}
+                            placeholder="Select Field"
                         />
-                    </Grid>
-                    <Grid item xs={12}>
                         <Field
                             name="rules.0.operator"
                             defaultValue="EQUAL"
                             Component={Dropdown}
-                            label={<Trans>Operator</Trans>}
                             options={operatorOptions}
                         />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Field
-                            name="rules.0.value"
-                            Component={Input}
-                            label={<Trans>Value</Trans>}
-                        />
+                        <Field name="rules.0.value" Component={Input} placeholder="Value" />
                     </Grid>
                 </>
             )}

@@ -16,9 +16,9 @@ export default {
             PubSub.publish('component/click', { type: 'text', data: id })
         }
         return (
-            <span id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state.style}>
+            <div id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state.style}>
                 <Editor value={state.label} onChange={handleChange} />
-            </span>
+            </div>
         )
     },
     export: (renderProps: RenderProps, id: string) => {
@@ -27,14 +27,15 @@ export default {
         }
         const state = renderProps.state.entities[renderProps.item.id].values[id]
         return `
-            <span style="${styleToCss(state.style)}">
+            <div style="${styleToCss(state.style)}">
                 ${state.label}
-            </span>
+            </div>
         `
     },
     initialValues: {
         label: 'Text',
         style: {
+            width: '100%',
             fontSize: '14px',
             fontFamily: '',
             lineHeight: '18px',

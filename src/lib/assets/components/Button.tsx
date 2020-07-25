@@ -26,9 +26,8 @@ export default {
             >
                 <Editor
                     modules={{
-                        toolbar: [['bold', 'italic', 'underline', 'strike', 'clean']]
+                        toolbar: ['bold', 'italic', 'underline', 'strike', 'clean']
                     }}
-                    formats={['bold', 'italic', 'underline', 'strike']}
                     value={state.label}
                     onChange={handleChange}
                 />
@@ -64,7 +63,8 @@ export default {
             borderStyle: 'solid',
             borderColor: '#3f51b5',
             padding: '14px 28px 14px 28px',
-            textAlign: 'center'
+            textAlign: 'center',
+            display: 'inline-block'
         }
     },
     settings: [

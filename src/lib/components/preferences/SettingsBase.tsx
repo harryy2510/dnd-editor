@@ -77,6 +77,7 @@ const SettingsBase: React.FC<Props> = ({
                             canExpand ? (e, v) => setExpanded(v ? setting.id : '') : undefined
                         }
                         TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}
+                        key={i}
                     >
                         <AccordionSummary
                             expandIcon={canExpand && <ArrowDropDownOutlined color={color} />}

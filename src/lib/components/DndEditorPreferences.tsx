@@ -111,7 +111,7 @@ const tabs = [
 
 const DndEditorPreferences: React.FC = () => {
     const classes = useStyles()
-    const { itemsMap, state, active } = useDndEditorContext()
+    const { itemsMap, state, active, smartyTags } = useDndEditorContext()
     const [tab, setTab] = React.useState<SettingItemType>('template')
     const [expanded, setExpanded] = React.useState('')
     const ActiveTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
@@ -119,12 +119,13 @@ const DndEditorPreferences: React.FC = () => {
 
     const groupedSettings = Object.keys(groupBy(activeItem?.settings, 'type'))
     const showContainerTab = groupedSettings.length > 1
+    const showConditionTab = Boolean(smartyTags?.length)
 
     const availableSettings = React.useMemo(
         () => [
             ...groupedSettings,
             ...(activeItem && showContainerTab ? ['container'] : []),
-            ...(activeItem ? ['condition'] : []),
+            ...(activeItem && showConditionTab ? ['condition'] : []),
             'template'
         ],
         [active]

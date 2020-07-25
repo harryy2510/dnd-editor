@@ -7,5 +7,6 @@ export default {
     id: 'text',
     type: 'group',
     icon: FormatColorTextOutlined,
-    label: <Trans>Text</Trans>
+    label: <Trans>Text</Trans>,
+    priority: 3
 } as DndGroupItem

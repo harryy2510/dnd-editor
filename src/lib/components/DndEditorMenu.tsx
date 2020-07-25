@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import { AddOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { groupBy } from 'lodash-es'
+import { groupBy, sortBy } from 'lodash-es'
 import React from 'react'
 import { usePopupState, bindHover, bindPopper } from 'material-ui-popup-state/hooks'
 import { ReactSortable } from 'react-sortablejs'
@@ -96,8 +96,8 @@ const useStyles = makeStyles(
             alignItems: 'center',
             justifyContent: 'center',
             '& img': {
-                maxWidth: '85%',
-                maxHeight: '50%',
+                maxWidth: '95%',
+                maxHeight: '95%',
                 borderRadius: 'inherit'
             },
             '&:hover': {
@@ -210,7 +210,7 @@ const DndEditorMenu: React.FC = () => {
                 </Popper>
             </ClickAwayListener>
             <div className={classes.root}>
-                {groupedItems.group
+                {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
                     .map((item: any, i) => (
                         <ButtonBase

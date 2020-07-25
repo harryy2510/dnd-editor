@@ -7,5 +7,6 @@ export default {
     id: 'image',
     type: 'group',
     icon: ImageOutlined,
-    label: <Trans>Images</Trans>
+    label: <Trans>Images</Trans>,
+    priority: 5
 } as DndGroupItem

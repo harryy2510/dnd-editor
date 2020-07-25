@@ -25,9 +25,19 @@ const Dropdown: React.FC<DropdownProps> = ({ options = [], ...props }) => {
             )
         })
     }, [options])
+    const items = [
+        ...(props.placeholder
+            ? [
+                  <MenuItem value="" selected disabled style={{ display: 'none' }}>
+                      {props.placeholder}
+                  </MenuItem>
+              ]
+            : []),
+        children
+    ]
     return (
         <Input select {...props}>
-            {children}
+            {items}
         </Input>
     )
 }

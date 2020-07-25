@@ -21,6 +21,8 @@ export interface DndEditorProps {
     onChange?: (newValue: DndState) => void
     items?: DndItem[]
     template?: DndTemplateItem
+    smartyTags?: string[]
+    sampleData?: any
 }
 
 const useStyles = makeStyles(({ palette: { background, divider, action }, spacing }: Theme) => ({
@@ -37,14 +39,14 @@ const useStyles = makeStyles(({ palette: { background, divider, action }, spacin
         position: 'relative'
     },
     menu: {
-        flex: `0 0 ${spacing(15)}px`,
-        width: spacing(15),
+        flex: `0 0 ${spacing(20)}px`,
+        width: spacing(20),
         borderRight: `1px solid ${fade(divider, 0.08)}`
     },
     preview: {
         backgroundColor: action.hover,
         flex: 1,
-        width: `calc(100% - ${spacing(55)}px)`
+        width: `calc(100% - ${spacing(60)}px)`
     },
     preferences: {
         flex: `0 0 ${spacing(40)}px`,
@@ -57,7 +59,9 @@ const DndEditor: React.FC<DndEditorProps> = ({
     value,
     onChange,
     items = [],
-    template = Templates.Mail
+    template = Templates.Mail,
+    smartyTags,
+    sampleData
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -125,6 +129,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
             setState={setState}
             state={state}
             items={items}
+            smartyTags={smartyTags}
+            sampleData={sampleData}
         >
             {children}
         </DndEditorProvider>

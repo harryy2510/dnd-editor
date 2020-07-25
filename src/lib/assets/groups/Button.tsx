@@ -7,5 +7,6 @@ export default {
     id: 'button',
     type: 'group',
     icon: RadioButtonCheckedOutlined,
-    label: <Trans>Buttons</Trans>
+    label: <Trans>Buttons</Trans>,
+    priority: 6
 } as DndGroupItem

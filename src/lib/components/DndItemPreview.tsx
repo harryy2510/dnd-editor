@@ -13,13 +13,14 @@ import { removeItem } from '../utils'
 interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
 
 const useStyles = makeStyles(
-    ({ palette: { primary, text }, spacing, shape: { borderRadius } }: Theme) => ({
+    ({ palette: { primary, text }, spacing, shape: { borderRadius }, zIndex }: Theme) => ({
         root: {
             position: 'relative',
             zIndex: 0
         },
         active: {
-            outline: `1px solid ${primary.main}`
+            outline: `1px solid ${primary.main}`,
+            zIndex: 1
         },
         actions: {
             marginRight: 4,
@@ -31,11 +32,14 @@ const useStyles = makeStyles(
             padding: spacing(0.25),
             borderRadius,
             color: text.secondary,
-            fontSize: '1.2rem',
+            fontSize: '1.5rem',
             '&:hover': {
                 backgroundColor: fade(primary.main, 0.1),
                 color: primary.main
             }
+        },
+        popper: {
+            zIndex: zIndex.tooltip
         }
     })
 )
@@ -52,6 +56,8 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             item,
             active,
             onActiveChange,
+            smartyTags,
+            sampleData,
             ...props
         },
         ref
@@ -83,6 +89,7 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             ev.stopPropagation()
             removeItem(renderProps, item?.id)
         }
+        const isActive = active === item?.id
         return (
             <ClickAwayListener onClickAway={() => popupState.close()}>
                 <div
@@ -90,14 +97,15 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                     ref={ref}
                     {...props}
                     onClick={handleClick}
-                    className={clsx(
-                        classes.root,
-                        props.className,
-                        active === item?.id && classes.active
-                    )}
+                    className={clsx(classes.root, props.className, isActive && classes.active)}
                 >
                     {children}
-                    <Popper {...bindPopper(popupState)} placement="left-start">
+                    <Popper
+                        {...bindPopper(popupState)}
+                        open={popupState.isOpen || isActive}
+                        placement="left-start"
+                        className={classes.popper}
+                    >
                         <Card variant="outlined" className={classes.actions}>
                             <Tooltip title={<Trans>Settings</Trans>}>
                                 <ButtonBase
