@@ -14,12 +14,17 @@ export default {
     initialValues: {
         'image-1': merge({}, Image.initialValues, {
             label: 'Logo',
-            url: 'http://placehold.jp/24/ccc/444/480x240.png?text=Logo',
+            url: 'http://placehold.jp/72/ccc/444/320x320.png?text=Logo',
             style: {
                 width: 'auto',
                 height: '80px'
             }
-        })
+        }),
+        __container: {
+            style: {
+                justifyContent: 'flex-start'
+            }
+        }
     },
     parent: 'header',
     settings: [

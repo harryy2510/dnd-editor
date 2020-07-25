@@ -2,7 +2,7 @@ import { Button, Card, ClickAwayListener, List, ListItem, Popper, Theme } from '
 import { makeStyles } from '@material-ui/styles'
 import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
 import { nanoid } from 'nanoid'
-import { StringMap } from 'quill'
+import Quill, { StringMap } from 'quill'
 
 import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
@@ -11,7 +11,6 @@ import ReactQuill, { Range } from 'react-quill'
 import 'react-quill/dist/quill.bubble.css'
 import './Editor.scss'
 import { useDndEditorContext } from '../../DndEditorProvider'
-
 const defaultModules: StringMap = {
     toolbar: [
         'bold',
@@ -24,20 +23,9 @@ const defaultModules: StringMap = {
         'clean'
     ]
 }
-const defaultFormats: string[] = [
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'list',
-    'bullet',
-    'link',
-    'mention'
-]
 
 interface Props {
     modules?: StringMap
-    formats?: string[]
     value?: string
     onChange?: (text: string) => void
 }
@@ -51,12 +39,7 @@ const useStyles = makeStyles(({}: Theme) => ({
     }
 }))
 
-const Editor: React.FC<Props> = ({
-    value,
-    onChange,
-    formats = defaultFormats,
-    modules = defaultModules
-}) => {
+const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) => {
     const classes = useStyles()
     const popupId = React.useRef(`popup-${nanoid()}`).current
     const menuId = React.useRef(`menu-${nanoid()}`).current
@@ -189,7 +172,6 @@ const Editor: React.FC<Props> = ({
                     ref={editorRef}
                     onChangeSelection={handleSelectionChange}
                     modules={_modules}
-                    formats={formats}
                     theme="bubble"
                     defaultValue={textRef.current}
                     onChange={handleChange}

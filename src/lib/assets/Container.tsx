@@ -47,7 +47,7 @@ export default {
     },
     initialValues: {
         style: {
-            padding: '32px 32px 32px 32px',
+            padding: '24px 24px 24px 24px',
             backgroundColor: '',
             display: 'flex',
             alignItems: 'center',

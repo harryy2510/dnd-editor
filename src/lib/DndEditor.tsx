@@ -41,17 +41,22 @@ const useStyles = makeStyles(({ palette: { background, divider, action }, spacin
     menu: {
         flex: `0 0 ${spacing(20)}px`,
         width: spacing(20),
-        borderRight: `1px solid ${fade(divider, 0.08)}`
+        borderRight: `1px solid ${fade(divider, 0.08)}`,
+        zIndex: 1,
+        backgroundColor: background.paper
     },
     preview: {
-        backgroundColor: action.hover,
+        backgroundColor: background.default,
         flex: 1,
-        width: `calc(100% - ${spacing(60)}px)`
+        width: `calc(100% - ${spacing(60)}px)`,
+        zIndex: 0
     },
     preferences: {
         flex: `0 0 ${spacing(40)}px`,
         width: spacing(40),
-        borderLeft: `1px solid ${fade(divider, 0.08)}`
+        borderLeft: `1px solid ${fade(divider, 0.08)}`,
+        zIndex: 1,
+        backgroundColor: background.paper
     }
 }))
 
