@@ -13,6 +13,11 @@
     > p {
         margin: 0;
     }
+
+    [dir='ltr'],
+    [dir='rtl'] {
+        text-align: inherit;
+    }
 }
 
 .ck.ck-balloon-panel {
