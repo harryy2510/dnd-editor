@@ -39,8 +39,8 @@ const useStyles = makeStyles(({ palette: { background, divider, action }, spacin
         position: 'relative'
     },
     menu: {
-        flex: `0 0 ${spacing(20)}px`,
-        width: spacing(20),
+        flex: `0 0 ${spacing(25)}px`,
+        width: spacing(25),
         borderRight: `1px solid ${fade(divider, 0.08)}`,
         zIndex: 1,
         backgroundColor: background.paper
@@ -48,7 +48,7 @@ const useStyles = makeStyles(({ palette: { background, divider, action }, spacin
     preview: {
         backgroundColor: background.default,
         flex: 1,
-        width: `calc(100% - ${spacing(60)}px)`,
+        width: `calc(100% - ${spacing(65)}px)`,
         zIndex: 0
     },
     preferences: {

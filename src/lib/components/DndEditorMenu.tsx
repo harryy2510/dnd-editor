@@ -21,7 +21,7 @@ import { addItem } from '../utils'
 const useStyles = makeStyles(
     ({
         spacing,
-        typography: { caption, fontWeightBold },
+        typography: { caption, fontWeightBold, body2 },
         palette: { text, action, background, primary, grey },
         shape: { borderRadius },
         transitions
@@ -31,8 +31,8 @@ const useStyles = makeStyles(
             '& $item': {
                 marginBottom: spacing(0.5),
                 '&:hover, &$hovered': {
-                    backgroundColor: grey[200],
-                    color: text.primary
+                    backgroundColor: grey[600],
+                    color: 'white'
                 }
             }
         },
@@ -41,9 +41,9 @@ const useStyles = makeStyles(
             ...caption,
             marginBottom: spacing(1),
             fontWeight: fontWeightBold,
-            opacity: 0.36,
             textTransform: 'uppercase',
-            letterSpacing: '1px'
+            letterSpacing: '1px',
+            color: '#fff'
         },
         item: {
             width: '100%',
@@ -64,25 +64,28 @@ const useStyles = makeStyles(
             width: '100%',
             height: '100%',
             alignItems: 'center',
-            padding: spacing(1),
-            ...caption,
+            padding: spacing(2),
+            ...body2,
             fontWeight: 500,
             textTransform: 'none',
             '& .MuiSvgIcon-root': {
-                marginRight: spacing(1)
+                marginRight: spacing(3)
             }
         },
         popper: {
-            height: `calc(100% - ${spacing(1.5)}px)`,
+            height: '100%',
             width: spacing(40),
-            padding: spacing(0, 1)
+            transform: `translate3d(60px, 0px, 0px)!important`,
+            zIndex: 1
         },
         card: {
             width: '100%',
             height: '100%',
             boxShadow: `4px 4px 20px ${action.focus}`,
-            backgroundColor: background.default,
-            overflow: 'auto'
+            // backgroundColor: grey[200],
+            overflow: 'auto',
+            backgroundColor: grey[600],
+            color: 'white'
         },
         imgItem: {
             position: 'relative',
@@ -155,8 +158,8 @@ const DndEditorMenu: React.FC = () => {
     }
 
     return (
-        <>
-            <ClickAwayListener onClickAway={() => popupState.close()}>
+        <ClickAwayListener onClickAway={() => popupState.close()}>
+            <div className={classes.root}>
                 <Popper
                     transition
                     placement="right"
@@ -167,7 +170,7 @@ const DndEditorMenu: React.FC = () => {
                 >
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps}>
-                            <Card className={classes.card}>
+                            <Card square className={classes.card}>
                                 <CardContent>
                                     <ReactSortable
                                         animation={300}
@@ -176,6 +179,12 @@ const DndEditorMenu: React.FC = () => {
                                         sort={false}
                                         setList={() => undefined}
                                         className={classes.list}
+                                        setData={(dataTransfer, draggedElement) => {
+                                            const dragImage = document.createElement('img')
+                                            dragImage.src = draggedElement.dataset
+                                                .dragImage as string
+                                            dataTransfer.setDragImage(dragImage, -10, -10)
+                                        }}
                                     >
                                         {hoveredItems?.map((hvItem, i) => (
                                             <ButtonBase
@@ -187,6 +196,7 @@ const DndEditorMenu: React.FC = () => {
                                                     'dnd-item'
                                                 )}
                                                 onClick={handleAddItem(hvItem)}
+                                                data-drag-image={hvItem.image}
                                             >
                                                 <span className={classes.block}>
                                                     <span className={classes.heading}>
@@ -208,8 +218,6 @@ const DndEditorMenu: React.FC = () => {
                         </Fade>
                     )}
                 </Popper>
-            </ClickAwayListener>
-            <div className={classes.root}>
                 {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
                     .map((item: any, i) => (
@@ -232,7 +240,7 @@ const DndEditorMenu: React.FC = () => {
                         </ButtonBase>
                     ))}
             </div>
-        </>
+        </ClickAwayListener>
     )
 }
 

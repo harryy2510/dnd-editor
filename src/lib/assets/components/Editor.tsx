@@ -64,7 +64,7 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
                                   renderList(allTags, searchTerm)
                               } else {
                                   const matches = allTags.filter((tag) =>
-                                      tag.value.includes(searchTerm)
+                                      tag.value.toLowerCase().includes(searchTerm.toLowerCase())
                                   )
                                   renderList(matches, searchTerm)
                               }

@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { bindHover, bindPopper, usePopupState } from 'material-ui-popup-state/hooks'
 import React from 'react'
 import PubSub from '../PubSub'
-import { RenderProps } from '../types'
+import { DndBlockItem, RenderProps } from '../types'
 import { removeItem } from '../utils'
 
 interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
@@ -17,8 +17,8 @@ const useStyles = makeStyles(
         root: {
             position: 'relative',
             zIndex: 0,
-            margin: spacing(0, -8),
-            padding: spacing(0, 8)
+            margin: spacing(0, 0, 0, -6),
+            padding: spacing(0, 0, 0, 6)
         },
         active: {
             zIndex: 1,
@@ -44,7 +44,7 @@ const useStyles = makeStyles(
         },
         popper: {
             transform: 'none!important',
-            left: `${spacing(3)}px!important`
+            left: `${spacing(1)}px!important`
         }
     })
 )
@@ -95,6 +95,9 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             removeItem(renderProps, item?.id)
         }
         const isActive = active === item?.id
+        const parentItem = (item &&
+            state.entities[item.id] &&
+            itemsMap[state.entities[item.id].parent.id]) as DndBlockItem
         return (
             <ClickAwayListener onClickAway={() => popupState.close()}>
                 <div
@@ -103,6 +106,7 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
                     {...props}
                     onClick={handleClick}
                     className={clsx(classes.root, props.className, isActive && classes.active)}
+                    data-drag-image={parentItem?.image}
                 >
                     {children}
                     <Popper

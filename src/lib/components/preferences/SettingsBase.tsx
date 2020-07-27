@@ -16,10 +16,13 @@ import { updateItem } from '../../utils'
 import FormObserver from './components/FormObserver'
 import Field from './items/Field'
 
-const useStyles = makeStyles(({}: Theme) => ({
+const useStyles = makeStyles(({ palette: { text } }: Theme) => ({
     root: {
         borderLeftWidth: 0,
         borderRightWidth: 0,
+        '&.Mui-expanded': {
+            margin: 0
+        },
         '&:not(:last-child)': {
             borderBottomWidth: 0
         },
@@ -33,6 +36,12 @@ const useStyles = makeStyles(({}: Theme) => ({
     },
     form: {
         width: '100%'
+    },
+    summary: {
+        color: text.disabled,
+        '&.Mui-expanded': {
+            color: text.primary
+        }
     }
 }))
 
@@ -66,7 +75,6 @@ const SettingsBase: React.FC<Props> = ({
         <>
             {settings?.map((setting, i) => {
                 const isExpanded = expanded === setting.id || !canExpand
-                const color = isExpanded ? 'primary' : 'inherit'
                 return (
                     <Accordion
                         square
@@ -80,9 +88,10 @@ const SettingsBase: React.FC<Props> = ({
                         key={i}
                     >
                         <AccordionSummary
-                            expandIcon={canExpand && <ArrowDropDownOutlined color={color} />}
+                            className={classes.summary}
+                            expandIcon={canExpand && <ArrowDropDownOutlined color="inherit" />}
                         >
-                            <Typography color={color} variant="body2" className={classes.label}>
+                            <Typography color="inherit" variant="body2" className={classes.label}>
                                 {setting.label}
                             </Typography>
                         </AccordionSummary>

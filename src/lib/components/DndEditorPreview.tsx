@@ -5,6 +5,7 @@ import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
 import { renderItems, setList } from '../utils'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) => ({
     document: {
@@ -20,6 +21,11 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) => ({
             '& > *': {
                 opacity: 0
             }
+        }
+    },
+    active: {
+        '& > *': {
+            outline: `1px solid ${primary.main}`
         }
     }
 }))
@@ -39,12 +45,21 @@ const DndEditorPreview: React.FC = () => {
             setList={setList(renderProps)}
             className={classes.root}
             handle=".sortable-handle"
+            setData={(dataTransfer, draggedElement) => {
+                const dragImage = document.createElement('img')
+                dragImage.src = draggedElement.dataset.dragImage as string
+                dataTransfer.setDragImage(dragImage, -10, -10)
+            }}
         >
             {renderItems(renderProps.state.items, renderProps)}
         </ReactSortable>
     )
     return (
-        <Container className={classes.document} maxWidth="md" onClick={handleClick}>
+        <Container
+            className={clsx(classes.document, !renderProps.active && classes.active)}
+            maxWidth="md"
+            onClick={handleClick}
+        >
             <>{renderProps.template.render(renderProps, children)}</>
         </Container>
     )

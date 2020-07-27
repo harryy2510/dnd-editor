@@ -25,7 +25,7 @@ export default {
         }),
         __container: {
             style: {
-                textAlign: 'center'
+                // textAlign: 'center'
             }
         }
     },

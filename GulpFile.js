@@ -19,7 +19,7 @@ const envs = env.set({
 task(
     'release',
     shell.task(
-        `standard-version --no-verify && gulp build && npm publish ${tsconfig.compilerOptions.outDir} && (git push --follow-tags origin master || true)`
+        `standard-version --no-verify && gulp build && npm publish ${tsconfig.compilerOptions.outDir} --access public && (git push --follow-tags origin master || true)`
     )
 )
 

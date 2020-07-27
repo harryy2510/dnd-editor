@@ -60,7 +60,7 @@ const appointments: DndItem[] = [
                     <br />
                     <table width="100%">
                         <tr>
-                            <td>{Text.render(renderProps, 'text-6')}</td>
+                            <td>{Text.render(renderProps, 'text-5')}</td>
                             <td>{Text.render(renderProps, 'text-2')}</td>
                         </tr>
                         <tr>
@@ -150,6 +150,18 @@ const appointments: DndItem[] = [
                 label: <Trans>With</Trans>,
                 type: 'text',
                 settings: Text.settings
+            },
+            {
+                id: 'button-1',
+                label: <Trans>Button - Reschedule</Trans>,
+                type: 'button',
+                settings: Button.settings
+            },
+            {
+                id: 'button-2',
+                label: <Trans>Button - Cancel</Trans>,
+                type: 'button',
+                settings: Button.settings
             }
         ],
         initialValues: {

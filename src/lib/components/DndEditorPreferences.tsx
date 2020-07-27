@@ -10,9 +10,8 @@ import {
 } from '@material-ui/icons'
 import { groupBy } from 'lodash-es'
 import React from 'react'
-import { Theme, Grid, Tooltip } from '@material-ui/core'
+import { Theme, Tooltip, Tabs, Tab, Collapse } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { useDndEditorContext } from '../DndEditorProvider'
 import PubSub from '../PubSub'
 import { SettingItemType } from '../types'
@@ -23,52 +22,31 @@ import ImageSettings from './preferences/ImageSettings'
 import TextSettings from './preferences/TextSettings'
 import ButtonSettings from './preferences/ButtonSettings'
 
-const useStyles = makeStyles(
-    ({ spacing, palette: { divider, text, primary }, shape: { borderRadius } }: Theme) => ({
-        root: {
-            width: '100%',
-            height: '100%',
-            overflowX: 'visible',
-            overflowY: 'hidden'
-        },
-        actions: {
-            flex: `0 0 ${spacing(7)}px`,
-            width: spacing(7),
-            borderRight: `1px solid ${fade(divider, 0.08)}`,
-            padding: spacing(1, 0.75),
-            display: 'flex',
-            flexDirection: 'column'
-        },
-        content: {
-            flex: 1,
-            width: `calc(100% - ${spacing(7)}px)`,
-            height: '100%',
-            overflowY: 'auto',
-            overflowX: 'visible'
-        },
-        toggleButtonGroup: {
-            flexDirection: 'column'
-        },
-        toggleButton: {
-            padding: spacing(0.2, 0),
-            borderRadius: `${borderRadius * 2}px!important`,
-            border: 'none',
-            marginBottom: spacing(1),
-            '&:hover': {
-                color: text.primary
-            },
-            '&.Mui-selected, &.Mui-selected:hover': {
-                color: primary.main,
-                backgroundColor: fade(primary.main, 0.2)
-            }
-        },
-        toggleButtonIcon: {
-            padding: spacing(1),
-            width: spacing(5),
-            height: spacing(5)
-        }
-    })
-)
+const useStyles = makeStyles(({ spacing, palette: { divider, background } }: Theme) => ({
+    root: {
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden'
+    },
+    content: {
+        width: '100%',
+        height: `calc(100% - ${spacing(6)}px)`,
+        overflowX: 'visible',
+        overflowY: 'auto',
+        marginTop: -1,
+        zIndex: 0,
+        position: 'relative'
+    },
+    tabs: {
+        borderBottom: `1px solid ${fade(divider, 0.08)}`,
+        zIndex: 1,
+        position: 'relative',
+        backgroundColor: background.default
+    },
+    tab: {
+        minWidth: 0
+    }
+}))
 
 const tabs = [
     {
@@ -148,24 +126,29 @@ const DndEditorPreferences: React.FC = () => {
         return () => PubSub.unsubscribe(subId)
     }, [])
     return (
-        <Grid container className={classes.root}>
-            <Grid item className={classes.actions}>
-                <ToggleButtonGroup
-                    value={tab}
-                    exclusive
-                    onChange={(ev, newValue) => newValue && setTab(newValue)}
-                    className={classes.toggleButtonGroup}
-                >
-                    {filteredTabs.map((tb, i) => (
-                        <ToggleButton key={i} value={tb.id} className={classes.toggleButton}>
-                            <Tooltip placement="left" title={tb.label}>
-                                <tb.icon fontSize="small" className={classes.toggleButtonIcon} />
+        <div className={classes.root}>
+            <Tabs
+                selectionFollowsFocus
+                className={classes.tabs}
+                value={tab}
+                onChange={(ev, newValue) => newValue && setTab(newValue)}
+                indicatorColor="primary"
+                textColor="primary"
+            >
+                {filteredTabs.map((tb, i) => (
+                    <Tab
+                        className={classes.tab}
+                        key={i}
+                        value={tb.id}
+                        icon={
+                            <Tooltip title={tb.label}>
+                                <tb.icon />
                             </Tooltip>
-                        </ToggleButton>
-                    ))}
-                </ToggleButtonGroup>
-            </Grid>
-            <Grid item className={classes.content}>
+                        }
+                    />
+                ))}
+            </Tabs>
+            <div className={classes.content}>
                 {ActiveTab && (
                     <ActiveTab
                         showContainerTab={showContainerTab}
@@ -173,8 +156,8 @@ const DndEditorPreferences: React.FC = () => {
                         setExpanded={setExpanded}
                     />
                 )}
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     )
 }
 
