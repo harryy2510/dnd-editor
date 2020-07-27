@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/harryy2510/dnd-editor/compare/v0.1.11...v0.1.12) (2020-07-27)
+
+
+### Features
+
+* added condition button in preview ([f2a290a](https://github.com/harryy2510/dnd-editor/commit/f2a290a27cbb181aea26ed2ae1557ccbe6bbe6ce))
+
 ### [0.1.11](https://github.com/harryy2510/dnd-editor/compare/v0.1.10...v0.1.11) (2020-07-27)
 
 
