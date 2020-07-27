@@ -22,7 +22,7 @@ export interface DndEditorProps {
     onHtmlChange?: (html: string) => void
     items?: DndItem[]
     template?: DndTemplateItem
-    smartyTags?: string[]
+    smartyTags?: Record<string, string>
     sampleData?: any
 }
 

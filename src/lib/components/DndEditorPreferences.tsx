@@ -97,7 +97,7 @@ const DndEditorPreferences: React.FC = () => {
 
     const groupedSettings = Object.keys(groupBy(activeItem?.settings, 'type'))
     const showContainerTab = groupedSettings.length > 1
-    const showConditionTab = Boolean(smartyTags?.length)
+    const showConditionTab = Boolean(Object.keys(smartyTags ?? {})?.length)
 
     const availableSettings = React.useMemo(
         () => [

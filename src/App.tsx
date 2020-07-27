@@ -36,14 +36,20 @@ export const useLocalStorage = <T extends any = any>(
     return [value, setValue]
 }
 
-const smartyTags = [
-    '{{Customer.FirstName}}',
-    '{{Customer.LastName}}',
-    '{{Customer.Email}}',
-    '{{Appointment.ServiceName}}',
-    '{{Appointment.StaffName}}',
-    '{{Appointment.Time}}'
-]
+const smartyTags = {
+    'Customer.FirstName': 'Customer FirstName',
+    'Customer.LastName': 'Customer LastName',
+    'Customer.Email': 'Customer Email',
+    'Appointment.ServiceName': 'Appointment ServiceName',
+    'Appointment.StaffName': 'Appointment StaffName',
+    'Appointment.Time': 'Appointment Time',
+    'Customer.FirstName1': 'Customer FirstName',
+    'Customer.LastName1': 'Customer LastName',
+    'Customer.Email1': 'Customer Email',
+    'Appointment.ServiceName1': 'Appointment ServiceName',
+    'Appointment.StaffName1': 'Appointment StaffName',
+    'Appointment.Time1': 'Appointment Time'
+}
 
 const appointments: DndItem[] = [
     {

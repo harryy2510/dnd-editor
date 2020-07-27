@@ -8,7 +8,14 @@ import reactToCSS from 'react-style-object-to-css'
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
 import emailTemplate from './emailTemplate'
-import { DndItem, DndState, DndStateItemEntity, DndTemplateItem, RenderProps } from './types'
+import {
+    Condition,
+    DndItem,
+    DndState,
+    DndStateItemEntity,
+    DndTemplateItem,
+    RenderProps
+} from './types'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -131,18 +138,32 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
         )
     })
 
+const conditionBuilder = (condition: Condition | undefined) => {
+    const result = {
+        conditionStart: '',
+        conditionEnd: ''
+    }
+    if (condition?.display === 'DISPLAY') {
+        condition.rules.map((rule) => {})
+    }
+    return result
+}
+
 export const exportItems = (items: DndStateItemEntity[] = [], renderProps: RenderProps) =>
     items
         ?.map((item) => {
             const updatedRenderProps = { ...renderProps, item }
             const stateItem = renderProps.state.entities[item.id]
+            const { conditionStart, conditionEnd } = conditionBuilder(stateItem.values.__condition)
             return `
-                <div style="position: relative">
-                    ${Container.export(
-                        updatedRenderProps,
-                        renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-                    )}
-                </div>
+                ${conditionStart}
+                    <div style="position: relative">
+                        ${Container.export(
+                            updatedRenderProps,
+                            renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+                        )}
+                    </div>
+                ${conditionEnd}
             `
         })
         .join('\n')

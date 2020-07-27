@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { Grid } from '@material-ui/core'
 import { useFormikContext } from 'formik'
-import { keyBy } from 'lodash-es'
+import { keyBy, map } from 'lodash-es'
 import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 import { Condition, DndItemSetting } from '../../types'
@@ -29,8 +29,7 @@ const displayOptions: DropdownOption[] = [
 const operatorOptions: DropdownOption[] = [
     { id: 'EQUAL', label: <Trans>Equals</Trans> },
     { id: 'NOT_EQUAL', label: <Trans>Does not equals</Trans> },
-    { id: 'IN', label: <Trans>Contains</Trans> },
-    { id: 'NOT_IN', label: <Trans>Does not contains</Trans> }
+    { id: 'IN', label: <Trans>Contains</Trans> }
 ]
 
 const ConditionRule: React.FC = () => {
@@ -53,7 +52,7 @@ const ConditionRule: React.FC = () => {
                         <Field
                             name="rules.0.id"
                             Component={Dropdown}
-                            options={smartyTags}
+                            options={map(smartyTags, (label, id) => ({ id, label }))}
                             placeholder="Select Field"
                         />
                         <Field

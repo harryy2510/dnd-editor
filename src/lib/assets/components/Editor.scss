@@ -18,4 +18,20 @@
     .ql-formats {
         display: inline-flex;
     }
+
+    .ql-mention-list-item {
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        font-size: 12px;
+        padding: 0 8px;
+        vertical-align: middle;
+    }
+
+    .ql-mention-list-container {
+        min-width: 120px;
+        width: auto;
+        max-height: 240px;
+        overflow: auto;
+    }
 }

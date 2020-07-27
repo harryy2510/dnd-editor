@@ -1,8 +1,9 @@
 import { Button, Card, ClickAwayListener, List, ListItem, Popper, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { map } from 'lodash-es'
 import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
 import { nanoid } from 'nanoid'
-import Quill, { StringMap } from 'quill'
+import { StringMap } from 'quill'
 
 import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
@@ -45,12 +46,18 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
     const menuId = React.useRef(`menu-${nanoid()}`).current
 
     const { smartyTags } = useDndEditorContext()
+    const allTags = map(smartyTags, (id, key) => ({
+        id,
+        value: `{{${key}}}`
+    })) as Array<{
+        id: string
+        value: string
+    }>
 
     const _modules = React.useMemo(() => {
-        const allTags = smartyTags?.map((id) => ({ id, value: id })) ?? []
         return {
             ...modules,
-            ...(smartyTags
+            ...(allTags.length
                 ? {
                       mention: {
                           allowedChars: /^[A-Za-z.{}]*$/,
@@ -102,7 +109,7 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
     const handleChange = (newValue: string) => {
         textRef.current = newValue
     }
-    const handleTagInsert = (tag: string) => {
+    const handleTagInsert = (tag: typeof allTags[0]) => {
         menuState.close()
         const quillRef = editorRef.current?.getEditor()
         if (quillRef) {
@@ -111,9 +118,9 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
                 : quillRef.getLength() - 1
             const render = {
                 denotationChar: '',
-                id: tag,
+                id: tag.id,
                 index: '0',
-                value: tag
+                value: tag.value
             }
             quillRef.insertEmbed(cursorPosition, 'mention', render, 'user')
             quillRef.insertText(cursorPosition + 1, ' ', 'user')
@@ -137,13 +144,13 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
                         >
                             <Card variant="outlined">
                                 <List dense>
-                                    {smartyTags.map((tag, i) => (
+                                    {allTags.map((tag, i) => (
                                         <ListItem
                                             button
                                             key={i}
                                             onClick={() => handleTagInsert(tag)}
                                         >
-                                            {tag}
+                                            {tag.id}
                                         </ListItem>
                                     ))}
                                 </List>

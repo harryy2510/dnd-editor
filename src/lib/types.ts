@@ -29,7 +29,7 @@ export type SettingComponentType =
     | 'verticalAlign'
     | 'width'
 
-export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN' | 'NOT_IN'
+export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
 export type ConditionDisplay = 'ALWAYS' | 'DISPLAY'
 export type ConditionRule = {
@@ -134,7 +134,7 @@ export interface DndEditorContextProps {
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
 
-    smartyTags?: string[]
+    smartyTags?: Record<string, string>
     sampleData?: any
 }
 
