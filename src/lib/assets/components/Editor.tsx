@@ -30,12 +30,12 @@ interface Props {
     onChange?: (text: string) => void
 }
 
-const useStyles = makeStyles(({}: Theme) => ({
+const useStyles = makeStyles(({ zIndex }: Theme) => ({
     button: {
         minWidth: 0
     },
     popper: {
-        zIndex: 2
+        zIndex: zIndex.tooltip
     }
 }))
 

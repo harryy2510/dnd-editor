@@ -24,7 +24,8 @@ const useStyles = makeStyles(
         typography: { caption, fontWeightBold, body2 },
         palette: { text, action, background, primary, grey },
         shape: { borderRadius },
-        transitions
+        transitions,
+        zIndex
     }: Theme) => ({
         root: {
             padding: spacing(4, 0),
@@ -76,7 +77,7 @@ const useStyles = makeStyles(
             height: '100%',
             width: spacing(40),
             transform: `translate3d(60px, 0px, 0px)!important`,
-            zIndex: 1
+            zIndex: zIndex.tooltip
         },
         card: {
             width: '100%',

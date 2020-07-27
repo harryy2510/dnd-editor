@@ -13,7 +13,7 @@ import { removeItem } from '../utils'
 interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
 
 const useStyles = makeStyles(
-    ({ palette: { primary, text }, spacing, shape: { borderRadius } }: Theme) => ({
+    ({ palette: { primary, text }, spacing, shape: { borderRadius }, zIndex }: Theme) => ({
         root: {
             position: 'relative',
             zIndex: 0,
@@ -45,7 +45,7 @@ const useStyles = makeStyles(
         popper: {
             transform: 'none!important',
             left: `${spacing(1)}px!important`,
-            zIndex: 1
+            zIndex: zIndex.tooltip
         }
     })
 )
