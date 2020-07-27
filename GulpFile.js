@@ -36,8 +36,7 @@ task('copy:package', () => {
         '@lingui',
         'lodash',
         'formik',
-        'react',
-        'react-dom',
+
         '@loadable',
         'clsx',
         'yup',
@@ -46,11 +45,12 @@ task('copy:package', () => {
         'react-color',
         'use-debounce'
     ]
+    const exactDeps = ['react', 'react-dom']
     return src('./package.json')
         .pipe(
             jeditor((json) => {
-                const packages = Object.keys(json.dependencies || {}).filter((k) =>
-                    deps.some((d) => k.startsWith(d))
+                const packages = Object.keys(json.dependencies || {}).filter(
+                    (k) => deps.some((d) => k.startsWith(d)) || exactDeps.some((d) => d === k)
                 )
                 if (packages.length) {
                     json.peerDependencies = json.peerDependencies || {}
