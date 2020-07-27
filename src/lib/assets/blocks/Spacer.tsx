@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro'
 import { merge } from 'lodash-es'
 import React from 'react'
-import { DndBlockItem } from '../../../types'
-import Divider from '../../components/Divider'
+import { DndBlockItem } from '../../types'
+import Divider from '../components/Divider'
 
 export default {
     id: 'spacer',

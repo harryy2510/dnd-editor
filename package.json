@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "react-app-rewired start",
-        "build": "gulp build",
+        "build": "react-app-rewired build",
         "release": "gulp release",
         "commit": "commit"
     },

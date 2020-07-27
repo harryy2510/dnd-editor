@@ -1,8 +1,0 @@
-export { default as FullWidthImage } from './FullWidthImage'
-export { default as HalfWidthImage } from './HalfWidthImage'
-export { default as ImageWithText } from './ImageWithText'
-export { default as ImageLeftTextRight } from './ImageLeftTextRight'
-export { default as ImageRightTextLeft } from './ImageRightTextLeft'
-export { default as TwoImages } from './TwoImages'
-export { default as ThreeImages } from './ThreeImages'
-export { default as FourImages } from './FourImages'

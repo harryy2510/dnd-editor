@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { merge } from 'lodash-es'
 import React from 'react'
-import { DndBlockItem } from '../../../types'
-import Button from '../../components/Button'
+import { DndBlockItem } from '../../types'
+import Button from '../components/Button'
 
 export default {
     id: 'button',
