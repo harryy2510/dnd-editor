@@ -10,7 +10,7 @@ import {
 } from '@material-ui/icons'
 import { groupBy } from 'lodash-es'
 import React from 'react'
-import { Theme, Tooltip, Tabs, Tab, Collapse } from '@material-ui/core'
+import { Theme, Tooltip, Tabs, Tab } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useDndEditorContext } from '../DndEditorProvider'
 import PubSub from '../PubSub'
@@ -118,10 +118,23 @@ const DndEditorPreferences: React.FC = () => {
     }, [active, tab])
     React.useEffect(() => {
         const subId = PubSub.subscribe('component/click', (data) => {
-            setTab((data?.type as SettingItemType) ?? 'template')
-            setExpanded(
-                (data?.data === '__container' && !showContainerTab ? expanded : data?.data) ?? ''
-            )
+            switch (data?.type) {
+                case 'container':
+                    if (showContainerTab) {
+                        setTab('container')
+                        setExpanded('__container')
+                    }
+                    break
+                case 'condition':
+                    if (showConditionTab) {
+                        setTab('condition')
+                        setExpanded('__condition')
+                    }
+                    break
+                default:
+                    setTab((data?.type as SettingItemType) ?? 'template')
+                    setExpanded(data?.data ?? '')
+            }
         })
         return () => PubSub.unsubscribe(subId)
     }, [])

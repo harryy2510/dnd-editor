@@ -3,7 +3,7 @@ import React from 'react'
 
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
-export type SettingItemType = 'text' | 'image' | 'button' | 'container' | 'template'
+export type SettingItemType = 'text' | 'image' | 'button' | 'condition' | 'container' | 'template'
 
 export type SettingComponentType =
     | 'align'

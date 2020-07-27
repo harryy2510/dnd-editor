@@ -14,6 +14,7 @@ import {
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
+    Primitive,
     RenderProps
 } from './types'
 
@@ -138,13 +139,36 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
         )
     })
 
-const conditionBuilder = (condition: Condition | undefined) => {
+export const conditionBuilder = (condition: Condition | undefined) => {
     const result = {
         conditionStart: '',
-        conditionEnd: ''
+        conditionEnd: '',
+        conditionText: ''
     }
     if (condition?.display === 'DISPLAY') {
-        condition.rules.map((rule) => {})
+        const rules = condition.rules
+            .filter((rule) => rule.id)
+            .map((rule) => {
+                const result: Primitive[] = [rule.id]
+                switch (rule.operator) {
+                    case 'NOT_EQUAL':
+                        result.push('!=')
+                        break
+                    case 'IN':
+                        result.push('contains')
+                        break
+                    default:
+                        result.push('==')
+                }
+                const value = rule.value ?? ''
+                result.push(`"${value}"`)
+                return result.join(' ')
+            })
+        if (rules.length) {
+            result.conditionText = `${rules.join(' and ')}`
+            result.conditionStart = `{% if ${result.conditionText} %}`
+            result.conditionEnd = '{% endif %}'
+        }
     }
     return result
 }
