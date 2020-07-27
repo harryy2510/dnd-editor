@@ -13,19 +13,20 @@ import DndEditorPreferences from './components/DndEditorPreferences'
 import DndEditorPreview from './components/DndEditorPreview'
 import DndPreview from './components/DndPreview'
 import DndEditorProvider from './DndEditorProvider'
-import { DndItem, DndState, DndTemplateItem } from './types'
-import { createDndState, useDeepCompare, useFonts } from './utils'
+import { DndEditorContextProps, DndItem, DndState, DndTemplateItem } from './types'
+import { createDndState, exportToHtml, useDeepCompare, useFonts } from './utils'
 
 export interface DndEditorProps {
     value?: Partial<DndState>
     onChange?: (newValue: DndState) => void
+    onHtmlChange?: (html: string) => void
     items?: DndItem[]
     template?: DndTemplateItem
     smartyTags?: string[]
     sampleData?: any
 }
 
-const useStyles = makeStyles(({ palette: { background, divider, action }, spacing }: Theme) => ({
+const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
     root: {
         width: '100%',
         height: '100%',
@@ -66,7 +67,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
     items = [],
     template = Templates.Mail,
     smartyTags,
-    sampleData
+    sampleData,
+    onHtmlChange
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -100,9 +102,24 @@ const DndEditor: React.FC<DndEditorProps> = ({
     const [state, setState] = React.useState<DndState>(createDndState(value, template))
     const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
 
+    const editorContextProps: DndEditorContextProps = {
+        active,
+        onActiveChange: setActive,
+        template,
+        itemsMap,
+        setState,
+        state,
+        items,
+        smartyTags,
+        sampleData
+    }
+
     React.useEffect(() => {
         if (onChange) {
             onChange(state)
+        }
+        if (onHtmlChange) {
+            onHtmlChange?.(exportToHtml(editorContextProps))
         }
     }, [state])
 
@@ -125,21 +142,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
         ),
         [classes]
     )
-    return (
-        <DndEditorProvider
-            active={active}
-            onActiveChange={setActive}
-            template={template}
-            itemsMap={itemsMap}
-            setState={setState}
-            state={state}
-            items={items}
-            smartyTags={smartyTags}
-            sampleData={sampleData}
-        >
-            {children}
-        </DndEditorProvider>
-    )
+    return <DndEditorProvider {...editorContextProps}>{children}</DndEditorProvider>
 }
 
 DndEditor.defaultProps = {
