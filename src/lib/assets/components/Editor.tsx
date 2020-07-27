@@ -32,8 +32,6 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 // @ts-ignore
 import Table from '@ckeditor/ckeditor5-table/src/table'
 // @ts-ignore
-import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
-// @ts-ignore
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation'
 // @ts-ignore
 import Mention from '@ckeditor/ckeditor5-mention/src/mention'
@@ -89,7 +87,6 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
                 CkList,
                 Paragraph,
                 Table,
-                TableToolbar,
                 TextTransformation
             ],
             ...(allTags.length
