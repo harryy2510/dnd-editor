@@ -44,7 +44,8 @@ const useStyles = makeStyles(({ spacing, palette: { divider, background } }: The
         backgroundColor: background.default
     },
     tab: {
-        minWidth: 0
+        minWidth: 0,
+        margin: 0
     }
 }))
 
