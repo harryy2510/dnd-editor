@@ -44,7 +44,8 @@ const useStyles = makeStyles(
         },
         popper: {
             transform: 'none!important',
-            left: `${spacing(1)}px!important`
+            left: `${spacing(1)}px!important`,
+            zIndex: 1
         }
     })
 )
