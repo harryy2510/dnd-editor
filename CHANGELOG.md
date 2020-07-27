@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/harryy2510/dnd-editor/compare/v0.1.8...v0.1.9) (2020-07-27)
+
+
+### Bug Fixes
+
+* popper ux ([f09917a](https://github.com/harryy2510/dnd-editor/commit/f09917afbb2489e2788e685613b3ef73c83f4b48))
+
 ### [0.1.8](https://github.com/harryy2510/dnd-editor/compare/v0.1.7...v0.1.8) (2020-07-27)
 
 
