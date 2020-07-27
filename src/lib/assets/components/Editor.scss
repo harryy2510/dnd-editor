@@ -5,6 +5,10 @@
     padding: 0 !important;
     overflow: hidden;
 
+    > * {
+        line-height: 1.43;
+    }
+
     > p {
         margin: 0;
     }

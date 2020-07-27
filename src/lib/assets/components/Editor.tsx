@@ -10,31 +10,7 @@ import './Editor.scss'
 // @ts-ignore
 import CKEditor from '@ckeditor/ckeditor5-react'
 // @ts-ignore
-import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor'
-// @ts-ignore
-import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials'
-// @ts-ignore
-import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat'
-// @ts-ignore
-import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold'
-// @ts-ignore
-import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic'
-// @ts-ignore
-import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline'
-// @ts-ignore
-import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough'
-// @ts-ignore
-import Link from '@ckeditor/ckeditor5-link/src/link'
-// @ts-ignore
-import CkList from '@ckeditor/ckeditor5-list/src/list'
-// @ts-ignore
-import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
-// @ts-ignore
-import Table from '@ckeditor/ckeditor5-table/src/table'
-// @ts-ignore
-import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation'
-// @ts-ignore
-import Mention from '@ckeditor/ckeditor5-mention/src/mention'
+import BalloonEditor from '@saastack/ckeditor5-build-balloon'
 
 interface Props {
     value?: string
@@ -61,35 +37,8 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
     const allTags = map(smartyTags, (value, key) => `{{${key}}}`)
 
     const editorConfiguration = React.useMemo(
-        () => ({
-            toolbar: {
-                shouldNotGroupWhenFull: true,
-                items: [
-                    'bold',
-                    'italic',
-                    'underline',
-                    'strikethrough',
-                    'link',
-                    'bulletedList',
-                    'numberedList',
-                    'insertTable'
-                ]
-            },
-            plugins: [
-                Mention,
-                Essentials,
-                Autoformat,
-                Underline,
-                Strikethrough,
-                Bold,
-                Italic,
-                Link,
-                CkList,
-                Paragraph,
-                Table,
-                TextTransformation
-            ],
-            ...(allTags.length
+        () =>
+            allTags.length
                 ? {
                       mention: {
                           feeds: [
@@ -101,8 +50,7 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
                           ]
                       }
                   }
-                : {})
-        }),
+                : {},
         [smartyTags]
     )
 

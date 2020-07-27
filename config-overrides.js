@@ -3,8 +3,7 @@ const {
     addWebpackPlugin,
     addBabelPlugin,
     addBabelPlugins,
-    disableEsLint,
-    addWebpackModuleRule
+    disableEsLint
 } = require('customize-cra')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
@@ -15,8 +14,6 @@ const paths = require(`${scriptVersion}/config/paths`)
 const babelConfig = require('./babel.config')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
-const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 
 module.exports = override(
     // Custom config override
@@ -44,31 +41,5 @@ module.exports = override(
     isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
 
     // Adding progressbar plugin
-    isDevelopment && addWebpackPlugin(new SimpleProgressWebpackPlugin({ format: 'compact' })),
-
-    // ckeditor 5 config
-    addWebpackModuleRule({
-        test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
-        use: ['raw-loader']
-    }),
-    addWebpackModuleRule({
-        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css/,
-        use: [
-            {
-                loader: 'style-loader',
-                options: {
-                    singleton: true
-                }
-            },
-            {
-                loader: 'postcss-loader',
-                options: styles.getPostCssConfig({
-                    themeImporter: {
-                        themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
-                    },
-                    minify: true
-                })
-            }
-        ]
-    })
+    isDevelopment && addWebpackPlugin(new SimpleProgressWebpackPlugin({ format: 'compact' }))
 )
