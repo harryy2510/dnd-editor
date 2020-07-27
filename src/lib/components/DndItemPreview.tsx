@@ -1,13 +1,5 @@
 import { Trans } from '@lingui/macro'
-import {
-    ButtonBase,
-    Card,
-    ClickAwayListener,
-    IconButton,
-    Popper,
-    Theme,
-    Tooltip
-} from '@material-ui/core'
+import { ButtonBase, Card, ClickAwayListener, Popper, Theme, Tooltip } from '@material-ui/core'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import {
     DeleteOutlined,

@@ -1,37 +1,11 @@
-.ql-container.ql-bubble {
-    font-size: inherit;
-    font-family: inherit;
-    padding: 0;
-    height: auto;
+.ck.ck-content.ck-editor__editable_inline {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    overflow: hidden;
 
-    .ql-editor {
-        line-height: inherit;
-        overflow-y: inherit;
-        padding: 0;
-        text-align: inherit;
-    }
-
-    .ql-tooltip {
-        z-index: 1;
-    }
-
-    .ql-formats {
-        display: inline-flex;
-    }
-
-    .ql-mention-list-item {
-        cursor: pointer;
-        height: 32px;
-        line-height: 32px;
-        font-size: 12px;
-        padding: 0 8px;
-        vertical-align: middle;
-    }
-
-    .ql-mention-list-container {
-        min-width: 120px;
-        width: auto;
-        max-height: 240px;
-        overflow: auto;
+    > p {
+        margin: 0;
     }
 }

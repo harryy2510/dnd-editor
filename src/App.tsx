@@ -295,18 +295,20 @@ const customBlockItems: DndBlockItem[] = [
             'text-1': {
                 label: `
                     <p style="margin-bottom: 16px">Appointment confirmation for {{Customer.FirstName}} {{Customer.LastName}}</p>
-                    <div style="margin-bottom: 4px; display: flex;">
-                        <div style="width: 120px">What</div>
-                        <div>{{Appointment.ServiceName}}</div>
-                    </div>
-                    <div style="margin-bottom: 4px; display: flex;">
-                        <div style="width: 120px">When</div>
-                        <div><span class="mention" data-index="0" data-denotation-char="" data-id="{{Appointment.Time}}" data-value="{{Appointment.Time}}">﻿<span contenteditable="false"><span class="ql-mention-denotation-char"></span>{{Appointment.Time}}</span>﻿</span></div>
-                    </div>
-                    <div style="margin-bottom: 4px; display: flex;">
-                        <div style="width: 120px">With</div>
-                        <div>{{Appointment.StaffName}}</div>
-                    </div>
+                    <table>
+                        <tr>
+                            <td>What</td>
+                            <td>{{Appointment.ServiceName}}</td>
+                        </tr>
+                        <tr>
+                            <td>When</td>
+                            <td><span class="mention" data-index="0" data-denotation-char="" data-id="{{Appointment.Time}}" data-value="{{Appointment.Time}}">﻿<span contenteditable="false"><span class="ql-mention-denotation-char"></span>{{Appointment.Time}}</span>﻿</span></td>
+                        </tr>
+                        <tr>
+                            <td>With</td>
+                            <td>{{Appointment.StaffName}}</td>
+                        </tr>
+                    </table>
                 `,
                 style: Text.initialValues?.style
             },

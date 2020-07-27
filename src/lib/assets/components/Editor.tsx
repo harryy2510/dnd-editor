@@ -3,30 +3,42 @@ import { makeStyles } from '@material-ui/styles'
 import { map } from 'lodash-es'
 import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
 import { nanoid } from 'nanoid'
-import { StringMap } from 'quill'
-
-import 'quill-mention'
-import 'quill-mention/dist/quill.mention.css'
 import React from 'react'
-import ReactQuill, { Range } from 'react-quill'
-import 'react-quill/dist/quill.bubble.css'
-import './Editor.scss'
 import { useDndEditorContext } from '../../DndEditorProvider'
-const defaultModules: StringMap = {
-    toolbar: [
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        { list: 'ordered' },
-        { list: 'bullet' },
-        'link',
-        'clean'
-    ]
-}
+
+import './Editor.scss'
+// @ts-ignore
+import CKEditor from '@ckeditor/ckeditor5-react'
+// @ts-ignore
+import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor'
+// @ts-ignore
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials'
+// @ts-ignore
+import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat'
+// @ts-ignore
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold'
+// @ts-ignore
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic'
+// @ts-ignore
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline'
+// @ts-ignore
+import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough'
+// @ts-ignore
+import Link from '@ckeditor/ckeditor5-link/src/link'
+// @ts-ignore
+import CkList from '@ckeditor/ckeditor5-list/src/list'
+// @ts-ignore
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+// @ts-ignore
+import Table from '@ckeditor/ckeditor5-table/src/table'
+// @ts-ignore
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+// @ts-ignore
+import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation'
+// @ts-ignore
+import Mention from '@ckeditor/ckeditor5-mention/src/mention'
 
 interface Props {
-    modules?: StringMap
     value?: string
     onChange?: (text: string) => void
 }
@@ -36,55 +48,69 @@ const useStyles = makeStyles(({ zIndex }: Theme) => ({
         minWidth: 0
     },
     popper: {
-        zIndex: zIndex.tooltip
+        zIndex: zIndex.tooltip,
+        maxHeight: 320,
+        overflow: 'auto'
     }
 }))
 
-const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) => {
+const Editor: React.FC<Props> = ({ value, onChange }) => {
     const classes = useStyles()
     const popupId = React.useRef(`popup-${nanoid()}`).current
     const menuId = React.useRef(`menu-${nanoid()}`).current
 
     const { smartyTags } = useDndEditorContext()
-    const allTags = map(smartyTags, (id, key) => ({
-        id,
-        value: `{{${key}}}`
-    })) as Array<{
-        id: string
-        value: string
-    }>
+    const allTags = map(smartyTags, (value, key) => `{{${key}}}`)
 
-    const _modules = React.useMemo(() => {
-        return {
-            ...modules,
+    const editorConfiguration = React.useMemo(
+        () => ({
+            toolbar: {
+                shouldNotGroupWhenFull: true,
+                items: [
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strikethrough',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'insertTable'
+                ]
+            },
+            plugins: [
+                Mention,
+                Essentials,
+                Autoformat,
+                Underline,
+                Strikethrough,
+                Bold,
+                Italic,
+                Link,
+                CkList,
+                Paragraph,
+                Table,
+                TableToolbar,
+                TextTransformation
+            ],
             ...(allTags.length
                 ? {
                       mention: {
-                          allowedChars: /^[A-Za-z.{}]*$/,
-                          mentionDenotationChars: ['{{'],
-                          showDenotationChar: false,
-                          source: (
-                              searchTerm: string,
-                              renderList: (list: typeof allTags, searchTerm: string) => void
-                          ) => {
-                              if (!searchTerm) {
-                                  renderList(allTags, searchTerm)
-                              } else {
-                                  const matches = allTags.filter((tag) =>
-                                      tag.value.toLowerCase().includes(searchTerm.toLowerCase())
-                                  )
-                                  renderList(matches, searchTerm)
+                          feeds: [
+                              {
+                                  marker: '{',
+                                  feed: allTags,
+                                  minimumCharacters: 0
                               }
-                          }
+                          ]
                       }
                   }
                 : {})
-        }
-    }, [smartyTags])
+        }),
+        [smartyTags]
+    )
 
     const containerRef = React.useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>
-    const editorRef = React.useRef<ReactQuill>() as React.RefObject<ReactQuill>
-    const cursorRef = React.useRef<Range>(null)
+    const editorRef = React.useRef<any>()
     const textRef = React.useRef(value ?? '')
 
     const popupState = usePopupState({
@@ -101,31 +127,21 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
             onChange?.(textRef.current)
         }
     }, [textRef.current])
-    const handleSelectionChange = (selection: Range) => {
-        if (selection) {
-            cursorRef.current = selection
-        }
-    }
-    const handleChange = (newValue: string) => {
-        textRef.current = newValue
-    }
-    const handleTagInsert = (tag: typeof allTags[0]) => {
+    const handleTagInsert = (tag: string) => {
         menuState.close()
-        const quillRef = editorRef.current?.getEditor()
-        if (quillRef) {
-            const cursorPosition = cursorRef.current
-                ? cursorRef.current.index
-                : quillRef.getLength() - 1
-            const render = {
-                denotationChar: '',
-                id: tag.id,
-                index: '0',
-                value: tag.value
-            }
-            quillRef.insertEmbed(cursorPosition, 'mention', render, 'user')
-            quillRef.insertText(cursorPosition + 1, ' ', 'user')
-            quillRef.setSelection(cursorPosition + 2, 0, 'user')
-        }
+        const model = editorRef.current?.editor.model
+        const range = model.document.selection.getLastRange()
+        model.change((writer: any) => {
+            const attributesMap = new Map()
+            attributesMap.set('mention', {
+                id: tag,
+                text: tag,
+                uid: nanoid(5),
+                _text: tag
+            })
+            model.insertContent(writer.createText(tag, attributesMap), range)
+            model.insertContent(writer.createText(' '), range.start.getShiftedBy(tag.length))
+        })
     }
     return (
         <ClickAwayListener
@@ -150,7 +166,7 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
                                             key={i}
                                             onClick={() => handleTagInsert(tag)}
                                         >
-                                            {tag.id}
+                                            {tag}
                                         </ListItem>
                                     ))}
                                 </List>
@@ -175,17 +191,18 @@ const Editor: React.FC<Props> = ({ value, onChange, modules = defaultModules }) 
                     </>
                 )}
 
-                <ReactQuill
+                <CKEditor
                     ref={editorRef}
-                    onChangeSelection={handleSelectionChange}
-                    modules={_modules}
-                    theme="bubble"
-                    defaultValue={textRef.current}
-                    onChange={handleChange}
+                    editor={BalloonEditor}
+                    config={editorConfiguration}
+                    data={textRef.current}
+                    onChange={(event: any, editor: any) => {
+                        textRef.current = editor.getData()
+                    }}
                 />
             </div>
         </ClickAwayListener>
     )
 }
 
-export default React.memo(Editor)
+export default Editor

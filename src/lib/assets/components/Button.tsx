@@ -2,7 +2,7 @@ import React from 'react'
 import PubSub from '../../PubSub'
 import { DndComponentItem, RenderProps } from '../../types'
 import { styleToCss, updateItem } from '../../utils'
-import Editor from './Editor'
+import SimpleInput from './SimpleInput'
 
 export default {
     render: (renderProps: RenderProps, id: string) => {
@@ -24,13 +24,7 @@ export default {
                 style={state.style}
                 {...props}
             >
-                <Editor
-                    modules={{
-                        toolbar: ['bold', 'italic', 'underline', 'strike', 'clean']
-                    }}
-                    value={state.label}
-                    onChange={handleChange}
-                />
+                <SimpleInput value={state.label} onChange={handleChange} />
             </a>
         )
     },

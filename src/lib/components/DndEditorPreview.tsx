@@ -33,6 +33,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) => ({
 const DndEditorPreview: React.FC = () => {
     const classes = useStyles()
     const renderProps = useDndEditorContext()
+
     const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
         ev.stopPropagation()
         renderProps.onActiveChange(null)
