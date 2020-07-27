@@ -11,14 +11,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const { paths: rewiredPaths } = require('react-app-rewired')
 const { scriptVersion } = rewiredPaths
 const paths = require(`${scriptVersion}/config/paths`)
-
-const libs = [
-    'lodash-es',
-    '@material-ui/core',
-    '@material-ui/styles',
-    '@material-ui/icons',
-    '@material-ui/lab'
-]
+const babelConfig = require('./babel.config')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -39,13 +32,7 @@ module.exports = override(
     },
 
     // Babel import optimize
-    addBabelPlugins(
-        ...libs.map((l) => [
-            'import',
-            { libraryName: l, libraryDirectory: '', camel2DashComponentName: false },
-            l
-        ])
-    ),
+    addBabelPlugins(...babelConfig.plugins),
 
     // Disable EsLint
     disableEsLint(),

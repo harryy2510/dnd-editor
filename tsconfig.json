@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "build/lib",
     "target": "es5",
     "lib": [
       "dom",
@@ -17,9 +18,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "declaration": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "include": [
-    "src"
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
