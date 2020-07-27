@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/harryy2510/dnd-editor/compare/v0.1.6...v0.1.7) (2020-07-27)
+
+
+### Bug Fixes
+
+* added appointment template ([63a7ce0](https://github.com/harryy2510/dnd-editor/commit/63a7ce0cbbfd9ea2d767babb531cba09473e40ba))
+
 ### [0.1.6](https://github.com/harryy2510/dnd-editor/compare/v0.1.5...v0.1.6) (2020-07-27)
 
 ### [0.1.5](https://github.com/harryy2510/dnd-editor/compare/v0.1.4...v0.1.5) (2020-07-27)
