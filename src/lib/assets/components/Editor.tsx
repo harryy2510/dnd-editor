@@ -6,11 +6,7 @@ import { nanoid } from 'nanoid'
 import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 
-import './Editor.scss'
-// @ts-ignore
-import CKEditor from '@ckeditor/ckeditor5-react'
-// @ts-ignore
-import BalloonEditor from '@saastack/ckeditor5-build-balloon'
+import { WysiwygEditor } from '@harryy/wysiwyg-editor'
 
 interface Props {
     value?: string
@@ -18,135 +14,141 @@ interface Props {
 }
 
 const useStyles = makeStyles(({ zIndex }: Theme) => ({
-    button: {
-        minWidth: 0
-    },
-    popper: {
-        zIndex: zIndex.tooltip,
-        maxHeight: 320,
-        overflow: 'auto'
-    }
+    // button: {
+    //     minWidth: 0
+    // },
+    // popper: {
+    //     zIndex: zIndex.tooltip,
+    //     maxHeight: 320,
+    //     overflow: 'auto'
+    // }
 }))
 
 const Editor: React.FC<Props> = ({ value, onChange }) => {
     const classes = useStyles()
-    const popupId = React.useRef(`popup-${nanoid()}`).current
-    const menuId = React.useRef(`menu-${nanoid()}`).current
+    // const popupId = React.useRef(`popup-${nanoid()}`).current
+    // const menuId = React.useRef(`menu-${nanoid()}`).current
 
     const { smartyTags } = useDndEditorContext()
-    const allTags = map(smartyTags, (value, key) => `{{${key}}}`)
+    const suggestions = React.useRef(Object.keys(smartyTags ?? {})).current
+    // const allTags = map(smartyTags, (value, key) => `{{${key}}}`)
+    //
+    // const editorConfiguration = React.useMemo(
+    //     () =>
+    //         allTags.length
+    //             ? {
+    //                   mention: {
+    //                       feeds: [
+    //                           {
+    //                               marker: '{',
+    //                               feed: allTags,
+    //                               minimumCharacters: 0
+    //                           }
+    //                       ]
+    //                   }
+    //               }
+    //             : {},
+    //     [smartyTags]
+    // )
 
-    const editorConfiguration = React.useMemo(
-        () =>
-            allTags.length
-                ? {
-                      mention: {
-                          feeds: [
-                              {
-                                  marker: '{',
-                                  feed: allTags,
-                                  minimumCharacters: 0
-                              }
-                          ]
-                      }
-                  }
-                : {},
-        [smartyTags]
-    )
-
-    const containerRef = React.useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>
-    const editorRef = React.useRef<any>()
+    // const containerRef = React.useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>
+    // const editorRef = React.useRef<any>()
     const textRef = React.useRef(value ?? '')
 
-    const popupState = usePopupState({
-        popupId,
-        variant: 'popper'
-    })
-    const menuState = usePopupState({
-        popupId: menuId,
-        variant: 'popper'
-    })
+    // const popupState = usePopupState({
+    //     popupId,
+    //     variant: 'popper'
+    // })
+    // const menuState = usePopupState({
+    //     popupId: menuId,
+    //     variant: 'popper'
+    // })
 
     React.useEffect(() => {
         if (value !== textRef.current) {
             onChange?.(textRef.current)
         }
     }, [textRef.current])
-    const handleTagInsert = (tag: string) => {
-        menuState.close()
-        const model = editorRef.current?.editor.model
-        const range = model.document.selection.getLastRange()
-        model.change((writer: any) => {
-            const attributesMap = new Map()
-            attributesMap.set('mention', {
-                id: tag,
-                text: tag,
-                uid: nanoid(5),
-                _text: tag
-            })
-            model.insertContent(writer.createText(tag, attributesMap), range)
-            model.insertContent(writer.createText(' '), range.start.getShiftedBy(tag.length))
-        })
-    }
+    // const handleTagInsert = (tag: string) => {
+    //     menuState.close()
+    //     const model = editorRef.current?.editor.model
+    //     const range = model.document.selection.getLastRange()
+    //     model.change((writer: any) => {
+    //         const attributesMap = new Map()
+    //         attributesMap.set('mention', {
+    //             id: tag,
+    //             text: tag,
+    //             uid: nanoid(5),
+    //             _text: tag
+    //         })
+    //         model.insertContent(writer.createText(tag, attributesMap), range)
+    //         model.insertContent(writer.createText(' '), range.start.getShiftedBy(tag.length))
+    //     })
+    // }
     return (
-        <ClickAwayListener
-            onClickAway={() => {
-                popupState.close()
-                menuState.close()
-            }}
-        >
-            <div {...bindHover(popupState)} ref={containerRef}>
-                {smartyTags && (
-                    <>
-                        <Popper
-                            {...bindPopper(menuState)}
-                            className={classes.popper}
-                            placement="right-start"
-                        >
-                            <Card variant="outlined">
-                                <List dense>
-                                    {allTags.map((tag, i) => (
-                                        <ListItem
-                                            button
-                                            key={i}
-                                            onClick={() => handleTagInsert(tag)}
-                                        >
-                                            {tag}
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </Card>
-                        </Popper>
-                        <Popper
-                            {...bindPopper(popupState)}
-                            placement="right-start"
-                            open={!menuState.isOpen && popupState.isOpen}
-                            className={classes.popper}
-                        >
-                            <Card variant="outlined">
-                                <Button
-                                    className={classes.button}
-                                    {...bindTrigger(menuState)}
-                                    onClick={() => menuState.open(containerRef.current)}
-                                >
-                                    {'{{'}&middot;&middot;{'}}'}
-                                </Button>
-                            </Card>
-                        </Popper>
-                    </>
-                )}
+        <>
+            {/*<ClickAwayListener*/}
+            {/*    onClickAway={() => {*/}
+            {/*        popupState.close()*/}
+            {/*        menuState.close()*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    <div {...bindHover(popupState)} ref={containerRef}>*/}
+            {/*{smartyTags && (*/}
+            {/*    <>*/}
+            {/*        <Popper*/}
+            {/*            {...bindPopper(menuState)}*/}
+            {/*            className={classes.popper}*/}
+            {/*            placement="right-start"*/}
+            {/*        >*/}
+            {/*            <Card variant="outlined">*/}
+            {/*                <List dense>*/}
+            {/*                    {allTags.map((tag, i) => (*/}
+            {/*                        <ListItem*/}
+            {/*                            button*/}
+            {/*                            key={i}*/}
+            {/*                            onClick={() => handleTagInsert(tag)}*/}
+            {/*                        >*/}
+            {/*                            {tag}*/}
+            {/*                        </ListItem>*/}
+            {/*                    ))}*/}
+            {/*                </List>*/}
+            {/*            </Card>*/}
+            {/*        </Popper>*/}
+            {/*        <Popper*/}
+            {/*            {...bindPopper(popupState)}*/}
+            {/*            placement="right-start"*/}
+            {/*            open={!menuState.isOpen && popupState.isOpen}*/}
+            {/*            className={classes.popper}*/}
+            {/*        >*/}
+            {/*            <Card variant="outlined">*/}
+            {/*                <Button*/}
+            {/*                    className={classes.button}*/}
+            {/*                    {...bindTrigger(menuState)}*/}
+            {/*                    onClick={() => menuState.open(containerRef.current)}*/}
+            {/*                >*/}
+            {/*                    {'{{'}&middot;&middot;{'}}'}*/}
+            {/*                </Button>*/}
+            {/*            </Card>*/}
+            {/*        </Popper>*/}
+            {/*    </>*/}
+            {/*)}*/}
 
-                <CKEditor
-                    ref={editorRef}
-                    editor={BalloonEditor}
-                    config={editorConfiguration}
-                    data={textRef.current}
-                    onChange={(event: any, editor: any) => {
-                        textRef.current = editor.getData()
-                    }}
-                />
-            </div>
-        </ClickAwayListener>
+            <WysiwygEditor
+                suggestions={suggestions}
+                value={textRef.current}
+                onChange={(value) => (textRef.current = value)}
+                // ref={editorRef}
+                // editor={BalloonEditor}
+                // config={editorConfiguration}
+                // value={textRef.current}
+                // onChange={(event: any, editor: any) => {
+                //     textRef.current = editor.getData()
+                // }}
+            />
+            {/*</div>*/}
+            {/*</ClickAwayListener>*/}
+        </>
     )
 }
 
