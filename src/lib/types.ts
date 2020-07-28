@@ -133,6 +133,7 @@ export interface DndEditorContextProps {
     items: DndItem[]
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
+    onSendEmail?: (emails: string[], html: string) => Promise<any>
 
     smartyTags?: Record<string, string>
     sampleData?: any

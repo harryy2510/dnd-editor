@@ -20,6 +20,7 @@ export interface DndEditorProps {
     value?: Partial<DndState>
     onChange?: (newValue: DndState) => void
     onHtmlChange?: (html: string) => void
+    onSendEmail?: (emails: string[], html: string) => Promise<any>
     items?: DndItem[]
     template?: DndTemplateItem
     smartyTags?: Record<string, string>
@@ -68,7 +69,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
     template = Templates.Mail,
     smartyTags,
     sampleData,
-    onHtmlChange
+    onHtmlChange,
+    onSendEmail
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -111,7 +113,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
         state,
         items,
         smartyTags,
-        sampleData
+        sampleData,
+        onSendEmail
     }
 
     React.useEffect(() => {

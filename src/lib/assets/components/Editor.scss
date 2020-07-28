@@ -1,3 +1,7 @@
+:root {
+    --ck-z-modal: 1500;
+}
+
 .ck.ck-content.ck-editor__editable_inline {
     border-radius: 0 !important;
     border: none !important;
@@ -18,8 +22,4 @@
     [dir='rtl'] {
         text-align: inherit;
     }
-}
-
-.ck.ck-balloon-panel {
-    z-index: 1500;
 }

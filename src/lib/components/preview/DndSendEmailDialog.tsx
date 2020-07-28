@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useDndEditorContext } from '../../DndEditorProvider'
-import sendEmail from '../../sendEmail'
 import { exportToHtml } from '../../utils'
 import Input from '../preferences/components/Input'
 
@@ -58,6 +57,7 @@ export interface DndSendEmailDialogProps extends Omit<DialogProps, 'children'> {
 
 const DndSendEmailDialog: React.FC<DndSendEmailDialogProps> = (props) => {
     const [email, setEmail] = React.useState('')
+    const [loading, setLoading] = React.useState(false)
     const editorContext = useDndEditorContext()
     const classes = useStyles()
     const inputClasses = {
@@ -67,7 +67,9 @@ const DndSendEmailDialog: React.FC<DndSendEmailDialogProps> = (props) => {
     }
     const handleSend = () => {
         if (email) {
-            sendEmail(email, exportToHtml(editorContext))
+            const emails = email.split(',').map((e) => e.trim())
+            editorContext
+                .onSendEmail?.(emails, exportToHtml(editorContext))
                 .then(() => {
                     props.onClose?.({}, 'backdropClick')
                 })

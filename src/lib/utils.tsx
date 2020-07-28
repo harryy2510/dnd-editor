@@ -147,8 +147,8 @@ export const conditionBuilder = (condition: Condition | undefined) => {
     }
     if (condition?.display === 'DISPLAY') {
         const rules = condition.rules
-            .filter((rule) => rule.id)
-            .map((rule) => {
+            ?.filter((rule) => rule.id)
+            ?.map((rule) => {
                 const result: Primitive[] = [rule.id]
                 switch (rule.operator) {
                     case 'NOT_EQUAL':
@@ -164,7 +164,7 @@ export const conditionBuilder = (condition: Condition | undefined) => {
                 result.push(`"${value}"`)
                 return result.join(' ')
             })
-        if (rules.length) {
+        if (rules?.length) {
             result.conditionText = `${rules.join(' and ')}`
             result.conditionStart = `{% if ${result.conditionText} %}`
             result.conditionEnd = '{% endif %}'
