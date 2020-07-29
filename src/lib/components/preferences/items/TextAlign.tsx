@@ -23,7 +23,7 @@ const TextAlign: React.FC<ToggleButtonsProps> = (props) => {
             id: 'right'
         }
     ]
-    return <ToggleButtons options={options} label={<Trans>Text Align</Trans>} {...props} />
+    return <ToggleButtons label={<Trans>Text Align</Trans>} {...props} options={options} />
 }
 
 export default TextAlign

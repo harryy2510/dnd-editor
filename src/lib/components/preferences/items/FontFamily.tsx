@@ -12,7 +12,7 @@ const FontFamily: React.FC<DropdownProps> = (props) => {
             fontFamily: `${family.id}, sans-serif`
         }
     }))
-    return <Dropdown options={options} label={<Trans>Font Family</Trans>} {...props} />
+    return <Dropdown label={<Trans>Font Family</Trans>} {...props} options={options} />
 }
 
 export default FontFamily

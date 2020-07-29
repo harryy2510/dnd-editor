@@ -18,7 +18,7 @@ const ButtonType: React.FC<ToggleButtonsProps> = (props) => {
             id: 'text'
         }
     ]
-    return <ToggleButtons options={options} label={<Trans>Button Type</Trans>} {...props} />
+    return <ToggleButtons label={<Trans>Button Type</Trans>} {...props} options={options} />
 }
 
 export default ButtonType

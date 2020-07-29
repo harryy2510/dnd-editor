@@ -11,7 +11,7 @@ const FontWeight: React.FC<DropdownProps> = (props) => {
             fontWeight: weight.id
         }
     }))
-    return <Dropdown options={options} label={<Trans>Font Weight</Trans>} {...props} />
+    return <Dropdown label={<Trans>Font Weight</Trans>} {...props} options={options} />
 }
 
 export default FontWeight

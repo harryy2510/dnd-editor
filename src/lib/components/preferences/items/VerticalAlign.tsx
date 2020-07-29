@@ -23,7 +23,7 @@ const VerticalAlign: React.FC<ToggleButtonsProps> = (props) => {
             id: 'flex-end'
         }
     ]
-    return <ToggleButtons options={options} label={<Trans>Vertical Align</Trans>} {...props} />
+    return <ToggleButtons label={<Trans>Vertical Align</Trans>} {...props} options={options} />
 }
 
 export default VerticalAlign

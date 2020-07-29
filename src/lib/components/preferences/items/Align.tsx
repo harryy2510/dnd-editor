@@ -23,7 +23,7 @@ const Align: React.FC<ToggleButtonsProps> = (props) => {
             id: 'flex-end'
         }
     ]
-    return <ToggleButtons options={options} label={<Trans>Align</Trans>} {...props} />
+    return <ToggleButtons label={<Trans>Align</Trans>} {...props} options={options} />
 }
 
 export default Align
