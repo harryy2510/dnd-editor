@@ -23,7 +23,11 @@ const useStyles = makeStyles(
             position: 'relative',
             zIndex: 0,
             margin: spacing(0, -4, 0, -6),
-            padding: spacing(0, 4, 0, 6)
+            padding: spacing(0, 4, 0, 6),
+            '& > *:first-child': {
+                zIndex: 1,
+                position: 'relative'
+            }
         },
         active: {
             zIndex: 1,
