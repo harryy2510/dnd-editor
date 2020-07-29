@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.21](https://github.com/harryy2510/dnd-editor/compare/v0.1.20...v0.1.21) (2020-07-29)
+
+
+### Features
+
+* new wysiwyg editor ([e72bd6c](https://github.com/harryy2510/dnd-editor/commit/e72bd6c70ae19a448940d45026fdf4064bca4c83))
+
+
+### Bug Fixes
+
+* bug fixes ([f5f52c4](https://github.com/harryy2510/dnd-editor/commit/f5f52c4dc7402d57d9057c0988dd5bcb18ff1cc3))
+* z index ([481b2e8](https://github.com/harryy2510/dnd-editor/commit/481b2e838c1b3bb0a0d7726fbe9a7c7038eed85d))
+
 ### [0.1.20](https://github.com/harryy2510/dnd-editor/compare/v0.1.19...v0.1.20) (2020-07-28)
 
 
