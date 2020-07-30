@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "@harryy/pubsub": "^0.1.7",
-        "@harryy/wysiwyg-editor": "^0.1.15",
+        "@harryy/wysiwyg-editor": "^0.1.16",
         "@lingui/core": "^2.9.1",
         "@lingui/react": "^2.9.1",
         "@loadable/component": "^5.13.1",
