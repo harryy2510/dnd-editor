@@ -105,26 +105,6 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
     }
 }
 
-export const useDidMountEffect = (effect: React.EffectCallback, deps?: React.DependencyList) => {
-    const isMounted = React.useRef(false)
-
-    React.useEffect(() => {
-        if (isMounted.current) {
-            return effect()
-        } else {
-            isMounted.current = true
-        }
-    }, deps)
-}
-
-export const useDeepCompare = <T extends any>(value: T): T => {
-    const latestValue = React.useRef(value)
-    if (!isEqual(latestValue.current, value)) {
-        latestValue.current = value
-    }
-    return latestValue.current
-}
-
 export const renderItems = (items: DndStateItemEntity[] = [], renderProps: RenderProps) =>
     items?.map((item) => {
         const updatedRenderProps = { ...renderProps, item }

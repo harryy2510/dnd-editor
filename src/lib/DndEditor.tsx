@@ -14,8 +14,8 @@ import DndEditorPreview from './components/DndEditorPreview'
 import DndPreview from './components/DndPreview'
 import DndEditorProvider from './DndEditorProvider'
 import { DndEditorContextProps, DndItem, DndState, DndTemplateItem } from './types'
-import { createDndState, exportToHtml, useDeepCompare, useFonts } from './utils'
-
+import { createDndState, exportToHtml, useFonts } from './utils'
+import { useDeepCompare } from '@harryy/rehooks'
 export interface DndEditorProps {
     value?: Partial<DndState>
     onChange?: (newValue: DndState) => void

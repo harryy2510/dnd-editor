@@ -6,7 +6,8 @@
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "release": "gulp release",
-        "commit": "commit"
+        "commit": "commit",
+        "update": "npm-check -u"
     },
     "husky": {
         "hooks": {
@@ -26,7 +27,8 @@
         ]
     },
     "dependencies": {
-        "@harryy/wysiwyg-editor": "^0.1.8",
+        "@harryy/pubsub": "^0.1.7",
+        "@harryy/wysiwyg-editor": "^0.1.11",
         "@lingui/core": "^2.9.1",
         "@lingui/react": "^2.9.1",
         "@loadable/component": "^5.13.1",
@@ -41,20 +43,20 @@
         "lodash-es": "^4.17.15",
         "material-ui-popup-state": "^1.6.1",
         "multimatch": "^4.0.0",
-        "nanoid": "^3.1.11",
+        "nanoid": "^3.1.12",
         "react": "^16.13.1",
         "react-color": "^2.18.1",
         "react-dom": "^16.13.1",
         "react-sortablejs": "^2.0.11",
         "react-style-object-to-css": "^1.1.2",
         "react-swipeable-views": "^0.13.9",
-        "use-debounce": "^3.4.3",
         "yup": "^0.29.2"
     },
     "devDependencies": {
         "@commitlint/cli": "^9.1.1",
         "@commitlint/config-conventional": "^9.1.1",
         "@commitlint/prompt-cli": "^9.1.1",
+        "@harryy/rehooks": "^0.1.1",
         "@lingui/macro": "^2.9.1",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
         "@testing-library/jest-dom": "^5.11.2",
@@ -85,6 +87,7 @@
         "gulp-typescript": "^6.0.0-alpha.1",
         "husky": "^4.2.5",
         "node-sass": "^4.14.1",
+        "npm-check": "^5.9.2",
         "prettier": "^2.0.5",
         "raw-loader": "^4.0.1",
         "react-app-rewired": "^2.1.6",

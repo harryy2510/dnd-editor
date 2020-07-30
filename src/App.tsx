@@ -1,42 +1,19 @@
+import { useStore } from '@harryy/rehooks'
 import { Trans } from '@lingui/macro'
-import { Box, CssBaseline, SvgIconProps } from '@material-ui/core'
+import { Box, CssBaseline } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
 import { merge } from 'lodash-es'
 import React from 'react'
-import { render } from 'react-dom'
 import { DndEditor } from './lib'
 import * as Blocks from './lib/assets/blocks'
-import Image from './lib/assets/components/Image'
 import Button from './lib/assets/components/Button'
+import Image from './lib/assets/components/Image'
 import Text from './lib/assets/components/Text'
 import * as Groups from './lib/assets/groups'
-import { styleToCss } from './lib/utils'
-import {
-    DndBlockItem,
-    DndComponentSetting,
-    DndGroupItem,
-    DndItem,
-    DndState,
-    RenderProps,
-    SettingItemType
-} from './lib/types'
-import { createDndState } from './lib/utils'
-
-export const useLocalStorage = <T extends any = any>(
-    key: string,
-    defaultValue: T
-): [T, React.Dispatch<React.SetStateAction<T>>] => {
-    const [value, setValue] = React.useState<T>(() => {
-        const storedValue = window.localStorage.getItem(key)
-        return storedValue !== null ? JSON.parse(storedValue) : defaultValue
-    })
-    React.useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value))
-    }, [key, value])
-    return [value, setValue]
-}
+import { DndItem, DndState, RenderProps } from './lib/types'
+import { createDndState, styleToCss } from './lib/utils'
 
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
@@ -80,7 +57,7 @@ const customItems: DndItem[] = [
         render: () => <></>,
         export: () => '',
         label: <Trans>Header</Trans>,
-        priority: 0.5
+        priority: 1.5
     },
     {
         id: 'logo',
@@ -302,12 +279,12 @@ const customItems: DndItem[] = [
         render: () => <></>,
         export: () => '',
         label: <Trans>Appointment</Trans>,
-        priority: 1.5
+        priority: 1.75
     }
 ]
 
 function App() {
-    const [value, onChange] = useLocalStorage<DndState>('dnd-test-3', createDndState())
+    const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
     return (
         <ThemeProvider
             theme={createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } })}

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
-import PubSub from '../PubSub'
+import PubSub from '@harryy/pubsub'
 import { DndContainerItem, RenderProps } from '../types'
 import { styleToCss } from '../utils'
 

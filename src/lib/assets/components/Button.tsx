@@ -1,5 +1,5 @@
 import React from 'react'
-import PubSub from '../../PubSub'
+import PubSub from '@harryy/pubsub'
 import { DndComponentItem, RenderProps } from '../../types'
 import { styleToCss, updateItem } from '../../utils'
 import SimpleInput from './SimpleInput'

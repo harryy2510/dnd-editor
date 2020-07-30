@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { bindHover, bindPopper, usePopupState } from 'material-ui-popup-state/hooks'
 import React from 'react'
-import PubSub from '../PubSub'
+import PubSub from '@harryy/pubsub'
 import { DndBlockItem, RenderProps } from '../types'
 import { conditionBuilder, removeItem } from '../utils'
 
