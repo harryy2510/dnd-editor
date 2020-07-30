@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.26](https://github.com/harryy2510/dnd-editor/compare/v0.1.25...v0.1.26) (2020-07-30)
+
+
+### Bug Fixes
+
+* fixed email css ([ccfb44c](https://github.com/harryy2510/dnd-editor/commit/ccfb44cb75b52aac275bf34bd8d1565e6c1ea4b7))
+
 ### [0.1.25](https://github.com/harryy2510/dnd-editor/compare/v0.1.24...v0.1.25) (2020-07-30)
 
 
