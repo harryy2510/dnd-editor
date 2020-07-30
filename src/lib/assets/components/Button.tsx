@@ -9,22 +9,22 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const handleChange = (value: string) =>
             updateItem(renderProps, renderProps.item!.id, { [`${id}.label`]: value })
         const handleClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'button', data: id })
         }
-        const props = state.url ? { href: state.url } : {}
+        const props = state?.url ? { href: state.url } : {}
         return (
             <a
                 id={`${renderProps.item.id}-${id}`}
                 onClick={handleClick}
-                style={state.style}
+                style={state?.style}
                 {...props}
             >
-                <SimpleInput value={state.label} onChange={handleChange} />
+                <SimpleInput value={state?.label} onChange={handleChange} />
             </a>
         )
     },
@@ -32,10 +32,10 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         return `
-            <a style="${styleToCss(state.style)}" ${state.url ? 'href="' + state.url + '"' : ''}>
-                ${state.label}
+            <a style="${styleToCss(state?.style)}" ${state?.url ? 'href="' + state.url + '"' : ''}>
+                ${state?.label}
             </a>
         `
     },

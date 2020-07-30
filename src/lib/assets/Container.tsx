@@ -17,8 +17,8 @@ export default {
             }
         }
         const modifiedStyle = {
-            ...state.style,
-            ...(state.style.backgroundImage
+            ...state?.style,
+            ...(state?.style?.backgroundImage
                 ? { backgroundImage: `url(${state.style.backgroundImage})` }
                 : {})
         }
@@ -34,8 +34,8 @@ export default {
         }
         const state = renderProps.state.entities[renderProps.item.id]?.values?.__container
         const modifiedStyle = {
-            ...state.style,
-            ...(state.style.backgroundImage
+            ...state?.style,
+            ...(state?.style?.backgroundImage
                 ? { backgroundImage: `url(${state.style.backgroundImage})` }
                 : {})
         }

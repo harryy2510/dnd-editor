@@ -9,15 +9,15 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const handleChange = (value: string) =>
             updateItem(renderProps, renderProps.item!.id, { [`${id}.label`]: value })
         const handleClick = () => {
             PubSub.publish('component/click', { type: 'text', data: id })
         }
         return (
-            <div id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state.style}>
-                <Editor value={state.label} onChange={handleChange} />
+            <div id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state?.style}>
+                <Editor value={state?.label} onChange={handleChange} />
             </div>
         )
     },
@@ -25,10 +25,10 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         return `
-            <div style="${styleToCss(state.style)}">
-                ${state.label}
+            <div style="${styleToCss(state?.style)}">
+                ${state?.label}
             </div>
         `
     },

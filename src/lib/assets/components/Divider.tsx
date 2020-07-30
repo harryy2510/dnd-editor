@@ -8,18 +8,18 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const handleClick = () => {
             PubSub.publish('component/divider', { type: 'text', data: id })
         }
-        return <hr id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state.style} />
+        return <hr id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state?.style} />
     },
     export: (renderProps: RenderProps, id: string) => {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
-        return `<hr style="${styleToCss(state.style)}">`
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
+        return `<hr style="${styleToCss(state?.style)}">`
     },
     initialValues: {
         label: 'Divider',

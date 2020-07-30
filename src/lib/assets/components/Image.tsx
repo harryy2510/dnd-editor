@@ -8,16 +8,16 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const handleClick = () => {
             PubSub.publish('component/click', { type: 'image', data: id })
         }
         return (
             <img
                 id={`${renderProps.item.id}-${id}`}
-                src={state.url}
+                src={state?.url}
                 onClick={handleClick}
-                style={state.style}
+                style={state?.style}
                 alt=""
             />
         )
@@ -26,8 +26,8 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id].values[id]
-        return `<img src="${state.url ?? ''}"  style="${styleToCss(state.style)}" alt="">`
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
+        return `<img src="${state?.url ?? ''}"  style="${styleToCss(state?.style)}" alt="">`
     },
     initialValues: {
         label: 'Image',
