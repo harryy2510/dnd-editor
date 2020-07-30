@@ -1,8 +1,8 @@
-import { Button, Card, ClickAwayListener, List, ListItem, Popper, Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import { map } from 'lodash-es'
-import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
-import { nanoid } from 'nanoid'
+// import { Button, Card, ClickAwayListener, List, ListItem, Popper, Theme } from '@material-ui/core'
+// import { makeStyles } from '@material-ui/styles'
+// import { map } from 'lodash-es'
+// import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
+// import { nanoid } from 'nanoid'
 import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 
@@ -13,19 +13,19 @@ interface Props {
     onChange?: (text: string) => void
 }
 
-const useStyles = makeStyles(({ zIndex }: Theme) => ({
-    // button: {
-    //     minWidth: 0
-    // },
-    // popper: {
-    //     zIndex: zIndex.tooltip,
-    //     maxHeight: 320,
-    //     overflow: 'auto'
-    // }
-}))
+// const useStyles = makeStyles(({ zIndex }: Theme) => ({
+// button: {
+//     minWidth: 0
+// },
+// popper: {
+//     zIndex: zIndex.tooltip,
+//     maxHeight: 320,
+//     overflow: 'auto'
+// }
+// }))
 
 const Editor: React.FC<Props> = ({ value, onChange }) => {
-    const classes = useStyles()
+    // const classes = useStyles()
     // const popupId = React.useRef(`popup-${nanoid()}`).current
     // const menuId = React.useRef(`menu-${nanoid()}`).current
 
