@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.30](https://github.com/harryy2510/dnd-editor/compare/v0.1.29...v0.1.30) (2020-07-30)
+
+
+### Bug Fixes
+
+* dependencies upgrade ([f89add5](https://github.com/harryy2510/dnd-editor/commit/f89add5523f492f85063e7b629bfb2d2a4f84675))
+
 ### [0.1.29](https://github.com/harryy2510/dnd-editor/compare/v0.1.28...v0.1.29) (2020-07-30)
 
 
