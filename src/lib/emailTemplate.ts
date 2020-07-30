@@ -139,7 +139,8 @@ export default `
     
                 table {
                     table-layout: fixed;
-                    width: 100%;
+                    width: auto;
+                    margin: auto;
                 }
     
                 table td {
