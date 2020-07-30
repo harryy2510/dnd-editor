@@ -30,7 +30,8 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
     // const menuId = React.useRef(`menu-${nanoid()}`).current
 
     const { smartyTags } = useDndEditorContext()
-    const suggestions = React.useRef(Object.keys(smartyTags ?? {})).current
+    const suggestions = React.useRef(Object.keys(smartyTags ?? {}).map((key) => `{{${key}}}`))
+        .current
     // const allTags = map(smartyTags, (value, key) => `{{${key}}}`)
     //
     // const editorConfiguration = React.useMemo(
