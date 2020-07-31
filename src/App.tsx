@@ -281,16 +281,14 @@ const customItems: DndItem[] = [
                 style: {
                     borderColor: '#E2E2E2',
                     borderWidth: '1px',
-                    margin: '32px auto',
-                    width: '90%'
+                    margin: '32px auto'
                 }
             }),
             'divider-2': merge({}, Divider.initialValues, {
                 style: {
                     borderColor: '#E2E2E2',
                     borderWidth: '1px',
-                    margin: '32px auto',
-                    width: '90%'
+                    margin: '32px auto'
                 }
             }),
             __container: {
