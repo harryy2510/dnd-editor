@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.32](https://github.com/harryy2510/dnd-editor/compare/v0.1.31...v0.1.32) (2020-07-31)
+
+
+### Bug Fixes
+
+* container padding ([3bd59e2](https://github.com/harryy2510/dnd-editor/commit/3bd59e2f5add60277f56420a7d1857b500f6f00f))
+
 ### [0.1.31](https://github.com/harryy2510/dnd-editor/compare/v0.1.30...v0.1.31) (2020-07-31)
 
 
