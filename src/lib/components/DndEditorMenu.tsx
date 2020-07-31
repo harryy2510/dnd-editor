@@ -74,15 +74,16 @@ const useStyles = makeStyles(
             }
         },
         popper: {
-            height: '100%',
+            // height: '100%',
             width: spacing(40),
-            transform: `translate3d(60px, 0px, 0px)!important`,
-            zIndex: zIndex.tooltip
+            // transform: `translate3d(60px, 0px, 0px)!important`,
+            zIndex: zIndex.tooltip,
+            marginLeft: -140
         },
         card: {
             width: '100%',
             height: '100%',
-            boxShadow: `4px 4px 20px ${action.focus}`,
+            // boxShadow: `4px 4px 20px ${action.focus}`,
             // backgroundColor: grey[200],
             overflow: 'auto',
             backgroundColor: grey[600],
@@ -155,11 +156,12 @@ const DndEditorMenu: React.FC = () => {
 
     const handleAddItem = (item: DndItem) => (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
+        event.preventDefault()
         addItem(editorContext, item)
     }
 
     return (
-        <ClickAwayListener onClickAway={() => popupState.close()}>
+        <>
             <div className={classes.root}>
                 <Popper
                     transition
@@ -171,7 +173,7 @@ const DndEditorMenu: React.FC = () => {
                 >
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps}>
-                            <Card square className={classes.card}>
+                            <Card elevation={0} className={classes.card}>
                                 <CardContent>
                                     <ReactSortable
                                         animation={300}
@@ -241,7 +243,7 @@ const DndEditorMenu: React.FC = () => {
                         </ButtonBase>
                     ))}
             </div>
-        </ClickAwayListener>
+        </>
     )
 }
 
