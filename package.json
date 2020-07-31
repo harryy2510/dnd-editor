@@ -39,6 +39,7 @@
         "@material-ui/system": "^4.9.14",
         "clsx": "^1.1.1",
         "formik": "^2.1.5",
+        "juice": "^7.0.0",
         "liquidjs": "^9.14.1",
         "lodash-es": "^4.17.15",
         "material-ui-popup-state": "^1.6.1",

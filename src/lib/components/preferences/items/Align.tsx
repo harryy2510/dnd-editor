@@ -12,7 +12,7 @@ const Align: React.FC<ToggleButtonsProps> = (props) => {
     const options: ToggleButtonOption[] = [
         {
             icon: FormatAlignLeftOutlined,
-            id: 'flex-start'
+            id: 'left'
         },
         {
             icon: FormatAlignCenterOutlined,
@@ -20,7 +20,7 @@ const Align: React.FC<ToggleButtonsProps> = (props) => {
         },
         {
             icon: FormatAlignRightOutlined,
-            id: 'flex-end'
+            id: 'right'
         }
     ]
     return <ToggleButtons label={<Trans>Align</Trans>} {...props} options={options} />

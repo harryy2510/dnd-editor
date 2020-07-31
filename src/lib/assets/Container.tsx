@@ -49,13 +49,11 @@ export default {
         style: {
             padding: '24px 48px 24px 48px',
             backgroundColor: '',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundImage: '',
             backgroundPosition: 'center center',
             backgroundSize: 'cover',
-            width: '100%'
+            width: '100%',
+            textAlign: 'center'
         }
     },
     settings: [
@@ -64,8 +62,7 @@ export default {
             settings: [
                 { id: 'style.backgroundImage', type: 'image', grid: 12 },
                 { id: 'style.padding', type: 'imagePadding', grid: 12 },
-                { id: 'style.justifyContent', type: 'align', grid: 12 },
-                { id: 'style.alignItems', type: 'verticalAlign', grid: 12 },
+                { id: 'style.textAlign', type: 'align', grid: 12 },
                 { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 }
             ],
             label: <Trans>Container</Trans>,

@@ -26,9 +26,7 @@ export default {
         outer: {
             style: {
                 backgroundColor: '#eee',
-                display: 'flex',
                 padding: '16px 16px 16px 16px',
-                justifyContent: 'center',
                 boxSizing: 'border-box'
             }
         },
@@ -41,7 +39,8 @@ export default {
                 backgroundColor: '#fff',
                 fontFamily: 'Poppins, sans-serif',
                 padding: '0px 0px 0px 0px',
-                color: '#000'
+                color: '#000',
+                margin: 'auto'
             }
         }
     },

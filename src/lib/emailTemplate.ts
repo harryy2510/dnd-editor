@@ -125,11 +125,8 @@ export default `
                 table {
                     border-collapse: collapse;
                     border-spacing: 0;
-                }
-    
-                td,
-                th {
-                    padding: 2px 5px;
+                    table-layout: fixed;
+                    width: auto;
                 }
     
                 td:not([align]),
@@ -137,14 +134,10 @@ export default `
                     text-align: left;
                 }
     
-                table {
-                    table-layout: fixed;
-                    width: auto;
-                }
-    
-                table td {
+                table td, table th {
                     outline: none;
                     border: none;
+                    padding: 2px 5px;
                 }
     
                 .ql-align-center {

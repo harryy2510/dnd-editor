@@ -293,8 +293,7 @@ const customItems: DndItem[] = [
             }),
             __container: {
                 style: {
-                    textAlign: 'left',
-                    display: 'block'
+                    textAlign: 'left'
                 }
             }
         },

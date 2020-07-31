@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
+import juice from 'juice'
+
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
 import emailTemplate from './emailTemplate'
@@ -189,7 +191,7 @@ export const exportToHtml = (renderProps: RenderProps): string => {
     forEach(replacer, (value, key) => {
         template = template.replace(key, value)
     })
-    return template
+    return juice(template)
 }
 
 export const createDndState = (
