@@ -2,7 +2,6 @@ import {
     ButtonBase,
     Card,
     CardContent,
-    ClickAwayListener,
     Fade,
     Popper,
     Theme
