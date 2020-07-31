@@ -140,7 +140,6 @@ export default `
                 table {
                     table-layout: fixed;
                     width: auto;
-                    margin: auto;
                 }
     
                 table td {
