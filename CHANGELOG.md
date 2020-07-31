@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.31](https://github.com/harryy2510/dnd-editor/compare/v0.1.30...v0.1.31) (2020-07-31)
+
+
+### Bug Fixes
+
+* fixed bug ([8a2dccd](https://github.com/harryy2510/dnd-editor/commit/8a2dccdc5d83893e0f247b0a2da074f97f45f1fc))
+* fixed bug ([da16634](https://github.com/harryy2510/dnd-editor/commit/da166347c493f53a545a106d1ba44bea11421a37))
+* fixed bug ([f8c56ea](https://github.com/harryy2510/dnd-editor/commit/f8c56ea6a933b0f562e87052fb76059d8a333e2e))
+
 ### [0.1.30](https://github.com/harryy2510/dnd-editor/compare/v0.1.29...v0.1.30) (2020-07-30)
 
 
