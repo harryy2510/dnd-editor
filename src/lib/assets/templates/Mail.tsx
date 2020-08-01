@@ -26,7 +26,7 @@ export default {
         outer: {
             style: {
                 backgroundColor: '#eee',
-                padding: '16px 16px 16px 16px',
+                padding: '16px 0px 16px 0px',
                 boxSizing: 'border-box'
             }
         },
