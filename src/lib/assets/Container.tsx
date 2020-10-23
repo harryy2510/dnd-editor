@@ -53,6 +53,7 @@ export default {
             backgroundPosition: 'center center',
             backgroundSize: 'cover',
             width: '100%',
+            boxSizing: 'border-box',
             textAlign: 'center'
         }
     },

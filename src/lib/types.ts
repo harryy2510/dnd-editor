@@ -3,7 +3,7 @@ import React from 'react'
 
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
-export type SettingItemType = 'text' | 'image' | 'button' | 'condition' | 'container' | 'template'
+export type SettingItemType = 'text' | 'image' | 'button' | 'condition' | 'container' | 'template' | 'form-elements'
 
 export type SettingComponentType =
     | 'align'
@@ -28,6 +28,10 @@ export type SettingComponentType =
     | 'url'
     | 'verticalAlign'
     | 'width'
+    | 'placeholder'
+    | 'question'
+    | 'required'
+    | 'hint'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
