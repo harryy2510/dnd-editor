@@ -19,19 +19,14 @@ export default {
         const props = state?.url ? { href: state.url } : {}
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         return (
-            <div
+            <TextField
                 id={`${renderProps.item.id}-${id}`}
                 onClick={handleClick}
-                style={state?.style}
                 {...props}
-            >
-                <TextField
-                    fullWidth
-                    label={labelText}
-                    value={state?.placeholder}
-                    helperText={state?.hint}
-                />
-            </div>
+                fullWidth
+                label={labelText}
+                value={state?.placeholder}
+                helperText={state?.hint}/>
         )
     },
     export: (renderProps: RenderProps, id: string) => {
