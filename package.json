@@ -7,7 +7,9 @@
         "build": "react-app-rewired build",
         "release": "gulp release",
         "commit": "commit",
-        "update": "npm-check -u"
+        "update": "npm-check -u",
+        "storybook": "start-storybook -p 6006 -s public",
+        "build-storybook": "build-storybook -s public"
     },
     "husky": {
         "hooks": {
@@ -54,12 +56,19 @@
         "yup": "^0.29.2"
     },
     "devDependencies": {
+        "@babel/core": "^7.12.3",
         "@commitlint/cli": "^9.1.1",
         "@commitlint/config-conventional": "^9.1.1",
         "@commitlint/prompt-cli": "^9.1.1",
         "@harryy/rehooks": "^0.1.1",
         "@lingui/macro": "^2.9.1",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
+        "@storybook/addon-actions": "^6.0.26",
+        "@storybook/addon-essentials": "^6.0.26",
+        "@storybook/addon-links": "^6.0.26",
+        "@storybook/node-logger": "^6.0.26",
+        "@storybook/preset-create-react-app": "^3.1.4",
+        "@storybook/react": "^6.0.26",
         "@testing-library/jest-dom": "^5.11.2",
         "@testing-library/react": "^10.4.7",
         "@testing-library/user-event": "^12.0.17",
@@ -74,6 +83,7 @@
         "@types/react-dom": "^16.9.8",
         "@types/react-swipeable-views": "^0.13.0",
         "@types/yup": "^0.29.3",
+        "babel-loader": "^8.1.0",
         "babel-plugin-import": "^1.13.0",
         "customize-cra": "^1.0.0",
         "fs-extra": "^9.0.1",
@@ -92,6 +102,7 @@
         "prettier": "^2.0.5",
         "raw-loader": "^4.0.1",
         "react-app-rewired": "^2.1.6",
+        "react-is": "^17.0.1",
         "react-refresh": "^0.8.3",
         "react-scripts": "3.4.1",
         "simple-progress-webpack-plugin": "^1.1.2",

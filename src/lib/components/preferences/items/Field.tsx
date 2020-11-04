@@ -16,8 +16,12 @@ import FontWeight from './FontWeight'
 import Height from './Height'
 import Image from './Image'
 import ImagePadding from './ImagePadding'
+import InputHint from './InputHint'
 import LinkColor from './LinkColor'
 import Padding from './Padding'
+import Placeholder from './Placeholder'
+import Question from './Question'
+import Required from './Required'
 import Size from './Size'
 import Space from './Space'
 import Spacing from './Spacing'
@@ -48,7 +52,11 @@ const fields: Record<string, React.FC<any>> = {
     textAlign: TextAlign,
     url: Url,
     verticalAlign: VerticalAlign,
-    width: Width
+    width: Width,
+    question: Question,
+    placeholder: Placeholder,
+    hint: InputHint,
+    required: Required
 }
 
 interface Props {

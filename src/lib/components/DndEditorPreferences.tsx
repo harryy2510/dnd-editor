@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import {
+    Assignment,
     CropLandscapeOutlined,
     DeviceHubOutlined,
     ImageOutlined,
@@ -21,6 +22,7 @@ import TemplateSettings from './preferences/TemplateSettings'
 import ImageSettings from './preferences/ImageSettings'
 import TextSettings from './preferences/TextSettings'
 import ButtonSettings from './preferences/ButtonSettings'
+import FormElementsSettings from './preferences/FormElementSettings'
 
 const useStyles = makeStyles(({ spacing, palette: { divider, background } }: Theme) => ({
     root: {
@@ -73,6 +75,12 @@ const tabs = [
         component: ContainerSettings,
         label: <Trans>Edit Container</Trans>,
         icon: PaletteOutlined
+    },
+    {
+        id: 'form-elements',
+        component: FormElementsSettings,
+        label: <Trans>Edit Form Element</Trans>,
+        icon: Assignment
     },
     {
         id: 'condition',
