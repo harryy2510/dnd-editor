@@ -1,12 +1,12 @@
 import { ButtonBase, Card, CardContent, Fade, Popper, Theme } from '@material-ui/core'
 import { AddOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { groupBy, sortBy } from 'lodash-es'
+import { groupBy, sortBy, filter } from 'lodash-es'
 import React from 'react'
 import { usePopupState, bindHover, bindPopper } from 'material-ui-popup-state/hooks'
 import { ReactSortable } from 'react-sortablejs'
 import { useDndEditorContext } from '../DndEditorProvider'
-import { DndBlockItem, DndItem } from '../types'
+import { DndBlockItem, DndItem, DndGroupItem } from '../types'
 import clsx from 'clsx'
 import { addItem } from '../utils'
 
@@ -130,6 +130,14 @@ const DndEditorMenu: React.FC = () => {
     const groupedBlocks = React.useMemo(() => groupBy(groupedItems.block, 'parent'), [
         editorContext.items
     ])
+    const nonGroupItemsGroups = React.useMemo(
+        () =>
+            filter(groupedItems.block, (block: DndBlockItem) => !block.parent).map((block: any) => {
+                groupedBlocks[block.id] = [block]
+                return { ...block, type: 'group' }
+            }),
+        [editorContext.items]
+    )
     const hoveredItems = React.useMemo(() => groupedBlocks[hovered], [
         hovered,
         editorContext.items
@@ -215,6 +223,7 @@ const DndEditorMenu: React.FC = () => {
                 </Popper>
                 {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
+                    .concat(nonGroupItemsGroups)
                     .map((item: any, i) => (
                         <ButtonBase
                             key={i}

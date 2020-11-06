@@ -3,7 +3,14 @@ import React from 'react'
 
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
-export type SettingItemType = 'text' | 'image' | 'button' | 'condition' | 'container' | 'template' | 'form-elements'
+export type SettingItemType =
+    | 'text'
+    | 'image'
+    | 'button'
+    | 'condition'
+    | 'container'
+    | 'template'
+    | 'form-elements'
 
 export type SettingComponentType =
     | 'align'
@@ -28,10 +35,8 @@ export type SettingComponentType =
     | 'url'
     | 'verticalAlign'
     | 'width'
-    | 'placeholder'
-    | 'question'
     | 'required'
-    | 'hint'
+    | 'labledTextInput'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
@@ -111,8 +116,9 @@ export type DndGroupItem = DndBaseItem & {
 }
 export type DndBlockItem = DndBaseItem & {
     type: 'block'
-    parent: string
+    parent?: string
     image: string
+    icon?: React.ComponentType<SvgIconProps>
 }
 export type DndItem = DndGroupItem | DndBlockItem
 

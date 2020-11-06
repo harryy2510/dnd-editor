@@ -3,6 +3,7 @@ import PubSub from '@harryy/pubsub'
 import { TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import { updateItem } from '../../utils'
+import { Trans } from '@lingui/macro'
 
 export default {
     render: (renderProps: RenderProps, id: string) => {
@@ -26,7 +27,8 @@ export default {
                 fullWidth
                 label={labelText}
                 value={state?.placeholder}
-                helperText={state?.hint}/>
+                helperText={state?.hint}
+            />
         )
     },
     export: (renderProps: RenderProps, id: string) => {
@@ -42,9 +44,14 @@ export default {
         }
     },
     settings: [
-        { id: 'question', type: 'question', grid: 12 },
-        { id: 'placeholder', type: 'placeholder', grid: 12 },
-        { id: 'hint', type: 'hint', grid: 12 },
+        { id: 'question', type: 'labledTextInput', grid: 12, label: <Trans>Question</Trans> },
+        {
+            id: 'placeholder',
+            type: 'labledTextInput',
+            grid: 12,
+            label: <Trans>Custom Placeholder</Trans>
+        },
+        { id: 'hint', type: 'labledTextInput', grid: 12, label: <Trans>Hint</Trans> },
         { id: 'required', type: 'required', grid: 12 }
     ]
 } as DndComponentItem

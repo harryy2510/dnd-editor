@@ -29,6 +29,7 @@ import TextAlign from './TextAlign'
 import Url from './Url'
 import VerticalAlign from './VerticalAlign'
 import Width from './Width'
+import LabeledTextInput from './LabeledTextInput'
 
 const fields: Record<string, React.FC<any>> = {
     align: Align,
@@ -53,10 +54,8 @@ const fields: Record<string, React.FC<any>> = {
     url: Url,
     verticalAlign: VerticalAlign,
     width: Width,
-    question: Question,
-    placeholder: Placeholder,
-    hint: InputHint,
-    required: Required
+    required: Required,
+    labledTextInput: LabeledTextInput
 }
 
 interface Props {

@@ -2,10 +2,12 @@ import { Trans } from '@lingui/macro'
 import React from 'react'
 import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
+import { Assistant } from '@material-ui/icons'
 
 export default {
     id: 'text-input',
     label: <Trans>Text Input</Trans>,
+    icon: Assistant,
     render: (renderProps) => TextInput.render(renderProps, 'text-input-1'),
     export: () => '',
     image:
@@ -13,7 +15,6 @@ export default {
     initialValues: {
         'text-input-1': TextInput.initialValues
     },
-    parent: 'form-elements',
     settings: [
         {
             id: 'text-input-1',
