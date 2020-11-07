@@ -70,6 +70,6 @@ export default {
             label: <Trans>Default value</Trans>
         },
         { id: 'className', type: 'labledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        { id: 'required', type: 'required', grid: 12 }
+        { id: 'required', type: 'labededSwitch', grid: 12, label: <Trans>Required</Trans> }
     ]
 } as DndComponentItem

@@ -37,6 +37,7 @@ export type SettingComponentType =
     | 'width'
     | 'required'
     | 'labledTextInput'
+    | 'labeledSwitch'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
@@ -78,6 +79,7 @@ export type DndComponentSetting = {
     type: SettingComponentType
     grid?: GridSize
     id: string
+    label: React.ComponentType
 }
 
 export type DndItemSetting = {
