@@ -27,6 +27,7 @@ import VerticalAlign from './VerticalAlign'
 import Width from './Width'
 import LabeledTextInput from './LabeledTextInput'
 import LabeledSwitch from './LabeledSwitch'
+import InputValidation from './InputValidation'
 
 const fields: Record<string, React.FC<any>> = {
     align: Align,
@@ -52,6 +53,7 @@ const fields: Record<string, React.FC<any>> = {
     verticalAlign: VerticalAlign,
     width: Width,
     labeledTextInput: LabeledTextInput,
+    inputValidation: InputValidation,
     labeledSwitch: LabeledSwitch
 }
 

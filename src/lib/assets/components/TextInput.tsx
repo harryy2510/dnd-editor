@@ -39,10 +39,12 @@ export default {
         question: 'Question',
         placeholder: 'Placeholder',
         hint: 'Optional Hint',
+        validation: { type: 'none' },
         characterLimit: '12',
         pii: '',
         className: '',
         required: true,
+        enabled: true,
         style: {
             textAlign: 'left'
         }
@@ -51,25 +53,27 @@ export default {
         { id: 'question', type: 'labeledTextInput', grid: 12, label: <Trans>Question</Trans> },
         {
             id: 'placeholder',
-            type: 'labledTextInput',
+            type: 'labeledTextInput',
             grid: 12,
             label: <Trans>Custom Placeholder</Trans>
         },
-        { id: 'hint', type: 'labeldTextInput', grid: 12, label: <Trans>Hint</Trans> },
+        { id: 'hint', type: 'labeledTextInput', grid: 12, label: <Trans>Hint</Trans> },
         {
             id: 'characterLimit',
-            type: 'labledTextInput',
+            type: 'labeledTextInput',
             grid: 12,
             label: <Trans>Character limit</Trans>
         },
-        { id: 'pii', type: 'labledTextInput', grid: 12, label: <Trans>PII</Trans> },
+        { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         {
             id: 'defaultValue',
-            type: 'labledTextInput',
+            type: 'labeledTextInput',
             grid: 12,
             label: <Trans>Default value</Trans>
         },
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> }
+        { id: 'validation', type: 'inputValidation', grid: 12, label: <Trans>Validation</Trans> },
+        { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
+        { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ]
 } as DndComponentItem
