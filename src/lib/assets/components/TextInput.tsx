@@ -1,9 +1,9 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
+import { Trans } from '@lingui/macro'
 import { TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import { updateItem } from '../../utils'
-import { Trans } from '@lingui/macro'
 
 export default {
     render: (renderProps: RenderProps, id: string) => {

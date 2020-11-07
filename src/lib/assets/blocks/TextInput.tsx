@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
+import { Assistant } from '@material-ui/icons'
 import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
-import { Assistant } from '@material-ui/icons'
 
 export default {
     id: 'text-input',
