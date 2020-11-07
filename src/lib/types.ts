@@ -35,8 +35,7 @@ export type SettingComponentType =
     | 'url'
     | 'verticalAlign'
     | 'width'
-    | 'required'
-    | 'labledTextInput'
+    | 'labeledTextInput'
     | 'labeledSwitch'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
@@ -79,7 +78,7 @@ export type DndComponentSetting = {
     type: SettingComponentType
     grid?: GridSize
     id: string
-    label: React.ComponentType
+    label?: React.ReactElement
 }
 
 export type DndItemSetting = {

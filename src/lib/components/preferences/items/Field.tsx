@@ -51,7 +51,7 @@ const fields: Record<string, React.FC<any>> = {
     url: Url,
     verticalAlign: VerticalAlign,
     width: Width,
-    labledTextInput: LabeledTextInput,
+    labeledTextInput: LabeledTextInput,
     labeledSwitch: LabeledSwitch
 }
 

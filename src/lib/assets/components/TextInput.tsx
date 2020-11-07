@@ -48,14 +48,14 @@ export default {
         }
     },
     settings: [
-        { id: 'question', type: 'labledTextInput', grid: 12, label: <Trans>Question</Trans> },
+        { id: 'question', type: 'labeledTextInput', grid: 12, label: <Trans>Question</Trans> },
         {
             id: 'placeholder',
             type: 'labledTextInput',
             grid: 12,
             label: <Trans>Custom Placeholder</Trans>
         },
-        { id: 'hint', type: 'labledTextInput', grid: 12, label: <Trans>Hint</Trans> },
+        { id: 'hint', type: 'labeldTextInput', grid: 12, label: <Trans>Hint</Trans> },
         {
             id: 'characterLimit',
             type: 'labledTextInput',
@@ -69,7 +69,7 @@ export default {
             grid: 12,
             label: <Trans>Default value</Trans>
         },
-        { id: 'className', type: 'labledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        { id: 'required', type: 'labededSwitch', grid: 12, label: <Trans>Required</Trans> }
+        { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
+        { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> }
     ]
 } as DndComponentItem
