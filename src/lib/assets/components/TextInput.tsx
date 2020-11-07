@@ -26,7 +26,8 @@ export default {
                 {...props}
                 fullWidth
                 label={labelText}
-                value={state?.placeholder}
+                placeholder={state?.placeholder}
+                value={state?.defaultValue}
                 helperText={state?.hint}
             />
         )
@@ -38,6 +39,9 @@ export default {
         question: 'Question',
         placeholder: 'Placeholder',
         hint: 'Optional Hint',
+        characterLimit: '12',
+        pii: '',
+        className: '',
         required: true,
         style: {
             textAlign: 'left'
@@ -52,6 +56,20 @@ export default {
             label: <Trans>Custom Placeholder</Trans>
         },
         { id: 'hint', type: 'labledTextInput', grid: 12, label: <Trans>Hint</Trans> },
+        {
+            id: 'characterLimit',
+            type: 'labledTextInput',
+            grid: 12,
+            label: <Trans>Character limit</Trans>
+        },
+        { id: 'pii', type: 'labledTextInput', grid: 12, label: <Trans>PII</Trans> },
+        {
+            id: 'defaultValue',
+            type: 'labledTextInput',
+            grid: 12,
+            label: <Trans>Default value</Trans>
+        },
+        { id: 'className', type: 'labledTextInput', grid: 12, label: <Trans>Class name</Trans> },
         { id: 'required', type: 'required', grid: 12 }
     ]
 } as DndComponentItem
