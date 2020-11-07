@@ -37,6 +37,7 @@ export type SettingComponentType =
     | 'width'
     | 'labeledTextInput'
     | 'labeledSwitch'
+    | 'inputValidation'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
