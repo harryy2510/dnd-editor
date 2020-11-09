@@ -28,6 +28,8 @@ import Width from './Width'
 import LabeledTextInput from './LabeledTextInput'
 import LabeledSwitch from './LabeledSwitch'
 import InputValidation from './InputValidation'
+import InputOptions from './InputOptions'
+import MultilineValidation from './MultilineValidation'
 
 const fields: Record<string, React.FC<any>> = {
     align: Align,
@@ -54,6 +56,8 @@ const fields: Record<string, React.FC<any>> = {
     width: Width,
     labeledTextInput: LabeledTextInput,
     inputValidation: InputValidation,
+    multilineValidation: MultilineValidation,
+    inputOptions: InputOptions,
     labeledSwitch: LabeledSwitch
 }
 

@@ -1,6 +1,8 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
 import { DndTemplateItem } from '../../types'
+import { Grid, IconButton } from '@material-ui/core'
+import { Brush } from '@material-ui/icons'
 
 export default {
     id: 'form',
@@ -9,6 +11,13 @@ export default {
         const stateItem = renderProps.state.entities.form
         return (
             <div style={stateItem?.values?.outer?.style}>
+                <Grid container justify="flex-end">
+                    <div style={{ padding: '0px 20px', cursor: 'pointer' }}>
+                        <IconButton>
+                            <Brush />
+                        </IconButton>
+                    </div>
+                </Grid>
                 <div style={stateItem?.values?.inner?.style}>{children}</div>
             </div>
         )

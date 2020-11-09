@@ -222,17 +222,20 @@ export const createDndState = (
 export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)
 
 export const useValidations = () => {
-    const inputValidation = [
+    const commonValidation = [
         { label: <Trans>None</Trans>, id: 'none' },
         { label: <Trans>Alphanumberic</Trans>, id: 'alphanumeric' },
-        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic' },
+        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic' }
+    ]
+    const inputValidation = [
+        ...commonValidation,
         { label: <Trans>Email</Trans>, id: 'email' },
         { label: <Trans>Currency</Trans>, id: 'currency' },
         { label: <Trans>Url</Trans>, id: 'url' },
         { label: <Trans>Numeric</Trans>, id: 'numeric' },
         { label: <Trans>Custom regex</Trans>, id: 'regex' }
     ]
-    return { inputValidation }
+    return { commonValidation: commonValidation, inputValidation }
 }
 export const useFonts = () => {
     const fontWeights = [

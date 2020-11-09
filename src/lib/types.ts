@@ -38,6 +38,8 @@ export type SettingComponentType =
     | 'labeledTextInput'
     | 'labeledSwitch'
     | 'inputValidation'
+    | 'multilineValidation'
+    | 'inputOptions'
 
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
