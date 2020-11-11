@@ -45,7 +45,9 @@ const useStyles = makeStyles(
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
-            alignItems: 'flex-start',
+            alignItems: 'flex-start'
+        },
+        addIconParent: {
             '&:hover $addIcon': {
                 opacity: 1
             }
@@ -150,9 +152,9 @@ const DndEditorMenu: React.FC = () => {
         addItem(editorContext, item)
     }
 
-    const menuItemProps = (group: DndGroupItem, idx) => {
+    const menuItemProps = (group: DndItem, idx: number) => {
         return {
-            group: group,
+            group: group as DndGroupItem,
             blocks: groupedBlocks[group.id] as DndBlockItem[],
             classes,
             popupState,

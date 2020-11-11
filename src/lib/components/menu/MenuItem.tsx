@@ -69,9 +69,10 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
                     onClick={addItem(hvItem)}
                     data-drag-image={hvItem.image}
                 >
-                    <span className={classes.element}>
+                    <span className={clsx(classes.element, classes.addIconParent)}>
                         <hvItem.icon fontSize="small" />
                         <span>{hvItem.label}</span>
+                        <AddOutlined fontSize="small" className={classes.addIcon} />
                         <img src={hvItem.image} style={{ display: 'none' }} />
                     </span>
                 </ButtonBase>
@@ -132,7 +133,7 @@ const MenuHoverList: React.FC<MenuHoverListProps> = ({ classes, listItems, handl
                             onClick={handleAddItem(item)}
                             data-drag-image={item.image}
                         >
-                            <span className={classes.block}>
+                            <span className={clsx(classes.block, classes.addIconParent)}>
                                 <span className={classes.heading}>{item.label}</span>
                                 <span className={classes.imgItem}>
                                     <img src={item.image} alt="" />

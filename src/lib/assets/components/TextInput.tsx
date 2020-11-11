@@ -3,20 +3,17 @@ import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
-import { updateItem } from '../../utils'
 
 export default {
     render: (renderProps: RenderProps, id: string) => {
         if (!renderProps.item || !id) {
             return null
         }
-        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
-        const handleChange = (value: string) =>
-            updateItem(renderProps, renderProps.item!.id, { [`${id}.label`]: value })
-        const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+        const handleClick = (ev: React.MouseEvent) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const props = state?.url ? { href: state.url } : {}
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         return (
@@ -32,7 +29,7 @@ export default {
             />
         )
     },
-    export: (renderProps: RenderProps, id: string) => {
+    export: () => {
         return ''
     },
     initialValues: {
