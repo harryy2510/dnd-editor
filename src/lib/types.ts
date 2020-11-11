@@ -41,6 +41,7 @@ export type SettingComponentType =
     | 'multilineValidation'
     | 'inputOptions'
 
+export type GroupRenderMode = 'container' | 'heading' | 'hidden'
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
 export type ConditionDisplay = 'ALWAYS' | 'DISPLAY'
@@ -116,6 +117,7 @@ export type DndBaseItem = {
 }
 export type DndGroupItem = DndBaseItem & {
     type: 'group'
+    renderMode: GroupRenderMode
     icon: React.ComponentType<SvgIconProps>
 }
 export type DndBlockItem = DndBaseItem & {
@@ -141,14 +143,12 @@ export interface DndState {
 export interface DndEditorContextProps {
     setState: React.Dispatch<React.SetStateAction<DndState>>
     state: DndState
-
     template: DndTemplateItem
     itemsMap: Record<string, DndItem>
     items: DndItem[]
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
     onSendEmail?: (emails: string[], html: string) => Promise<any>
-
     smartyTags?: Record<string, string>
     sampleData?: any
 }

@@ -8,6 +8,7 @@ export default {
     id: 'text-input',
     label: <Trans>Text Input</Trans>,
     icon: Assistant,
+    parent: 'form-elements',
     render: (renderProps) => TextInput.render(renderProps, 'text-input-1'),
     export: () => '',
     image:
