@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField } from '@material-ui/core'
+import { Select, FormControl, MenuItem, InputLabel, FormHelperText } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 
 export default {
@@ -14,38 +14,43 @@ export default {
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
-        const props = state?.url ? { href: state.url } : {}
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
-        console.log(state?.inputType)
         return (
-            <TextField
-                id={`${renderProps.item.id}-${id}`}
-                type={state?.inputType || 'text'}
-                onClick={handleClick}
-                multiline={state?.multiline}
-                rows={state?.rows}
-                {...props}
-                variant="outlined"
+            <FormControl
                 fullWidth
-                label={labelText}
-                placeholder={state?.placeholder}
-                value={state?.defaultValue}
-                helperText={state?.hint}
-            />
+                variant="outlined"
+                style={{ textAlign: 'left' }}
+                onClick={handleClick}
+            >
+                <InputLabel id="demo-simple-select-outlined-label">{labelText}</InputLabel>
+                <Select
+                    fullWidth
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value=""
+                    label={labelText}
+                >
+                    {state?.options?.map((option: string) => (
+                        <MenuItem value={option}>{option}</MenuItem>
+                    ))}
+                </Select>
+                <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
+            </FormControl>
         )
     },
-    export: () => {
+    export: (renderProps: RenderProps, id: string) => {
         return ''
     },
     initialValues: {
         question: 'Question',
         placeholder: 'Placeholder',
         hint: 'Optional Hint',
-        inputType: 'text',
-        multiline: false,
         validation: { type: 'none' },
+        multiline: { type: 'none' },
         characterLimit: '12',
         pii: '',
+        defaultValue: 'Option 1',
+        options: ['Option 1', 'Option 2'],
         className: '',
         required: true,
         enabled: true,
@@ -62,6 +67,12 @@ export default {
             label: <Trans>Custom Placeholder</Trans>
         },
         { id: 'hint', type: 'labeledTextInput', grid: 12, label: <Trans>Hint</Trans> },
+        {
+            id: 'characterLimit',
+            type: 'labeledNumberInput',
+            grid: 12,
+            label: <Trans>Character limit</Trans>
+        },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         {
             id: 'defaultValue',

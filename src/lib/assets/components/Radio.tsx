@@ -1,7 +1,16 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField } from '@material-ui/core'
+import {
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    FormControl,
+    FormLabel,
+    FormHelperText,
+    RadioGroup,
+    Radio
+} from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 
 export default {
@@ -9,42 +18,42 @@ export default {
         if (!renderProps.item || !id) {
             return null
         }
-        const handleClick = (ev: React.MouseEvent) => {
+
+        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
+        const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
-        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
-        const props = state?.url ? { href: state.url } : {}
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
-        console.log(state?.inputType)
         return (
-            <TextField
-                id={`${renderProps.item.id}-${id}`}
-                type={state?.inputType || 'text'}
-                onClick={handleClick}
-                multiline={state?.multiline}
-                rows={state?.rows}
-                {...props}
-                variant="outlined"
+            <FormControl
                 fullWidth
-                label={labelText}
-                placeholder={state?.placeholder}
-                value={state?.defaultValue}
-                helperText={state?.hint}
-            />
+                component="fieldset"
+                style={{ textAlign: 'left' }}
+                onClick={handleClick}
+            >
+                <FormLabel component="legend">{labelText}</FormLabel>
+                <RadioGroup aria-label="gender">
+                    {state?.options?.map((option: string) => (
+                        <FormControlLabel
+                            control={
+                                <Radio checked={state?.defaultValue === option} name={option} />
+                            }
+                            label={option}
+                        />
+                    ))}
+                </RadioGroup>
+                <FormHelperText>{state?.hint}</FormHelperText>
+            </FormControl>
         )
     },
-    export: () => {
-        return ''
-    },
+    export: () => '',
     initialValues: {
         question: 'Question',
         placeholder: 'Placeholder',
         hint: 'Optional Hint',
-        inputType: 'text',
-        multiline: false,
+        options: ['Yes', 'No'],
         validation: { type: 'none' },
-        characterLimit: '12',
         pii: '',
         className: '',
         required: true,
@@ -62,6 +71,12 @@ export default {
             label: <Trans>Custom Placeholder</Trans>
         },
         { id: 'hint', type: 'labeledTextInput', grid: 12, label: <Trans>Hint</Trans> },
+        {
+            id: 'characterLimit',
+            type: 'labeledTextInput',
+            grid: 12,
+            label: <Trans>Character limit</Trans>
+        },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         {
             id: 'defaultValue',
@@ -72,7 +87,7 @@ export default {
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
         {
             id: 'validation',
-            type: 'validation',
+            type: 'multilineValidation',
             grid: 12,
             label: <Trans>Validation</Trans>
         },

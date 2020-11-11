@@ -17,7 +17,7 @@ const InputOptions: React.FC<OptionsProps> = ({ onChange, value, ...props }) => 
             label={<Trans>Options</Trans>}
             value={inputValue}
             multiline={true}
-            rowsMax="4"
+            rows="4"
             onChange={handleOnChange}
             helperText={<Trans>Options should be seperated by new line.</Trans>}
         ></LabeledTextInput>

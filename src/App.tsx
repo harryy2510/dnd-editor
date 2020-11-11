@@ -355,10 +355,12 @@ const customItems: DndItem[] = [
 
 function App() {
     const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
+    const theme = React.useMemo(
+        () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
+        []
+    )
     return (
-        <ThemeProvider
-            theme={createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } })}
-        >
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
                 <DndEditor

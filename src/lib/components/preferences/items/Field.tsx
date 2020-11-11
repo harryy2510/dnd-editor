@@ -30,6 +30,7 @@ import LabeledSwitch from './LabeledSwitch'
 import InputValidation from './InputValidation'
 import InputOptions from './InputOptions'
 import MultilineValidation from './MultilineValidation'
+import LabeledNumberInput from './LabeledNumberInput'
 
 const fields: Record<string, React.FC<any>> = {
     align: Align,
@@ -58,6 +59,7 @@ const fields: Record<string, React.FC<any>> = {
     inputValidation: InputValidation,
     multilineValidation: MultilineValidation,
     inputOptions: InputOptions,
+    labeledNumberInput: LabeledNumberInput,
     labeledSwitch: LabeledSwitch
 }
 

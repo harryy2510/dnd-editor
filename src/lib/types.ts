@@ -36,6 +36,7 @@ export type SettingComponentType =
     | 'verticalAlign'
     | 'width'
     | 'labeledTextInput'
+    | 'labeledNumberInput'
     | 'labeledSwitch'
     | 'inputValidation'
     | 'multilineValidation'

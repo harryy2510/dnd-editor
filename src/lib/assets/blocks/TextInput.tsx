@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
-import { Assistant } from '@material-ui/icons'
+import { TextFields } from '@material-ui/icons'
 import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
 
 export default {
     id: 'text-input',
     label: <Trans>Text Input</Trans>,
-    icon: Assistant,
+    icon: TextFields,
     parent: 'form-elements',
     render: (renderProps) => TextInput.render(renderProps, 'text-input-1'),
     export: () => '',

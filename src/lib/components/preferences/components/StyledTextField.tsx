@@ -43,10 +43,11 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
     }
 }))
 
+type InputTypes = string | number
 export interface StyledTextFieldProps
     extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onChange'> {
-    value: string
-    onChange: (value: string) => void
+    value: InputTypes
+    onChange: (value: InputTypes) => void
     clearable?: boolean
 }
 
