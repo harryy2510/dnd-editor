@@ -7,7 +7,8 @@ import {
     Checkbox,
     FormControl,
     FormLabel,
-    FormHelperText
+    FormHelperText,
+    Input
 } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 
@@ -18,7 +19,7 @@ export default {
         }
 
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
-        const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+        const handleClick = (ev: React.MouseEvent<HTMLFieldSetElement>) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
@@ -28,18 +29,35 @@ export default {
                 fullWidth
                 component="fieldset"
                 style={{ textAlign: 'left' }}
+                disabled
                 onClick={handleClick}
             >
                 <FormLabel component="legend">{labelText}</FormLabel>
-                <FormGroup row onClick={handleClick}>
-                    {state?.options?.map((option: string) => (
+                <FormGroup row>
+                    {state?.options
+                        ?.filter((option: string) => option.length > 0)
+                        .map((option: string) => (
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={state?.defaultValue === option}
+                                        name={option}
+                                    />
+                                }
+                                label={option}
+                            />
+                        ))}
+                    {state?.showOther && (
                         <FormControlLabel
-                            control={
-                                <Checkbox checked={state?.defaultValue === option} name={option} />
+                            control={<Checkbox checked={false} />}
+                            label={
+                                <>
+                                    <Trans>Other</Trans>
+                                    <Input type="text" placeholder="Custom option" />
+                                </>
                             }
-                            label={option}
                         />
-                    ))}
+                    )}
                 </FormGroup>
                 <FormHelperText>{state?.hint}</FormHelperText>
             </FormControl>
@@ -49,6 +67,7 @@ export default {
     initialValues: {
         question: 'Question',
         placeholder: 'Placeholder',
+        showOther: false,
         hint: 'Optional Hint',
         options: ['Yes', 'No'],
         validation: { type: 'none' },
@@ -90,6 +109,12 @@ export default {
             label: <Trans>Validation</Trans>
         },
         { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
+        {
+            id: 'showOther',
+            type: 'labeledSwitch',
+            grid: 12,
+            label: <Trans>Show other option with custom text</Trans>
+        },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ]

@@ -21,9 +21,22 @@ export default {
             id: 'multiline',
             label: <Trans>Muliline input</Trans>,
             type: 'form-elements',
-            settings: (TextInput.settings || []).concat([
-                { id: 'rows', type: 'labeledNumberInput', grid: 12, label: <Trans>Rows</Trans> }
-            ])
+            settings: (TextInput.settings || [])
+                .filter((setting) => setting.type !== 'inputValidation')
+                .concat([
+                    {
+                        id: 'rows',
+                        type: 'labeledNumberInput',
+                        grid: 12,
+                        label: <Trans>Rows</Trans>
+                    },
+                    {
+                        id: 'validation',
+                        type: 'multilineValidation',
+                        grid: 12,
+                        label: <Trans>Validation</Trans>
+                    }
+                ])
         }
     ],
     type: 'block'

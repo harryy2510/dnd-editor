@@ -21,6 +21,7 @@ export default {
                 variant="outlined"
                 style={{ textAlign: 'left' }}
                 onClick={handleClick}
+                disabled
             >
                 <InputLabel id="demo-simple-select-outlined-label">{labelText}</InputLabel>
                 <Select

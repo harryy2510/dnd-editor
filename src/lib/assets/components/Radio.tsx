@@ -2,14 +2,13 @@ import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import {
-    FormGroup,
     FormControlLabel,
-    Checkbox,
     FormControl,
     FormLabel,
     FormHelperText,
     RadioGroup,
-    Radio
+    Radio,
+    Input
 } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 
@@ -20,7 +19,7 @@ export default {
         }
 
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
-        const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+        const handleClick = (ev: React.MouseEvent<HTMLFieldSetElement>) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
@@ -31,17 +30,31 @@ export default {
                 component="fieldset"
                 style={{ textAlign: 'left' }}
                 onClick={handleClick}
+                disabled
             >
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <RadioGroup aria-label="gender">
-                    {state?.options?.map((option: string) => (
+                    {state?.options
+                        ?.filter((option: string) => option.length > 0)
+                        .map((option: string) => (
+                            <FormControlLabel
+                                control={
+                                    <Radio checked={state?.defaultValue === option} name={option} />
+                                }
+                                label={option}
+                            />
+                        ))}
+                    {state?.showOther && (
                         <FormControlLabel
-                            control={
-                                <Radio checked={state?.defaultValue === option} name={option} />
+                            control={<Radio checked={false} />}
+                            label={
+                                <>
+                                    <Trans>Other</Trans>
+                                    <Input type="text" placeholder="Custom option" />
+                                </>
                             }
-                            label={option}
                         />
-                    ))}
+                    )}
                 </RadioGroup>
                 <FormHelperText>{state?.hint}</FormHelperText>
             </FormControl>
@@ -92,6 +105,12 @@ export default {
             label: <Trans>Validation</Trans>
         },
         { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
+        {
+            id: 'showOther',
+            type: 'labeledSwitch',
+            grid: 12,
+            label: <Trans>Show other option with custom text</Trans>
+        },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ]

@@ -27,10 +27,12 @@ export default {
                 {...props}
                 variant="outlined"
                 fullWidth
+                InputLabelProps={state?.labelProps}
                 label={labelText}
                 placeholder={state?.placeholder}
                 value={state?.defaultValue}
                 helperText={state?.hint}
+                disabled
             />
         )
     },
@@ -49,6 +51,9 @@ export default {
         className: '',
         required: true,
         enabled: true,
+        lableProps: {
+            shrink: false
+        },
         style: {
             textAlign: 'left'
         }
@@ -76,7 +81,6 @@ export default {
             grid: 12,
             label: <Trans>Validation</Trans>
         },
-        { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ]
