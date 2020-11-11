@@ -25,11 +25,19 @@ const useStyles = makeStyles(
             letterSpacing: '1px',
             color: '#fff'
         },
+        popperControl: {
+            '&::after': {
+                content: "'...'"
+            }
+        },
         item: {
-            width: '100%',
+            display: 'block',
             color: text.secondary,
+            width: '100%',
+            textAlign: 'left',
             padding: spacing(0.5),
             '&:hover, &$hovered': {
+                minWidth: spacing(35),
                 backgroundColor: grey[600],
                 color: 'white'
             }
@@ -53,10 +61,7 @@ const useStyles = makeStyles(
             padding: spacing(2),
             ...body2,
             fontWeight: 500,
-            textTransform: 'none',
-            '& .MuiSvgIcon-root': {
-                marginRight: spacing(3)
-            }
+            textTransform: 'none'
         },
         card: {
             width: '100%',
@@ -87,6 +92,10 @@ const useStyles = makeStyles(
         },
         list: {
             width: '100%'
+        },
+        label: {
+            flex: '1',
+            marginLeft: spacing(3)
         },
         addIcon: {
             opacity: 0,
@@ -119,6 +128,7 @@ type MenuItemProps = {
     addItem: (block: DndBlockItem) => any
     handleMouseEnter: (group: DndGroupItem) => any
     blocks: DndBlockItem[]
+    minimized: booolean
 }
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
@@ -140,6 +150,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
     classes,
     isHovered,
     popupState,
+    minimized,
     addItem
 }) => {
     console.log(classes)
@@ -153,6 +164,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
             className={classes.list}
             setData={(dataTransfer, draggedElement) => {
                 const dragImage = document.createElement('img')
+                console.log(dragImage)
                 dragImage.src = draggedElement.dataset.dragImage as string
                 console.log(dragImage)
                 dataTransfer.setDragImage(dragImage, -10, -10)
@@ -173,9 +185,9 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
                 >
                     <span className={clsx(classes.element, classes.addIconParent)}>
                         <hvItem.icon fontSize="small" />
-                        <span>{hvItem.label}</span>
-                        <AddOutlined fontSize="small" className={classes.addIcon} />
+                        {!minimized && <div className={classes.label}>{hvItem.label}</div>}
                         <img src={hvItem.image} style={{ display: 'none' }} />
+                        <AddOutlined fontSize="small" className={classes.addIcon} />
                     </span>
                 </ButtonBase>
             ))}
@@ -188,6 +200,7 @@ const ContainerGroupMenuItem: React.FC<MenuItemProps> = ({
     classes,
     isHovered,
     handleMouseEnter,
+    minimized,
     popupState
 }) => {
     return (
@@ -204,7 +217,9 @@ const ContainerGroupMenuItem: React.FC<MenuItemProps> = ({
         >
             <span className={classes.element}>
                 <group.icon fontSize="small" />
-                <span>{group.label}</span>
+                {!minimized && (
+                    <div className={clsx(classes.label, classes.popperControl)}>{group.label}</div>
+                )}
             </span>
         </ButtonBase>
     )

@@ -13,7 +13,6 @@ const useStyles = makeStyles(({ spacing, zIndex }: Theme) => ({
         padding: spacing(4, 0)
     },
     popper: {
-        width: spacing(40),
         zIndex: zIndex.tooltip,
         marginLeft: -140
     }
@@ -21,6 +20,7 @@ const useStyles = makeStyles(({ spacing, zIndex }: Theme) => ({
 
 const DndEditorMenu: React.FC = () => {
     const [hovered, setHovered] = React.useState('')
+    const [minimized, setMinimized] = React.useState(true)
     const editorContext = useDndEditorContext()
     const groupedItems = React.useMemo(() => groupBy(editorContext.items, 'type'), [
         editorContext.items
@@ -59,12 +59,17 @@ const DndEditorMenu: React.FC = () => {
             key: idx,
             isHovered: group.id === hovered,
             handleMouseEnter,
+            minimized,
             addItem: handleAddItem
         }
     }
     return (
         <>
-            <div className={classes.root}>
+            <div
+                className={classes.root}
+                onMouseLeave={() => setMinimized(true)}
+                onMouseEnter={() => setMinimized(false)}
+            >
                 <Popper
                     transition
                     placement="right"
@@ -82,7 +87,9 @@ const DndEditorMenu: React.FC = () => {
                 {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
                     .map((item, i) => (
-                        <MenuItem {...menuItemProps(item, i)} />
+                        <div>
+                            <MenuItem {...menuItemProps(item, i)} />
+                        </div>
                     ))}
             </div>
         </>
