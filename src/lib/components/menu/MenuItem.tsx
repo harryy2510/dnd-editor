@@ -1,10 +1,109 @@
 import React from 'react'
-import { ButtonBase, Card, CardContent } from '@material-ui/core'
+import { ButtonBase, Card, CardContent, Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { ReactSortable } from 'react-sortablejs'
 import { bindHover } from 'material-ui-popup-state/core'
 import { AddOutlined } from '@material-ui/icons'
 import { DndBlockItem, DndGroupItem } from '../../types'
+
+const useStyles = makeStyles(
+    ({
+        spacing,
+        typography: { caption, fontWeightBold, body2 },
+        palette: { text, action, background, primary, grey },
+        shape: { borderRadius },
+        transitions,
+        zIndex
+    }: Theme) => ({
+        hovered: {},
+        heading: {
+            ...caption,
+            marginBottom: spacing(1),
+            fontWeight: fontWeightBold,
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            color: '#fff'
+        },
+        item: {
+            width: '100%',
+            color: text.secondary,
+            padding: spacing(0.5),
+            '&:hover, &$hovered': {
+                backgroundColor: grey[600],
+                color: 'white'
+            }
+        },
+        block: {
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            alignItems: 'flex-start'
+        },
+        addIconParent: {
+            '&:hover $addIcon': {
+                opacity: 1
+            }
+        },
+        element: {
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            padding: spacing(2),
+            ...body2,
+            fontWeight: 500,
+            textTransform: 'none',
+            '& .MuiSvgIcon-root': {
+                marginRight: spacing(3)
+            }
+        },
+        card: {
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            backgroundColor: grey[600],
+            color: 'white'
+        },
+        imgItem: {
+            position: 'relative',
+            backgroundColor: background.paper,
+            marginBottom: spacing(4),
+            boxShadow: `1px 1px 4px ${action.focus}`,
+            width: '100%',
+            height: 64,
+            borderRadius,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '& img': {
+                maxWidth: '95%',
+                maxHeight: '95%',
+                borderRadius: 'inherit'
+            },
+            '&:hover': {
+                boxShadow: `2px 2px 10px ${action.focus}`
+            }
+        },
+        list: {
+            width: '100%'
+        },
+        addIcon: {
+            opacity: 0,
+            position: 'absolute',
+            right: -12,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 24,
+            height: 24,
+            backgroundColor: primary.main,
+            color: primary.contrastText,
+            borderRadius: 24,
+            boxShadow: `2px 2px 20px ${action.active}`,
+            transition: transitions.create('opacity')
+        }
+    })
+)
 
 type MenuHoverListProps = {
     classes: any
@@ -18,17 +117,19 @@ type MenuItemProps = {
     popupState: any
     group: DndGroupItem
     addItem: (block: DndBlockItem) => any
-    handleMouseEnter: (group: DndBlockItem) => any
+    handleMouseEnter: (group: DndGroupItem) => any
     blocks: DndBlockItem[]
 }
+
 const MenuItem: React.FC<MenuItemProps> = (props) => {
     const renderMode = props?.group.renderMode || 'container'
-    console.log(renderMode)
+    const styles = useStyles()
+    const menuItemProps = { ...props, classes: styles }
     switch (renderMode) {
         case 'container':
-            return <ContainerGroupMenuItem {...props} />
+            return <ContainerGroupMenuItem {...menuItemProps} />
         case 'hidden':
-            return <HiddenGroupMenuItem {...props} />
+            return <HiddenGroupMenuItem {...menuItemProps} />
         default:
             return <></>
     }
@@ -41,6 +142,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
     popupState,
     addItem
 }) => {
+    console.log(classes)
     return (
         <ReactSortable
             animation={300}
@@ -108,7 +210,8 @@ const ContainerGroupMenuItem: React.FC<MenuItemProps> = ({
     )
 }
 
-const MenuHoverList: React.FC<MenuHoverListProps> = ({ classes, listItems, handleAddItem }) => {
+const MenuHoverList: React.FC<MenuHoverListProps> = ({ listItems, handleAddItem }) => {
+    const classes = useStyles()
     return (
         <Card elevation={0} className={classes.card}>
             <CardContent>
