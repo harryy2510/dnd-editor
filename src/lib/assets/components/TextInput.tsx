@@ -16,7 +16,6 @@ export default {
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const props = state?.url ? { href: state.url } : {}
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
-        console.log(state?.inputType)
         return (
             <TextField
                 id={`${renderProps.item.id}-${id}`}

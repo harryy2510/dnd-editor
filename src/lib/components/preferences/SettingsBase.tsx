@@ -85,7 +85,7 @@ const SettingsBase: React.FC<Props> = ({
                             canExpand ? (e, v) => setExpanded(v ? setting.id : '') : undefined
                         }
                         TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}
-                        key={i}
+                        key={`${id}-${i}`}
                     >
                         <AccordionSummary
                             className={classes.summary}

@@ -100,9 +100,6 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
                 }
             }}
             defaultValue={value}
-            onKeyUp={(e) => {
-                e.keyCode === 13 && onChange(e.target.value)
-            }}
             onBlur={(e) => onChange(e.target.value)}
         />
     )

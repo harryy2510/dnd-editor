@@ -1,35 +1,12 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { Grid, Button, FormHelperText, InputLabel, Theme } from '@material-ui/core'
+import { Grid, FormHelperText, InputLabel } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
-import { CloudUpload } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/styles'
+import Uploader from '../../components/preferences/components/Uploader'
 
-const useStyles = makeStyles(
-    ({
-        spacing,
-        typography: { h3, fontWeightBold, body2 },
-        palette: { text, action, background, primary, grey }
-    }: Theme) => ({
-        root: {
-            padding: spacing(1),
-            textAlign: 'left'
-        },
-        dragDropContainer: {
-            textAlign: 'center',
-            border: `1px dotted ${grey[400]}`,
-            backgroundColor: grey[200]
-        },
-        uploadIcon: {
-            ...h3,
-            color: grey[500]
-        }
-    })
-)
 export default {
     render: (renderProps: RenderProps, id: string) => {
-        const classes = useStyles()
         if (!renderProps.item || !id) {
             return null
         }
@@ -40,36 +17,18 @@ export default {
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         return (
-            <Grid
-                container
-                spacing={2}
-                className={classes.root}
-                alignItems="center"
-                onClick={handleClick}
-            >
+            <Grid container spacing={2} style={{ textAlign: 'left' }} onClick={handleClick}>
                 <Grid item xs={12}>
                     <InputLabel htmlFor="my-input">{labelText}</InputLabel>
                 </Grid>
-                <Grid item xs={12} className={classes.dragDropContainer}>
-                    <Grid container xs={12}>
-                        <Grid alignContent="center" item xs={12}>
-                            <CloudUpload className={classes.uploadIcon} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Trans>Browse Files</Trans>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Trans>Drag and drop files here</Trans>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                <Uploader disabled />
                 <Grid item xs={12}>
                     <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
                 </Grid>
             </Grid>
         )
     },
-    export: (renderProps: RenderProps, id: string) => {
+    export: () => {
         return ''
     },
     initialValues: {

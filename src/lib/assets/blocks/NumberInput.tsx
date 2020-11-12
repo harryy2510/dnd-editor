@@ -21,7 +21,20 @@ export default {
             id: 'number-1',
             label: <Trans>Number Input 1</Trans>,
             type: 'form-elements',
-            settings: TextInput.settings
+            settings: (TextInput.settings || []).concat([
+                {
+                    id: 'min',
+                    type: 'labeledNumberInput',
+                    grid: 12,
+                    label: <Trans>Min Value</Trans>
+                },
+                {
+                    id: 'max',
+                    type: 'labeledNumberInput',
+                    grid: 12,
+                    label: <Trans>Max Value</Trans>
+                }
+            ])
         }
     ],
     type: 'block'

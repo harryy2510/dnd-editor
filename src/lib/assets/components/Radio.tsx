@@ -36,8 +36,9 @@ export default {
                 <RadioGroup aria-label="gender">
                     {state?.options
                         ?.filter((option: string) => option.length > 0)
-                        .map((option: string) => (
+                        .map((option: string, i: number) => (
                             <FormControlLabel
+                                key={i}
                                 control={
                                     <Radio checked={state?.defaultValue === option} name={option} />
                                 }
@@ -46,6 +47,7 @@ export default {
                         ))}
                     {state?.showOther && (
                         <FormControlLabel
+                            key={'other'}
                             control={<Radio checked={false} />}
                             label={
                                 <>
@@ -84,12 +86,6 @@ export default {
             label: <Trans>Custom Placeholder</Trans>
         },
         { id: 'hint', type: 'labeledTextInput', grid: 12, label: <Trans>Hint</Trans> },
-        {
-            id: 'characterLimit',
-            type: 'labeledTextInput',
-            grid: 12,
-            label: <Trans>Character limit</Trans>
-        },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         {
             id: 'defaultValue',
@@ -98,12 +94,6 @@ export default {
             label: <Trans>Default value</Trans>
         },
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        {
-            id: 'validation',
-            type: 'multilineValidation',
-            grid: 12,
-            label: <Trans>Validation</Trans>
-        },
         { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
         {
             id: 'showOther',

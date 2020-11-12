@@ -50,13 +50,12 @@ const DndEditorMenu: React.FC = () => {
         addItem(editorContext, item)
     }
 
-    const menuItemProps = (group: DndItem, idx: number) => {
+    const menuItemProps = (group: DndItem) => {
         return {
             group: group as DndGroupItem,
             blocks: groupedBlocks[group.id] as DndBlockItem[],
             classes,
             popupState,
-            key: idx,
             isHovered: group.id === hovered,
             handleMouseEnter,
             minimized,
@@ -87,8 +86,8 @@ const DndEditorMenu: React.FC = () => {
                 {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
                     .map((item, i) => (
-                        <div>
-                            <MenuItem {...menuItemProps(item, i)} />
+                        <div key={i}>
+                            <MenuItem {...menuItemProps(item)} />
                         </div>
                     ))}
             </div>

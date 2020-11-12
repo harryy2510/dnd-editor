@@ -31,8 +31,10 @@ export default {
                     value=""
                     label={labelText}
                 >
-                    {state?.options?.map((option: string) => (
-                        <MenuItem value={option}>{option}</MenuItem>
+                    {state?.options?.map((option: string, i: number) => (
+                        <MenuItem key={i} value={option}>
+                            {option}
+                        </MenuItem>
                     ))}
                 </Select>
                 <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
@@ -46,9 +48,6 @@ export default {
         question: 'Question',
         placeholder: 'Placeholder',
         hint: 'Optional Hint',
-        validation: { type: 'none' },
-        multiline: { type: 'none' },
-        characterLimit: '12',
         pii: '',
         defaultValue: 'Option 1',
         options: ['Option 1', 'Option 2'],
@@ -68,12 +67,6 @@ export default {
             label: <Trans>Custom Placeholder</Trans>
         },
         { id: 'hint', type: 'labeledTextInput', grid: 12, label: <Trans>Hint</Trans> },
-        {
-            id: 'characterLimit',
-            type: 'labeledNumberInput',
-            grid: 12,
-            label: <Trans>Character limit</Trans>
-        },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         {
             id: 'defaultValue',

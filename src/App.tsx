@@ -359,6 +359,7 @@ function App() {
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
     )
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

@@ -121,14 +121,14 @@ type MenuHoverListProps = {
 }
 
 type MenuItemProps = {
-    classes: any
+    classes?: any
     isHovered: boolean
     popupState: any
     group: DndGroupItem
     addItem: (block: DndBlockItem) => any
     handleMouseEnter: (group: DndGroupItem) => any
     blocks: DndBlockItem[]
-    minimized: booolean
+    minimized: boolean
 }
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
@@ -153,7 +153,6 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
     minimized,
     addItem
 }) => {
-    console.log(classes)
     return (
         <ReactSortable
             animation={300}
@@ -164,9 +163,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
             className={classes.list}
             setData={(dataTransfer, draggedElement) => {
                 const dragImage = document.createElement('img')
-                console.log(dragImage)
                 dragImage.src = draggedElement.dataset.dragImage as string
-                console.log(dragImage)
                 dataTransfer.setDragImage(dragImage, -10, -10)
             }}
         >
