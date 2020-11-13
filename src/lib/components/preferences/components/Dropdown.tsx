@@ -1,6 +1,7 @@
-import { MenuItem } from '@material-ui/core'
 import React from 'react'
-import Input, { InputProps } from './Input'
+import Input from './Input'
+import { StyledTextFieldProps } from './StyledTextField'
+import { MenuItem } from '@material-ui/core'
 
 export type DropdownOption =
     | string
@@ -9,7 +10,7 @@ export type DropdownOption =
           id: string | number
           style?: React.CSSProperties
       }
-export interface DropdownProps extends InputProps {
+export interface DropdownProps extends StyledTextFieldProps {
     options: DropdownOption[]
 }
 

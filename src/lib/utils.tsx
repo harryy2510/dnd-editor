@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
-import { FormikValues } from 'formik'
-import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set } from 'lodash-es'
+import { FormikValues, FormikContextType } from 'formik'
+import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
@@ -35,6 +35,22 @@ export const removeItem = (renderProps: RenderProps, id?: string) => {
     }
 }
 
+export const updateItemName = (renderProps: RenderProps, id: string, newName: string) => {
+    renderProps.setState((existingState) => {
+        const obj = existingState.entities[id]
+        return {
+            ...existingState,
+            entities: {
+                ...existingState.entities,
+                [id]: {
+                    ...obj,
+                    name: newName
+                }
+            }
+        }
+    })
+}
+
 export const updateItem = (renderProps: RenderProps, id: string, update: FormikValues) => {
     renderProps.setState((existingState) => {
         const obj = existingState.entities[id]
@@ -62,6 +78,7 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             ...renderProps.state.entities,
             [id]: {
                 id,
+                name: id,
                 values: merge({}, { __container: Container.initialValues }, newItem.initialValues),
                 parent: { id: newItem.id, type: newItem.type }
             }
@@ -73,6 +90,7 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             }
         ]
     }
+
     renderProps.setState(newState)
     renderProps.onActiveChange(id)
 }
@@ -91,6 +109,7 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
         }
         updatedNewEntities[id] = {
             id,
+            name: id,
             parent: {
                 id: rawItem.id,
                 type: rawItem.type
@@ -223,16 +242,25 @@ export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)
 
 export const useValidations = () => {
     const commonValidation = [
-        { label: <Trans>None</Trans>, id: 'none' },
-        { label: <Trans>Alphanumberic</Trans>, id: 'alphanumeric' },
-        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic' }
+        { label: <Trans>None</Trans>, id: 'none', value: '.*' },
+        { label: <Trans>Alphanumberic</Trans>, id: 'alphanumeric', value: '^[a-zA-Z0-9]*$' },
+        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic', value: '^[a-zA-Z]*$' }
     ]
     const inputValidation = [
         ...commonValidation,
-        { label: <Trans>Email</Trans>, id: 'email' },
-        { label: <Trans>Currency</Trans>, id: 'currency' },
-        { label: <Trans>Url</Trans>, id: 'url' },
-        { label: <Trans>Numeric</Trans>, id: 'numeric' },
+        { label: <Trans>Email</Trans>, id: 'email', value: '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$' },
+        {
+            label: <Trans>Currency</Trans>,
+            id: 'currency',
+            value: '^-?(?:0|[1-9]d{0,2}(?:,?d{3})*)(?:.d+)?$'
+        },
+        {
+            label: <Trans>Url</Trans>,
+            id: 'url',
+            value:
+                '(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})'
+        },
+        { label: <Trans>Numeric</Trans>, id: 'numeric', value: '^[0-9]$' },
         { label: <Trans>Custom regex</Trans>, id: 'regex' }
     ]
     return { commonValidation: commonValidation, inputValidation }
@@ -434,4 +462,27 @@ export const useFonts = () => {
         fontWeights,
         fontFamily
     }
+}
+
+export const getComponentState = (renderProps: RenderProps, id?: string) => {
+    if (!renderProps.item || !id) {
+        return {}
+    }
+    return renderProps.state.entities[renderProps.item.id]?.values?.[id] || {}
+}
+export const getFromikProps = (formKey: string, formik: FormikContextType<unknown>) => {
+    const formikProps: any = {}
+    if (formik) {
+        formikProps.name = formKey
+        formikProps.onBlur = formik.handleBlur
+        formikProps.value = get(formik.values, formKey)
+        formikProps.onChange = formik.handleChange
+        formikProps.helperText =
+            !!(get(formik.touched, formKey) || formik.submitCount > 0) &&
+            get(formik.errors, formKey)
+        formikProps.error =
+            !!(get(formik.touched, formKey) || formik.submitCount > 0) &&
+            !!get(formik.errors, formKey)
+    }
+    return formikProps
 }

@@ -53,7 +53,7 @@
         "react-sortablejs": "^2.0.11",
         "react-style-object-to-css": "^1.1.2",
         "react-swipeable-views": "^0.13.9",
-        "yup": "^0.29.2"
+        "yup": "^0.29.3"
     },
     "devDependencies": {
         "@babel/core": "^7.12.3",

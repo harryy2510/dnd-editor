@@ -3,25 +3,31 @@ import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { Select, FormControl, MenuItem, InputLabel, FormHelperText } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
+import { getComponentState, getFromikProps } from '../../utils'
+import * as yup from 'yup'
+import { useFormikContext } from 'formik'
 
 export default {
-    render: (renderProps: RenderProps, id: string) => {
-        if (!renderProps.item || !id) {
-            return null
-        }
+    render: (renderProps: RenderProps, id: string, formKey) => {
         const handleClick = (ev: React.MouseEvent) => {
             ev.preventDefault()
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
-        const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
+        const state = getComponentState(renderProps, id)
+
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
+        let formikProps: any = {}
+        if (!renderProps.builderMode && formKey) {
+            formikProps = getFromikProps(formKey, useFormikContext())
+        }
+        console.log('dropdown', state)
         return (
             <FormControl
                 fullWidth
                 variant="outlined"
                 style={{ textAlign: 'left' }}
                 onClick={handleClick}
-                disabled
+                disabled={renderProps.builderMode}
             >
                 <InputLabel id="demo-simple-select-outlined-label">{labelText}</InputLabel>
                 <Select
@@ -30,6 +36,7 @@ export default {
                     id="demo-simple-select-outlined"
                     value=""
                     label={labelText}
+                    {...formikProps}
                 >
                     {state?.options?.map((option: string, i: number) => (
                         <MenuItem key={i} value={option}>
@@ -37,7 +44,9 @@ export default {
                         </MenuItem>
                     ))}
                 </Select>
-                <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
+                <FormHelperText id="my-helper-text" error={formikProps.error}>
+                    {formikProps?.helperText || state?.hint}
+                </FormHelperText>
             </FormControl>
         )
     },
@@ -84,5 +93,11 @@ export default {
         { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
-    ]
+    ],
+    validationSchema: (renderProps, id, parentSchema) => {
+        const state = getComponentState(renderProps, id)
+        let schema: any = yup.string()
+        schema = state?.required ? schema.required('required field') : schema
+        return schema
+    }
 } as DndComponentItem

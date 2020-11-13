@@ -1,6 +1,6 @@
 import { GridSize, SvgIconProps } from '@material-ui/core'
 import React from 'react'
-
+import * as yup from 'yup'
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
 export type SettingItemType =
@@ -72,6 +72,7 @@ export type InitialValues = {
 
 export type DndStateItem = {
     id: string
+    name: string
     parent: {
         id: string
         type: DndItem['type'] | DndTemplateItem['type']
@@ -101,10 +102,12 @@ export type DndContainerItem = {
 }
 
 export type DndComponentItem = {
-    render: (renderProps: RenderProps, id?: string) => React.ReactNode
+    render: (renderProps: RenderProps, id?: string, formKey?: string) => React.ReactNode
     export: (renderProps: RenderProps, id?: string) => string
     initialValues?: InitialValues
     settings?: DndComponentSetting[]
+    formValue?: any
+    validationSchema?: (renderProps: RenderProps, id?: string, parentSchema?: any) => any
 }
 
 export type DndBaseItem = {
@@ -152,6 +155,14 @@ export interface DndEditorContextProps {
     onSendEmail?: (emails: string[], html: string) => Promise<any>
     smartyTags?: Record<string, string>
     sampleData?: any
+    name?: string
+    builderMode: boolean
+}
+
+export interface BlockRendererProps {
+    settings: DndItemSetting[]
+    state: InitialValues
+    Formkey: string
 }
 
 export type RenderProps = DndEditorContextProps & {

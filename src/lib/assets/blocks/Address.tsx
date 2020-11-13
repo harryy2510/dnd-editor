@@ -4,7 +4,6 @@ import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
-import Text from '../components/Text'
 
 export default {
     id: 'address',
@@ -74,6 +73,7 @@ export default {
             ...TextInput.initialValues,
             question: 'Country',
             hint: '',
+            formKey: '',
             placeholder: 'Country'
         }
     },

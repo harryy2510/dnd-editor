@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro'
 import React from 'react'
 import Dropdown, { DropdownProps, DropdownOption } from '../components/Dropdown'
 import LabeledTextInput from './LabeledTextInput'
+import { groupBy } from 'lodash-es'
 
 export interface ValidationValue {
     type: string
@@ -9,14 +10,16 @@ export interface ValidationValue {
 }
 
 export interface ValidationProps extends Omit<DropdownProps, 'value' | 'onChange'> {
-    validations: DropdownOption[]
+    validations: any[]
     value: ValidationValue
     onChange: (value: ValidationValue) => void
 }
 const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, ...props }) => {
     const currentValue = value && value.type
+    const validationMap = groupBy(validations, 'id')
+    console.log('validations', validationMap)
     const handleOnChange = (type: string, value = '') => {
-        onChange({ type, value })
+        onChange({ type, value: value || validationMap[type][0].value })
     }
     return (
         <>
@@ -25,7 +28,7 @@ const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, .
                 value={currentValue}
                 onChange={handleOnChange}
                 {...props}
-                options={validations}
+                options={validations as DropdownOption[]}
             />
             {value.type === 'regex' && (
                 <LabeledTextInput
