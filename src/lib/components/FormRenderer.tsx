@@ -33,8 +33,11 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) => ({
         }
     }
 }))
-
-const FormRenderer: React.FC = () => {
+export interface FormRendererProps {
+    onChange?: (value: any) => void
+    onBlur?: (value: any) => void
+}
+const FormRenderer: React.FC<FormRendererProps> = ({ onChange, onBlur }) => {
     const classes = useStyles()
     const renderProps = useDndEditorContext()
 
@@ -69,20 +72,26 @@ const FormRenderer: React.FC = () => {
         if (itemValidation && stateItem.name) validation = { ...validation, ...itemValidation }
     })
     const validationSchema = yup.object().shape(validation)
-    console.log(validationSchema)
     return (
         <Formik
             enableReinitialize
             initialValues={{}}
+            onChange={(s) => console.log(s)}
+            onBlur={onBlur}
             onSubmit={(s) => console.log(s)}
             validationSchema={validationSchema}
         >
             <Form style={{ paddingBottom: '50px' }}>
                 {renderProps.template.render(renderProps, <Children />)}
-                <Field type="submit" value="Submit"></Field>
+                <Field type="submit" value="Submit" id="submit"></Field>
             </Form>
         </Formik>
     )
+}
+
+FormRenderer.defaultProps = {
+    onChange: (value: any) => undefined,
+    onBlur: (value: any) => undefined
 }
 
 export default FormRenderer

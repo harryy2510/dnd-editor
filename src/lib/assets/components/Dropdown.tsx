@@ -17,7 +17,7 @@ export default {
 
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        if (!renderProps.builderMode && formKey) {
+        if (!renderProps.buildermode && formKey) {
             formikProps = getFromikProps(formKey, useFormikContext())
         }
         console.log('dropdown', state)
@@ -27,7 +27,7 @@ export default {
                 variant="outlined"
                 style={{ textAlign: 'left' }}
                 onClick={handleClick}
-                disabled={renderProps.builderMode}
+                disabled={renderProps.buildermode}
             >
                 <InputLabel id="demo-simple-select-outlined-label">{labelText}</InputLabel>
                 <Select

@@ -4,6 +4,7 @@ import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
+import * as yup from 'yup'
 
 export default {
     id: 'address',
@@ -14,25 +15,45 @@ export default {
         return (
             <Grid container alignItems="stretch" spacing={2}>
                 <Grid item xs={12}>
-                    {TextInput.render(renderProps, 'address-line-1')}
+                    {TextInput.render(
+                        renderProps,
+                        'address-line-1',
+                        `${renderProps.name}.addressLine1`
+                    )}
                 </Grid>
                 <Grid item xs={12}>
-                    {TextInput.render(renderProps, 'address-line-2')}
+                    {TextInput.render(
+                        renderProps,
+                        'address-line-2',
+                        `${renderProps.name}.addressLine2`
+                    )}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'city')}
+                    {TextInput.render(renderProps, 'city', `${renderProps.name}.city`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'state')}
+                    {TextInput.render(renderProps, 'state', `${renderProps.name}.state`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'postal')}
+                    {TextInput.render(renderProps, 'postal', `${renderProps.name}.postal`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'country')}
+                    {TextInput.render(renderProps, 'country', `${renderProps.name}.country`)}
                 </Grid>
             </Grid>
         )
+    },
+    validationSchema: (renderProps) => {
+        const schema: any = {}
+        schema['addressLine1'] = TextInput.validationSchema?.(renderProps, 'address-line-1')
+        schema['addressLine2'] = TextInput.validationSchema?.(renderProps, 'address-line-2')
+        schema['city'] = TextInput.validationSchema?.(renderProps, 'city')
+        schema['state'] = TextInput.validationSchema?.(renderProps, 'state')
+        schema['postal'] = TextInput.validationSchema?.(renderProps, 'postal')
+        schema['country'] = TextInput.validationSchema?.(renderProps, 'country')
+        let parentSchema: any = {}
+        parentSchema[renderProps.name] = yup.object().shape(schema)
+        return parentSchema
     },
     export: () => '',
     image:

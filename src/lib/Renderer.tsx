@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { DndState, DndEditorContextProps } from './types'
@@ -11,11 +11,6 @@ import { keyBy } from 'lodash-es'
 import DndEditorProvider from './DndEditorProvider'
 import FormRenderer from './components/FormRenderer'
 
-export interface RendererProps {
-    smartyTags?: Record<string, string>
-    sampleData?: any
-    value: Partial<DndState>
-}
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
     root: {
         width: '100%',
@@ -32,14 +27,21 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
         zIndex: 0
     }
 }))
-const Renderer: React.FC<DndEditorProps> = ({
+export interface RendererProps {
+    value?: Partial<DndState>
+    onChange?: (newValue: any) => void
+    onBlur?: (newValue: any) => void
+    items?: DndItem[]
+    smartyTags?: Record<string, string>
+    sampleData?: any
+}
+const Renderer: React.FC<RendererProps> = ({
     value,
     onChange,
+    onBlur,
     items = [],
     smartyTags,
-    sampleData,
-    onHtmlChange,
-    onSendEmail
+    sampleData
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -70,20 +72,18 @@ const Renderer: React.FC<DndEditorProps> = ({
     }, [fonts])
     const classes = useStyles()
     const template = Mail
-    const [state, setState] = React.useState<DndState>(createDndState(value, template))
     const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
     const editorContextProps: DndEditorContextProps = {
         active: null,
         onActiveChange: () => {},
         template,
         itemsMap,
-        setState,
-        state,
+        setState: () => {},
+        state: value,
         items,
         smartyTags,
         sampleData,
-        onSendEmail,
-        builderMode: false
+        buildermode: false
     }
 
     const children = React.useMemo(
@@ -91,7 +91,11 @@ const Renderer: React.FC<DndEditorProps> = ({
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer />
+                        <FormRenderer
+                            onChange={(s) => {
+                                console.log(s)
+                            }}
+                        />
                     </div>
                 </Grid>
             </Grid>

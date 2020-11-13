@@ -16,7 +16,7 @@ export default {
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        if (!renderProps.builderMode && formKey) {
+        if (!renderProps.buildermode && formKey) {
             const formik = useFormikContext()
             formikProps = getFromikProps(formKey, formik)
             formikProps.helperText = formikProps.helperText || state?.hint
@@ -35,7 +35,7 @@ export default {
                 placeholder={state?.placeholder}
                 value={state?.defaultValue}
                 helperText={state?.hint}
-                disabled={renderProps.builderMode}
+                disabled={renderProps.buildermode}
                 {...formikProps}
             />
         )
@@ -101,7 +101,6 @@ export default {
         schema = state?.characterLimit
             ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
             : schema
-        console.log(state?.validation, 'validaditon')
         schema = state?.validation
             ? schema.matches(new RegExp(state?.validation.value), {
                   message: `Input must match: ${state?.validation.type}`

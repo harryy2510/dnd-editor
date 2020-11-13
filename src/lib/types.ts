@@ -156,7 +156,7 @@ export interface DndEditorContextProps {
     smartyTags?: Record<string, string>
     sampleData?: any
     name?: string
-    builderMode: boolean
+    buildermode: boolean
 }
 
 export interface BlockRendererProps {

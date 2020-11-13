@@ -17,7 +17,6 @@ export interface ValidationProps extends Omit<DropdownProps, 'value' | 'onChange
 const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, ...props }) => {
     const currentValue = value && value.type
     const validationMap = groupBy(validations, 'id')
-    console.log('validations', validationMap)
     const handleOnChange = (type: string, value = '') => {
         onChange({ type, value: value || validationMap[type][0].value })
     }

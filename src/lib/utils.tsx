@@ -475,7 +475,7 @@ export const getFromikProps = (formKey: string, formik: FormikContextType<unknow
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey)
+        formikProps.value = get(formik.values, formKey) || ''
         formikProps.onChange = formik.handleChange
         formikProps.helperText =
             !!(get(formik.touched, formKey) || formik.submitCount > 0) &&

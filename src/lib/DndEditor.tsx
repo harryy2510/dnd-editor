@@ -115,7 +115,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
         smartyTags,
         sampleData,
         onSendEmail,
-        builderMode: true
+        buildermode: true
     }
 
     React.useEffect(() => {
