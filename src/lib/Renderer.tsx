@@ -91,11 +91,7 @@ const Renderer: React.FC<RendererProps> = ({
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer
-                            onChange={(s) => {
-                                console.log(s)
-                            }}
-                        />
+                        <FormRenderer onSubmit={(form) => console.log(form)} />
                     </div>
                 </Grid>
             </Grid>

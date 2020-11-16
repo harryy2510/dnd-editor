@@ -39,7 +39,6 @@ export default {
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
-            console.log(formikProps, 'radio')
         }
 
         return (
