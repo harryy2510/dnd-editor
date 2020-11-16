@@ -10,7 +10,12 @@ export default {
     icon: CheckCircleOutline,
     parent: 'form-elements',
     render: (renderProps) => {
-        return Checkbox.render(renderProps, 'checkbox-1')
+        return Checkbox.render(renderProps, 'checkbox-1', renderProps.name)
+    },
+    validationSchema: (renderProps) => {
+        const schema: any = {}
+        schema[renderProps.name] = Checkbox.validationSchema?.(renderProps, 'checkbox-1')
+        return schema
     },
     export: () => '',
     image:
