@@ -16,12 +16,8 @@ import FontWeight from './FontWeight'
 import Height from './Height'
 import Image from './Image'
 import ImagePadding from './ImagePadding'
-import InputHint from './InputHint'
 import LinkColor from './LinkColor'
 import Padding from './Padding'
-import Placeholder from './Placeholder'
-import Question from './Question'
-import Required from './Required'
 import Size from './Size'
 import Space from './Space'
 import Spacing from './Spacing'
@@ -29,6 +25,12 @@ import TextAlign from './TextAlign'
 import Url from './Url'
 import VerticalAlign from './VerticalAlign'
 import Width from './Width'
+import LabeledTextInput from './LabeledTextInput'
+import LabeledSwitch from './LabeledSwitch'
+import InputValidation from './InputValidation'
+import InputOptions from './InputOptions'
+import MultilineValidation from './MultilineValidation'
+import LabeledNumberInput from './LabeledNumberInput'
 
 const fields: Record<string, React.FC<any>> = {
     align: Align,
@@ -53,10 +55,12 @@ const fields: Record<string, React.FC<any>> = {
     url: Url,
     verticalAlign: VerticalAlign,
     width: Width,
-    question: Question,
-    placeholder: Placeholder,
-    hint: InputHint,
-    required: Required
+    labeledTextInput: LabeledTextInput,
+    inputValidation: InputValidation,
+    multilineValidation: MultilineValidation,
+    inputOptions: InputOptions,
+    labeledNumberInput: LabeledNumberInput,
+    labeledSwitch: LabeledSwitch
 }
 
 interface Props {

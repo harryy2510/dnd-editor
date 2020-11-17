@@ -6,6 +6,7 @@ import { DndGroupItem } from '../../types'
 export default {
     id: 'basic-elements',
     type: 'group',
+    renderMode: 'container',
     icon: AppsOutlined,
     label: <Trans>Basic Elements</Trans>,
     priority: 1

@@ -1,9 +1,16 @@
 import { GridSize, SvgIconProps } from '@material-ui/core'
 import React from 'react'
-
+import * as yup from 'yup'
 export type Primitive = string | boolean | number
 export type DeviceType = 'laptop' | 'tablet' | 'mobile'
-export type SettingItemType = 'text' | 'image' | 'button' | 'condition' | 'container' | 'template' | 'form-elements'
+export type SettingItemType =
+    | 'text'
+    | 'image'
+    | 'button'
+    | 'condition'
+    | 'container'
+    | 'template'
+    | 'form-elements'
 
 export type SettingComponentType =
     | 'align'
@@ -28,11 +35,14 @@ export type SettingComponentType =
     | 'url'
     | 'verticalAlign'
     | 'width'
-    | 'placeholder'
-    | 'question'
-    | 'required'
-    | 'hint'
+    | 'labeledTextInput'
+    | 'labeledNumberInput'
+    | 'labeledSwitch'
+    | 'inputValidation'
+    | 'multilineValidation'
+    | 'inputOptions'
 
+export type GroupRenderMode = 'container' | 'heading' | 'hidden'
 export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
 export type ConditionType = 'AND' | 'OR'
 export type ConditionDisplay = 'ALWAYS' | 'DISPLAY'
@@ -62,6 +72,7 @@ export type InitialValues = {
 
 export type DndStateItem = {
     id: string
+    name: string
     parent: {
         id: string
         type: DndItem['type'] | DndTemplateItem['type']
@@ -73,6 +84,7 @@ export type DndComponentSetting = {
     type: SettingComponentType
     grid?: GridSize
     id: string
+    label?: React.ReactElement
 }
 
 export type DndItemSetting = {
@@ -90,10 +102,12 @@ export type DndContainerItem = {
 }
 
 export type DndComponentItem = {
-    render: (renderProps: RenderProps, id?: string) => React.ReactNode
+    render: (renderProps: RenderProps, id?: string, formKey?: string) => React.ReactNode
     export: (renderProps: RenderProps, id?: string) => string
     initialValues?: InitialValues
     settings?: DndComponentSetting[]
+    formValue?: any
+    validationSchema?: (renderProps: RenderProps, id?: string, parentSchema?: any) => any
 }
 
 export type DndBaseItem = {
@@ -107,12 +121,14 @@ export type DndBaseItem = {
 }
 export type DndGroupItem = DndBaseItem & {
     type: 'group'
+    renderMode: GroupRenderMode
     icon: React.ComponentType<SvgIconProps>
 }
 export type DndBlockItem = DndBaseItem & {
     type: 'block'
-    parent: string
+    parent?: string
     image: string
+    icon?: React.ComponentType<SvgIconProps>
 }
 export type DndItem = DndGroupItem | DndBlockItem
 
@@ -131,16 +147,22 @@ export interface DndState {
 export interface DndEditorContextProps {
     setState: React.Dispatch<React.SetStateAction<DndState>>
     state: DndState
-
     template: DndTemplateItem
     itemsMap: Record<string, DndItem>
     items: DndItem[]
     active: string | null
     onActiveChange: React.Dispatch<React.SetStateAction<string | null>>
     onSendEmail?: (emails: string[], html: string) => Promise<any>
-
     smartyTags?: Record<string, string>
     sampleData?: any
+    name?: string
+    buildermode: boolean
+}
+
+export interface BlockRendererProps {
+    settings: DndItemSetting[]
+    state: InitialValues
+    Formkey: string
 }
 
 export type RenderProps = DndEditorContextProps & {

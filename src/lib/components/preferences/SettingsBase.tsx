@@ -85,7 +85,7 @@ const SettingsBase: React.FC<Props> = ({
                             canExpand ? (e, v) => setExpanded(v ? setting.id : '') : undefined
                         }
                         TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}
-                        key={i}
+                        key={`${id}-${i}`}
                     >
                         <AccordionSummary
                             className={classes.summary}
@@ -109,7 +109,7 @@ const SettingsBase: React.FC<Props> = ({
                                         {children ||
                                             setting.settings?.map((st, i) => (
                                                 <Grid item xs={st.grid ?? 12} key={i}>
-                                                    <Field name={st.id} type={st.type} />
+                                                    <Field name={st.id} {...st} />
                                                 </Grid>
                                             ))}
                                     </Grid>

@@ -8,7 +8,7 @@ import clsx from 'clsx'
 const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) => ({
     root: {
         paddingRight: spacing(0.5),
-        height: 32,
+        minHeight: 32,
         '&:hover:not(.Mui-focused) $notchedOutline': {
             borderColor: divider,
             backgroundColor: action.hover
@@ -22,6 +22,10 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
     },
     input: {
         padding: spacing(0.75, 1),
+        fontSize: 14,
+        fontWeight: 500
+    },
+    multline: {
         fontSize: 14,
         fontWeight: 500
     },
@@ -39,10 +43,11 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
     }
 }))
 
+type InputTypes = string | number
 export interface StyledTextFieldProps
     extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onChange'> {
-    value: string
-    onChange: (value: string) => void
+    value: InputTypes
+    onChange: (value: InputTypes) => void
     clearable?: boolean
 }
 
@@ -85,11 +90,17 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
                         props.InputProps?.classes?.notchedOutline
                     ),
                     root: clsx(classes.root, props.InputProps?.classes?.root),
-                    input: clsx(classes.input, props.InputProps?.classes?.input)
+                    input: clsx(
+                        {
+                            [classes.input]: !props.multiline,
+                            [classes.multline]: props.multiline
+                        },
+                        props.InputProps?.classes?.input
+                    )
                 }
             }}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
+            defaultValue={value}
+            onBlur={(e) => onChange(e.target.value)}
         />
     )
 }

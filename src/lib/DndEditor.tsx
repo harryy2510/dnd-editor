@@ -41,8 +41,8 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
         position: 'relative'
     },
     menu: {
-        flex: `0 0 ${spacing(25)}px`,
-        width: spacing(25),
+        position: 'absolute',
+        height: '100%',
         borderRight: `1px solid ${fade(divider, 0.08)}`,
         zIndex: 1,
         backgroundColor: background.paper
@@ -114,7 +114,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
         items,
         smartyTags,
         sampleData,
-        onSendEmail
+        onSendEmail,
+        buildermode: true
     }
 
     React.useEffect(() => {
@@ -130,7 +131,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
         () => (
             <>
                 <Grid container className={classes.root}>
-                    <Grid item className={clsx(classes.item, classes.menu)}>
+                    <Grid item className={clsx(classes.menu)}>
                         <DndEditorMenu />
                     </Grid>
                     <Grid item className={clsx(classes.item, classes.preview)}>

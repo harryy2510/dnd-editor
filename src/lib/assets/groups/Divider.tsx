@@ -7,6 +7,7 @@ export default {
     id: 'divider',
     icon: RemoveOutlined,
     type: 'group',
+    renderMode: 'container',
     label: <Trans>Separator</Trans>,
     priority: 4
 } as DndGroupItem

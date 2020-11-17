@@ -11,7 +11,8 @@ export const DndEditorContext = React.createContext<DndEditorContextProps>({
     itemsMap: {},
     onActiveChange: () => undefined,
     setState: () => undefined,
-    template: Templates.Mail
+    template: Templates.Mail,
+    buildermode: false
 })
 
 export const useDndEditorContext = () => React.useContext(DndEditorContext)

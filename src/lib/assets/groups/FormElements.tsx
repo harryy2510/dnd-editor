@@ -6,6 +6,7 @@ import { DndGroupItem } from '../../types'
 export default {
     id: 'form-elements',
     type: 'group',
+    renderMode: 'hidden',
     icon: Assignment,
     label: <Trans>Form Elements</Trans>,
     priority: 2
