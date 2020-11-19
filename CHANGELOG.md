@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.36](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.1.36) (2020-11-19)
+
+
+### Features
+
+* add form blocks ([8cf0f32](https://github.com/harryy2510/dnd-editor/commit/8cf0f32b2d0612f8149e053a24e666443c63e6e1))
+* adding custom other text in radio/checkbox block ([12195fd](https://github.com/harryy2510/dnd-editor/commit/12195fd4082fb9ed208185a5c7f70ecd8b9e7380))
+* adding more settings to input block ([1d8bb75](https://github.com/harryy2510/dnd-editor/commit/1d8bb75e917b3485bca58a486f5b22cf7b21f55d))
+* checkbox component ([0563fcc](https://github.com/harryy2510/dnd-editor/commit/0563fccc09444be1703555043fbf1d6903fd79c4))
+* form renderer with text input validations ([a7d9f44](https://github.com/harryy2510/dnd-editor/commit/a7d9f44cd4346da9b93d21a7ae4ec4d3c21e7a9e))
+* onsubmit callback for formrenderer ([8ab2d7d](https://github.com/harryy2510/dnd-editor/commit/8ab2d7d401dc2e17fc6fcc08e555c522b496caed))
+* render and validation for checkbox and radio blocks ([625a75b](https://github.com/harryy2510/dnd-editor/commit/625a75bb77fbcba9c84f0236e56dd951cbbcdcd7))
+* show add icon on hovering form elements ([83e1473](https://github.com/harryy2510/dnd-editor/commit/83e14735e6952b4a017c70529854d5028ff4a38f))
+* storybook integration and form template ([dc948e3](https://github.com/harryy2510/dnd-editor/commit/dc948e34ac3a4b5162160e47276e004dfe4e228e))
+* support for different render modes for group item ([508c964](https://github.com/harryy2510/dnd-editor/commit/508c964f6d1c8c15a6a6a304f5139747a5151e4a))
+* support for labeled switch setting component ([007b910](https://github.com/harryy2510/dnd-editor/commit/007b910e52a92138b73147c9796c1825b9db6c8b))
+* support for non block items and generalized text input preference ([77802de](https://github.com/harryy2510/dnd-editor/commit/77802deef5bb6c4961ee499003f1bac0a6f8eb27))
+* support for validation dropdown settings component ([8cca4ac](https://github.com/harryy2510/dnd-editor/commit/8cca4ac2375c8d75a4fc42d01af52ffc676fab26))
+* support for validation dropdown settings component ([c08a836](https://github.com/harryy2510/dnd-editor/commit/c08a836d6b3875a90bf088e24199adb9cdef541a))
+* support validation settings ([c4c97df](https://github.com/harryy2510/dnd-editor/commit/c4c97df4356420b3443a33a1c532e9481d9b9bcc))
+* update dnd menu to minimize and maximize based on cursor hover ([70c6c62](https://github.com/harryy2510/dnd-editor/commit/70c6c62a3b2a7f218c71a2b00ac81e28fb08d64f))
+* validation for address component ([3a25784](https://github.com/harryy2510/dnd-editor/commit/3a25784a92e25d76aa85dad0c50e17eb00a5311b))
+
+
+### Bug Fixes
+
+* add onclick to textfield ([2447e98](https://github.com/harryy2510/dnd-editor/commit/2447e984c0ade85e0f8148bb0fc8552c5c644bf7))
+* indentation for package.json ([d39a81b](https://github.com/harryy2510/dnd-editor/commit/d39a81b023f1ac018cc002816dec6f013d9b5e07))
+* invalid type error for dnd-settings-component ([8fcb52e](https://github.com/harryy2510/dnd-editor/commit/8fcb52edc678312ebe1c8d022b70903ff91cc911))
+* replaced input component with textfield in textinput block ([3602545](https://github.com/harryy2510/dnd-editor/commit/3602545bc7c1a647bdc8d2c898df98789a855913))
+
 ### [0.1.35](https://github.com/harryy2510/dnd-editor/compare/v0.1.34...v0.1.35) (2020-08-01)
 
 
