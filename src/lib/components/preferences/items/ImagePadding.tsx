@@ -26,8 +26,8 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
 
 const ImagePadding: React.FC<InputProps> = (props) => {
     const classes = useStyles()
-    const values = props.value?.split(' ') ?? []
-    const handleChange = (index: number) => (value: string = '0px') => {
+    const values = (props.value as string).split(' ') ?? []
+    const handleChange = (index: number) => (value: any = '0px') => {
         const newValues = [...values]
         newValues[index] = value
         props.onChange(newValues.join(' '))

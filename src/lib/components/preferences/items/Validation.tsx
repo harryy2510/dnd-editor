@@ -17,7 +17,7 @@ export interface ValidationProps extends Omit<DropdownProps, 'value' | 'onChange
 const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, ...props }) => {
     const currentValue = value && value.type
     const validationMap = groupBy(validations, 'id')
-    const handleOnChange = (type: string, value = '') => {
+    const handleOnChange = (type: any, value = '') => {
         onChange({ type, value: value || validationMap[type][0].value })
     }
     return (
@@ -32,8 +32,8 @@ const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, .
             {value.type === 'regex' && (
                 <LabeledTextInput
                     label={<Trans>Regex</Trans>}
-                    value={value?.value}
-                    onChange={(regex) => handleOnChange(value.type, regex)}
+                    value={value?.value as string}
+                    onChange={(regex) => handleOnChange(value.type, regex as string)}
                 ></LabeledTextInput>
             )}
         </>

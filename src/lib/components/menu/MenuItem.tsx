@@ -115,7 +115,7 @@ const useStyles = makeStyles(
 )
 
 type MenuHoverListProps = {
-    classes: any
+    classes?: any
     listItems: DndBlockItem[]
     handleAddItem: (item: DndBlockItem) => any
 }
@@ -153,6 +153,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
     minimized,
     addItem
 }) => {
+    const icon = (item: DndBlockItem) => (item.icon ? <item.icon fontSize="small" /> : <></>)
     return (
         <ReactSortable
             animation={300}
@@ -181,7 +182,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
                     data-drag-image={hvItem.image}
                 >
                     <span className={clsx(classes.element, classes.addIconParent)}>
-                        <hvItem.icon fontSize="small" />
+                        {icon(hvItem)}
                         {!minimized && <div className={classes.label}>{hvItem.label}</div>}
                         <img src={hvItem.image} style={{ display: 'none' }} />
                         <AddOutlined fontSize="small" className={classes.addIcon} />

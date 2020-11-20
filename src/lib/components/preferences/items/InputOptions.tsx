@@ -8,7 +8,7 @@ export interface OptionsProps extends Omit<InputProps, 'value' | 'onChange'> {
     onChange: (value: string[]) => void
 }
 const InputOptions: React.FC<OptionsProps> = ({ onChange, value, ...props }) => {
-    const handleOnChange = (value: string) => {
+    const handleOnChange = (value: any) => {
         onChange(value.split('\n'))
     }
     const inputValue = value && value.join('\n')

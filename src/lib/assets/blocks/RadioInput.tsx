@@ -10,7 +10,7 @@ export default {
     icon: RadioButtonChecked,
     parent: 'form-elements',
     render: (renderProps) => Radio.render(renderProps, 'radio-input-1', renderProps.name),
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema[renderProps.name] = Radio.validationSchema?.(renderProps, 'radio-input-1')
         return schema

@@ -43,7 +43,7 @@ export default {
             </Grid>
         )
     },
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema['addressLine1'] = TextInput.validationSchema?.(renderProps, 'address-line-1')
         schema['addressLine2'] = TextInput.validationSchema?.(renderProps, 'address-line-2')

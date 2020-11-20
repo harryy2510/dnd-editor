@@ -24,7 +24,7 @@ const useStyles = makeStyles(({ spacing, palette: { divider } }: Theme) => ({
 export interface ColorpickerProps extends Omit<SketchPickerProps, 'value' | 'onChange'> {
     label?: React.ReactNode
     value: string
-    onChange: (value: string) => void
+    onChange: (value: any) => void
 }
 
 const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...props }) => {

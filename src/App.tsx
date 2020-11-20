@@ -58,6 +58,7 @@ const customItems: DndItem[] = [
         icon: ImageAspectRatioOutlined,
         render: () => <></>,
         export: () => '',
+        renderMode: 'container',
         label: <Trans>Header</Trans>,
         priority: 1.5
     },
@@ -126,6 +127,7 @@ const customItems: DndItem[] = [
         id: 'footer',
         type: 'group',
         icon: ListOutlined,
+        renderMode: 'container',
         render: () => <></>,
         export: () => '',
         label: <Trans>Footer</Trans>,
@@ -346,6 +348,7 @@ const customItems: DndItem[] = [
     {
         id: 'appointment',
         type: 'group',
+        renderMode: 'container',
         icon: EventOutlined,
         render: () => <></>,
         export: () => '',
@@ -358,7 +361,7 @@ function App() {
     const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
     const [showRenderer, showSetRenderer] = useState(false)
     const F5 = 116
-    const keyupListener = (e) => {
+    const keyupListener = (e: any) => {
         if (e.keyCode === F5) showSetRenderer((current) => !current)
     }
     useEffect(() => {
@@ -382,20 +385,6 @@ function App() {
                         onChange={onChange}
                         sampleData={sampleData}
                     />
-                )}
-                {showRenderer && (
-                    <div style={{ width: '700px', margin: 'auto' }}>
-                        <Renderer
-                            smartyTags={smartyTags}
-                            value={value}
-                            sampleData={sampleData}
-                            items={[
-                                ...Object.values(Groups),
-                                ...Object.values(Blocks),
-                                ...customItems
-                            ]}
-                        />
-                    </div>
                 )}
             </Box>
         </ThemeProvider>

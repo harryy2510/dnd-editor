@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
-import { DndBlockItem } from '../../types'
+import { DndBlockItem, RenderProps } from '../../types'
 import Checkbox from '../components/Checkbox'
 import { CheckCircleOutline } from '@material-ui/icons'
 
@@ -12,7 +12,7 @@ export default {
     render: (renderProps) => {
         return Checkbox.render(renderProps, 'checkbox-1', renderProps.name)
     },
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema[renderProps.name] = Checkbox.validationSchema?.(renderProps, 'checkbox-1')
         return schema

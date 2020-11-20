@@ -56,7 +56,7 @@ const BorderRadius: React.FC<InputProps> = (props) => {
                 <StyledTextField {...props} />
                 <StyledToggleButtons
                     options={options}
-                    value={props.value}
+                    value={props.value as string}
                     onChange={props.onChange}
                 />
             </div>

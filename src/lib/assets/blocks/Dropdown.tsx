@@ -10,7 +10,7 @@ export default {
     icon: ExpandMore,
     parent: 'form-elements',
     render: (renderProps) => Dropdown.render(renderProps, 'dropdown', renderProps.name),
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema[renderProps.name] = Dropdown.validationSchema?.(renderProps, 'dropdown')
         return schema

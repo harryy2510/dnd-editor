@@ -99,7 +99,8 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
             items,
             item,
             active,
-            onActiveChange
+            onActiveChange,
+            buildermode: true
         }
         const classes = useStyles()
         const handleClick = (ev: React.MouseEvent<any>) => {

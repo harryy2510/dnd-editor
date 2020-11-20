@@ -229,6 +229,7 @@ export const createDndState = (
                               type: template.type
                           },
                           id: template.id,
+                          name: template.id,
                           values: template.initialValues ?? {}
                       }
                   }

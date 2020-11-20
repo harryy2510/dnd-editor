@@ -11,6 +11,8 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
     }
 }))
 
+export interface InputProps extends StyledTextFieldProps {}
+
 const Input: React.FC<StyledTextFieldProps> = ({ label, ...props }) => {
     const classes = useStyles()
     return (
