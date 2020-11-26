@@ -25,6 +25,7 @@ export interface DndEditorProps {
     template?: DndTemplateItem
     smartyTags?: Record<string, string>
     sampleData?: any
+    previewOnly?: boolean
 }
 
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
@@ -70,7 +71,8 @@ const DndEditor: React.FC<DndEditorProps> = ({
     smartyTags,
     sampleData,
     onHtmlChange,
-    onSendEmail
+    onSendEmail,
+    previewOnly
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -131,15 +133,20 @@ const DndEditor: React.FC<DndEditorProps> = ({
         () => (
             <>
                 <Grid container className={classes.root}>
-                    <Grid item className={clsx(classes.menu)}>
-                        <DndEditorMenu />
-                    </Grid>
+                    {!previewOnly && (
+                        <Grid item className={clsx(classes.menu)}>
+                            {previewOnly}
+                            <DndEditorMenu />
+                        </Grid>
+                    )}
                     <Grid item className={clsx(classes.item, classes.preview)}>
                         <DndEditorPreview />
                     </Grid>
-                    <Grid item className={clsx(classes.item, classes.preferences)}>
-                        <DndEditorPreferences />
-                    </Grid>
+                    {!previewOnly && (
+                        <Grid item className={clsx(classes.item, classes.preferences)}>
+                            <DndEditorPreferences />
+                        </Grid>
+                    )}
                 </Grid>
                 <DndPreview />
             </>

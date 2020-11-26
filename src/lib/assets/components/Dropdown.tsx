@@ -38,9 +38,9 @@ export default {
                     label={labelText}
                     {...formikProps}
                 >
-                    {state?.options?.map((option: string, i: number) => (
-                        <MenuItem key={i} value={option}>
-                            {option}
+                    {state?.options?.map((option: any, i: number) => (
+                        <MenuItem key={i} value={option.key}>
+                            {option.label}
                         </MenuItem>
                     ))}
                 </Select>
@@ -59,7 +59,9 @@ export default {
         hint: 'Optional Hint',
         pii: '',
         defaultValue: 'Option 1',
-        options: ['Option 1', 'Option 2'],
+        options: [
+            { key: 'option-1', label: 'Option 1', value: { text: 'Option 1', valueType: 'String' } }
+        ],
         className: '',
         required: true,
         enabled: true,

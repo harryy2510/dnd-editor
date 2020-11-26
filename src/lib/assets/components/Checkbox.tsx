@@ -61,20 +61,20 @@ export default {
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <FormGroup>
                     {state?.options
-                        ?.filter((option: string) => option.length > 0)
-                        .map((option: string, i: number) => (
+                        ?.filter((option: any) => option.label.length > 0)
+                        .map((option: any, i: number) => (
                             <FormControlLabel
                                 key={i}
                                 control={
                                     <Checkbox
-                                        name={option}
+                                        name={option.label}
                                         checked={formikProps?.value?.[option]}
                                         onChange={(e) =>
-                                            formikProps?.onChange(option, e.target.checked)
+                                            formikProps?.onChange(option.label, e.target.checked)
                                         }
                                     />
                                 }
-                                label={option}
+                                label={option.label}
                             />
                         ))}
                     {state?.showOther && (
@@ -114,7 +114,7 @@ export default {
         placeholder: 'Placeholder',
         showOther: false,
         hint: 'Optional Hint',
-        options: ['Yes', 'No'],
+        options: [{ key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }],
         validation: { type: 'none' },
         pii: '',
         className: '',

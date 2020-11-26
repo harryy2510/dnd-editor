@@ -53,18 +53,18 @@ export default {
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <FormGroup>
                     {state?.options
-                        ?.filter((option: string) => option.length > 0)
-                        .map((option: string, i: number) => (
+                        ?.filter((option: any) => option.label.length > 0)
+                        .map((option: any, i: number) => (
                             <FormControlLabel
                                 key={i}
                                 control={
                                     <Radio
-                                        name={option}
-                                        checked={formikProps?.value === option}
-                                        onClick={() => formikProps?.onChange(option)}
+                                        name={option.label}
+                                        checked={formikProps?.value === option.label}
+                                        onClick={() => formikProps?.onChange(option.label)}
                                     />
                                 }
-                                label={option}
+                                label={option.label}
                             />
                         ))}
                     {state?.showOther && (
@@ -102,7 +102,7 @@ export default {
         placeholder: 'Placeholder',
         showOther: false,
         hint: 'Optional Hint',
-        options: ['Yes', 'No'],
+        options: [{ key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }],
         validation: { type: 'none' },
         pii: '',
         className: '',

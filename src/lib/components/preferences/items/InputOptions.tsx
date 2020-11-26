@@ -4,14 +4,24 @@ import { InputProps } from '@material-ui/core'
 import LabeledTextInput from './LabeledTextInput'
 
 export interface OptionsProps extends Omit<InputProps, 'value' | 'onChange'> {
-    value: string[]
-    onChange: (value: string[]) => void
+    value: any[]
+    onChange: (value: any[]) => void
 }
 const InputOptions: React.FC<OptionsProps> = ({ onChange, value, ...props }) => {
     const handleOnChange = (value: any) => {
-        onChange(value.split('\n'))
+        onChange(
+            value.split('\n').map((option: string) => ({
+                key: option.split(' ').join('-').toLowerCase(),
+                label: option,
+                value: {
+                    text: option,
+                    valueType: 'String'
+                }
+            }))
+        )
     }
-    const inputValue = value && value.join('\n')
+    const inputValue = value && value.map((v) => v.label).join('\n')
+    console.log('input options', inputValue, value)
     return (
         <LabeledTextInput
             label={<Trans>Options</Trans>}
