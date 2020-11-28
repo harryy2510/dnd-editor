@@ -49,6 +49,7 @@ export default {
             formikProps.onControlClick = () => {}
         }
 
+        console.log('checkbox values')
         return (
             <FormControl
                 fullWidth

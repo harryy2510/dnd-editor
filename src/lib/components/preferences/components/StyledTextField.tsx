@@ -4,6 +4,7 @@ import React from 'react'
 import { IconButton, InputAdornment, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
+import { set } from 'lodash-es'
 
 const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) => ({
     root: {
@@ -69,6 +70,8 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
             </IconButton>
         </InputAdornment>
     )
+    const changeCb = props.select ? 'onChange' : 'onBlur'
+    const changeHandler = set({}, changeCb, (e: any) => onChange(e.target.value))
     return (
         <TextField
             fullWidth
@@ -100,7 +103,7 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
                 }
             }}
             defaultValue={value}
-            onBlur={(e) => onChange(e.target.value)}
+            {...changeHandler}
         />
     )
 }

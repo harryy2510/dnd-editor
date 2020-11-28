@@ -34,7 +34,24 @@ const operatorOptions: DropdownOption[] = [
 
 const ConditionRule: React.FC = () => {
     const { values } = useFormikContext<Condition>()
-    const { smartyTags } = useDndEditorContext()
+    const {
+        smartyTags,
+        state: { entities, items }
+    } = useDndEditorContext()
+    let fields = map(smartyTags, (label, id) => ({ id, label }))
+    const formFields: any[] = items
+        .map((item) => entities[item.id])
+        .filter((entity) => entity.parent.type !== 'template')
+        .map((entity) =>
+            Object.keys(entity.values)
+                .filter((key) => key !== '__container' && key !== '__condition')
+                .map((valueKey) => ({
+                    id: `${entity.name}.${valueKey}`,
+                    label: `${entity.name}.${valueKey}`
+                }))
+        )
+    const flatFormFields = [].concat.apply([], formFields)
+    fields = fields.concat(flatFormFields)
     return (
         <>
             <Grid item xs={12}>
@@ -52,7 +69,7 @@ const ConditionRule: React.FC = () => {
                         <Field
                             name="rules.0.id"
                             Component={Dropdown}
-                            options={map(smartyTags, (label, id) => ({ id, label }))}
+                            options={fields}
                             placeholder="Select Field"
                         />
                         <Field

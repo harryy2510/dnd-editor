@@ -12,6 +12,7 @@ export default {
         const handleClick = () => {
             PubSub.publish('component/divider', { type: 'text', data: id })
         }
+        console.log('divider', state)
         return <hr id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state?.style} />
     },
     export: (renderProps: RenderProps, id: string) => {
