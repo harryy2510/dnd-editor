@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.66](https://github.com/harryy2510/dnd-editor/compare/v0.1.65...v0.1.66) (2020-11-28)
+
+
+### Features
+
+* support for form fields in condition ([11f1ffc](https://github.com/harryy2510/dnd-editor/commit/11f1ffcb55378f77147e247b83721ca9d4c1048e))
+
 ### [0.1.65](https://github.com/harryy2510/dnd-editor/compare/v0.1.64...v0.1.65) (2020-11-28)
 
 ### [0.1.64](https://github.com/harryy2510/dnd-editor/compare/v0.1.63...v0.1.64) (2020-11-28)
