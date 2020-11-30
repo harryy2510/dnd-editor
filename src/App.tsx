@@ -359,15 +359,6 @@ const customItems: DndItem[] = [
 
 function App() {
     const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
-    const [showRenderer, showSetRenderer] = useState(true)
-    const F5 = 116
-    const keyupListener = (e: any) => {
-        if (e.keyCode === F5) showSetRenderer((current) => !current)
-    }
-    useEffect(() => {
-        window.addEventListener('keyup', keyupListener, true)
-        return () => window.removeEventListener('keyup', keyupListener, true)
-    }, [keyupListener])
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
@@ -377,7 +368,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <DndEditor
+                <Renderer
                     smartyTags={smartyTags}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
                     value={value}

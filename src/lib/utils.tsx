@@ -471,6 +471,7 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
     }
     return renderProps.state.entities[renderProps.item.id]?.values?.[id] || {}
 }
+
 export const getFromikProps = (formKey: string, formik: FormikContextType<unknown>) => {
     const formikProps: any = {}
     if (formik) {
@@ -486,4 +487,27 @@ export const getFromikProps = (formKey: string, formik: FormikContextType<unknow
             !!get(formik.errors, formKey)
     }
     return formikProps
+}
+
+export const checkForDiplayCondition = (
+    condition: Condition,
+    formik: FormikContextType<unknown>
+) => {
+    if (condition && condition.display === 'DISPLAY' && condition.rules) {
+        const { id, operator, value } = condition.rules[0]
+        const [blockKey, itemKey] = id.split('.')
+        let formValue = get(formik.values, blockKey)
+        formValue = !!itemKey ? get(formValue, itemKey) : value
+
+        console.log('depends on', formValue, value, formik.values)
+        switch (operator) {
+            case 'EQUAL':
+                return formValue !== value
+            case 'NOT_EQUAL':
+                return formValue === value
+            case 'IN':
+                return !(value as string).split(',').filter((v) => v === formValue)
+        }
+    }
+    return true
 }
