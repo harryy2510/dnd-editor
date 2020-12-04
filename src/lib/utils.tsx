@@ -130,6 +130,7 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
     items?.map((item) => {
         const updatedRenderProps = { ...renderProps, item }
         const stateItem = renderProps.state.entities[item.id]
+        console.log(renderProps.itemsMap)
         return (
             <DndItemPreview key={item.id} {...updatedRenderProps}>
                 {Container.render(
@@ -472,13 +473,18 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
     return renderProps.state.entities[renderProps.item.id]?.values?.[id] || {}
 }
 
-export const getFromikProps = (formKey: string, formik: FormikContextType<unknown>) => {
+export const getFromikProps = (
+    formKey: string,
+    formik: FormikContextType<unknown>,
+    mapFn?: (arg: any) => any
+) => {
     const formikProps: any = {}
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey) || ''
-        formikProps.onChange = formik.handleChange
+        formikProps.value = get(formik.values, formKey)?.text || ''
+        formikProps.onChange = (e: any) =>
+            formik.setFieldValue(formKey, mapFn ? mapFn(e.target.value) : e.target.value)
         formikProps.helperText =
             !!(get(formik.touched, formKey) || formik.submitCount > 0) &&
             get(formik.errors, formKey)

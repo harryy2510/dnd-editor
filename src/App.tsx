@@ -372,7 +372,7 @@ function App() {
                     smartyTags={smartyTags}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
                     value={value}
-                    onChange={onChange}
+                    onChange={(e) => console.log('on change', e)}
                     sampleData={sampleData}
                     previewOnly={false}
                 />

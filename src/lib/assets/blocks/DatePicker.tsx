@@ -16,8 +16,7 @@ export default ({
     initialValues: {
         'date-picker': {
             ...TextInput.initialValues,
-            inputType: 'date',
-            labelProps: { shrink: true }
+            inputType: 'date'
         }
     },
     settings: [

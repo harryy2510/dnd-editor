@@ -1,59 +1,45 @@
-import { Trans } from '@lingui/macro'
 import React from 'react'
-import { DndBlockItem } from '../../types'
-import TextInput from '../components/TextInput'
+import { Trans } from '@lingui/macro'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
-import * as yup from 'yup'
+import { DndBlockItem } from '../../types'
+import TextInput from '../components/TextInput'
 
 export default {
-    id: 'address',
-    label: <Trans>Address</Trans>,
+    id: 'element',
+    label: <Trans>Form Element</Trans>,
     icon: Business,
     parent: 'form-elements',
     render: (renderProps) => {
-        return (
-            <Grid container alignItems="stretch" spacing={2}>
-                <Grid item xs={12}>
-                    {TextInput.render(
-                        renderProps,
-                        'address-line-1',
-                        `${renderProps.item?.id}$addressLine1`
-                    )}
-                </Grid>
-                <Grid item xs={12}>
-                    {TextInput.render(
-                        renderProps,
-                        'address-line-2',
-                        `${renderProps.item?.id}$addressLine2`
-                    )}
-                </Grid>
-                <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'city', `${renderProps.item?.id}$city`)}
-                </Grid>
-                <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'state', `${renderProps.item?.id}$state`)}
-                </Grid>
-                <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'postal', `${renderProps.item?.id}$postal`)}
-                </Grid>
-                <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'country', `${renderProps.item?.id}$country`)}
-                </Grid>
-            </Grid>
+        console.log('element renderer called')
+        const getComponent = (type: string, id: string) => {
+            console.log('get component', type, id)
+            switch (type) {
+                case 'Input':
+                    return TextInput.render(renderProps, id)
+            }
+        }
+        if (!renderProps.item) {
+            return {}
+        }
+        const block = renderProps.state.entities[renderProps.item.id]
+        const itemKeys = Object.keys(block.values).filter(
+            (key) => key !== '__container' && key !== '__condition'
         )
-    },
-    validationSchema: (renderProps: any) => {
-        const schema: any = {}
-        schema['addressLine1'] = TextInput.validationSchema?.(renderProps, 'address-line-1')
-        schema['addressLine2'] = TextInput.validationSchema?.(renderProps, 'address-line-2')
-        schema['city'] = TextInput.validationSchema?.(renderProps, 'city')
-        schema['state'] = TextInput.validationSchema?.(renderProps, 'state')
-        schema['postal'] = TextInput.validationSchema?.(renderProps, 'postal')
-        schema['country'] = TextInput.validationSchema?.(renderProps, 'country')
-        let parentSchema: any = {}
-        parentSchema[renderProps.name] = yup.object().shape(schema)
-        return parentSchema
+        return (
+            <>
+                <Grid container spacing={2}>
+                    {itemKeys.map((key) => {
+                        const values = block.values[key]
+                        return (
+                            <Grid item xs={values.grid || 12}>
+                                {getComponent(values.itemType, key)}
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </>
+        )
     },
     export: () => '',
     image:
@@ -63,7 +49,6 @@ export default {
             ...TextInput.initialValues,
             question: 'Address line 1',
             hint: '',
-            grid: 12,
             placeholder: 'Address line 1'
         },
         'address-line-2': {
@@ -71,28 +56,24 @@ export default {
             question: 'Address line 2',
             hint: '',
             required: false,
-            grid: 12,
             placeholder: 'Address line 2'
         },
         city: {
             ...TextInput.initialValues,
             question: 'City',
             hint: '',
-            grid: 6,
             placeholder: 'City'
         },
         state: {
             ...TextInput.initialValues,
             question: 'State',
             hint: '',
-            grid: 6,
             placeholder: 'State'
         },
         postal: {
             ...TextInput.initialValues,
             question: 'zip code',
             hint: '',
-            grid: 6,
             placeholder: 'zip code'
         },
         country: {
@@ -100,7 +81,6 @@ export default {
             question: 'Country',
             hint: '',
             formKey: '',
-            grid: 6,
             placeholder: 'Country'
         }
     },

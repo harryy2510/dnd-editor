@@ -12,6 +12,8 @@ import FormRenderer from './components/FormRenderer'
 import * as Groups from './assets/groups'
 import * as Blocks from './assets/blocks'
 import * as Templates from './assets/templates'
+import { Field } from 'formik'
+import FormElement from './assets/blocks/FormElement'
 
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
     root: {
@@ -36,7 +38,7 @@ export interface RendererProps {
     smartyTags?: Record<string, string>
     sampleData?: any
 }
-const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData }) => {
+const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData, ...props }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
         fontFamily.map((family) => [family.id, ...fontWeights.map((i) => i.id.toString())])
@@ -67,6 +69,7 @@ const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData }) 
     const classes = useStyles()
     const template = Mail
     const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
+    itemsMap['element'] = FormElement
     const editorContextProps: DndEditorContextProps = {
         active: null,
         onActiveChange: () => {},
@@ -85,7 +88,12 @@ const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData }) 
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer onSubmit={(form) => console.log(form)} />
+                        <FormRenderer
+                            onSubmit={(form) => console.log('submitted form', form)}
+                            onChange={props.onChange}
+                        >
+                            {props.children}
+                        </FormRenderer>
                     </div>
                 </Grid>
             </Grid>

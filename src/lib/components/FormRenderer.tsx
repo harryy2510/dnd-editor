@@ -1,5 +1,5 @@
-import React from 'react'
-import { Formik, Form, Field, useFormikContext } from 'formik'
+import React, { useRef } from 'react'
+import { Formik, Form, Field, useFormikContext, FormikProps } from 'formik'
 import * as yup from 'yup'
 import { useDndEditorContext } from '../DndEditorProvider'
 import Container from '../assets/Container'
@@ -8,9 +8,10 @@ import { checkForDiplayCondition } from '../utils'
 
 export interface FormRendererProps {
     onSubmit: (value: any) => void
+    onChange: (value: any) => void
 }
 
-const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit }) => {
+const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...props }) => {
     const renderProps = useDndEditorContext()
 
     const Children = () => {
@@ -56,15 +57,18 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit }) => {
     })
     const validationSchema = yup.object().shape(validation)
 
+    //@ts-ignore
+    const ref = useRef<FormikProps<{}>>(null)
     return (
         <Formik
             enableReinitialize
+            innerRef={ref}
             initialValues={{}}
             onSubmit={(s) => onSubmit && onSubmit(s)}
-            validationSchema={validationSchema}
         >
-            <Form style={{ paddingBottom: '50px' }}>
+            <Form style={{ paddingBottom: '50px' }} onChange={(e) => onChange(ref.current?.values)}>
                 {renderProps.template.render(renderProps, <Children />)}
+                {props.children}
             </Form>
         </Formik>
     )
