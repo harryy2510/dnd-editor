@@ -358,7 +358,7 @@ const customItems: DndItem[] = [
 ]
 
 function App() {
-    const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
+    const [value, setValue] = useStore<DndState>('dnd-test-3', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
@@ -368,11 +368,11 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <Renderer
+                <DndEditor
                     smartyTags={smartyTags}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
                     value={value}
-                    onChange={(e) => console.log('on change', e)}
+                    onChange={setValue}
                     sampleData={sampleData}
                     previewOnly={false}
                 />
