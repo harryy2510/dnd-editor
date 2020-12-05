@@ -160,6 +160,28 @@ export interface DndEditorContextProps {
     buildermode: boolean
 }
 
+export type BooleanFormValue = {
+    boolean: boolean
+    valueType: 'Boolean'
+}
+
+export type StringFormValue = {
+    text: string
+    valueType: 'String'
+}
+
+export type DecimalFormValue = {
+    decimal: number
+    valueType: 'Decimal'
+}
+
+export type NumberFormValue = {
+    number: number
+    valueType: 'Number'
+}
+
+export type FormValue = BooleanFormValue | StringFormValue | DecimalFormValue | NumberFormValue
+
 export interface BlockRendererProps {
     settings: DndItemSetting[]
     state: InitialValues

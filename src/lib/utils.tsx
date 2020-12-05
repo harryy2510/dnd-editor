@@ -134,7 +134,6 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
     items?.map((item) => {
         const updatedRenderProps = { ...renderProps, item }
         const stateItem = renderProps.state.entities[item.id]
-        console.log(renderProps.itemsMap)
         return (
             <DndItemPreview key={item.id} {...updatedRenderProps}>
                 {Container.render(
@@ -487,8 +486,10 @@ export const getFromikProps = (
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
         formikProps.value = get(formik.values, formKey)?.text || ''
-        formikProps.onChange = (e: any) =>
-            formik.setFieldValue(formKey, mapFn ? mapFn(e.target.value) : e.target.value)
+        formikProps.onChange = (e: any) => {
+            const value = e.target.value
+            formik.setFieldValue(formKey, mapFn ? mapFn(value) : value)
+        }
         formikProps.helperText =
             !!(get(formik.touched, formKey) || formik.submitCount > 0) &&
             get(formik.errors, formKey)
@@ -509,7 +510,6 @@ export const checkForDiplayCondition = (
         let formValue = get(formik.values, blockKey)
         formValue = !!itemKey ? get(formValue, itemKey) : value
 
-        console.log('depends on', formValue, value, formik.values)
         switch (operator) {
             case 'EQUAL':
                 return formValue !== value

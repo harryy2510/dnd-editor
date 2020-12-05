@@ -18,9 +18,11 @@ export default {
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
         if (!renderProps.buildermode && formKey) {
-            formikProps = getFromikProps(formKey, useFormikContext())
+            formikProps = getFromikProps(formKey, useFormikContext(), (value) => ({
+                text: value,
+                valueType: 'String'
+            }))
         }
-        console.log('dropdown', state)
         return (
             <FormControl
                 fullWidth
@@ -34,12 +36,11 @@ export default {
                     fullWidth
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value=""
                     label={labelText}
                     {...formikProps}
                 >
                     {state?.options?.map((option: any, i: number) => (
-                        <MenuItem key={i} value={option.key}>
+                        <MenuItem key={i} value={option.label}>
                             {option.label}
                         </MenuItem>
                     ))}

@@ -38,6 +38,7 @@ export interface RendererProps {
     onBlur?: (newValue: any) => void
     smartyTags?: Record<string, string>
     sampleData?: any
+    innerRef: any
 }
 const Renderer: React.FC<any> = ({
     value,
@@ -96,7 +97,7 @@ const Renderer: React.FC<any> = ({
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer onSubmit={onSubmit} onChange={props.onChange}>
+                        <FormRenderer onSubmit={onSubmit} onChange={onChange}>
                             {props.children}
                         </FormRenderer>
                     </div>

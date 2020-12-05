@@ -28,6 +28,7 @@ export default {
                             <Grid item xs={values.grid || 12}>
                                 {getFormElementItemComponent(values.itemType)?.render(
                                     renderProps,
+                                    key,
                                     key
                                 )}
                             </Grid>
@@ -81,7 +82,6 @@ export default {
         }
     },
     generateSettings: (renderProps) => {
-        console.log('generate settings has been called', renderProps, 'active')
         if (!renderProps.active) {
             return []
         }
@@ -89,7 +89,6 @@ export default {
         const itemKeys = Object.keys(block.values).filter(
             (key) => key !== '__container' && key !== '__condition'
         )
-        console.log('items keys', itemKeys, 'active')
 
         return itemKeys.map((key) => {
             const values = block.values[key]

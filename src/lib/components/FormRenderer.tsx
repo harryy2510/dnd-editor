@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Formik, Form, Field, useFormikContext, FormikProps } from 'formik'
 import * as yup from 'yup'
 import { useDndEditorContext } from '../DndEditorProvider'
 import Container from '../assets/Container'
 import { DndComponentItem } from '../types'
 import { checkForDiplayCondition } from '../utils'
+import FormObserver from './preferences/components/FormObserver'
 
 export interface FormRendererProps {
     onSubmit: (value: any) => void
@@ -16,7 +17,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
 
     const Children = () => {
         const formik = useFormikContext()
-        console.log(formik, 'display condition check')
         return (
             <div>
                 {renderProps.state.items
@@ -58,17 +58,12 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
     const validationSchema = yup.object().shape(validation)
 
     //@ts-ignore
-    const ref = useRef<FormikProps<{}>>(null)
     return (
-        <Formik
-            enableReinitialize
-            innerRef={ref}
-            initialValues={{}}
-            onSubmit={(s) => onSubmit && onSubmit(s)}
-        >
-            <Form style={{ paddingBottom: '50px' }} onChange={(e) => onChange(ref.current?.values)}>
+        <Formik enableReinitialize initialValues={{}} onSubmit={(s) => onSubmit && onSubmit(s)}>
+            <Form style={{ paddingBottom: '50px' }}>
                 {renderProps.template.render(renderProps, <Children />)}
                 {props.children}
+                <FormObserver onChange={onChange} />
             </Form>
         </Formik>
     )

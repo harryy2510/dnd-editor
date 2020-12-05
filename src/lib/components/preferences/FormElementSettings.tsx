@@ -44,7 +44,6 @@ const FormElementsSettings: React.FC<Props> = (props) => {
         onChange: (newValue: any) => updateItemName(editorContext, activeItem.id, newValue),
         label: <Trans>Form element name</Trans>
     }
-    console.log(activeItem)
 
     return (
         <>

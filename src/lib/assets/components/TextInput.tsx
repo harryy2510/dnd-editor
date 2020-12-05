@@ -21,7 +21,7 @@ export default {
             formikProps = getFromikProps(formKey, formik, (value) => {
                 return {
                     text: value,
-                    valueType: 'string'
+                    valueType: 'String'
                 }
             })
             formikProps.helperText = formikProps.helperText || state?.hint

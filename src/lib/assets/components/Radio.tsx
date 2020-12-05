@@ -15,6 +15,7 @@ import { DndComponentItem, RenderProps } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
 import { useFormikContext } from 'formik'
+import { InputOption } from '../../components/preferences/items/InputOptions'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -35,7 +36,7 @@ export default {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
             formikProps.onChange = (value: string | boolean) => {
-                formik.setFieldValue(formKey, value)
+                formik.setFieldValue(formKey, { text: value, valueType: 'String' })
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
@@ -53,8 +54,8 @@ export default {
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <FormGroup>
                     {state?.options
-                        ?.filter((option: any) => option.label.length > 0)
-                        .map((option: any, i: number) => (
+                        ?.filter((option: InputOption) => option.label.length > 0)
+                        .map((option: InputOption, i: number) => (
                             <FormControlLabel
                                 key={i}
                                 control={

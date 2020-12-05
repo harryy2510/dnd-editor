@@ -2,12 +2,18 @@ import { Trans } from '@lingui/macro'
 import React from 'react'
 import { InputProps } from '@material-ui/core'
 import LabeledTextInput from './LabeledTextInput'
+import { StringFormValue } from '../../../types'
 
-export interface OptionsProps extends Omit<InputProps, 'value' | 'onChange'> {
-    value: any[]
-    onChange: (value: any[]) => void
+export type InputOption = {
+    key: string
+    label: string
+    value: StringFormValue
 }
-const InputOptions: React.FC<OptionsProps> = ({ onChange, value, ...props }) => {
+export interface OptionsProps extends Omit<InputProps, 'value' | 'onChange'> {
+    value: InputOption[]
+    onChange: (value: InputOption[]) => void
+}
+const InputOptions: React.FC<OptionsProps> = ({ onChange, value }) => {
     const handleOnChange = (value: any) => {
         onChange(
             value.split('\n').map((option: string) => ({
@@ -21,7 +27,6 @@ const InputOptions: React.FC<OptionsProps> = ({ onChange, value, ...props }) => 
         )
     }
     const inputValue = value && value.map((v) => v.label).join('\n')
-    console.log('input options', inputValue, value)
     return (
         <LabeledTextInput
             label={<Trans>Options</Trans>}

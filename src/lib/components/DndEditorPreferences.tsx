@@ -105,7 +105,6 @@ const DndEditorPreferences: React.FC = () => {
     const ActiveTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
     const activeItem = active ? itemsMap[state.entities[active].parent.id] : null
 
-    console.log('activeItem', activeItem)
     const groupedSettings =
         (activeItem &&
             Object.keys(
