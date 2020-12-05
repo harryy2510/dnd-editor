@@ -20,6 +20,9 @@ import {
     RenderProps
 } from './types'
 import TextInput from './assets/components/TextInput'
+import Checkbox from './assets/components/Checkbox'
+import Radio from './assets/components/Radio'
+import Dropdown from './assets/components/Dropdown'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -522,6 +525,15 @@ export const checkForDiplayCondition = (
 export const getFormElementItemComponent = (type: string) => {
     switch (type) {
         case 'Input':
+        case 'Datepicker':
             return TextInput
+        case 'Checkbox':
+            return Checkbox
+        case 'Radio':
+            return Radio
+        case 'Checkbox':
+            return Checkbox
+        case 'Dropdown':
+            return Dropdown
     }
 }

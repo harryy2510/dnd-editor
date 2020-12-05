@@ -108,6 +108,7 @@ export default {
         className: '',
         required: true,
         enabled: true,
+        itemType: 'Radio',
         style: {
             textAlign: 'left'
         }

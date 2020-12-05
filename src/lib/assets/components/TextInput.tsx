@@ -87,12 +87,6 @@ export default {
             label: <Trans>Default value</Trans>
         },
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        {
-            id: 'validation',
-            type: 'inputValidation',
-            grid: 12,
-            label: <Trans>Validation</Trans>
-        },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],

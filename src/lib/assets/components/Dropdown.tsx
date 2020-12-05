@@ -65,6 +65,7 @@ export default {
         className: '',
         required: true,
         enabled: true,
+        itemType: 'Dropdown',
         style: {
             textAlign: 'left'
         }

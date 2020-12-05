@@ -121,6 +121,7 @@ export default {
         className: '',
         required: true,
         enabled: true,
+        itemType: 'Checkbox',
         style: {
             textAlign: 'left'
         }

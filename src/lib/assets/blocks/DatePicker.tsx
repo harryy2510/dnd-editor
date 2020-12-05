@@ -16,7 +16,8 @@ export default ({
     initialValues: {
         'date-picker': {
             ...TextInput.initialValues,
-            inputType: 'date'
+            inputType: 'date',
+            itemType: 'Datepicker'
         }
     },
     settings: [
