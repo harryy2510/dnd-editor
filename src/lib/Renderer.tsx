@@ -12,7 +12,6 @@ import FormRenderer from './components/FormRenderer'
 import * as Groups from './assets/groups'
 import * as Blocks from './assets/blocks'
 import * as Templates from './assets/templates'
-import { Field } from 'formik'
 import FormElement from './assets/blocks/FormElement'
 
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
@@ -32,15 +31,16 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
     }
 }))
 export interface RendererProps {
-    value?: Partial<DndState>
-    onChange?: (newValue: any) => void
-    onSubmit?: (newValue: any) => void
+    value: DndState
+    onChange: (newValue: any) => void
+    onSubmit: (newValue: any) => void
     onBlur?: (newValue: any) => void
     smartyTags?: Record<string, string>
     sampleData?: any
-    innerRef: any
+    template?: any
+    items?: any[]
 }
-const Renderer: React.FC<any> = ({
+const Renderer: React.FC<RendererProps> = ({
     value,
     items = [],
     smartyTags,
