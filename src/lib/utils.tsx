@@ -19,6 +19,7 @@ import {
     Primitive,
     RenderProps
 } from './types'
+import TextInput from './assets/components/TextInput'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -516,4 +517,11 @@ export const checkForDiplayCondition = (
         }
     }
     return true
+}
+
+export const getFormElementItemComponent = (type: string) => {
+    switch (type) {
+        case 'Input':
+            return TextInput
+    }
 }

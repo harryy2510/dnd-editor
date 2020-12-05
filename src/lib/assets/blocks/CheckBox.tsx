@@ -3,6 +3,7 @@ import React from 'react'
 import { DndBlockItem, RenderProps } from '../../types'
 import Checkbox from '../components/Checkbox'
 import { CheckCircleOutline } from '@material-ui/icons'
+import { set } from 'lodash-es'
 
 export default {
     id: 'checkbox',
@@ -12,9 +13,9 @@ export default {
     render: (renderProps) => {
         return Checkbox.render(renderProps, 'checkbox-1', renderProps.name)
     },
-    validationSchema: (renderProps: any) => {
+    validationSchema: (renderProps: RenderProps) => {
         const schema: any = {}
-        schema[renderProps.name] = Checkbox.validationSchema?.(renderProps, 'checkbox-1')
+        set(schema, renderProps.name || '', Checkbox.validationSchema?.(renderProps, 'checkbox-1'))
         return schema
     },
     export: () => '',

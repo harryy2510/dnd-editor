@@ -129,6 +129,7 @@ export type DndBlockItem = DndBaseItem & {
     parent?: string
     image: string
     icon?: React.ComponentType<SvgIconProps>
+    generateSettings?: (renderProps: RenderProps) => DndItemSetting[]
 }
 export type DndItem = DndGroupItem | DndBlockItem
 
@@ -167,4 +168,5 @@ export interface BlockRendererProps {
 
 export type RenderProps = DndEditorContextProps & {
     item?: DndStateItemEntity
+    name?: string
 }

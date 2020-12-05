@@ -15,7 +15,7 @@ import { Theme, Tooltip, Tabs, Tab } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useDndEditorContext } from '../DndEditorProvider'
 import PubSub from '@harryy/pubsub'
-import { SettingItemType } from '../types'
+import { SettingItemType, DndBlockItem } from '../types'
 import ConditionSettings from './preferences/ConditionSettings'
 import ContainerSettings from './preferences/ContainerSettings'
 import TemplateSettings from './preferences/TemplateSettings'
@@ -98,13 +98,26 @@ const tabs = [
 
 const DndEditorPreferences: React.FC = () => {
     const classes = useStyles()
-    const { itemsMap, state, active, smartyTags } = useDndEditorContext()
+    const renderProps = useDndEditorContext()
+    const { itemsMap, state, active, smartyTags } = renderProps
     const [tab, setTab] = React.useState<SettingItemType>('template')
     const [expanded, setExpanded] = React.useState('')
     const ActiveTab = React.useMemo(() => tabs.find((t) => t.id === tab)?.component, [tab])
     const activeItem = active ? itemsMap[state.entities[active].parent.id] : null
 
-    const groupedSettings = Object.keys(groupBy(activeItem?.settings, 'type'))
+    console.log('activeItem', activeItem)
+    const groupedSettings =
+        (activeItem &&
+            Object.keys(
+                groupBy(
+                    !!(activeItem as DndBlockItem).generateSettings
+                        ? (activeItem as any)?.generateSettings(renderProps)
+                        : activeItem?.settings,
+                    'type'
+                )
+            )) ||
+        []
+
     const showContainerTab = groupedSettings.length > 1
     const showConditionTab = Boolean(Object.keys(smartyTags ?? {})?.length)
 

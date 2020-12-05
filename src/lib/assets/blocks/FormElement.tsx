@@ -4,6 +4,7 @@ import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
 import { DndBlockItem } from '../../types'
 import TextInput from '../components/TextInput'
+import { getFormElementItemComponent } from '../../utils'
 
 export default {
     id: 'element',
@@ -11,14 +12,6 @@ export default {
     icon: Business,
     parent: 'form-elements',
     render: (renderProps) => {
-        console.log('element renderer called')
-        const getComponent = (type: string, id: string) => {
-            console.log('get component', type, id)
-            switch (type) {
-                case 'Input':
-                    return TextInput.render(renderProps, id)
-            }
-        }
         if (!renderProps.item) {
             return {}
         }
@@ -33,7 +26,10 @@ export default {
                         const values = block.values[key]
                         return (
                             <Grid item xs={values.grid || 12}>
-                                {getComponent(values.itemType, key)}
+                                {getFormElementItemComponent(values.itemType)?.render(
+                                    renderProps,
+                                    key
+                                )}
                             </Grid>
                         )
                     })}
@@ -84,43 +80,26 @@ export default {
             placeholder: 'Country'
         }
     },
-    settings: [
-        {
-            id: 'address-line-1',
-            label: <Trans>Address line 1</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
-        },
-        {
-            id: 'address-line-2',
-            label: <Trans>Address line 2</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
-        },
-        {
-            id: 'city',
-            label: <Trans>City</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
-        },
-        {
-            id: 'state',
-            label: <Trans>State</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
-        },
-        {
-            id: 'postal',
-            label: <Trans>Postal</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
-        },
-        {
-            id: 'country',
-            label: <Trans>Country</Trans>,
-            type: 'form-elements',
-            settings: TextInput.settings
+    generateSettings: (renderProps) => {
+        console.log('generate settings has been called', renderProps, 'active')
+        if (!renderProps.active) {
+            return []
         }
-    ],
+        const block = renderProps.state.entities[renderProps.active]
+        const itemKeys = Object.keys(block.values).filter(
+            (key) => key !== '__container' && key !== '__condition'
+        )
+        console.log('items keys', itemKeys, 'active')
+
+        return itemKeys.map((key) => {
+            const values = block.values[key]
+            return {
+                id: key,
+                label: key,
+                type: 'form-elements',
+                settings: getFormElementItemComponent(values.itemType)?.settings
+            }
+        })
+    },
     type: 'block'
 } as DndBlockItem

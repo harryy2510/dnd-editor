@@ -34,11 +34,20 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
 export interface RendererProps {
     value?: Partial<DndState>
     onChange?: (newValue: any) => void
+    onSubmit?: (newValue: any) => void
     onBlur?: (newValue: any) => void
     smartyTags?: Record<string, string>
     sampleData?: any
 }
-const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData, ...props }) => {
+const Renderer: React.FC<any> = ({
+    value,
+    items = [],
+    smartyTags,
+    sampleData,
+    onChange,
+    onSubmit,
+    ...props
+}) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
         fontFamily.map((family) => [family.id, ...fontWeights.map((i) => i.id.toString())])
@@ -68,8 +77,7 @@ const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData, ..
     }, [fonts])
     const classes = useStyles()
     const template = Mail
-    const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
-    itemsMap['element'] = FormElement
+    const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
     const editorContextProps: DndEditorContextProps = {
         active: null,
         onActiveChange: () => {},
@@ -88,10 +96,7 @@ const Renderer: React.FC<any> = ({ value, items = [], smartyTags, sampleData, ..
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer
-                            onSubmit={(form) => console.log('submitted form', form)}
-                            onChange={props.onChange}
-                        >
+                        <FormRenderer onSubmit={onSubmit} onChange={props.onChange}>
                             {props.children}
                         </FormRenderer>
                     </div>

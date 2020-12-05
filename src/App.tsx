@@ -358,7 +358,7 @@ const customItems: DndItem[] = [
 ]
 
 function App() {
-    const [value, setValue] = useStore<DndState>('dnd-test-3', createDndState())
+    const [value, setValue] = useStore<DndState>('dnd-test-4', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []

@@ -26,7 +26,6 @@ export interface DndEditorProps {
     template?: DndTemplateItem
     smartyTags?: Record<string, string>
     sampleData?: any
-    previewOnly?: boolean
 }
 
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
@@ -72,8 +71,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
     smartyTags,
     sampleData,
     onHtmlChange,
-    onSendEmail,
-    previewOnly
+    onSendEmail
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -105,8 +103,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
     const [active, setActive] = React.useState<string | null>(null)
     const classes = useStyles()
     const [state, setState] = React.useState<DndState>(createDndState(value, template))
-    const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
-    itemsMap['element'] = FormElement
+    const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
 
     const editorContextProps: DndEditorContextProps = {
         active,
@@ -135,20 +132,15 @@ const DndEditor: React.FC<DndEditorProps> = ({
         () => (
             <>
                 <Grid container className={classes.root}>
-                    {!previewOnly && (
-                        <Grid item className={clsx(classes.menu)}>
-                            {previewOnly}
-                            <DndEditorMenu />
-                        </Grid>
-                    )}
+                    <Grid item className={clsx(classes.menu)}>
+                        <DndEditorMenu />
+                    </Grid>
                     <Grid item className={clsx(classes.item, classes.preview)}>
                         <DndEditorPreview />
                     </Grid>
-                    {!previewOnly && (
-                        <Grid item className={clsx(classes.item, classes.preferences)}>
-                            <DndEditorPreferences />
-                        </Grid>
-                    )}
+                    <Grid item className={clsx(classes.item, classes.preferences)}>
+                        <DndEditorPreferences />
+                    </Grid>
                 </Grid>
                 <DndPreview />
             </>
