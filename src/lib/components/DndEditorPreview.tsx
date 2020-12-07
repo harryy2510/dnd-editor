@@ -46,7 +46,7 @@ const DndEditorPreview: React.FC = () => {
             setList={setList(renderProps)}
             className={classes.root}
             handle=".sortable-handle"
-            setData={(dataTransfer, draggedElement) => {
+            setData={(dataTransfer: DataTransfer, draggedElement: HTMLElement) => {
                 const dragImage = document.createElement('img')
                 dragImage.src = draggedElement.dataset.dragImage as string
                 dataTransfer.setDragImage(dragImage, -10, -10)
