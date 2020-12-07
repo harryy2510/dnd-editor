@@ -21,7 +21,7 @@ export default {
                 <Grid item xs={12}>
                     <InputLabel htmlFor="my-input">{labelText}</InputLabel>
                 </Grid>
-                <Uploader disabled />
+                <Uploader value="" onChange={() => {}} />
                 <Grid item xs={12}>
                     <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
                 </Grid>

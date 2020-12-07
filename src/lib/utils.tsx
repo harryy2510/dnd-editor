@@ -19,6 +19,10 @@ import {
     Primitive,
     RenderProps
 } from './types'
+import TextInput from './assets/components/TextInput'
+import Checkbox from './assets/components/Checkbox'
+import Radio from './assets/components/Radio'
+import Dropdown from './assets/components/Dropdown'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -229,6 +233,7 @@ export const createDndState = (
                               type: template.type
                           },
                           id: template.id,
+                          name: template.id,
                           values: template.initialValues ?? {}
                       }
                   }
@@ -470,13 +475,21 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
     }
     return renderProps.state.entities[renderProps.item.id]?.values?.[id] || {}
 }
-export const getFromikProps = (formKey: string, formik: FormikContextType<unknown>) => {
+
+export const getFromikProps = (
+    formKey: string,
+    formik: FormikContextType<unknown>,
+    mapFn?: (arg: any) => any
+) => {
     const formikProps: any = {}
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey) || ''
-        formikProps.onChange = formik.handleChange
+        formikProps.value = get(formik.values, formKey)?.text || ''
+        formikProps.onChange = (e: any) => {
+            const value = e.target.value
+            formik.setFieldValue(formKey, mapFn ? mapFn(value) : value)
+        }
         formikProps.helperText =
             !!(get(formik.touched, formKey) || formik.submitCount > 0) &&
             get(formik.errors, formKey)
@@ -485,4 +498,42 @@ export const getFromikProps = (formKey: string, formik: FormikContextType<unknow
             !!get(formik.errors, formKey)
     }
     return formikProps
+}
+
+export const checkForDiplayCondition = (
+    condition: Condition,
+    formik: FormikContextType<unknown>
+) => {
+    if (condition && condition.display === 'DISPLAY' && condition.rules) {
+        const { id, operator, value } = condition.rules[0]
+        const [blockKey, itemKey] = id.split('.')
+        let formValue = get(formik.values, blockKey)
+        formValue = !!itemKey ? get(formValue, itemKey) : value
+
+        switch (operator) {
+            case 'EQUAL':
+                return formValue !== value
+            case 'NOT_EQUAL':
+                return formValue === value
+            case 'IN':
+                return !(value as string).split(',').filter((v) => v === formValue)
+        }
+    }
+    return true
+}
+
+export const getFormElementItemComponent = (type: string) => {
+    switch (type) {
+        case 'Input':
+        case 'Datepicker':
+            return TextInput
+        case 'Checkbox':
+            return Checkbox
+        case 'Radio':
+            return Radio
+        case 'Checkbox':
+            return Checkbox
+        case 'Dropdown':
+            return Dropdown
+    }
 }

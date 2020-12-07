@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import {
@@ -11,10 +11,12 @@ import {
     Input,
     Grid
 } from '@material-ui/core'
-import { DndComponentItem, RenderProps } from '../../types'
+import { DndComponentItem, RenderProps, StringFormValue } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
 import { useFormikContext } from 'formik'
+import { InputOption } from '../../components/preferences/items/InputOptions'
+import { get } from 'lodash-es'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -34,19 +36,30 @@ export default {
             const formik = useFormikContext()
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
-            formikProps.onChange = (option: string, value: string | boolean) => {
-                let oldValue = formikProps.value || {}
-                oldValue[option] = value
+            formikProps.value = get(formik.values, formKey) || []
+            formikProps.onChange = (option: string, checked: boolean) => {
+                let oldValue: StringFormValue[] = formikProps.value.filter(
+                    (formValue: StringFormValue) => formValue.text !== option
+                )
+                if (checked) oldValue = [{ text: option, valueType: 'String' }, ...oldValue]
                 formik.setFieldValue(formKey, oldValue)
             }
-            formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
-            formikProps.onOtherCheckboxChange = (value: boolean) => {
-                let oldValue = formikProps.value || {}
-                if (value) oldValue['other'] = inputValue
-                else delete oldValue['other']
+            formikProps = { ...formikProps, inputValue }
+            formikProps.onOtherCheckboxChange = (checked: boolean, inputValue: string) => {
+                let oldValue: StringFormValue[] = (formikProps.value || []).slice(
+                    0,
+                    state?.options.length
+                )
+                if (checked) oldValue.push({ text: inputValue, valueType: 'String' })
                 formik.setFieldValue(formKey, oldValue)
             }
-            formikProps.onControlClick = () => {}
+            formikProps.setInputValue = (newInputValue: string) => {
+                formikProps.onOtherCheckboxChange(
+                    formikProps.value.length > state?.options.length,
+                    newInputValue
+                )
+                setInputValue(newInputValue)
+            }
         }
 
         return (
@@ -61,20 +74,20 @@ export default {
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <FormGroup>
                     {state?.options
-                        ?.filter((option: string) => option.length > 0)
-                        .map((option: string, i: number) => (
+                        ?.filter((option: InputOption) => option.label.length > 0)
+                        .map((option: InputOption, i: number) => (
                             <FormControlLabel
                                 key={i}
                                 control={
                                     <Checkbox
-                                        name={option}
-                                        checked={formikProps?.value?.[option]}
+                                        name={option.label}
+                                        checked={formikProps?.value?.[option.label]}
                                         onChange={(e) =>
-                                            formikProps?.onChange(option, e.target.checked)
+                                            formikProps?.onChange(option.label, e.target.checked)
                                         }
                                     />
                                 }
-                                label={option}
+                                label={option.label}
                             />
                         ))}
                     {state?.showOther && (
@@ -84,7 +97,10 @@ export default {
                                 <Checkbox
                                     defaultChecked={formikProps?.value?.['other']}
                                     onChange={(e) =>
-                                        formikProps.onOtherCheckboxChange(e.target.checked)
+                                        formikProps.onOtherCheckboxChange(
+                                            e.target.checked,
+                                            formikProps.inputValue
+                                        )
                                     }
                                 />
                             }
@@ -114,12 +130,13 @@ export default {
         placeholder: 'Placeholder',
         showOther: false,
         hint: 'Optional Hint',
-        options: ['Yes', 'No'],
+        options: [{ key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }],
         validation: { type: 'none' },
         pii: '',
         className: '',
         required: true,
         enabled: true,
+        itemType: 'Checkbox',
         style: {
             textAlign: 'left'
         }
@@ -146,17 +163,6 @@ export default {
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],
     validationSchema: (renderProps, id, parentSchema) => {
-        const state = getComponentState(renderProps, id)
-        let schema: any = yup.object()
-        schema = state?.required
-            ? schema
-                  .required('Field is required')
-                  .test('empty-check', 'Field is required', (value: any) =>
-                      Object.keys(value || []).reduce((acc, key) => {
-                          return acc || !!value[key]
-                      }, false)
-                  )
-            : schema
-        return schema
+        return yup.object()
     }
 } as DndComponentItem

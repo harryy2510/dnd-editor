@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { DndState, DndEditorContextProps } from './types'
 import { Theme, Grid } from '@material-ui/core'
-import { DndEditorProps } from '.'
-import { useFonts, createDndState } from './utils'
+import { useFonts } from './utils'
 import { useDeepCompare } from '@harryy/rehooks'
-import { Form, Mail } from './assets/templates'
+import { Mail } from './assets/templates'
 import { keyBy } from 'lodash-es'
 import DndEditorProvider from './DndEditorProvider'
 import FormRenderer from './components/FormRenderer'
+import * as Groups from './assets/groups'
+import * as Blocks from './assets/blocks'
+import * as Templates from './assets/templates'
+import FormElement from './assets/blocks/FormElement'
 
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
     root: {
@@ -28,20 +31,23 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
     }
 }))
 export interface RendererProps {
-    value?: Partial<DndState>
-    onChange?: (newValue: any) => void
+    value: DndState
+    onChange: (newValue: any) => void
+    onSubmit: (newValue: any) => void
     onBlur?: (newValue: any) => void
-    items?: DndItem[]
     smartyTags?: Record<string, string>
     sampleData?: any
+    template?: any
+    items?: any[]
 }
 const Renderer: React.FC<RendererProps> = ({
     value,
-    onChange,
-    onBlur,
     items = [],
     smartyTags,
-    sampleData
+    sampleData,
+    onChange,
+    onSubmit,
+    ...props
 }) => {
     const { fontWeights, fontFamily } = useFonts()
     const fonts = useDeepCompare(
@@ -72,7 +78,7 @@ const Renderer: React.FC<RendererProps> = ({
     }, [fonts])
     const classes = useStyles()
     const template = Mail
-    const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
+    const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
     const editorContextProps: DndEditorContextProps = {
         active: null,
         onActiveChange: () => {},
@@ -91,7 +97,9 @@ const Renderer: React.FC<RendererProps> = ({
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer onSubmit={(form) => console.log(form)} />
+                        <FormRenderer onSubmit={onSubmit} onChange={onChange}>
+                            {props.children}
+                        </FormRenderer>
                     </div>
                 </Grid>
             </Grid>
@@ -99,5 +107,9 @@ const Renderer: React.FC<RendererProps> = ({
         [classes]
     )
     return <DndEditorProvider {...editorContextProps}>{children}</DndEditorProvider>
+}
+Renderer.defaultProps = {
+    items: [...Object.values(Groups), ...Object.values(Blocks)],
+    template: Templates.Mail
 }
 export default Renderer

@@ -16,12 +16,7 @@ const envs = env.set({
     NODE_ENV: 'production'
 })
 
-task(
-    'release',
-    shell.task(
-        `standard-version --no-verify && gulp build && npm publish ${tsconfig.compilerOptions.outDir} --access public && (git push --follow-tags origin master || true)`
-    )
-)
+task('release', shell.task(`standard-version --no-verify && gulp build`))
 
 task('clean', () =>
     src([tsconfig.compilerOptions.outDir], {

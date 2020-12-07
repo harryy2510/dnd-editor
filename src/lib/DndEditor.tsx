@@ -16,6 +16,7 @@ import DndEditorProvider from './DndEditorProvider'
 import { DndEditorContextProps, DndItem, DndState, DndTemplateItem } from './types'
 import { createDndState, exportToHtml, useFonts } from './utils'
 import { useDeepCompare } from '@harryy/rehooks'
+import FormElement from './assets/blocks/FormElement'
 export interface DndEditorProps {
     value?: Partial<DndState>
     onChange?: (newValue: DndState) => void
@@ -102,7 +103,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
     const [active, setActive] = React.useState<string | null>(null)
     const classes = useStyles()
     const [state, setState] = React.useState<DndState>(createDndState(value, template))
-    const itemsMap = React.useMemo(() => keyBy(items, 'id'), [items])
+    const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
 
     const editorContextProps: DndEditorContextProps = {
         active,

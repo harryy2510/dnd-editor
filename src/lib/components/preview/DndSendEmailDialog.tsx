@@ -93,7 +93,7 @@ const DndSendEmailDialog: React.FC<DndSendEmailDialogProps> = (props) => {
                     <Input
                         type="email"
                         value={email}
-                        onChange={setEmail}
+                        onChange={(e: any) => setEmail(e)}
                         InputProps={{ classes: inputClasses }}
                         placeholder="Email"
                     />

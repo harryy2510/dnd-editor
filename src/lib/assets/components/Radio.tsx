@@ -15,6 +15,7 @@ import { DndComponentItem, RenderProps } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
 import { useFormikContext } from 'formik'
+import { InputOption } from '../../components/preferences/items/InputOptions'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -35,7 +36,7 @@ export default {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
             formikProps.onChange = (value: string | boolean) => {
-                formik.setFieldValue(formKey, value)
+                formik.setFieldValue(formKey, { text: value, valueType: 'String' })
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
@@ -53,18 +54,18 @@ export default {
                 <FormLabel component="legend">{labelText}</FormLabel>
                 <FormGroup>
                     {state?.options
-                        ?.filter((option: string) => option.length > 0)
-                        .map((option: string, i: number) => (
+                        ?.filter((option: InputOption) => option.label.length > 0)
+                        .map((option: InputOption, i: number) => (
                             <FormControlLabel
                                 key={i}
                                 control={
                                     <Radio
-                                        name={option}
-                                        checked={formikProps?.value === option}
-                                        onClick={() => formikProps?.onChange(option)}
+                                        name={option.label}
+                                        checked={formikProps?.value === option.label}
+                                        onClick={() => formikProps?.onChange(option.label)}
                                     />
                                 }
-                                label={option}
+                                label={option.label}
                             />
                         ))}
                     {state?.showOther && (
@@ -102,12 +103,13 @@ export default {
         placeholder: 'Placeholder',
         showOther: false,
         hint: 'Optional Hint',
-        options: ['Yes', 'No'],
+        options: [{ key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }],
         validation: { type: 'none' },
         pii: '',
         className: '',
         required: true,
         enabled: true,
+        itemType: 'Radio',
         style: {
             textAlign: 'left'
         }

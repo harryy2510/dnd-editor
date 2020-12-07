@@ -1,8 +1,9 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
-import { DndBlockItem } from '../../types'
+import { DndBlockItem, RenderProps } from '../../types'
 import Dropdown from '../components/Dropdown'
 import { ExpandMore } from '@material-ui/icons'
+import { set } from 'lodash-es'
 
 export default {
     id: 'dropdown',
@@ -10,9 +11,9 @@ export default {
     icon: ExpandMore,
     parent: 'form-elements',
     render: (renderProps) => Dropdown.render(renderProps, 'dropdown', renderProps.name),
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: RenderProps) => {
         const schema: any = {}
-        schema[renderProps.name] = Dropdown.validationSchema?.(renderProps, 'dropdown')
+        set(schema, renderProps.name || '', Dropdown.validationSchema?.(renderProps, 'dropdown'))
         return schema
     },
     export: () => '',

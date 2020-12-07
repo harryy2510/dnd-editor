@@ -1,9 +1,10 @@
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField/TextField'
 import { CloseOutlined } from '@material-ui/icons'
-import React from 'react'
+import React, { ReactText } from 'react'
 import { IconButton, InputAdornment, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
+import { set } from 'lodash-es'
 
 const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) => ({
     root: {
@@ -43,11 +44,10 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
     }
 }))
 
-type InputTypes = string | number
 export interface StyledTextFieldProps
     extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onChange'> {
-    value: InputTypes
-    onChange: (value: InputTypes) => void
+    value: string
+    onChange: (value: string) => void
     clearable?: boolean
 }
 
@@ -69,6 +69,8 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
             </IconButton>
         </InputAdornment>
     )
+    const changeCb = props.select ? 'onChange' : 'onBlur'
+    const changeHandler = set({}, changeCb, (e: any) => onChange(e.target.value))
     return (
         <TextField
             fullWidth
@@ -100,7 +102,7 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
                 }
             }}
             defaultValue={value}
-            onBlur={(e) => onChange(e.target.value)}
+            {...changeHandler}
         />
     )
 }

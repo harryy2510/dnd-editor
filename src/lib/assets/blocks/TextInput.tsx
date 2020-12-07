@@ -10,7 +10,7 @@ export default {
     icon: TextFields,
     parent: 'form-elements',
     render: (renderProps) => TextInput.render(renderProps, 'text-input-1', renderProps.name),
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema[renderProps.name] = TextInput.validationSchema?.(renderProps, 'text-input-1')
         return schema

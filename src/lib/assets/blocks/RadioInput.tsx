@@ -3,6 +3,7 @@ import React from 'react'
 import { DndBlockItem } from '../../types'
 import Radio from '../components/Radio'
 import { RadioButtonChecked } from '@material-ui/icons'
+import { set } from 'lodash-es'
 
 export default {
     id: 'radio-input',
@@ -10,9 +11,9 @@ export default {
     icon: RadioButtonChecked,
     parent: 'form-elements',
     render: (renderProps) => Radio.render(renderProps, 'radio-input-1', renderProps.name),
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
-        schema[renderProps.name] = Radio.validationSchema?.(renderProps, 'radio-input-1')
+        set(schema, renderProps.name || '', Radio.validationSchema?.(renderProps, 'radio-input-1'))
         return schema
     },
     export: () => '',

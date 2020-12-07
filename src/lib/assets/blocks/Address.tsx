@@ -18,32 +18,32 @@ export default {
                     {TextInput.render(
                         renderProps,
                         'address-line-1',
-                        `${renderProps.name}.addressLine1`
+                        `${renderProps.item?.id}$addressLine1`
                     )}
                 </Grid>
                 <Grid item xs={12}>
                     {TextInput.render(
                         renderProps,
                         'address-line-2',
-                        `${renderProps.name}.addressLine2`
+                        `${renderProps.item?.id}$addressLine2`
                     )}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'city', `${renderProps.name}.city`)}
+                    {TextInput.render(renderProps, 'city', `${renderProps.item?.id}$city`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'state', `${renderProps.name}.state`)}
+                    {TextInput.render(renderProps, 'state', `${renderProps.item?.id}$state`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'postal', `${renderProps.name}.postal`)}
+                    {TextInput.render(renderProps, 'postal', `${renderProps.item?.id}$postal`)}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'country', `${renderProps.name}.country`)}
+                    {TextInput.render(renderProps, 'country', `${renderProps.item?.id}$country`)}
                 </Grid>
             </Grid>
         )
     },
-    validationSchema: (renderProps) => {
+    validationSchema: (renderProps: any) => {
         const schema: any = {}
         schema['addressLine1'] = TextInput.validationSchema?.(renderProps, 'address-line-1')
         schema['addressLine2'] = TextInput.validationSchema?.(renderProps, 'address-line-2')
@@ -63,6 +63,7 @@ export default {
             ...TextInput.initialValues,
             question: 'Address line 1',
             hint: '',
+            grid: 12,
             placeholder: 'Address line 1'
         },
         'address-line-2': {
@@ -70,24 +71,28 @@ export default {
             question: 'Address line 2',
             hint: '',
             required: false,
+            grid: 12,
             placeholder: 'Address line 2'
         },
         city: {
             ...TextInput.initialValues,
             question: 'City',
             hint: '',
+            grid: 6,
             placeholder: 'City'
         },
         state: {
             ...TextInput.initialValues,
             question: 'State',
             hint: '',
+            grid: 6,
             placeholder: 'State'
         },
         postal: {
             ...TextInput.initialValues,
             question: 'zip code',
             hint: '',
+            grid: 6,
             placeholder: 'zip code'
         },
         country: {
@@ -95,6 +100,7 @@ export default {
             question: 'Country',
             hint: '',
             formKey: '',
+            grid: 6,
             placeholder: 'Country'
         }
     },

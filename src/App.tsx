@@ -5,7 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
 import { merge } from 'lodash-es'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { DndEditor } from './lib'
 import * as Blocks from './lib/assets/blocks'
 import Button from './lib/assets/components/Button'
@@ -58,6 +58,7 @@ const customItems: DndItem[] = [
         icon: ImageAspectRatioOutlined,
         render: () => <></>,
         export: () => '',
+        renderMode: 'container',
         label: <Trans>Header</Trans>,
         priority: 1.5
     },
@@ -126,6 +127,7 @@ const customItems: DndItem[] = [
         id: 'footer',
         type: 'group',
         icon: ListOutlined,
+        renderMode: 'container',
         render: () => <></>,
         export: () => '',
         label: <Trans>Footer</Trans>,
@@ -346,6 +348,7 @@ const customItems: DndItem[] = [
     {
         id: 'appointment',
         type: 'group',
+        renderMode: 'container',
         icon: EventOutlined,
         render: () => <></>,
         export: () => '',
@@ -355,16 +358,7 @@ const customItems: DndItem[] = [
 ]
 
 function App() {
-    const [value, onChange] = useStore<DndState>('dnd-test-3', createDndState())
-    const [showRenderer, showSetRenderer] = useState(false)
-    const F5 = 116
-    const keyupListener = (e) => {
-        if (e.keyCode === F5) showSetRenderer((current) => !current)
-    }
-    useEffect(() => {
-        window.addEventListener('keyup', keyupListener, true)
-        return () => window.removeEventListener('keyup', keyupListener, true)
-    }, [keyupListener])
+    const [value, setValue] = useStore<DndState>('dnd-test-4', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
@@ -374,29 +368,16 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                {!showRenderer && (
-                    <DndEditor
-                        smartyTags={smartyTags}
-                        items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-                        value={value}
-                        onChange={onChange}
-                        sampleData={sampleData}
-                    />
-                )}
-                {showRenderer && (
-                    <div style={{ width: '700px', margin: 'auto' }}>
-                        <Renderer
-                            smartyTags={smartyTags}
-                            value={value}
-                            sampleData={sampleData}
-                            items={[
-                                ...Object.values(Groups),
-                                ...Object.values(Blocks),
-                                ...customItems
-                            ]}
-                        />
-                    </div>
-                )}
+                <Renderer
+                    smartyTags={smartyTags}
+                    items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+                    value={value}
+                    onChange={(d) => {
+                        console.log(d, 'form on change')
+                    }}
+                    onSubmit={(d) => console.log('submit', d)}
+                    sampleData={sampleData}
+                />
             </Box>
         </ThemeProvider>
     )

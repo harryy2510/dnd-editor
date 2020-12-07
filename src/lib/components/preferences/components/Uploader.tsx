@@ -4,7 +4,7 @@ import { CloudUploadOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import React from 'react'
-import { InputProps } from './Input'
+import { StyledTextFieldProps } from './StyledTextField'
 
 const useStyles = makeStyles(
     ({
@@ -126,7 +126,7 @@ const CircularProgressWithLabel: React.FC<CircularProgressProps> = (props) => {
     )
 }
 
-const Uploader: React.FC<InputProps> = (props) => {
+const Uploader: React.FC<StyledTextFieldProps> = (props) => {
     const imgSrc = React.useRef(props.value)
     const [progress, setProgress] = React.useState(false)
     const classes = useStyles()
@@ -178,7 +178,7 @@ const Uploader: React.FC<InputProps> = (props) => {
                         </Typography>
                     </div>
                     <div className={classes.preview}>
-                        <img src={imgSrc.current} className={classes.img} alt="" />
+                        <img src={imgSrc.current as string} className={classes.img} alt="" />
                     </div>
                 </>
             ) : (

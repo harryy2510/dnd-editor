@@ -7,6 +7,7 @@ import { updateItemName } from '../../utils'
 import { Trans } from '@lingui/macro'
 import { makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core'
+import { DndBlockItem } from '../../types'
 
 interface Props {
     expanded: string
@@ -29,8 +30,11 @@ const FormElementsSettings: React.FC<Props> = (props) => {
     }
     const classes = useStyles()
     const activeItem = editorContext.state.entities[editorContext.active]
+    const activeItemSettings = !!(activeItemBlock as DndBlockItem).generateSettings
+        ? (activeItemBlock as DndBlockItem)?.generateSettings!(editorContext)
+        : activeItemBlock?.settings
     const settings = [
-        ...(activeItemBlock.settings?.filter((s) => s.type === 'form-elements') ?? []),
+        ...(activeItemSettings?.filter((s) => s.type === 'form-elements') ?? []),
         ...(!props.showContainerTab && Container.settings ? Container.settings : [])
     ]
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
@@ -40,7 +44,6 @@ const FormElementsSettings: React.FC<Props> = (props) => {
         onChange: (newValue: any) => updateItemName(editorContext, activeItem.id, newValue),
         label: <Trans>Form element name</Trans>
     }
-    console.log(activeItem)
 
     return (
         <>

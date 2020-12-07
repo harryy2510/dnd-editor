@@ -18,7 +18,12 @@ export default {
         let formikProps: any = {}
         if (!renderProps.buildermode && formKey) {
             const formik = useFormikContext()
-            formikProps = getFromikProps(formKey, formik)
+            formikProps = getFromikProps(formKey, formik, (value) => {
+                return {
+                    text: value,
+                    valueType: 'String'
+                }
+            })
             formikProps.helperText = formikProps.helperText || state?.hint
         }
         return (
@@ -30,7 +35,6 @@ export default {
                 rows={state?.rows}
                 variant="outlined"
                 fullWidth
-                InputLabelProps={state?.labelProps}
                 label={labelText}
                 placeholder={state?.placeholder}
                 value={state?.defaultValue}
@@ -49,15 +53,13 @@ export default {
         hint: 'Optional Hint',
         inputType: 'text',
         multiline: false,
-        validation: { type: 'none' },
         characterLimit: '12',
         pii: '',
         className: '',
         required: true,
         enabled: true,
-        lableProps: {
-            shrink: false
-        },
+        grid: 12,
+        itemType: 'Input',
         style: {
             textAlign: 'left'
         }
@@ -85,12 +87,6 @@ export default {
             label: <Trans>Default value</Trans>
         },
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
-        {
-            id: 'validation',
-            type: 'inputValidation',
-            grid: 12,
-            label: <Trans>Validation</Trans>
-        },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],
