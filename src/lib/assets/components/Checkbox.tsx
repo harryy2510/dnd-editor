@@ -90,7 +90,7 @@ export default {
                                 label={option.label}
                             />
                         ))}
-                    {!state?.showOther && (
+                    {state?.showOther && (
                         <FormControlLabel
                             key={'other'}
                             control={
