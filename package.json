@@ -6,6 +6,7 @@
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "release": "gulp release",
+        "package": "gulp build",
         "commit": "commit",
         "update": "npm-check -u",
         "storybook": "start-storybook -p 6006 -s public",

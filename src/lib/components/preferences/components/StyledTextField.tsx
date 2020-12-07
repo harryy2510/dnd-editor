@@ -1,6 +1,6 @@
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField/TextField'
 import { CloseOutlined } from '@material-ui/icons'
-import React from 'react'
+import React, { ReactText } from 'react'
 import { IconButton, InputAdornment, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
@@ -44,11 +44,10 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
     }
 }))
 
-type InputTypes = string | number
 export interface StyledTextFieldProps
     extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onChange'> {
-    value: InputTypes
-    onChange: (value: InputTypes) => void
+    value: string
+    onChange: (value: string) => void
     clearable?: boolean
 }
 
