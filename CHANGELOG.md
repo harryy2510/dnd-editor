@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.70](https://github.com/harryy2510/dnd-editor/compare/v0.1.69...v0.1.70) (2020-12-07)
+
+
+### Bug Fixes
+
+* typings of setData ([a6835b4](https://github.com/harryy2510/dnd-editor/commit/a6835b4c7ef55851ff00c46f75445224330d48bf))
+
 ### [0.1.69](https://github.com/harryy2510/dnd-editor/compare/v0.1.68...v0.1.69) (2020-12-07)
 
 ### [0.1.68](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.1.68) (2020-12-07)
