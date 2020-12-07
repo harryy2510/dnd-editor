@@ -31,14 +31,14 @@ task('copy:package', () => {
         '@lingui',
         'lodash',
         'formik',
-
         '@loadable',
         'clsx',
         'yup',
         'material-ui',
         'multimatch',
         'react-color',
-        'use-debounce'
+        'use-debounce',
+        'sortablejs'
     ]
     const exactDeps = ['react', 'react-dom']
     return src('./package.json')
