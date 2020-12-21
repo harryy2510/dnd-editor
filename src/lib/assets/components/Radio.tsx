@@ -73,7 +73,11 @@ export default {
                             control={
                                 <Radio
                                     checked={formikProps?.value === formikProps.inputValue}
+<<<<<<< HEAD
                                     onClick={() => formikProps.onChange?.(formikProps.inputValue)}
+=======
+                                    onClick={() => formikProps.onChange(formikProps.inputValue)}
+>>>>>>> fix: bug with radio button where other option cannot be unselected
                                 />
                             }
                             label={

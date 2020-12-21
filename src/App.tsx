@@ -14,6 +14,8 @@ import Text from './lib/assets/components/Text'
 import * as Groups from './lib/assets/groups'
 import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
+import Divider from './lib/assets/components/Divider'
+
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
     'Customer.LastName': 'Customer LastName',
