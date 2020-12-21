@@ -62,7 +62,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
         <Formik enableReinitialize initialValues={{}} onSubmit={(s) => onSubmit && onSubmit(s)}>
             <Form style={{ paddingBottom: '50px' }}>
                 {renderProps.template.render(renderProps, <Children />)}
-                {props.children}
                 <FormObserver onChange={onChange} />
             </Form>
         </Formik>

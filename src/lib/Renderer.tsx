@@ -17,13 +17,11 @@ import FormElement from './assets/blocks/FormElement'
 const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
     root: {
         width: '100%',
-        height: '100%',
         padding: spacing(2),
         backgroundColor: background.paper
     },
     item: {
         height: '100%',
-        width: '100%',
         position: 'relative'
     },
     preview: {
@@ -96,11 +94,9 @@ const Renderer: React.FC<RendererProps> = ({
         () => (
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
-                    <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer onSubmit={onSubmit} onChange={onChange}>
-                            {props.children}
-                        </FormRenderer>
-                    </div>
+                    <FormRenderer onSubmit={onSubmit} onChange={onChange}>
+                        {props.children}
+                    </FormRenderer>
                 </Grid>
             </Grid>
         ),

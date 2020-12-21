@@ -5,7 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
 import { merge } from 'lodash-es'
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import { DndEditor } from './lib'
 import * as Blocks from './lib/assets/blocks'
 import Button from './lib/assets/components/Button'
@@ -15,7 +15,6 @@ import * as Groups from './lib/assets/groups'
 import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
 import Divider from './lib/assets/components/Divider'
-import Renderer from './lib/Renderer'
 
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
@@ -368,14 +367,11 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <Renderer
+                <DndEditor
                     smartyTags={smartyTags}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
                     value={value}
-                    onChange={(d) => {
-                        console.log(d, 'form on change')
-                    }}
-                    onSubmit={(d) => console.log('submit', d)}
+                    onChange={setValue}
                     sampleData={sampleData}
                 />
             </Box>
