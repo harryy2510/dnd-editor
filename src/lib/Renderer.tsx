@@ -22,6 +22,7 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
     },
     item: {
         height: '100%',
+        width: '100%',
         position: 'relative'
     },
     preview: {
