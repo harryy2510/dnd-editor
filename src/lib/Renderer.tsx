@@ -14,6 +14,7 @@ export interface RendererProps extends FormRendererProps {
     sampleData?: any
     template?: any
     items?: any[]
+    initialValues: any
 }
 
 const Renderer: React.FC<RendererProps> = ({
