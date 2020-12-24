@@ -38,6 +38,7 @@ export interface RendererProps {
     sampleData?: any
     template?: any
     items?: any[]
+    initialValues: any
 }
 const Renderer: React.FC<RendererProps> = ({
     value,
@@ -46,6 +47,7 @@ const Renderer: React.FC<RendererProps> = ({
     sampleData,
     onChange,
     onSubmit,
+    initialValues,
     ...props
 }) => {
     const { fontWeights, fontFamily } = useFonts()
@@ -95,7 +97,11 @@ const Renderer: React.FC<RendererProps> = ({
         () => (
             <Grid container className={classes.root}>
                 <Grid className={clsx(classes.item, classes.preview)}>
-                    <FormRenderer onSubmit={onSubmit} onChange={onChange}>
+                    <FormRenderer
+                        onSubmit={onSubmit}
+                        onChange={onChange}
+                        initialValues={initialValues || {}}
+                    >
                         {props.children}
                     </FormRenderer>
                 </Grid>

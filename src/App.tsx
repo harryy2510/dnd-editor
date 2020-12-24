@@ -4,9 +4,9 @@ import { Box, CssBaseline } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
-import { merge } from 'lodash-es'
+import { merge, noop } from 'lodash-es'
 import React from 'react'
-import { DndEditor } from './lib'
+import { DndEditor, Renderer } from './lib'
 import * as Blocks from './lib/assets/blocks'
 import Button from './lib/assets/components/Button'
 import Image from './lib/assets/components/Image'
@@ -20,7 +20,7 @@ const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
     'Customer.LastName': 'Customer LastName',
     'Customer.Email': 'Customer Email',
-    'Appointment.ServiceName': 'Appointment ServiceName',
+    ServiceName: 'Appointment ServiceName',
     'Appointment.StaffName': 'Appointment StaffName',
     'Appointment.Time': 'Appointment Time'
 }
@@ -358,11 +358,28 @@ const customItems: DndItem[] = [
 
 function App() {
     const [value, setValue] = useStore<DndState>('dnd-test-4', createDndState())
+    const [submission, setSubmission] = useStore<DndState>('submission', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
     )
 
+    // <DndEditor
+    //     smartyTags={smartyTags}
+    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+    //     value={value}
+    //     onChange={setValue}
+    //     sampleData={sampleData}
+    // />
+    // <Renderer
+    //     smartyTags={smartyTags}
+    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+    //     value={value}
+    //     initialValues={submission}
+    //     onSubmit={setSubmission}
+    //     onChange={noop}
+    //     sampleData={sampleData}
+    // />
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

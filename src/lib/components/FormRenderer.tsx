@@ -10,9 +10,15 @@ import FormObserver from './preferences/components/FormObserver'
 export interface FormRendererProps {
     onSubmit: (value: any) => void
     onChange: (value: any) => void
+    initialValues: any
 }
 
-const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...props }) => {
+const FormRenderer: React.FC<FormRendererProps> = ({
+    onSubmit,
+    onChange,
+    initialValues,
+    ...props
+}) => {
     const renderProps = useDndEditorContext()
 
     const Children = () => {
@@ -23,7 +29,8 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
                     ?.filter((item) =>
                         checkForDiplayCondition(
                             renderProps.state.entities[item.id].values.__condition,
-                            formik
+                            formik,
+                            renderProps.sampleData
                         )
                     )
                     .map((item) => {
@@ -57,9 +64,14 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
     })
     const validationSchema = yup.object().shape(validation)
 
+    console.log('initialValues', initialValues)
     //@ts-ignore
     return (
-        <Formik enableReinitialize initialValues={{}} onSubmit={(s) => onSubmit && onSubmit(s)}>
+        <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            onSubmit={(s) => onSubmit && onSubmit(s)}
+        >
             <Form style={{ paddingBottom: '50px' }}>
                 {renderProps.template.render(renderProps, <Children />)}
                 <FormObserver onChange={onChange} />
