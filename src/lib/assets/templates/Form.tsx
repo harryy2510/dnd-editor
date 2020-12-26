@@ -47,27 +47,5 @@ export default {
             }
         }
     },
-    settings: [
-        {
-            label: <Trans>Outer Container</Trans>,
-            id: 'outer',
-            type: 'template',
-            settings: [
-                { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 },
-                { id: 'style.padding', type: 'padding', grid: 12 }
-            ]
-        },
-        {
-            label: <Trans>Inner Container</Trans>,
-            id: 'inner',
-            type: 'template',
-            settings: [
-                { id: 'style.fontFamily', type: 'fontFamily', grid: 12 },
-                { id: 'style.color', type: 'fontColor', grid: 12 },
-                { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 },
-                { id: 'style.padding', type: 'padding', grid: 12 },
-                { id: 'style.borderRadius', type: 'borderRadius', grid: 12 }
-            ]
-        }
-    ]
+    settings: []
 } as DndTemplateItem
