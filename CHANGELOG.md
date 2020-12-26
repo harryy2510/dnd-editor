@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.72](https://github.com/harryy2510/dnd-editor/compare/v0.1.71...v0.1.72) (2020-12-26)
+
+
+### Bug Fixes
+
+* bug with radio button where other option cannot be unselected ([#4](https://github.com/harryy2510/dnd-editor/issues/4)) ([181ce10](https://github.com/harryy2510/dnd-editor/commit/181ce10a6228b32c40287f7f2d611ea8843170ef))
+* fixed structure ([77d2535](https://github.com/harryy2510/dnd-editor/commit/77d253581fd7dd3718e2b63d7e89edba0c3ff765))
+* menu overflow when creating a form ([cf16d96](https://github.com/harryy2510/dnd-editor/commit/cf16d962c5e5692d3772274d0ee8bd4847a7c0b2))
+* version updated ([25f653e](https://github.com/harryy2510/dnd-editor/commit/25f653e243c91983318fa3b497f6f59c0935794a))
+
 ### [0.1.71](https://github.com/harryy2510/dnd-editor/compare/v0.1.70...v0.1.71) (2020-12-24)
 
 ### [0.1.70](https://github.com/harryy2510/dnd-editor/compare/v0.1.69...v0.1.70) (2020-12-07)
