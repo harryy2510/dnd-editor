@@ -95,7 +95,11 @@ export default {
                             key={'other'}
                             control={
                                 <Checkbox
-                                    defaultChecked={formikProps?.value?.['other']}
+                                    name="other"
+                                    value={
+                                        formikProps?.value?.['other'] &&
+                                        formikProps?.value?.['other'] !== ''
+                                    }
                                     onChange={(e) =>
                                         formikProps.onOtherCheckboxChange(
                                             e.target.checked,

@@ -1,50 +1,19 @@
-import React, { useRef, useEffect } from 'react'
-import { Formik, Form, Field, useFormikContext, FormikProps } from 'formik'
+import React from 'react'
+import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { useDndEditorContext } from '../DndEditorProvider'
-import Container from '../assets/Container'
 import { DndComponentItem } from '../types'
-import { checkForDiplayCondition } from '../utils'
 import FormObserver from './preferences/components/FormObserver'
+import FormElements from './FormElements'
 
 export interface FormRendererProps {
-    onSubmit: (value: any) => void
-    onChange: (value: any) => void
+    onSubmit?: (value: any) => void
+    onChange?: (value: any) => void
+    formId: string
 }
 
-const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...props }) => {
+const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, formId, ...props }) => {
     const renderProps = useDndEditorContext()
-
-    const Children = () => {
-        const formik = useFormikContext()
-        return (
-            <div>
-                {renderProps.state.items
-                    ?.filter((item) =>
-                        checkForDiplayCondition(
-                            renderProps.state.entities[item.id].values.__condition,
-                            formik
-                        )
-                    )
-                    .map((item) => {
-                        const stateItem = renderProps.state.entities[item.id]
-                        const name = stateItem.name
-                        const updatedRenderProps = { ...renderProps, item, name }
-                        return (
-                            <div key={item.id}>
-                                {Container.render(
-                                    updatedRenderProps,
-                                    renderProps.itemsMap[stateItem.parent.id]?.render?.(
-                                        updatedRenderProps
-                                    )
-                                )}
-                            </div>
-                        )
-                    })}
-            </div>
-        )
-    }
-
     let validation: any = {}
     renderProps.state.items?.map((item) => {
         const stateItem = renderProps.state.entities[item.id]
@@ -59,11 +28,14 @@ const FormRenderer: React.FC<FormRendererProps> = ({ onSubmit, onChange, ...prop
 
     //@ts-ignore
     return (
-        <Formik enableReinitialize initialValues={{}} onSubmit={(s) => onSubmit && onSubmit(s)}>
-            <Form style={{ paddingBottom: '50px' }}>
-                {renderProps.template.render(renderProps, <Children />)}
+        <Formik enableReinitialize initialValues={{}} onSubmit={(s) => onSubmit?.(s)}>
+            <Form id={formId}>
+                {renderProps.template.render(
+                    renderProps,
+                    <FormElements renderProps={renderProps} />
+                )}
                 {props.children}
-                <FormObserver onChange={onChange} />
+                {onChange && <FormObserver onChange={onChange} />}
             </Form>
         </Formik>
     )

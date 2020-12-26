@@ -1,8 +1,6 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
-import clsx from 'clsx'
 import { DndState, DndEditorContextProps } from './types'
-import { Theme, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { useFonts } from './utils'
 import { useDeepCompare } from '@harryy/rehooks'
 import { Mail } from './assets/templates'
@@ -14,26 +12,11 @@ import * as Blocks from './assets/blocks'
 import * as Templates from './assets/templates'
 import FormElement from './assets/blocks/FormElement'
 
-const useStyles = makeStyles(({ palette: { background, divider }, spacing }: Theme) => ({
-    root: {
-        width: '100%',
-        height: '100%',
-        padding: spacing(2),
-        backgroundColor: background.paper
-    },
-    item: {
-        height: '100%',
-        width: '100%',
-        position: 'relative'
-    },
-    preview: {
-        zIndex: 0
-    }
-}))
 export interface RendererProps {
     value: DndState
-    onChange: (newValue: any) => void
-    onSubmit: (newValue: any) => void
+    formId: string
+    onChange?: (newValue: any) => void
+    onSubmit?: (newValue: any) => void
     onBlur?: (newValue: any) => void
     smartyTags?: Record<string, string>
     sampleData?: any
@@ -47,6 +30,7 @@ const Renderer: React.FC<RendererProps> = ({
     sampleData,
     onChange,
     onSubmit,
+    formId,
     ...props
 }) => {
     const { fontWeights, fontFamily } = useFonts()
@@ -76,7 +60,6 @@ const Renderer: React.FC<RendererProps> = ({
             document.head.appendChild(el)
         }
     }, [fonts])
-    const classes = useStyles()
     const template = Mail
     const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
     const editorContextProps: DndEditorContextProps = {
@@ -92,20 +75,16 @@ const Renderer: React.FC<RendererProps> = ({
         buildermode: false
     }
 
-    const children = React.useMemo(
-        () => (
-            <Grid container className={classes.root}>
-                <Grid className={clsx(classes.item, classes.preview)}>
-                    <div style={{ height: '100vh', overflow: 'auto' }}>
-                        <FormRenderer onSubmit={onSubmit} onChange={onChange}>
-                            {props.children}
-                        </FormRenderer>
-                    </div>
-                </Grid>
+    const children = (
+        <Grid container>
+            <Grid>
+                <FormRenderer formId={formId} onSubmit={onSubmit} onChange={onChange}>
+                    {props.children}
+                </FormRenderer>
             </Grid>
-        ),
-        [classes]
+        </Grid>
     )
+
     return <DndEditorProvider {...editorContextProps}>{children}</DndEditorProvider>
 }
 Renderer.defaultProps = {
