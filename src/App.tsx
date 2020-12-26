@@ -1,6 +1,6 @@
 import { useStore } from '@harryy/rehooks'
 import { Trans } from '@lingui/macro'
-import { Box, CssBaseline } from '@material-ui/core'
+import { Box, CssBaseline, Button } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
@@ -8,14 +8,12 @@ import { merge, noop } from 'lodash-es'
 import React from 'react'
 import { DndEditor, Renderer } from './lib'
 import * as Blocks from './lib/assets/blocks'
-import Button from './lib/assets/components/Button'
+import Divider from './lib/assets/components/Divider'
 import Image from './lib/assets/components/Image'
 import Text from './lib/assets/components/Text'
 import * as Groups from './lib/assets/groups'
 import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
-import Divider from './lib/assets/components/Divider'
-
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
     'Customer.LastName': 'Customer LastName',
@@ -376,10 +374,13 @@ function App() {
     //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
     //     value={value}
     //     initialValues={submission}
-    //     onSubmit={setSubmission}
-    //     onChange={noop}
+    //     onSubmit={(value) => alert(JSON.stringify(value, null, 2))}
+    //     formId="intake-form"
     //     sampleData={sampleData}
     // />
+    // <Button type="submit" form="intake-form" value="Submit">
+    //     Submit
+    // </Button>
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

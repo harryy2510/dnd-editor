@@ -162,7 +162,7 @@ const HiddenGroupMenuItem: React.FC<MenuItemProps> = ({
             sort={false}
             setList={() => undefined}
             className={classes.list}
-            setData={(dataTransfer, draggedElement) => {
+            setData={(dataTransfer: DataTransfer, draggedElement: HTMLElement) => {
                 const dragImage = document.createElement('img')
                 dragImage.src = draggedElement.dataset.dragImage as string
                 dataTransfer.setDragImage(dragImage, -10, -10)
@@ -235,7 +235,7 @@ const MenuHoverList: React.FC<MenuHoverListProps> = ({ listItems, handleAddItem 
                     sort={false}
                     setList={() => undefined}
                     className={classes.list}
-                    setData={(dataTransfer, draggedElement) => {
+                    setData={(dataTransfer: DataTransfer, draggedElement: HTMLElement) => {
                         const dragImage = document.createElement('img')
                         dragImage.src = draggedElement.dataset.dragImage as string
                         dataTransfer.setDragImage(dragImage, -10, -10)

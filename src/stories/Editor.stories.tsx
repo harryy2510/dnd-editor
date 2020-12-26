@@ -1,14 +1,14 @@
-import React from 'react'
-import { Story, Meta } from '@storybook/react/types-6-0'
-import { ThemeProvider } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
-import { createDndState } from '../lib/utils'
+import { ThemeProvider } from '@material-ui/styles'
+import { Meta, Story } from '@storybook/react/types-6-0'
+import React from 'react'
 import { DndEditor, DndEditorProps } from '../lib'
 import * as Blocks from '../lib/assets/blocks'
 import * as Groups from '../lib/assets/groups'
+import FormElements from '../lib/assets/groups/FormElements'
 import * as Templates from '../lib/assets/templates'
 import { DndItem } from '../lib/types'
-import FormElements from '../lib/assets/groups/FormElements'
+import { createDndState } from '../lib/utils'
 
 export default {
     title: 'Editor',
