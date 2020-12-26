@@ -33,6 +33,7 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
         width: '100%',
         height: '100%',
         overflow: 'hidden',
+        position: 'relative',
         backgroundColor: background.paper
     },
     item: {
