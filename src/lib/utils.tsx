@@ -505,9 +505,11 @@ export const checkForDiplayCondition = (
     formik: FormikContextType<unknown>,
     sampleData: any
 ) => {
-    console.log(condition, sampleData, 'condition')
     if (condition && condition.display === 'DISPLAY' && condition.rules) {
         const { id, operator, value } = condition.rules[0]
+        if (!sampleData) {
+            return false
+        }
         // const [blockKey, itemKey] = id.split('.')
         // let formValue = get(formik.values, blockKey)
         // formValue = !!itemKey ? get(formValue, itemKey) : value
