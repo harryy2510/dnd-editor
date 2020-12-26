@@ -11,12 +11,12 @@ import * as Templates from './assets/templates'
 import DndEditorMenu from './components/DndEditorMenu'
 import DndEditorPreferences from './components/DndEditorPreferences'
 import DndEditorPreview from './components/DndEditorPreview'
-import DndPreview from './components/DndPreview'
 import DndEditorProvider from './DndEditorProvider'
 import { DndEditorContextProps, DndItem, DndState, DndTemplateItem } from './types'
 import { createDndState, exportToHtml, useFonts } from './utils'
 import { useDeepCompare } from '@harryy/rehooks'
 import FormElement from './assets/blocks/FormElement'
+
 export interface DndEditorProps {
     value?: Partial<DndState>
     onChange?: (newValue: DndState) => void
