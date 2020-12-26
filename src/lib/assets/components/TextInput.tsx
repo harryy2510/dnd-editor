@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField } from '@material-ui/core'
+import { TextField, Box } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps, Primitive } from '../../types'
 import { useFormikContext } from 'formik'
@@ -27,21 +27,21 @@ export default {
             formikProps.helperText = formikProps.helperText || state?.hint
         }
         return (
-            <TextField
-                id={`${renderProps?.item?.id}-${id}`}
-                type={state?.inputType || 'text'}
-                onClick={handleClick}
-                multiline={state?.multiline}
-                rows={state?.rows}
-                variant="outlined"
-                fullWidth
-                label={labelText}
-                placeholder={state?.placeholder}
-                value={state?.defaultValue}
-                helperText={state?.hint}
-                disabled={renderProps.buildermode}
-                {...formikProps}
-            />
+            <Box onClick={handleClick}>
+                <TextField
+                    id={`${renderProps?.item?.id}-${id}`}
+                    type={state?.inputType || 'text'}
+                    multiline={state?.multiline}
+                    rows={state?.rows}
+                    variant="outlined"
+                    fullWidth
+                    label={labelText}
+                    placeholder={state?.placeholder}
+                    value={state?.defaultValue}
+                    helperText={state?.hint}
+                    {...formikProps}
+                />
+            </Box>
         )
     },
     export: () => {

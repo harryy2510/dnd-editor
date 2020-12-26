@@ -31,8 +31,8 @@ export default {
             inputValue: '',
             setInputValue: () => {}
         }
-        if (!renderProps.buildermode && formKey) {
-            const formik = useFormikContext()
+        const formik = useFormikContext()
+        if (formik && formKey) {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
             formikProps.onChange = (value: string | boolean) => {
@@ -47,7 +47,6 @@ export default {
                 fullWidth
                 component="fieldset"
                 style={{ textAlign: 'left' }}
-                disabled={renderProps.buildermode}
                 onClick={formikProps.onControlClick}
                 error={formikProps?.error}
             >
@@ -62,7 +61,7 @@ export default {
                                     <Radio
                                         name={option.label}
                                         checked={formikProps?.value === option.label}
-                                        onClick={() => formikProps?.onChange(option.label)}
+                                        onClick={() => formikProps?.onChange?.(option.label)}
                                     />
                                 }
                                 label={option.label}
@@ -73,8 +72,8 @@ export default {
                             key={'other'}
                             control={
                                 <Radio
-                                    defaultChecked={formikProps?.value?.['other']}
-                                    onClick={() => formikProps.onChange(formikProps.inputValue)}
+                                    checked={formikProps?.value === formikProps.inputValue}
+                                    onClick={() => formikProps.onChange?.(formikProps.inputValue)}
                                 />
                             }
                             label={

@@ -4,7 +4,8 @@ import {
     AccordionSummary,
     Grid,
     Theme,
-    Typography
+    Typography,
+    Box
 } from '@material-ui/core'
 import { ArrowDropDownOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
@@ -15,6 +16,7 @@ import { DndItemSetting, InitialValues, RenderProps } from '../../types'
 import { updateItem } from '../../utils'
 import FormObserver from './components/FormObserver'
 import Field from './items/Field'
+import { Trans } from '@lingui/macro'
 
 const useStyles = makeStyles(({ palette: { text } }: Theme) => ({
     root: {
@@ -120,6 +122,11 @@ const SettingsBase: React.FC<Props> = ({
                     </Accordion>
                 )
             })}
+            {settings?.length === 0 && (
+                <Box style={{ padding: '16px' }}>
+                    <Trans>No settings available!</Trans>
+                </Box>
+            )}
         </>
     )
 }

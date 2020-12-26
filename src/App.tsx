@@ -1,26 +1,24 @@
 import { useStore } from '@harryy/rehooks'
 import { Trans } from '@lingui/macro'
-import { Box, CssBaseline } from '@material-ui/core'
+import { Box, CssBaseline, Button } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
-import { merge } from 'lodash-es'
+import { merge, noop } from 'lodash-es'
 import React from 'react'
+import { DndEditor, Renderer } from './lib'
 import * as Blocks from './lib/assets/blocks'
-import Button from './lib/assets/components/Button'
 import Divider from './lib/assets/components/Divider'
 import Image from './lib/assets/components/Image'
 import Text from './lib/assets/components/Text'
 import * as Groups from './lib/assets/groups'
-import Renderer from './lib/Renderer'
 import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
-
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
     'Customer.LastName': 'Customer LastName',
     'Customer.Email': 'Customer Email',
-    'Appointment.ServiceName': 'Appointment ServiceName',
+    ServiceName: 'Appointment ServiceName',
     'Appointment.StaffName': 'Appointment StaffName',
     'Appointment.Time': 'Appointment Time'
 }
@@ -358,23 +356,40 @@ const customItems: DndItem[] = [
 
 function App() {
     const [value, setValue] = useStore<DndState>('dnd-test-4', createDndState())
+    const [submission, setSubmission] = useStore<DndState>('submission', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
         []
     )
 
+    // <DndEditor
+    //     smartyTags={smartyTags}
+    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+    //     value={value}
+    //     onChange={setValue}
+    //     sampleData={sampleData}
+    // />
+    // <Renderer
+    //     smartyTags={smartyTags}
+    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+    //     value={value}
+    //     initialValues={submission}
+    //     onSubmit={(value) => alert(JSON.stringify(value, null, 2))}
+    //     formId="intake-form"
+    //     sampleData={sampleData}
+    // />
+    // <Button type="submit" form="intake-form" value="Submit">
+    //     Submit
+    // </Button>
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <Renderer
+                <DndEditor
                     smartyTags={smartyTags}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
                     value={value}
-                    onChange={(d) => {
-                        console.log(d, 'form on change')
-                    }}
-                    onSubmit={(d) => console.log('submit', d)}
+                    onChange={setValue}
                     sampleData={sampleData}
                 />
             </Box>

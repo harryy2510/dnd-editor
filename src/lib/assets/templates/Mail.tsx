@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
+import DndPreview from '../../components/DndPreview'
 import { DndTemplateItem } from '../../types'
 import { styleToCss } from '../../utils'
 
@@ -7,10 +8,12 @@ export default {
     id: 'mail',
     type: 'template',
     render: (renderProps, children) => {
+        console.log('rendering mail', renderProps.state)
         const stateItem = renderProps.state.entities.mail
         return (
             <div style={stateItem?.values?.outer?.style}>
                 <div style={stateItem?.values?.inner?.style}>{children}</div>
+                <DndPreview />
             </div>
         )
     },

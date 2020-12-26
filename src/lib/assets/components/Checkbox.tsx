@@ -32,8 +32,8 @@ export default {
             inputValue: '',
             setInputValue: () => {}
         }
-        if (!renderProps.buildermode && formKey) {
-            const formik = useFormikContext()
+        const formik = useFormikContext()
+        if (formik && formKey) {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
             formikProps.value = get(formik.values, formKey) || []
@@ -67,7 +67,6 @@ export default {
                 fullWidth
                 component="fieldset"
                 style={{ textAlign: 'left' }}
-                disabled={renderProps.buildermode}
                 onClick={formikProps.onControlClick}
                 error={formikProps?.error}
             >
@@ -83,7 +82,7 @@ export default {
                                         name={option.label}
                                         checked={formikProps?.value?.[option.label]}
                                         onChange={(e) =>
-                                            formikProps?.onChange(option.label, e.target.checked)
+                                            formikProps?.onChange?.(option.label, e.target.checked)
                                         }
                                     />
                                 }
@@ -101,7 +100,7 @@ export default {
                                         formikProps?.value?.['other'] !== ''
                                     }
                                     onChange={(e) =>
-                                        formikProps.onOtherCheckboxChange(
+                                        formikProps.onOtherCheckboxChange?.(
                                             e.target.checked,
                                             formikProps.inputValue
                                         )

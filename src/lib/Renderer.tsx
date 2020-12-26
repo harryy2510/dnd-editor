@@ -22,6 +22,7 @@ export interface RendererProps {
     sampleData?: any
     template?: any
     items?: any[]
+    initialValues: any
 }
 const Renderer: React.FC<RendererProps> = ({
     value,
@@ -89,6 +90,6 @@ const Renderer: React.FC<RendererProps> = ({
 }
 Renderer.defaultProps = {
     items: [...Object.values(Groups), ...Object.values(Blocks)],
-    template: Templates.Mail
+    template: Templates.Form
 }
 export default Renderer

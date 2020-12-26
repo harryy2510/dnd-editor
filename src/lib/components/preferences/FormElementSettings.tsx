@@ -33,10 +33,7 @@ const FormElementsSettings: React.FC<Props> = (props) => {
     const activeItemSettings = !!(activeItemBlock as DndBlockItem).generateSettings
         ? (activeItemBlock as DndBlockItem)?.generateSettings!(editorContext)
         : activeItemBlock?.settings
-    const settings = [
-        ...(activeItemSettings?.filter((s) => s.type === 'form-elements') ?? []),
-        ...(!props.showContainerTab && Container.settings ? Container.settings : [])
-    ]
+    const settings = [...(activeItemSettings?.filter((s) => s.type === 'form-elements') ?? [])]
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
 
     const blockNameProps = {
