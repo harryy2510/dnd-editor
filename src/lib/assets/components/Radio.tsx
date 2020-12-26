@@ -73,7 +73,7 @@ export default {
                             key={'other'}
                             control={
                                 <Radio
-                                    defaultChecked={formikProps?.value?.['other']}
+                                    checked={formikProps?.value === formikProps.inputValue}
                                     onClick={() => formikProps.onChange(formikProps.inputValue)}
                                 />
                             }

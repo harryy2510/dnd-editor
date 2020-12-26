@@ -18,12 +18,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "declaration": true,
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "noFallthroughCasesInSwitch": true
+    ]
   },
   "include": [
     "src/**/*"

@@ -16,7 +16,8 @@ const FormElements: React.FC<Props> = ({ renderProps }) => {
                 ?.filter((item) =>
                     checkForDiplayCondition(
                         renderProps.state.entities[item.id].values.__condition,
-                        formik
+                        formik,
+                        renderProps.sampleData
                     )
                 )
                 .map((item) => {
