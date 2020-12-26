@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
+import DndPreview from '../../components/DndPreview'
 import { DndTemplateItem } from '../../types'
 import { styleToCss } from '../../utils'
 
@@ -12,6 +13,7 @@ export default {
         return (
             <div style={stateItem?.values?.outer?.style}>
                 <div style={stateItem?.values?.inner?.style}>{children}</div>
+                <DndPreview />
             </div>
         )
     },

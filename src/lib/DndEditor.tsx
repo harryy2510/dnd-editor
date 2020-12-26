@@ -144,7 +144,6 @@ const DndEditor: React.FC<DndEditorProps> = ({
                         <DndEditorPreferences />
                     </Grid>
                 </Grid>
-                <DndPreview />
             </>
         ),
         [classes]
@@ -154,7 +153,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
 
 DndEditor.defaultProps = {
     items: [...Object.values(Groups), ...Object.values(Blocks)],
-    template: Templates.Mail
+    template: Templates.Form
 }
 
 export default DndEditor
