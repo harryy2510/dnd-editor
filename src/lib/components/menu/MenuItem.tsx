@@ -100,7 +100,7 @@ const useStyles = makeStyles(
         addIcon: {
             opacity: 0,
             position: 'absolute',
-            right: -12,
+            right: 4,
             top: '50%',
             transform: 'translateY(-50%)',
             width: 24,
