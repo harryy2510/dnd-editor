@@ -45,7 +45,7 @@ const useStyles = makeStyles(
         block: {
             display: 'flex',
             flexDirection: 'column',
-            width: '100%',
+            width: 320,
             alignItems: 'flex-start'
         },
         addIconParent: {

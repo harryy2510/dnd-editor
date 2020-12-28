@@ -153,7 +153,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
 
 DndEditor.defaultProps = {
     items: [...Object.values(Groups), ...Object.values(Blocks)],
-    template: Templates.Form
+    template: Templates.Mail
 }
 
 export default DndEditor
