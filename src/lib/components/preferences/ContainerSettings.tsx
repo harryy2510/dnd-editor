@@ -17,7 +17,8 @@ const ContainerSettings: React.FC<Props> = (props) => {
     if (!activeItem || !editorContext.active) {
         return null
     }
-    const settings = Container.settings
+    const template = editorContext.template
+    const settings = Container[template.id].settings
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
 
     return (

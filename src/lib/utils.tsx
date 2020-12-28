@@ -83,7 +83,11 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
             [id]: {
                 id,
                 name: id,
-                values: merge({}, { __container: Container.initialValues }, newItem.initialValues),
+                values: merge(
+                    {},
+                    { __container: Container[renderProps.template.id].initialValues },
+                    newItem.initialValues
+                ),
                 parent: { id: newItem.id, type: newItem.type }
             }
         },
@@ -118,7 +122,11 @@ export const setList = (renderProps: RenderProps) => (newState: DndStateItemEnti
                 id: rawItem.id,
                 type: rawItem.type
             },
-            values: merge({}, { __container: Container.initialValues }, rawItem.initialValues)
+            values: merge(
+                {},
+                { __container: Container[renderProps.template.id].initialValues },
+                rawItem.initialValues
+            )
         }
     }
     const stateToSet = {
@@ -136,7 +144,7 @@ export const renderItems = (items: DndStateItemEntity[] = [], renderProps: Rende
         const stateItem = renderProps.state.entities[item.id]
         return (
             <DndItemPreview key={item.id} {...updatedRenderProps}>
-                {Container.render(
+                {Container[renderProps.template.id].render(
                     updatedRenderProps,
                     renderProps.itemsMap[stateItem.parent.id]?.render?.(updatedRenderProps)
                 )}
@@ -187,7 +195,7 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
             return `
                 ${conditionStart}
                     <div style="position: relative">
-                        ${Container.export(
+                        ${Container[renderProps.template.id].export(
                             updatedRenderProps,
                             renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
                         )}
@@ -532,8 +540,6 @@ export const getFormElementItemComponent = (type: string) => {
             return Checkbox
         case 'Radio':
             return Radio
-        case 'Checkbox':
-            return Checkbox
         case 'Dropdown':
             return Dropdown
     }

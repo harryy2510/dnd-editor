@@ -1,6 +1,6 @@
 import { useStore } from '@harryy/rehooks'
 import { Trans } from '@lingui/macro'
-import { Box, CssBaseline, Button } from '@material-ui/core'
+import { Box, CssBaseline, Button as MuiButton } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { EventOutlined, ImageAspectRatioOutlined, ListOutlined } from '@material-ui/icons'
 import { ThemeProvider } from '@material-ui/styles'
@@ -8,6 +8,7 @@ import { merge, noop } from 'lodash-es'
 import React from 'react'
 import { DndEditor, Renderer } from './lib'
 import * as Blocks from './lib/assets/blocks'
+import Button from './lib/assets/components/Button'
 import Divider from './lib/assets/components/Divider'
 import Image from './lib/assets/components/Image'
 import Text from './lib/assets/components/Text'
@@ -378,9 +379,9 @@ function App() {
     //     formId="intake-form"
     //     sampleData={sampleData}
     // />
-    // <Button type="submit" form="intake-form" value="Submit">
+    // <MuiButton type="submit" form="intake-form" value="Submit">
     //     Submit
-    // </Button>
+    // </MuiButton>
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

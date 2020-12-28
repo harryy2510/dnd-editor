@@ -1,11 +1,40 @@
+import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import React from 'react'
-import PubSub from '@harryy/pubsub'
 import { DndContainerItem, RenderProps } from '../types'
 import { styleToCss } from '../utils'
 
-export default {
-    render: (renderProps: RenderProps, children: React.ReactNode) => {
+const Form: Partial<DndContainerItem> = {
+    initialValues: {
+        style: {
+            padding: '12px 16px 12px 16px',
+            backgroundColor: '',
+            backgroundImage: '',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            width: '100%',
+            boxSizing: 'border-box',
+            textAlign: 'left'
+        }
+    }
+}
+const Mail: Partial<DndContainerItem> = {
+    initialValues: {
+        style: {
+            padding: '24px 48px 24px 48px',
+            backgroundColor: '',
+            backgroundImage: '',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            width: '100%',
+            boxSizing: 'border-box',
+            textAlign: 'left'
+        }
+    }
+}
+
+const defaultContainer: DndContainerItem = {
+    render: (renderProps: RenderProps, children?: React.ReactNode) => {
         if (!renderProps.item) {
             return null
         }
@@ -28,9 +57,9 @@ export default {
             </div>
         )
     },
-    export: (renderProps: RenderProps, children: string) => {
+    export: (renderProps: RenderProps, children?: string | undefined) => {
         if (!renderProps.item) {
-            return null
+            return ''
         }
         const state = renderProps.state.entities[renderProps.item.id]?.values?.__container
         const modifiedStyle = {
@@ -70,4 +99,17 @@ export default {
             type: 'container'
         }
     ]
-} as DndContainerItem
+}
+
+const containers: Record<string, DndContainerItem> = {
+    form: {
+        ...defaultContainer,
+        ...Form
+    },
+    mail: {
+        ...defaultContainer,
+        ...Mail
+    }
+}
+
+export default containers

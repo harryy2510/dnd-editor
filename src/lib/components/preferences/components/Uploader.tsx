@@ -15,7 +15,6 @@ const useStyles = makeStyles(
     }: Theme) => ({
         container: {
             width: '100%',
-            marginBottom: spacing(2),
             position: 'relative',
             height: 100,
             border: `1px solid ${divider}`,

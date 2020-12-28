@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { Select, FormControl, MenuItem, InputLabel, FormHelperText } from '@material-ui/core'
+import { MenuItem, TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import { getComponentState, getFromikProps } from '../../utils'
 import * as yup from 'yup'
@@ -23,20 +23,21 @@ export default {
                 text: value,
                 valueType: 'String'
             }))
+            formikProps.helperText = formikProps.helperText || state?.hint
         }
         return (
-            <FormControl
-                fullWidth
-                variant="outlined"
-                style={{ textAlign: 'left' }}
-                onClick={handleClick}
-            >
-                <InputLabel id="demo-simple-select-outlined-label">{labelText}</InputLabel>
-                <Select
+            <div onClick={handleClick}>
+                <TextField
+                    size="small"
+                    id={`${renderProps?.item?.id}-${id}`}
+                    select
+                    rows={state?.rows}
+                    variant="outlined"
                     fullWidth
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
                     label={labelText}
+                    placeholder={state?.placeholder}
+                    value={state?.defaultValue}
+                    helperText={state?.hint}
                     {...formikProps}
                 >
                     {state?.options?.map((option: any, i: number) => (
@@ -44,11 +45,8 @@ export default {
                             {option.label}
                         </MenuItem>
                     ))}
-                </Select>
-                <FormHelperText id="my-helper-text" error={formikProps.error}>
-                    {formikProps?.helperText || state?.hint}
-                </FormHelperText>
-            </FormControl>
+                </TextField>
+            </div>
         )
     },
     export: (renderProps: RenderProps, id: string) => {

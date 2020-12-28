@@ -27,8 +27,9 @@ export default {
             formikProps.helperText = formikProps.helperText || state?.hint
         }
         return (
-            <Box onClick={handleClick}>
+            <div onClick={handleClick}>
                 <TextField
+                    size="small"
                     id={`${renderProps?.item?.id}-${id}`}
                     type={state?.inputType || 'text'}
                     multiline={state?.multiline}
@@ -41,7 +42,7 @@ export default {
                     helperText={state?.hint}
                     {...formikProps}
                 />
-            </Box>
+            </div>
         )
     },
     export: () => {

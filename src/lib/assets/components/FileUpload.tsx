@@ -17,7 +17,12 @@ export default {
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         return (
-            <Grid container spacing={2} style={{ textAlign: 'left' }} onClick={handleClick}>
+            <Grid
+                container
+                spacing={2}
+                style={{ textAlign: 'left', margin: 0, width: '100%' }}
+                onClick={handleClick}
+            >
                 <Grid item xs={12}>
                     <InputLabel htmlFor="my-input">{labelText}</InputLabel>
                 </Grid>
