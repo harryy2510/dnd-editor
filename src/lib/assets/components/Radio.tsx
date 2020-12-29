@@ -40,6 +40,9 @@ export default {
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
+            formikProps.value = Array.isArray(formikProps.value)
+                ? formikProps.value[0]
+                : formikProps.value
         }
 
         return (
