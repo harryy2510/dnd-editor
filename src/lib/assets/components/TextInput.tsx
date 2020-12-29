@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { DndComponentItem, RenderProps, Primitive } from '../../types'
 import { useFormikContext } from 'formik'
 import { getFromikProps, getComponentState, useValidations } from '../../utils'
+import { get } from 'lodash-es'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey: string) => {
@@ -16,8 +17,8 @@ export default {
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        if (!renderProps.buildermode && formKey) {
-            const formik = useFormikContext()
+        const formik = useFormikContext()
+        if (formik && formKey) {
             formikProps = getFromikProps(formKey, formik, (value) => {
                 return {
                     text: value,
@@ -26,6 +27,7 @@ export default {
             })
             formikProps.helperText = formikProps.helperText?.text || state?.hint
         }
+        console.log('props', formik.errors)
         return (
             <Box onClick={handleClick}>
                 <TextField
@@ -60,7 +62,7 @@ export default {
         enabled: true,
         grid: 12,
         itemType: 'Input',
-        validation: { type: 'none' },
+        validation: { key: 'none' },
         style: {
             textAlign: 'left'
         }
@@ -94,19 +96,15 @@ export default {
     ],
     validationSchema: (renderProps: RenderProps, id: string, parentSchema) => {
         const state = getComponentState(renderProps, id)
-        const { inputValidation } = useValidations()
-        const validation = inputValidation.find(
-            (validation) => validation.id === state?.validation?.key
-        )
-        let schema = validation?.validation(state?.validation.formValue)
+        const { validations } = useValidations()
+        const validation = get(validations, state?.validation.key)
+        let schema =
+            validation?.validation?.(validation.toString(state?.validation.formValue)) ||
+            parentSchema ||
+            yup.string()
         schema = state?.required ? schema.required('Required field') : schema
         schema = state?.characterLimit
             ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
-            : schema
-        schema = state?.validation
-            ? schema.matches(new RegExp(state?.validation.value), {
-                  message: `Input must match: ${state?.validation.type}`
-              })
             : schema
         return yup.object().shape({ text: schema })
     }

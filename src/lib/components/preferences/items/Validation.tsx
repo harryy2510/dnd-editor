@@ -8,27 +8,24 @@ import { FormValue } from '../../../types'
 export interface ValidationValue {
     formValue?: FormValue[]
     key: string
-    jsonSchema?: any
 }
 
 export interface ValidationProps extends Omit<DropdownProps, 'value' | 'onChange'> {
-    validations: any[]
+    validations: any
     value: ValidationValue
     onChange: (value: ValidationValue) => void
 }
 const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, ...props }) => {
     const selectedValidationType = value.key
-    const validationMap = groupBy(validations, 'id')
-    const selectedValidation = validationMap[selectedValidationType][0]
+    const selectedValidation = validations[selectedValidationType]
     const showInput = selectedValidation.showInput
     const inputString = selectedValidation.toString?.(value.formValue)
     const handleOnChange = (type: any, value = '') => {
-        const newValidation = validationMap[type]?.[0]
+        const newValidation = validations[type]
         const formValue = newValidation.toFormValue?.(value)
         onChange({
             key: newValidation.id,
-            formValue: formValue,
-            jsonSchema: newValidation.validation(formValue)
+            formValue: formValue
         })
     }
     return (
@@ -38,7 +35,7 @@ const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, .
                 value={selectedValidationType}
                 onChange={handleOnChange}
                 {...props}
-                options={validations as DropdownOption[]}
+                options={Object.values(validations) as DropdownOption[]}
             />
             {showInput && (
                 <LabeledTextInput

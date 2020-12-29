@@ -42,6 +42,7 @@
         "@material-ui/system": "^4.11.2",
         "clsx": "^1.1.1",
         "formik": "^2.2.6",
+        "json-2-yup": "0.0.17",
         "juice": "^7.0.0",
         "liquidjs": "^9.19.0",
         "lodash-es": "^4.17.20",

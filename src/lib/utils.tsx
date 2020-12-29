@@ -274,6 +274,91 @@ type Validation = {
 }
 
 export const useValidations = () => {
+    const validations = {
+        none: {
+            label: <Trans>None</Trans>,
+            id: 'none',
+            showInput: false
+        },
+        Email: {
+            label: <Trans>Email</Trans>,
+            id: 'Email',
+            showInput: false,
+            validation: () => yup.string().email('Input should be an email'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        PresentIn: {
+            label: <Trans>Present In</Trans>,
+            id: 'PresentIn',
+            showInput: true,
+            validation: (input: any) =>
+                yup.string().matches(new RegExp(`^(${input.split(',').join('|')})$`)),
+            toFormValue: (input: string) =>
+                input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
+            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+        },
+        NotPresentIn: {
+            label: <Trans>Not Present In</Trans>,
+            id: 'NotPresentIn',
+            showInput: true,
+            validation: (input: any) =>
+                yup
+                    .string()
+                    .test(
+                        'notPresentIn',
+                        `Input should not be one of ${input}`,
+                        (value) => !input.split(',').find(value)
+                    ),
+            toFormValue: (input: string) =>
+                input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
+            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+        },
+        RegexPattern: {
+            label: <Trans>Regex Pattern</Trans>,
+            id: 'RegexPattern',
+            showInput: true,
+            validation: (input: any) => ({
+                matches: { regex: input?.[0]?.text },
+                errors: {
+                    matches: "Input doesn't match the regex pattern."
+                }
+            }),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        Url: {
+            label: <Trans>Url</Trans>,
+            id: 'Url',
+            showInput: false,
+            validation: () => yup.string().url('Input should be an url'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        MaxLength: {
+            label: <Trans>Max Length</Trans>,
+            id: 'MaxLength',
+            showInput: true,
+            validation: (input: string) =>
+                yup.string().max(parseInt(input), `Min length should be ${input}`),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        MinLength: {
+            label: <Trans>Min Length</Trans>,
+            id: 'MinLength',
+            showInput: true,
+            validation: (input: string) =>
+                yup.string().max(parseInt(input), `Min length should be ${input}`),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        }
+    }
     const commonValidation: Validation[] = [
         {
             label: <Trans>None</Trans>,
@@ -322,7 +407,7 @@ export const useValidations = () => {
         { label: <Trans>Numeric</Trans>, id: 'numeric', value: '^[0-9]$' },
         { label: <Trans>Custom regex</Trans>, id: 'regex' }
     ]
-    return { commonValidation: commonValidation, inputValidation }
+    return { commonValidation: commonValidation, inputValidation, validations }
 }
 export const useFonts = () => {
     const fontWeights = [
@@ -533,13 +618,14 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
 export const getFromikProps = (
     formKey: string,
     formik: FormikContextType<unknown>,
-    mapFn?: (arg: any) => any
+    mapFn?: (arg: any) => any,
+    valueKey?: string
 ) => {
     const formikProps: any = {}
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey)?.text || ''
+        formikProps.value = get(formik.values, formKey)?.[valueKey || 'text'] || ''
         formikProps.onChange = (e: any) => {
             const value = e.target.value
             formik.setFieldValue(formKey, mapFn ? mapFn(value) : value)

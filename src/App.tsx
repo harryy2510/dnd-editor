@@ -383,26 +383,10 @@ function App() {
     //     Submit
     // </Button>
     const sub = {
+        items: [],
+        entities: {},
         'ksl0q18ccCa09RVs1-hLX': {
             text: 'Option 1',
-            valueType: 'String'
-        },
-        '5JNGyJIO0P91hy5sIUj80': {
-            text: 'one@gm.com',
-            valueType: 'String'
-        },
-        VPT93pNZVlcgeCjOIXMUm: [
-            {
-                text: 'No',
-                valueType: 'String'
-            },
-            {
-                text: 'Yes',
-                valueType: 'String'
-            }
-        ],
-        isiIHhK4OkucyIMAfQ1PO: {
-            text: 'Yes',
             valueType: 'String'
         }
     }
