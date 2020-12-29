@@ -27,7 +27,6 @@ export default {
             })
             formikProps.helperText = formikProps.helperText?.text || state?.hint
         }
-        console.log('props', formik.errors)
         return (
             <div onClick={handleClick}>
                 <TextField
