@@ -17,9 +17,12 @@ const ButtonSettings: React.FC<Props> = (props) => {
     if (!activeItem || !editorContext.active) {
         return null
     }
+    const template = editorContext.template
     const settings = [
         ...(activeItem.settings?.filter((s) => s.type === 'button') ?? []),
-        ...(!props.showContainerTab && Container.settings ? Container.settings : [])
+        ...(!props.showContainerTab && Container[template.id].settings
+            ? Container[template.id].settings!
+            : [])
     ]
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
 

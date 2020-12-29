@@ -44,11 +44,12 @@ const useStyles = makeStyles(({ palette: { background, divider }, spacing }: The
     },
     menu: {
         position: 'absolute',
-        top: '0',
-        bottom: '0',
+        top: 0,
+        bottom: 0,
         borderRight: `1px solid ${fade(divider, 0.08)}`,
         zIndex: 1,
-        backgroundColor: background.paper
+        backgroundColor: background.paper,
+        overflow: 'auto'
     },
     preview: {
         backgroundColor: background.default,
@@ -153,7 +154,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
 
 DndEditor.defaultProps = {
     items: [...Object.values(Groups), ...Object.values(Blocks)],
-    template: Templates.Form
+    template: Templates.Mail
 }
 
 export default DndEditor

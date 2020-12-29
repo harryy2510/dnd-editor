@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.77](https://github.com/harryy2510/dnd-editor/compare/v0.1.76...v0.1.77) (2020-12-28)
+
+
+### Bug Fixes
+
+* ui fixes ([367badc](https://github.com/harryy2510/dnd-editor/commit/367badc2d5c6ed8446b30f8a9ed9a6a954cc3f6a))
+
+### [0.1.76](https://github.com/harryy2510/dnd-editor/compare/v0.1.75...v0.1.76) (2020-12-28)
+
+
+### Bug Fixes
+
+* defaults fix ([a2616c3](https://github.com/harryy2510/dnd-editor/commit/a2616c3f4e03d54a1f0641dc300abd43af986cf1))
+
+### [0.1.75](https://github.com/harryy2510/dnd-editor/compare/v0.1.74...v0.1.75) (2020-12-28)
+
+
+### Bug Fixes
+
+* form ui ([2442c6d](https://github.com/harryy2510/dnd-editor/commit/2442c6d8d2e9bb627e43deac6350ae7a96e3714a))
+
+### [0.1.74](https://github.com/harryy2510/dnd-editor/compare/v0.1.73...v0.1.74) (2020-12-26)
+
 ### [0.1.73](https://github.com/harryy2510/dnd-editor/compare/v0.1.72...v0.1.73) (2020-12-26)
 
 ### [0.1.72](https://github.com/harryy2510/dnd-editor/compare/v0.1.71...v0.1.72) (2020-12-26)

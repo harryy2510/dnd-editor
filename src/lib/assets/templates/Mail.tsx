@@ -8,7 +8,6 @@ export default {
     id: 'mail',
     type: 'template',
     render: (renderProps, children) => {
-        console.log('rendering mail', renderProps.state)
         const stateItem = renderProps.state.entities.mail
         return (
             <div style={stateItem?.values?.outer?.style}>

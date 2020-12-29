@@ -26,7 +26,7 @@ const FormElements: React.FC<Props> = ({ renderProps }) => {
                     const updatedRenderProps = { ...renderProps, item, name }
                     return (
                         <div key={item.id}>
-                            {Container.render(
+                            {Container['form'].render(
                                 updatedRenderProps,
                                 renderProps.itemsMap[stateItem.parent.id]?.render?.(
                                     updatedRenderProps
