@@ -26,6 +26,9 @@ export default {
                 }
             })
             formikProps.helperText = formikProps.helperText?.text || state?.hint
+            formikProps.value = Array.isArray(formikProps.value)
+                ? formikProps.value[0]
+                : formikProps.value
         }
         return (
             <div onClick={handleClick}>
