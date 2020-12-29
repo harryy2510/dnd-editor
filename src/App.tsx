@@ -372,27 +372,56 @@ function App() {
     // />
     // <Renderer
     //     smartyTags={smartyTags}
+    //     state={value}
     //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-    //     value={value}
-    //     initialValues={submission}
-    //     onSubmit={(value) => alert(JSON.stringify(value, null, 2))}
+    //     initialValues={sub}
+    //     onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
     //     formId="intake-form"
     //     sampleData={sampleData}
     // />
     // <Button type="submit" form="intake-form" value="Submit">
     //     Submit
     // </Button>
+    const sub = {
+        'ksl0q18ccCa09RVs1-hLX': {
+            text: 'Option 1',
+            valueType: 'String'
+        },
+        '5JNGyJIO0P91hy5sIUj80': {
+            text: 'one@gm.com',
+            valueType: 'String'
+        },
+        VPT93pNZVlcgeCjOIXMUm: [
+            {
+                text: 'No',
+                valueType: 'String'
+            },
+            {
+                text: 'Yes',
+                valueType: 'String'
+            }
+        ],
+        isiIHhK4OkucyIMAfQ1PO: {
+            text: 'Yes',
+            valueType: 'String'
+        }
+    }
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <DndEditor
+                <Renderer
                     smartyTags={smartyTags}
+                    state={value}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-                    value={value}
-                    onChange={setValue}
+                    initialValues={sub}
+                    onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
+                    formId="intake-form"
                     sampleData={sampleData}
                 />
+                <Button type="submit" form="intake-form" value="Submit">
+                    Submit
+                </Button>
             </Box>
         </ThemeProvider>
     )

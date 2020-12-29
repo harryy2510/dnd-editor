@@ -36,8 +36,14 @@ const FormRenderer: React.FC<FormRendererProps> = ({
     const initialValues = {
         ..._initialValues
     }
+    console.log('initialValues', initialValues)
     return (
-        <Formik enableReinitialize initialValues={initialValues} onSubmit={(s) => onSubmit?.(s)}>
+        <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            onSubmit={(s) => onSubmit?.(s)}
+            validationSchema={validationSchema}
+        >
             <Form id={formId}>
                 {renderProps.template.render(
                     renderProps,

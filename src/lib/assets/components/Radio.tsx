@@ -136,8 +136,7 @@ export default {
     ],
     validationSchema: (renderProps, id) => {
         const state = getComponentState(renderProps, id)
-        let schema: any = yup.string()
-        schema = state?.required ? schema.required('Field is required') : schema
+        let schema: any = yup.object()
         return schema
     }
 } as DndComponentItem

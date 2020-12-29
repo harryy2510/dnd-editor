@@ -46,7 +46,7 @@ export default {
                     ))}
                 </Select>
                 <FormHelperText id="my-helper-text" error={formikProps.error}>
-                    {formikProps?.helperText || state?.hint}
+                    {formikProps?.helperText?.text || state?.hint}
                 </FormHelperText>
             </FormControl>
         )
@@ -102,6 +102,6 @@ export default {
         const state = getComponentState(renderProps, id)
         let schema: any = yup.string()
         schema = state?.required ? schema.required('required field') : schema
-        return schema
+        return yup.object().shape({ text: schema })
     }
 } as DndComponentItem

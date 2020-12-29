@@ -1,11 +1,12 @@
 import { Trans } from '@lingui/macro'
-import { FormikValues, FormikContextType } from 'formik'
+import { FormikValues, FormikContextType, yupToFormErrors } from 'formik'
 import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
 import juice from 'juice'
+import * as yup from 'yup'
 
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
@@ -16,6 +17,7 @@ import {
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
+    FormValue,
     Primitive,
     RenderProps
 } from './types'
@@ -245,12 +247,64 @@ export const createDndState = (
 
 export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)
 
+//     Between
+//     Compulsion
+//     Email
+//     Equals
+//     GreaterThan
+//     GreaterThanEquals
+//     LengthEquals
+//     LessThan
+//     LessThanEquals
+//     MaxLength
+//     MinLength
+//     NotEquals
+//     NotPresentIn
+//     OneTimeField
+//     PresentIn
+//     RegexPattern
+//     Url
+type Validation = {
+    label: JSX.Element
+    id: string
+    showInput: boolean
+    validation?: (input: FormValue[]) => any
+    toFormValue?: (input: string) => FormValue[]
+    toString?: (formValue: FormValue[]) => string
+}
+
 export const useValidations = () => {
-    const commonValidation = [
-        { label: <Trans>None</Trans>, id: 'none', value: '.*' },
-        { label: <Trans>Alphanumberic</Trans>, id: 'alphanumeric', value: '^[a-zA-Z0-9]*$' },
-        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic', value: '^[a-zA-Z]*$' }
+    const commonValidation: Validation[] = [
+        {
+            label: <Trans>None</Trans>,
+            id: 'none',
+            showInput: false
+        },
+        {
+            label: <Trans>Email</Trans>,
+            id: 'Email',
+            showInput: false,
+            validation: () => yup.string().email('Input should be an email'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        {
+            label: <Trans>Regex Pattern</Trans>,
+            id: 'RegexPattern',
+            showInput: true,
+            validation: (input: any) => ({
+                matches: { regex: input?.[0]?.text },
+                errors: {
+                    matches: "Input doesn't match the regex pattern."
+                }
+            }),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        }
     ]
+
     const inputValidation = [
         ...commonValidation,
         { label: <Trans>Email</Trans>, id: 'email', value: '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$' },

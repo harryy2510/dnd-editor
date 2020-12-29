@@ -5,7 +5,7 @@ import { TextField, Box } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps, Primitive } from '../../types'
 import { useFormikContext } from 'formik'
-import { getFromikProps, getComponentState } from '../../utils'
+import { getFromikProps, getComponentState, useValidations } from '../../utils'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey: string) => {
@@ -24,7 +24,7 @@ export default {
                     valueType: 'String'
                 }
             })
-            formikProps.helperText = formikProps.helperText || state?.hint
+            formikProps.helperText = formikProps.helperText?.text || state?.hint
         }
         return (
             <Box onClick={handleClick}>
@@ -60,6 +60,7 @@ export default {
         enabled: true,
         grid: 12,
         itemType: 'Input',
+        validation: { type: 'none' },
         style: {
             textAlign: 'left'
         }
@@ -80,6 +81,7 @@ export default {
             label: <Trans>Character limit</Trans>
         },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
+        { id: 'validation', type: 'inputValidation', grid: 12, label: <Trans>Validation</Trans> },
         {
             id: 'defaultValue',
             type: 'labeledTextInput',
@@ -92,7 +94,11 @@ export default {
     ],
     validationSchema: (renderProps: RenderProps, id: string, parentSchema) => {
         const state = getComponentState(renderProps, id)
-        let schema = parentSchema || yup.string()
+        const { inputValidation } = useValidations()
+        const validation = inputValidation.find(
+            (validation) => validation.id === state?.validation?.key
+        )
+        let schema = validation?.validation(state?.validation.formValue)
         schema = state?.required ? schema.required('Required field') : schema
         schema = state?.characterLimit
             ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
@@ -102,6 +108,6 @@ export default {
                   message: `Input must match: ${state?.validation.type}`
               })
             : schema
-        return schema
+        return yup.object().shape({ text: schema })
     }
 } as DndComponentItem
