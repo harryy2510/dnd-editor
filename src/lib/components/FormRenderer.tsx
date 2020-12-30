@@ -36,7 +36,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({
     const initialValues = {
         ..._initialValues
     }
-    console.log('initialValues', initialValues)
     return (
         <Formik
             enableReinitialize

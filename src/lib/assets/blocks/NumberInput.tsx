@@ -12,7 +12,6 @@ export default {
     render: (renderProps) => TextInput.render(renderProps, 'number-1', renderProps.name),
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        console.log(renderProps)
         schema[renderProps.name] = TextInput.validationSchema?.(renderProps, 'number-1')
         return schema
     },
