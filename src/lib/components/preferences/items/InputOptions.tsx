@@ -37,7 +37,7 @@ const InputOptions: React.FC<OptionsProps> = ({ onChange, value }) => {
             multiline={true}
             rows="4"
             onChange={handleOnChange}
-            helperText={<Trans>Options should be seperated by new line.</Trans>}
+            helperText={<Trans>Options should be separated by new line.</Trans>}
         />
     )
 }
