@@ -33,16 +33,20 @@ export default {
         }
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
-            const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
+            if (Array.isArray(formikProps.value)) {
+                formik.setFieldValue(formKey, formikProps.value[0])
+            }
+            formikProps.value = formikProps.value?.text
+            const hasOther = !state?.options.find(
+                (option: InputOption) => option.label === formikProps.value
+            )
+            const [inputValue, setInputValue] = useState(hasOther ? formikProps.value : '')
             formikProps.onChange = (value: string | boolean) => {
                 formik.setFieldValue(formKey, { text: value, valueType: 'String' })
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
-            formikProps.value = Array.isArray(formikProps.value)
-                ? formikProps.value[0]
-                : formikProps.value
         }
 
         return (
