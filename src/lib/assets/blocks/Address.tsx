@@ -45,15 +45,19 @@ export default {
     },
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        schema['addressLine1'] = TextInput.validationSchema?.(renderProps, 'address-line-1')
-        schema['addressLine2'] = TextInput.validationSchema?.(renderProps, 'address-line-2')
-        schema['city'] = TextInput.validationSchema?.(renderProps, 'city')
-        schema['state'] = TextInput.validationSchema?.(renderProps, 'state')
-        schema['postal'] = TextInput.validationSchema?.(renderProps, 'postal')
-        schema['country'] = TextInput.validationSchema?.(renderProps, 'country')
-        let parentSchema: any = {}
-        parentSchema[renderProps.name] = yup.object().shape(schema)
-        return parentSchema
+        schema[`${renderProps.name}$addressLine1`] = TextInput.validationSchema?.(
+            renderProps,
+            'address-line-1'
+        )
+        schema[`${renderProps.name}$addressLine2`] = TextInput.validationSchema?.(
+            renderProps,
+            'address-line-2'
+        )
+        schema[`${renderProps.name}$city`] = TextInput.validationSchema?.(renderProps, 'city')
+        schema[`${renderProps.name}$state`] = TextInput.validationSchema?.(renderProps, 'state')
+        schema[`${renderProps.name}$postal`] = TextInput.validationSchema?.(renderProps, 'postal')
+        schema[`${renderProps.name}$country`] = TextInput.validationSchema?.(renderProps, 'country')
+        return schema
     },
     export: () => '',
     image:

@@ -5,7 +5,8 @@ import { TextField, Box } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps, Primitive } from '../../types'
 import { useFormikContext } from 'formik'
-import { getFromikProps, getComponentState } from '../../utils'
+import { getFromikProps, getComponentState, useValidations } from '../../utils'
+import { get } from 'lodash-es'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey: string) => {
@@ -16,15 +17,18 @@ export default {
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        if (!renderProps.buildermode && formKey) {
-            const formik = useFormikContext()
+        const formik = useFormikContext()
+        if (formik && formKey) {
             formikProps = getFromikProps(formKey, formik, (value) => {
                 return {
                     text: value,
                     valueType: 'String'
                 }
             })
-            formikProps.helperText = formikProps.helperText || state?.hint
+            formikProps.helperText = formikProps.helperText?.text || state?.hint
+            formikProps.value = Array.isArray(formikProps.value)
+                ? formikProps.value[0]
+                : formikProps.value
         }
         return (
             <div onClick={handleClick}>
@@ -61,6 +65,7 @@ export default {
         enabled: true,
         grid: 12,
         itemType: 'Input',
+        validation: { key: 'none' },
         style: {
             textAlign: 'left'
         }
@@ -81,6 +86,7 @@ export default {
             label: <Trans>Character limit</Trans>
         },
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
+        { id: 'validation', type: 'inputValidation', grid: 12, label: <Trans>Validation</Trans> },
         {
             id: 'defaultValue',
             type: 'labeledTextInput',
@@ -93,16 +99,16 @@ export default {
     ],
     validationSchema: (renderProps: RenderProps, id: string, parentSchema) => {
         const state = getComponentState(renderProps, id)
-        let schema = parentSchema || yup.string()
+        const { validations } = useValidations()
+        const validation = get(validations, state?.validation.key)
+        let schema =
+            validation?.validation?.(validation.toString(state?.validation.formValue)) ||
+            parentSchema ||
+            yup.string()
         schema = state?.required ? schema.required('Required field') : schema
         schema = state?.characterLimit
             ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
             : schema
-        schema = state?.validation
-            ? schema.matches(new RegExp(state?.validation.value), {
-                  message: `Input must match: ${state?.validation.type}`
-              })
-            : schema
-        return schema
+        return yup.object().shape({ text: schema })
     }
 } as DndComponentItem

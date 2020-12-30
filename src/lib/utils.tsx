@@ -1,11 +1,12 @@
 import { Trans } from '@lingui/macro'
-import { FormikValues, FormikContextType } from 'formik'
+import { FormikValues, FormikContextType, yupToFormErrors } from 'formik'
 import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
 import juice from 'juice'
+import * as yup from 'yup'
 
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
@@ -16,6 +17,7 @@ import {
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
+    FormValue,
     Primitive,
     RenderProps
 } from './types'
@@ -253,12 +255,149 @@ export const createDndState = (
 
 export const styleToCss = (style: React.CSSProperties = {}) => reactToCSS(style)
 
+//     Between
+//     Compulsion
+//     Email
+//     Equals
+//     GreaterThan
+//     GreaterThanEquals
+//     LengthEquals
+//     LessThan
+//     LessThanEquals
+//     MaxLength
+//     MinLength
+//     NotEquals
+//     NotPresentIn
+//     OneTimeField
+//     PresentIn
+//     RegexPattern
+//     Url
+type Validation = {
+    label: JSX.Element
+    id: string
+    showInput: boolean
+    validation?: (input: FormValue[]) => any
+    toFormValue?: (input: string) => FormValue[]
+    toString?: (formValue: FormValue[]) => string
+}
+
 export const useValidations = () => {
-    const commonValidation = [
-        { label: <Trans>None</Trans>, id: 'none', value: '.*' },
-        { label: <Trans>Alphanumberic</Trans>, id: 'alphanumeric', value: '^[a-zA-Z0-9]*$' },
-        { label: <Trans>Alphabetic</Trans>, id: 'alphabetic', value: '^[a-zA-Z]*$' }
+    const validations = {
+        none: {
+            label: <Trans>None</Trans>,
+            id: 'none',
+            showInput: false
+        },
+        Email: {
+            label: <Trans>Email</Trans>,
+            id: 'Email',
+            showInput: false,
+            validation: () => yup.string().email('Input should be an email'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        PresentIn: {
+            label: <Trans>Present In</Trans>,
+            id: 'PresentIn',
+            showInput: true,
+            validation: (input: any) =>
+                yup.string().matches(new RegExp(`^(${input.split(',').join('|')})$`)),
+            toFormValue: (input: string) =>
+                input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
+            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+        },
+        NotPresentIn: {
+            label: <Trans>Not Present In</Trans>,
+            id: 'NotPresentIn',
+            showInput: true,
+            validation: (input: any) =>
+                yup
+                    .string()
+                    .test(
+                        'notPresentIn',
+                        `Input should not be one of ${input}`,
+                        (value) => !input.split(',').find(value)
+                    ),
+            toFormValue: (input: string) =>
+                input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
+            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+        },
+        RegexPattern: {
+            label: <Trans>Regex Pattern</Trans>,
+            id: 'RegexPattern',
+            showInput: true,
+            validation: (input: any) => ({
+                matches: { regex: input?.[0]?.text },
+                errors: {
+                    matches: "Input doesn't match the regex pattern."
+                }
+            }),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        Url: {
+            label: <Trans>Url</Trans>,
+            id: 'Url',
+            showInput: false,
+            validation: () => yup.string().url('Input should be an url'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        MaxLength: {
+            label: <Trans>Max Length</Trans>,
+            id: 'MaxLength',
+            showInput: true,
+            validation: (input: string) =>
+                yup.string().max(parseInt(input), `Min length should be ${input}`),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        MinLength: {
+            label: <Trans>Min Length</Trans>,
+            id: 'MinLength',
+            showInput: true,
+            validation: (input: string) =>
+                yup.string().max(parseInt(input), `Min length should be ${input}`),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        }
+    }
+    const commonValidation: Validation[] = [
+        {
+            label: <Trans>None</Trans>,
+            id: 'none',
+            showInput: false
+        },
+        {
+            label: <Trans>Email</Trans>,
+            id: 'Email',
+            showInput: false,
+            validation: () => yup.string().email('Input should be an email'),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        },
+        {
+            label: <Trans>Regex Pattern</Trans>,
+            id: 'RegexPattern',
+            showInput: true,
+            validation: (input: any) => ({
+                matches: { regex: input?.[0]?.text },
+                errors: {
+                    matches: "Input doesn't match the regex pattern."
+                }
+            }),
+            toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
+            toString: (input: FormValue[]) =>
+                (input?.[0]?.valueType === 'String' && input[0].text) || ''
+        }
     ]
+
     const inputValidation = [
         ...commonValidation,
         { label: <Trans>Email</Trans>, id: 'email', value: '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$' },
@@ -276,7 +415,7 @@ export const useValidations = () => {
         { label: <Trans>Numeric</Trans>, id: 'numeric', value: '^[0-9]$' },
         { label: <Trans>Custom regex</Trans>, id: 'regex' }
     ]
-    return { commonValidation: commonValidation, inputValidation }
+    return { commonValidation: commonValidation, inputValidation, validations }
 }
 export const useFonts = () => {
     const fontWeights = [
@@ -487,13 +626,14 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
 export const getFromikProps = (
     formKey: string,
     formik: FormikContextType<unknown>,
-    mapFn?: (arg: any) => any
+    mapFn?: (arg: any) => any,
+    valueKey?: string
 ) => {
     const formikProps: any = {}
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey)?.text || ''
+        formikProps.value = get(formik.values, formKey)?.[valueKey || 'text'] || ''
         formikProps.onChange = (e: any) => {
             const value = e.target.value
             formik.setFieldValue(formKey, mapFn ? mapFn(value) : value)
@@ -515,6 +655,9 @@ export const checkForDiplayCondition = (
 ) => {
     if (condition && condition.display === 'DISPLAY' && condition.rules) {
         const { id, operator, value } = condition.rules[0]
+        if (!sampleData) {
+            return false
+        }
         // const [blockKey, itemKey] = id.split('.')
         // let formValue = get(formik.values, blockKey)
         // formValue = !!itemKey ? get(formValue, itemKey) : value

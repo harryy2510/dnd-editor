@@ -9,12 +9,13 @@ import React from 'react'
 import { DndEditor, Renderer } from './lib'
 import * as Blocks from './lib/assets/blocks'
 import Button from './lib/assets/components/Button'
-import Divider from './lib/assets/components/Divider'
 import Image from './lib/assets/components/Image'
 import Text from './lib/assets/components/Text'
 import * as Groups from './lib/assets/groups'
 import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
+import Divider from './lib/assets/components/Divider'
+
 const smartyTags = {
     'Customer.FirstName': 'Customer FirstName',
     'Customer.LastName': 'Customer LastName',
@@ -372,10 +373,10 @@ function App() {
     // />
     // <Renderer
     //     smartyTags={smartyTags}
+    //     state={value}
     //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-    //     value={value}
-    //     initialValues={submission}
-    //     onSubmit={(value) => alert(JSON.stringify(value, null, 2))}
+    //     initialValues={{}
+    //     onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
     //     formId="intake-form"
     //     sampleData={sampleData}
     // />
@@ -386,13 +387,18 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <DndEditor
+                <Renderer
                     smartyTags={smartyTags}
-                    // items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-                    value={value}
-                    onChange={setValue}
+                    state={value}
+                    items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+                    initialValues={{}}
+                    onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
+                    formId="intake-form"
                     sampleData={sampleData}
                 />
+                <MuiButton type="submit" form="intake-form" value="Submit">
+                    Submit
+                </MuiButton>
             </Box>
         </ThemeProvider>
     )

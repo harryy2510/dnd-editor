@@ -40,6 +40,9 @@ export default {
             }
             formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
+            formikProps.value = Array.isArray(formikProps.value)
+                ? formikProps.value[0]
+                : formikProps.value
         }
 
         return (
@@ -136,8 +139,7 @@ export default {
     ],
     validationSchema: (renderProps, id) => {
         const state = getComponentState(renderProps, id)
-        let schema: any = yup.string()
-        schema = state?.required ? schema.required('Field is required') : schema
+        let schema: any = yup.object()
         return schema
     }
 } as DndComponentItem

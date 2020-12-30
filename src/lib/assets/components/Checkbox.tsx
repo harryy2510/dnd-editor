@@ -11,12 +11,11 @@ import {
     Input,
     Grid
 } from '@material-ui/core'
-import { DndComponentItem, RenderProps, StringFormValue } from '../../types'
+import { DndComponentItem, FormValue, RenderProps, StringFormValue } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
 import { useFormikContext } from 'formik'
 import { InputOption } from '../../components/preferences/items/InputOptions'
-import { get } from 'lodash-es'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -33,10 +32,11 @@ export default {
             setInputValue: () => {}
         }
         const formik = useFormikContext()
+        const checked = {}
         if (formik && formKey) {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
-            formikProps.value = get(formik.values, formKey) || []
+            formikProps.value = formik.values[formKey] || []
             formikProps.onChange = (option: string, checked: boolean) => {
                 let oldValue: StringFormValue[] = formikProps.value.filter(
                     (formValue: StringFormValue) => formValue.text !== option
@@ -46,22 +46,23 @@ export default {
             }
             formikProps = { ...formikProps, inputValue }
             formikProps.onOtherCheckboxChange = (checked: boolean, inputValue: string) => {
-                let oldValue: StringFormValue[] = (formikProps.value || []).slice(
-                    0,
-                    state?.options.length
+                let oldValue: StringFormValue[] = formikProps.value.filter(
+                    (value: StringFormValue) =>
+                        state.options.find((o: InputOption) => o.label === value.text)
                 )
                 if (checked) oldValue.push({ text: inputValue, valueType: 'String' })
                 formik.setFieldValue(formKey, oldValue)
             }
             formikProps.setInputValue = (newInputValue: string) => {
-                formikProps.onOtherCheckboxChange(
-                    formikProps.value.length > state?.options.length,
-                    newInputValue
+                let oldValue: StringFormValue[] = formikProps.value.filter(
+                    (value: StringFormValue) =>
+                        state.options.find((o: InputOption) => o.label !== value.text)
                 )
+                formikProps.onOtherCheckboxChange(oldValue.length !== 0, newInputValue)
                 setInputValue(newInputValue)
             }
+            formikProps.value.forEach((value: FormValue) => (checked[value.text] = true))
         }
-
         return (
             <FormControl
                 fullWidth
@@ -80,7 +81,7 @@ export default {
                                 control={
                                     <Checkbox
                                         name={option.label}
-                                        checked={formikProps?.value?.[option.label]}
+                                        checked={!!checked[option.label]}
                                         onChange={(e) =>
                                             formikProps?.onChange?.(option.label, e.target.checked)
                                         }
@@ -95,10 +96,7 @@ export default {
                             control={
                                 <Checkbox
                                     name="other"
-                                    value={
-                                        formikProps?.value?.['other'] &&
-                                        formikProps?.value?.['other'] !== ''
-                                    }
+                                    value={!!checked[formikProps.inputValue]}
                                     onChange={(e) =>
                                         formikProps.onOtherCheckboxChange?.(
                                             e.target.checked,
@@ -166,6 +164,6 @@ export default {
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],
     validationSchema: (renderProps, id, parentSchema) => {
-        return yup.object()
+        return yup.array()
     }
 } as DndComponentItem

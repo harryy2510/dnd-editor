@@ -24,6 +24,9 @@ export default {
                 valueType: 'String'
             }))
             formikProps.helperText = formikProps.helperText || state?.hint
+            formikProps.value = Array.isArray(formikProps.value)
+                ? formikProps.value[0]
+                : formikProps.value
         }
         return (
             <div onClick={handleClick}>
@@ -100,6 +103,6 @@ export default {
         const state = getComponentState(renderProps, id)
         let schema: any = yup.string()
         schema = state?.required ? schema.required('required field') : schema
-        return schema
+        return yup.object().shape({ text: schema })
     }
 } as DndComponentItem
