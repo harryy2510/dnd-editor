@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.79](https://github.com/harryy2510/dnd-editor/compare/v0.1.78...v0.1.79) (2020-12-30)
+
+
+### Bug Fixes
+
+* typescript typings fixes ([5b7d0dd](https://github.com/harryy2510/dnd-editor/commit/5b7d0dd317db3275f0bceb60c6ccf6c256a3e4e2))
+
 ### [0.1.78](https://github.com/harryy2510/dnd-editor/compare/v0.1.77...v0.1.78) (2020-12-30)
 
 
