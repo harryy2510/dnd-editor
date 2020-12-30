@@ -1,6 +1,5 @@
 import React from 'react'
 
-import * as Templates from './assets/templates'
 import { DndEditorContextProps } from './types'
 import { createDndState } from './utils'
 
@@ -11,7 +10,7 @@ export const DndEditorContext = React.createContext<DndEditorContextProps>({
     itemsMap: {},
     onActiveChange: () => undefined,
     setState: () => undefined,
-    template: Templates.Mail,
+    template: null as any,
     buildermode: false
 })
 
