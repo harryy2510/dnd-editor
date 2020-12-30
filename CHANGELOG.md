@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.81](https://github.com/harryy2510/dnd-editor/compare/v0.1.80...v0.1.81) (2020-12-30)
+
+
+### Bug Fixes
+
+* fix multiple options ([ca81d40](https://github.com/harryy2510/dnd-editor/commit/ca81d402bba60e21aa4d13515eef8aaac1494cbc))
+* initial value submission with array submission values ([#8](https://github.com/harryy2510/dnd-editor/issues/8)) ([5c9fc78](https://github.com/harryy2510/dnd-editor/commit/5c9fc78d1756a0b1483de53414ecb70400242078))
+
 ### [0.1.80](https://github.com/harryy2510/dnd-editor/compare/v0.1.79...v0.1.80) (2020-12-30)
 
 
