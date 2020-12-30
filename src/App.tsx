@@ -383,6 +383,64 @@ function App() {
     // <MuiButton type="submit" form="intake-form" value="Submit">
     //     Submit
     // </MuiButton>
+    const sub = {
+        Z4gtE1nTSMnqpXulhwJ12$addressLine1: [
+            {
+                text: 'lkjasdflkj',
+                valueType: 'String'
+            }
+        ],
+        Z4gtE1nTSMnqpXulhwJ12$addressLine2: [
+            {
+                text: 'lkjasdf',
+                valueType: 'String'
+            }
+        ],
+        Z4gtE1nTSMnqpXulhwJ12$city: [
+            {
+                text: 'lkjasfd',
+                valueType: 'String'
+            }
+        ],
+        Z4gtE1nTSMnqpXulhwJ12$state: [
+            {
+                text: 'lkajsflj',
+                valueType: 'String'
+            }
+        ],
+        Z4gtE1nTSMnqpXulhwJ12$postal: [
+            {
+                text: 'lkjasdflkj',
+                valueType: 'String'
+            }
+        ],
+        Z4gtE1nTSMnqpXulhwJ12$country: [
+            {
+                text: 'lkasdf',
+                valueType: 'String'
+            }
+        ],
+        r73ij3RTcSYNxHoXs2TJq: [
+            {
+                text: 'ljlkasdflkj',
+                valueType: 'String'
+            }
+        ],
+        'rh7XqHZLlf69t0rIz4-85': [
+            {
+                text: 'Yes',
+                valueType: 'String'
+            },
+            {
+                text: 'value',
+                valueType: 'String'
+            }
+        ],
+        'vWtjh-rDA7sz6E9Ll5hOW': {
+            text: 'shit',
+            valueType: 'String'
+        }
+    }
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -391,7 +449,7 @@ function App() {
                     smartyTags={smartyTags}
                     state={value}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-                    initialValues={{}}
+                    initialValues={sub}
                     onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
                     formId="intake-form"
                     sampleData={sampleData}

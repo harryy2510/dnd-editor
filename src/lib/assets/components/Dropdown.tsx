@@ -24,9 +24,10 @@ export default {
                 valueType: 'String'
             }))
             formikProps.helperText = formikProps.helperText || state?.hint
-            formikProps.value = Array.isArray(formikProps.value)
-                ? formikProps.value[0]
-                : formikProps.value
+            if (Array.isArray(formikProps.value)) {
+                formik.setFieldValue(formKey, formikProps.value[0])
+            }
+            formikProps.value = formikProps.value?.text
         }
         return (
             <div onClick={handleClick}>

@@ -34,9 +34,15 @@ export default {
         const formik = useFormikContext<FormikValues>()
         const checked: any = {}
         if (formik && formKey) {
-            const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
             formikProps.value = formik.values[formKey] || []
+            let otherOption: StringFormValue[] = formikProps.value.filter(
+                (value: StringFormValue) =>
+                    !!state.options.find((o: InputOption) => o.label !== value.text)
+            )
+            const [inputValue, setInputValue] = useState(
+                otherOption?.length > 0 ? otherOption[0]?.text : ''
+            )
             formikProps.onChange = (option: string, checked: boolean) => {
                 let oldValue: StringFormValue[] = formikProps.value.filter(
                     (formValue: StringFormValue) => formValue.text !== option

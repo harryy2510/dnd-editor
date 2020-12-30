@@ -636,7 +636,7 @@ export const getFromikProps = (
     if (formik) {
         formikProps.name = formKey
         formikProps.onBlur = formik.handleBlur
-        formikProps.value = get(formik.values, formKey)?.[valueKey || 'text'] || ''
+        formikProps.value = get(formik.values, formKey)
         formikProps.onChange = (e: any) => {
             const value = e.target.value
             formik.setFieldValue(formKey, mapFn ? mapFn(value) : value)
