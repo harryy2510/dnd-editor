@@ -16,14 +16,17 @@ export interface OptionsProps extends Omit<InputProps, 'value' | 'onChange'> {
 const InputOptions: React.FC<OptionsProps> = ({ onChange, value }) => {
     const handleOnChange = (value: any) => {
         onChange(
-            value.split('\n').map((option: string) => ({
-                key: option.split(' ').join('-').toLowerCase(),
-                label: option,
-                value: {
-                    text: option,
-                    valueType: 'String'
-                }
-            }))
+            value
+                .split('\n')
+                .filter(Boolean)
+                .map((option: string) => ({
+                    key: option.split(' ').join('-').toLowerCase(),
+                    label: option,
+                    value: {
+                        text: option,
+                        valueType: 'String'
+                    }
+                }))
         )
     }
     const inputValue = value && value.map((v) => v.label).join('\n')
@@ -35,7 +38,7 @@ const InputOptions: React.FC<OptionsProps> = ({ onChange, value }) => {
             rows="4"
             onChange={handleOnChange}
             helperText={<Trans>Options should be seperated by new line.</Trans>}
-        ></LabeledTextInput>
+        />
     )
 }
 
