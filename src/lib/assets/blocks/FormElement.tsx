@@ -90,6 +90,8 @@ export default {
             (key) => key !== '__container' && key !== '__condition'
         )
 
+        console.log(block)
+
         return itemKeys.map((key) => {
             const values = block.values[key]
             return {

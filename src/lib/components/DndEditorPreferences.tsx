@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import {
-    Assignment,
+    AssignmentOutlined,
     CropLandscapeOutlined,
     DeviceHubOutlined,
     ImageOutlined,
@@ -80,7 +80,7 @@ const tabs = [
         id: 'form-elements',
         component: FormElementsSettings,
         label: <Trans>Edit Form Element</Trans>,
-        icon: Assignment
+        icon: AssignmentOutlined
     },
     {
         id: 'condition',

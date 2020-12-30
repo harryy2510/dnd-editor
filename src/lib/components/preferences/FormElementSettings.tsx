@@ -1,13 +1,12 @@
-import React from 'react'
-import Container from '../../assets/Container'
-import { useDndEditorContext } from '../../DndEditorProvider'
-import SettingsBase from './SettingsBase'
-import LabeledTextInput from './items/LabeledTextInput'
-import { updateItemName } from '../../utils'
 import { Trans } from '@lingui/macro'
-import { makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import React from 'react'
+import { useDndEditorContext } from '../../DndEditorProvider'
 import { DndBlockItem } from '../../types'
+import { updateItemName } from '../../utils'
+import LabeledTextInput from './items/LabeledTextInput'
+import SettingsBase from './SettingsBase'
 
 interface Props {
     expanded: string
