@@ -14,7 +14,7 @@ import {
 import { DndComponentItem, RenderProps } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
-import { useFormikContext } from 'formik'
+import { FormikValues, useFormikContext } from 'formik'
 import { InputOption } from '../../components/preferences/items/InputOptions'
 
 export default {
@@ -31,7 +31,7 @@ export default {
             inputValue: '',
             setInputValue: () => {}
         }
-        const formik = useFormikContext()
+        const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)

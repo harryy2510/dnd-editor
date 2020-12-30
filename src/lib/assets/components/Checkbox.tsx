@@ -14,7 +14,7 @@ import {
 import { DndComponentItem, FormValue, RenderProps, StringFormValue } from '../../types'
 import * as yup from 'yup'
 import { getComponentState, getFromikProps } from '../../utils'
-import { useFormikContext } from 'formik'
+import { FormikValues, useFormikContext } from 'formik'
 import { InputOption } from '../../components/preferences/items/InputOptions'
 
 export default {
@@ -31,8 +31,8 @@ export default {
             inputValue: '',
             setInputValue: () => {}
         }
-        const formik = useFormikContext()
-        const checked = {}
+        const formik = useFormikContext<FormikValues>()
+        const checked: any = {}
         if (formik && formKey) {
             const [inputValue, setInputValue] = useState('')
             formikProps = getFromikProps(formKey, formik)
@@ -61,7 +61,9 @@ export default {
                 formikProps.onOtherCheckboxChange(oldValue.length !== 0, newInputValue)
                 setInputValue(newInputValue)
             }
-            formikProps.value.forEach((value: FormValue) => (checked[value.text] = true))
+            formikProps.value.forEach(
+                (value: FormValue) => (checked[(value as StringFormValue).text] = true)
+            )
         }
         return (
             <FormControl

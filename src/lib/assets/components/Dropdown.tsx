@@ -5,7 +5,7 @@ import { MenuItem, TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import { getComponentState, getFromikProps } from '../../utils'
 import * as yup from 'yup'
-import { useFormikContext } from 'formik'
+import { FormikValues, useFormikContext } from 'formik'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -17,7 +17,7 @@ export default {
 
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        const formik = useFormikContext()
+        const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
             formikProps = getFromikProps(formKey, formik, (value) => ({
                 text: value,

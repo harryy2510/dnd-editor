@@ -1,10 +1,10 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField, Box } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import * as yup from 'yup'
-import { DndComponentItem, RenderProps, Primitive } from '../../types'
-import { useFormikContext } from 'formik'
+import { DndComponentItem, RenderProps } from '../../types'
+import { FormikValues, useFormikContext } from 'formik'
 import { getFromikProps, getComponentState, useValidations } from '../../utils'
 import { get } from 'lodash-es'
 
@@ -17,7 +17,7 @@ export default {
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
         let formikProps: any = {}
-        const formik = useFormikContext()
+        const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
             formikProps = getFromikProps(formKey, formik, (value) => {
                 return {

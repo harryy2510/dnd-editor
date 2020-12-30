@@ -19,7 +19,8 @@ import {
     DndTemplateItem,
     FormValue,
     Primitive,
-    RenderProps
+    RenderProps,
+    StringFormValue
 } from './types'
 import TextInput from './assets/components/TextInput'
 import Checkbox from './assets/components/Checkbox'
@@ -305,7 +306,8 @@ export const useValidations = () => {
                 yup.string().matches(new RegExp(`^(${input.split(',').join('|')})$`)),
             toFormValue: (input: string) =>
                 input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
-            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+            toString: (input: FormValue[]) =>
+                input.map((formValue) => (formValue as StringFormValue).text).join(',')
         },
         NotPresentIn: {
             label: <Trans>Not Present In</Trans>,
@@ -321,7 +323,8 @@ export const useValidations = () => {
                     ),
             toFormValue: (input: string) =>
                 input.split(',').map((option: string) => ({ text: option, valueType: 'String' })),
-            toString: (input: FormValue[]) => input.map((formValue) => formValue.text).join(',')
+            toString: (input: FormValue[]) =>
+                input.map((formValue) => (formValue as StringFormValue).text).join(',')
         },
         RegexPattern: {
             label: <Trans>Regex Pattern</Trans>,
@@ -625,7 +628,7 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
 
 export const getFromikProps = (
     formKey: string,
-    formik: FormikContextType<unknown>,
+    formik: FormikContextType<FormikValues>,
     mapFn?: (arg: any) => any,
     valueKey?: string
 ) => {
