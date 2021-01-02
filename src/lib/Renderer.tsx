@@ -1,3 +1,5 @@
+import { LocalizationProvider } from '@material-ui/pickers'
+import MomentUtils from '@material-ui/pickers/adapter/moment'
 import { keyBy } from 'lodash-es'
 import React from 'react'
 import * as Blocks from './assets/blocks'
@@ -40,7 +42,9 @@ const Renderer: React.FC<RendererProps> = ({
     }
     return (
         <DndEditorProvider {...editorContextProps}>
-            <FormRenderer {...props} />
+            <LocalizationProvider dateAdapter={MomentUtils}>
+                <FormRenderer {...props} />
+            </LocalizationProvider>
         </DndEditorProvider>
     )
 }

@@ -94,10 +94,10 @@ export default {
         },
         postal: {
             ...TextInput.initialValues,
-            question: 'zip code',
+            question: 'Zip code',
             hint: '',
             grid: 6,
-            placeholder: 'zip code'
+            placeholder: 'Zip code'
         },
         country: {
             ...TextInput.initialValues,
