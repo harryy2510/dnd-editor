@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.89](https://github.com/harryy2510/dnd-editor/compare/v0.1.88...v0.1.89) (2021-01-02)
+
+
+### Bug Fixes
+
+* fix dropdown validation ([6402527](https://github.com/harryy2510/dnd-editor/commit/6402527351bdec62fe0659cf3af1f4ff66caa651))
+* fix questions & date ([9206942](https://github.com/harryy2510/dnd-editor/commit/9206942430ebb1b7aedfb4f98e15d1761a87fcc8))
+
 ### [0.1.88](https://github.com/harryy2510/dnd-editor/compare/v0.1.87...v0.1.88) (2021-01-02)
 
 
