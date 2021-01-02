@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { FormikValues, FormikContextType, yupToFormErrors } from 'formik'
+import { FormikValues, FormikContextType } from 'formik'
 import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
@@ -26,6 +26,7 @@ import TextInput from './assets/components/TextInput'
 import Checkbox from './assets/components/Checkbox'
 import Radio from './assets/components/Radio'
 import Dropdown from './assets/components/Dropdown'
+import Date from './assets/components/Date'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -680,8 +681,9 @@ export const checkForDiplayCondition = (
 export const getFormElementItemComponent = (type: string) => {
     switch (type) {
         case 'Input':
-        case 'Datepicker':
             return TextInput
+        case 'Datepicker':
+            return Date
         case 'Checkbox':
             return Checkbox
         case 'Radio':
