@@ -1,4 +1,5 @@
 import { useStore } from '@harryy/rehooks'
+import { Button } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { LocalizationProvider } from '@material-ui/pickers'
 import MomentUtils from '@material-ui/pickers/adapter/moment'
@@ -76,6 +77,9 @@ export const FormRenderer = () => {
     }, [initialValues])
     return (
         <LocalizationProvider dateAdapter={MomentUtils}>
+            <Button form="asdasdasd" type="submit">
+                Submit
+            </Button>
             <Renderer
                 state={state}
                 initialValues={initialValues}

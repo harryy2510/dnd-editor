@@ -23,7 +23,7 @@ export default {
                 text: value,
                 valueType: 'String'
             }))
-            formikProps.helperText = formikProps.helperText || state?.hint
+            formikProps.helperText = formikProps.helperText?.text || state?.hint
             if (Array.isArray(formikProps.value)) {
                 formik.setFieldValue(formKey, formikProps.value[0])
             }
@@ -103,7 +103,7 @@ export default {
     validationSchema: (renderProps, id, parentSchema) => {
         const state = getComponentState(renderProps, id)
         let schema: any = yup.string()
-        schema = state?.required ? schema.required('required field') : schema
+        schema = state?.required ? schema.required('Required field') : schema
         return yup.object().shape({ text: schema })
     }
 } as DndComponentItem
