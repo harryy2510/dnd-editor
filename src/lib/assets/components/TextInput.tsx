@@ -54,12 +54,12 @@ export default {
         return ''
     },
     initialValues: {
-        question: 'Question',
-        placeholder: 'Placeholder',
-        hint: 'Optional Hint',
+        question: 'Text Input',
+        placeholder: '',
+        hint: '',
         inputType: 'text',
         multiline: false,
-        characterLimit: '12',
+        characterLimit: null,
         pii: '',
         className: '',
         required: true,

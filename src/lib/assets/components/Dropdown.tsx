@@ -57,9 +57,9 @@ export default {
         return ''
     },
     initialValues: {
-        question: 'Question',
-        placeholder: 'Placeholder',
-        hint: 'Optional Hint',
+        question: 'Dropdown',
+        placeholder: '',
+        hint: '',
         pii: '',
         defaultValue: 'Option 1',
         options: [

@@ -105,10 +105,10 @@ export default {
     },
     export: () => '',
     initialValues: {
-        question: 'Question',
-        placeholder: 'Placeholder',
+        question: 'Single Choice',
+        placeholder: '',
         showOther: false,
-        hint: 'Optional Hint',
+        hint: '',
         options: [{ key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }],
         validation: { type: 'none' },
         pii: '',

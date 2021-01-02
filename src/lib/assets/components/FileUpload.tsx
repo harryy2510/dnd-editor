@@ -38,7 +38,7 @@ export default {
     },
     initialValues: {
         question: 'Upload',
-        hint: 'Optional Hint',
+        hint: '',
         className: '',
         multiple: false,
         required: true,

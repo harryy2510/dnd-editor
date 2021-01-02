@@ -80,47 +80,35 @@ export default {
         'address-line-1': {
             ...TextInput.initialValues,
             question: 'Address line 1',
-            hint: '',
-            grid: 12,
-            placeholder: 'Address line 1'
+            grid: 12
         },
         'address-line-2': {
             ...TextInput.initialValues,
             question: 'Address line 2',
-            hint: '',
             required: false,
-            grid: 12,
-            placeholder: 'Address line 2'
+            grid: 12
         },
         city: {
             ...TextInput.initialValues,
             question: 'City',
-            hint: '',
-            grid: 6,
-            placeholder: 'City'
+            grid: 6
         },
         state: {
             ...TextInput.initialValues,
             question: 'State',
-            hint: '',
-            grid: 6,
-            placeholder: 'State'
+            grid: 6
         },
         postal: {
             ...TextInput.initialValues,
-            question: 'Zip code',
-            hint: '',
-            grid: 6,
-            placeholder: 'Zip code'
+            question: 'Postal code',
+            grid: 6
         },
         country: {
             ...Dropdown.initialValues,
             question: 'Country',
-            hint: '',
             formKey: '',
             grid: 6,
-            options: getCountries(),
-            placeholder: 'Country'
+            options: getCountries()
         }
     },
     settings: [
@@ -150,7 +138,7 @@ export default {
         },
         {
             id: 'postal',
-            label: <Trans>Postal</Trans>,
+            label: <Trans>Postal code</Trans>,
             type: 'form-elements',
             settings: TextInput.settings
         },
