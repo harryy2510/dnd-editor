@@ -23,7 +23,7 @@ export default {
     settings: [
         {
             id: 'divider-1',
-            label: <Trans>Line Spacer - 1</Trans>,
+            label: <Trans>Line Spacer</Trans>,
             type: 'text',
             settings: [
                 ...(Divider.settings ?? []),

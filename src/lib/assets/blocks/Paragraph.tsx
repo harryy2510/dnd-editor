@@ -21,7 +21,7 @@ export default {
     settings: [
         {
             id: 'paragraph-1',
-            label: <Trans>Paragraph - 1</Trans>,
+            label: <Trans>Paragraph</Trans>,
             type: 'text',
             settings: Text.settings
         }
