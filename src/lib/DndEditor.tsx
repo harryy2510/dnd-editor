@@ -16,6 +16,8 @@ import { DndEditorContextProps, DndItem, DndState, DndTemplateItem } from './typ
 import { createDndState, exportToHtml, useFonts } from './utils'
 import { useDeepCompare } from '@harryy/rehooks'
 import FormElement from './assets/blocks/FormElement'
+import { LocalizationProvider } from '@material-ui/pickers'
+import MomentUtils from '@material-ui/pickers/adapter/moment'
 
 export interface DndEditorProps {
     value?: Partial<DndState>
@@ -133,7 +135,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
 
     const children = React.useMemo(
         () => (
-            <>
+            <LocalizationProvider dateAdapter={MomentUtils}>
                 <Grid container className={classes.root}>
                     <Grid item className={clsx(classes.menu)}>
                         <DndEditorMenu />
@@ -145,7 +147,7 @@ const DndEditor: React.FC<DndEditorProps> = ({
                         <DndEditorPreferences />
                     </Grid>
                 </Grid>
-            </>
+            </LocalizationProvider>
         ),
         [classes]
     )

@@ -445,18 +445,13 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <Renderer
+                <DndEditor
                     smartyTags={smartyTags}
-                    state={value}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-                    initialValues={sub}
-                    onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
-                    formId="intake-form"
+                    value={value}
+                    onChange={setValue}
                     sampleData={sampleData}
                 />
-                <MuiButton type="submit" form="intake-form" value="Submit">
-                    Submit
-                </MuiButton>
             </Box>
         </ThemeProvider>
     )
