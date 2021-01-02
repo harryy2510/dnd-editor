@@ -22,7 +22,7 @@ interface Props extends Omit<WysiwygEditorProps, 'value' | 'onChange'> {
 // }
 // }))
 
-const Editor: React.FC<Props> = ({ value, onChange }) => {
+const Editor: React.FC<Props> = ({ value, onChange, ...props }) => {
     // const classes = useStyles()
     // const popupId = React.useRef(`popup-${nanoid()}`).current
     // const menuId = React.useRef(`menu-${nanoid()}`).current
@@ -137,6 +137,7 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
                 suggestions={suggestions}
                 value={textRef.current}
                 onChange={(value) => (textRef.current = value)}
+                {...props}
                 // ref={editorRef}
                 // editor={BalloonEditor}
                 // config={editorConfiguration}
