@@ -17,7 +17,11 @@ export default {
         }
         return (
             <div id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state?.style}>
-                <Editor value={state?.label} onChange={handleChange} />
+                <Editor
+                    value={state?.label}
+                    onChange={handleChange}
+                    readOnly={!renderProps.buildermode}
+                />
             </div>
         )
     },
