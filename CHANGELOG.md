@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.84](https://github.com/harryy2510/dnd-editor/compare/v0.1.83...v0.1.84) (2021-01-02)
+
+
+### Features
+
+* support for date from mui library ([#9](https://github.com/harryy2510/dnd-editor/issues/9)) ([91a9664](https://github.com/harryy2510/dnd-editor/commit/91a96645aeca725fbc99f03e486d7c07983bd4b7))
+
 ### [0.1.83](https://github.com/harryy2510/dnd-editor/compare/v0.1.82...v0.1.83) (2020-12-30)
 
 
