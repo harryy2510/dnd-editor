@@ -24,7 +24,7 @@ export default {
         if (formik && formKey) {
             formikProps = getFormikProps(formKey, formik, (value: Date) => {
                 return {
-                    text: value.toISOString(),
+                    text: value?.toISOString?.() ?? null,
                     valueType: 'String'
                 }
             })
@@ -35,11 +35,16 @@ export default {
             formikProps.value = formikProps.value?.text ? new Date(formikProps.value?.text) : null
             formikProps.helperText = formikProps.helperText?.text || state?.hint
             formikProps.onChange = (date: Date) =>
-                formik.setFieldValue(formKey, { text: date.toISOString(), valueType: 'String' })
+                formik.setFieldValue(formKey, {
+                    text: date?.toISOString?.() ?? '',
+                    valueType: 'String'
+                })
         }
         return (
             <div onClick={handleClick}>
                 <DatePicker
+                    disableMaskedInput
+                    inputFormat="MMM DD, YYYY"
                     label={labelText}
                     value={formikProps.value}
                     onChange={formikProps.onChange || noop}
