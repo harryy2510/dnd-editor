@@ -20,7 +20,7 @@ export default {
     settings: [
         {
             id: 'spacer-1',
-            label: <Trans>Spacer - 1</Trans>,
+            label: <Trans>Spacer</Trans>,
             type: 'text',
             settings: Divider.settings
         }

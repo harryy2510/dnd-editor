@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
 import { DndBlockItem } from '../../types'
+import { getFormikKey } from '../../utils'
 import TextInput from '../components/TextInput'
 import { Dialpad } from '@material-ui/icons'
 
@@ -9,10 +10,14 @@ export default {
     label: <Trans>Number Input</Trans>,
     icon: Dialpad,
     parent: 'form-elements',
-    render: (renderProps) => TextInput.render(renderProps, 'number-1', renderProps.name),
+    render: (renderProps) =>
+        TextInput.render(renderProps, 'number-1', getFormikKey(renderProps, 'number-1')),
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        schema[renderProps.name] = TextInput.validationSchema?.(renderProps, 'number-1')
+        schema[getFormikKey(renderProps, 'number-1')] = TextInput.validationSchema?.(
+            renderProps,
+            'number-1'
+        )
         return schema
     },
     export: () => '',
@@ -24,7 +29,7 @@ export default {
     settings: [
         {
             id: 'number-1',
-            label: <Trans>Number Input 1</Trans>,
+            label: <Trans>Number Input</Trans>,
             type: 'form-elements',
             settings: (TextInput.settings || []).concat([
                 {

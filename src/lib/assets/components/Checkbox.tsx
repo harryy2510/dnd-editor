@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import { DndComponentItem, FormValue, RenderProps, StringFormValue } from '../../types'
 import * as yup from 'yup'
-import { getComponentState, getFromikProps } from '../../utils'
+import { getComponentState, getFormikProps } from '../../utils'
 import { FormikValues, useFormikContext } from 'formik'
 import { InputOption } from '../../components/preferences/items/InputOptions'
 
@@ -34,7 +34,7 @@ export default {
         const formik = useFormikContext<FormikValues>()
         const checked: any = {}
         if (formik && formKey) {
-            formikProps = getFromikProps(formKey, formik)
+            formikProps = getFormikProps(formKey, formik)
             formikProps.value = formik.values[formKey] || []
             let otherOption: StringFormValue[] = formikProps.value.filter(
                 (value: StringFormValue) =>

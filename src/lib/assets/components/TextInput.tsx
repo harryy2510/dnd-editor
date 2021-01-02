@@ -5,7 +5,7 @@ import { TextField } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
 import { FormikValues, useFormikContext } from 'formik'
-import { getFromikProps, getComponentState, useValidations } from '../../utils'
+import { getFormikProps, getComponentState, useValidations } from '../../utils'
 import { get } from 'lodash-es'
 
 export default {
@@ -19,7 +19,7 @@ export default {
         let formikProps: any = {}
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
-            formikProps = getFromikProps(formKey, formik, (value) => {
+            formikProps = getFormikProps(formKey, formik, (value) => {
                 return {
                     text: value,
                     valueType: 'String'

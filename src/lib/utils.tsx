@@ -627,7 +627,15 @@ export const getComponentState = (renderProps: RenderProps, id?: string) => {
     return renderProps.state.entities[renderProps.item.id]?.values?.[id] || {}
 }
 
-export const getFromikProps = (
+export const getFormikKey = (renderProps: RenderProps, formKey: string = '') => {
+    const itemId = renderProps.item?.id
+    if (itemId && formKey) {
+        return formKey.endsWith(`/${itemId}`) ? formKey : `${formKey}/${itemId}`
+    }
+    return formKey
+}
+
+export const getFormikProps = (
     formKey: string,
     formik: FormikContextType<FormikValues>,
     mapFn?: (arg: any) => any,

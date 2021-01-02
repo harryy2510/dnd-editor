@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro'
 import React from 'react'
 import { TextFields } from '@material-ui/icons'
 import { DndBlockItem } from '../../types'
+import { getFormikKey } from '../../utils'
 import TextInput from '../components/TextInput'
 
 export default {
@@ -9,10 +10,14 @@ export default {
     label: <Trans>Text Input</Trans>,
     icon: TextFields,
     parent: 'form-elements',
-    render: (renderProps) => TextInput.render(renderProps, 'text-input-1', renderProps.name),
+    render: (renderProps) =>
+        TextInput.render(renderProps, 'text-input-1', getFormikKey(renderProps, 'text-input-1')),
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        schema[renderProps.name] = TextInput.validationSchema?.(renderProps, 'text-input-1')
+        schema[getFormikKey(renderProps, 'text-input-1')] = TextInput.validationSchema?.(
+            renderProps,
+            'text-input-1'
+        )
         return schema
     },
     export: () => '',
@@ -24,7 +29,7 @@ export default {
     settings: [
         {
             id: 'text-input-1',
-            label: <Trans>Text Input - 1</Trans>,
+            label: <Trans>Text Input</Trans>,
             type: 'form-elements',
             settings: TextInput.settings
         }

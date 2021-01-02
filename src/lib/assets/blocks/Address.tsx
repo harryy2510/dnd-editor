@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
 import { DndBlockItem } from '../../types'
+import { getFormikKey } from '../../utils'
 import TextInput from '../components/TextInput'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
@@ -18,45 +19,57 @@ export default {
                     {TextInput.render(
                         renderProps,
                         'address-line-1',
-                        `${renderProps.item?.id}$addressLine1`
+                        getFormikKey(renderProps, 'address-line-1')
                     )}
                 </Grid>
                 <Grid item xs={12}>
                     {TextInput.render(
                         renderProps,
                         'address-line-2',
-                        `${renderProps.item?.id}$addressLine2`
+                        getFormikKey(renderProps, 'address-line-2')
                     )}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'city', `${renderProps.item?.id}$city`)}
+                    {TextInput.render(renderProps, 'city', getFormikKey(renderProps, 'city'))}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'state', `${renderProps.item?.id}$state`)}
+                    {TextInput.render(renderProps, 'state', getFormikKey(renderProps, 'state'))}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'postal', `${renderProps.item?.id}$postal`)}
+                    {TextInput.render(renderProps, 'postal', getFormikKey(renderProps, 'postal'))}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'country', `${renderProps.item?.id}$country`)}
+                    {TextInput.render(renderProps, 'country', getFormikKey(renderProps, 'country'))}
                 </Grid>
             </Grid>
         )
     },
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        schema[`${renderProps.name}$addressLine1`] = TextInput.validationSchema?.(
+        schema[getFormikKey(renderProps, 'address-line-1')] = TextInput.validationSchema?.(
             renderProps,
             'address-line-1'
         )
-        schema[`${renderProps.name}$addressLine2`] = TextInput.validationSchema?.(
+        schema[getFormikKey(renderProps, 'address-line-2')] = TextInput.validationSchema?.(
             renderProps,
             'address-line-2'
         )
-        schema[`${renderProps.name}$city`] = TextInput.validationSchema?.(renderProps, 'city')
-        schema[`${renderProps.name}$state`] = TextInput.validationSchema?.(renderProps, 'state')
-        schema[`${renderProps.name}$postal`] = TextInput.validationSchema?.(renderProps, 'postal')
-        schema[`${renderProps.name}$country`] = TextInput.validationSchema?.(renderProps, 'country')
+        schema[getFormikKey(renderProps, 'city')] = TextInput.validationSchema?.(
+            renderProps,
+            'city'
+        )
+        schema[getFormikKey(renderProps, 'state')] = TextInput.validationSchema?.(
+            renderProps,
+            'state'
+        )
+        schema[getFormikKey(renderProps, 'postal')] = TextInput.validationSchema?.(
+            renderProps,
+            'postal'
+        )
+        schema[getFormikKey(renderProps, 'country')] = TextInput.validationSchema?.(
+            renderProps,
+            'country'
+        )
         return schema
     },
     export: () => '',

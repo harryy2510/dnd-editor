@@ -17,7 +17,7 @@ export default {
     settings: [
         {
             id: 'button-1',
-            label: <Trans>Button - 1</Trans>,
+            label: <Trans>Button</Trans>,
             type: 'button',
             settings: Button.settings
         }

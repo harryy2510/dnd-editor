@@ -5,7 +5,7 @@ import { TextField } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
 import { FormikValues, useFormikContext } from 'formik'
-import { getFromikProps, getComponentState, useValidations } from '../../utils'
+import { getFormikProps, getComponentState, useValidations } from '../../utils'
 import { get, noop } from 'lodash-es'
 import { DatePicker } from '@material-ui/pickers'
 
@@ -20,7 +20,7 @@ export default {
         let formikProps: any = {}
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
-            formikProps = getFromikProps(formKey, formik, (value: Date) => {
+            formikProps = getFormikProps(formKey, formik, (value: Date) => {
                 return {
                     text: value.toISOString(),
                     valueType: 'String'
@@ -49,6 +49,7 @@ export default {
                             {...props}
                             fullWidth
                             variant="outlined"
+                            size="small"
                             label={labelText}
                         />
                     )}

@@ -3,7 +3,7 @@ import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { MenuItem, TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
-import { getComponentState, getFromikProps } from '../../utils'
+import { getComponentState, getFormikProps } from '../../utils'
 import * as yup from 'yup'
 import { FormikValues, useFormikContext } from 'formik'
 
@@ -19,7 +19,7 @@ export default {
         let formikProps: any = {}
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
-            formikProps = getFromikProps(formKey, formik, (value) => ({
+            formikProps = getFormikProps(formKey, formik, (value) => ({
                 text: value,
                 valueType: 'String'
             }))
