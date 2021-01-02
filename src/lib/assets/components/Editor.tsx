@@ -1,14 +1,12 @@
-// import { Button, Card, ClickAwayListener, List, ListItem, Popper, Theme } from '@material-ui/core'
-// import { makeStyles } from '@material-ui/styles'
 // import { map } from 'lodash-es'
 // import { bindHover, bindPopper, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks'
 // import { nanoid } from 'nanoid'
 import React from 'react'
 import { useDndEditorContext } from '../../DndEditorProvider'
 
-import { WysiwygEditor } from '@harryy/wysiwyg-editor'
+import { WysiwygEditor, WysiwygEditorProps } from '@harryy/wysiwyg-editor'
 
-interface Props {
+interface Props extends Omit<WysiwygEditorProps, 'value' | 'onChange'> {
     value?: string
     onChange?: (text: string) => void
 }
@@ -24,7 +22,7 @@ interface Props {
 // }
 // }))
 
-const Editor: React.FC<Props> = ({ value, onChange }) => {
+const Editor: React.FC<Props> = ({ value, onChange, ...props }) => {
     // const classes = useStyles()
     // const popupId = React.useRef(`popup-${nanoid()}`).current
     // const menuId = React.useRef(`menu-${nanoid()}`).current
@@ -139,6 +137,7 @@ const Editor: React.FC<Props> = ({ value, onChange }) => {
                 suggestions={suggestions}
                 value={textRef.current}
                 onChange={(value) => (textRef.current = value)}
+                {...props}
                 // ref={editorRef}
                 // editor={BalloonEditor}
                 // config={editorConfiguration}

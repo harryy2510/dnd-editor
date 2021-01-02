@@ -5,7 +5,8 @@ import { getFormikKey } from '../../utils'
 import TextInput from '../components/TextInput'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
-import * as yup from 'yup'
+import { useCountries as getCountries } from '../../utils'
+import Dropdown from '../components/Dropdown'
 
 export default {
     id: 'address',
@@ -39,7 +40,7 @@ export default {
                     {TextInput.render(renderProps, 'postal', getFormikKey(renderProps, 'postal'))}
                 </Grid>
                 <Grid item xs={6}>
-                    {TextInput.render(renderProps, 'country', getFormikKey(renderProps, 'country'))}
+                    {Dropdown.render(renderProps, 'country', getFormikKey(renderProps, 'country'))}
                 </Grid>
             </Grid>
         )
@@ -66,7 +67,7 @@ export default {
             renderProps,
             'postal'
         )
-        schema[getFormikKey(renderProps, 'country')] = TextInput.validationSchema?.(
+        schema[getFormikKey(renderProps, 'country')] = Dropdown.validationSchema?.(
             renderProps,
             'country'
         )
@@ -113,11 +114,12 @@ export default {
             placeholder: 'Zip code'
         },
         country: {
-            ...TextInput.initialValues,
+            ...Dropdown.initialValues,
             question: 'Country',
             hint: '',
             formKey: '',
             grid: 6,
+            options: getCountries(),
             placeholder: 'Country'
         }
     },
@@ -156,7 +158,7 @@ export default {
             id: 'country',
             label: <Trans>Country</Trans>,
             type: 'form-elements',
-            settings: TextInput.settings
+            settings: Dropdown.settings
         }
     ],
     type: 'block'
