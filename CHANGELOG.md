@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.87](https://github.com/harryy2510/dnd-editor/compare/v0.1.86...v0.1.87) (2021-01-02)
+
+
+### Bug Fixes
+
+* country dropdown, readonly heading ([#10](https://github.com/harryy2510/dnd-editor/issues/10)) ([c82640b](https://github.com/harryy2510/dnd-editor/commit/c82640ba3528874dd4c9472878369268822c6794))
+* fix textarea ([b2e3899](https://github.com/harryy2510/dnd-editor/commit/b2e3899299bc03d3536c7a66474d418cf8590207))
+
 ### [0.1.86](https://github.com/harryy2510/dnd-editor/compare/v0.1.85...v0.1.86) (2021-01-02)
 
 
