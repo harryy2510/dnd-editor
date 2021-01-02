@@ -1,12 +1,16 @@
+import { useStore } from '@harryy/rehooks'
 import { createMuiTheme } from '@material-ui/core/styles'
+import { LocalizationProvider } from '@material-ui/pickers'
+import MomentUtils from '@material-ui/pickers/adapter/moment'
 import { ThemeProvider } from '@material-ui/styles'
 import { Meta } from '@storybook/react/types-6-0'
 import React from 'react'
-import { DndEditor } from '../lib'
+import { DndEditor, Renderer } from '../lib'
 import * as Blocks from '../lib/assets/blocks'
 import FormElements from '../lib/assets/groups/FormElements'
 import * as Templates from '../lib/assets/templates'
 import { DndBlockItem, DndState } from '../lib/types'
+import { createDndState } from '../lib/utils'
 
 export default {
     title: 'Editor',
@@ -34,56 +38,13 @@ export const Mail = () => {
         },
         template: Templates.Mail
     }
-    const [state, setState] = React.useState(initialValue)
+    const [state, setState] = useStore<DndState>('mail-state', createDndState())
     React.useEffect(() => {
         console.log(state)
     }, [state])
     return <DndEditor {...args} value={state} onChange={setState} />
 }
 
-const initialValue: DndState = {
-    entities: {
-        unziq_zzMslCMlE9xGbfS: {
-            id: 'unziq_zzMslCMlE9xGbfS',
-            name: 'unziq_zzMslCMlE9xGbfS',
-            parent: { id: 'element', type: 'block' },
-            values: {
-                __container: {
-                    style: {
-                        padding: '12px 16px 12px 16px',
-                        backgroundColor: '',
-                        backgroundImage: '',
-                        backgroundPosition: 'center center',
-                        backgroundSize: 'cover',
-                        width: '100%',
-                        boxSizing: 'border-box',
-                        textAlign: 'left'
-                    }
-                },
-                __condition: {},
-                'checkbox-1': {
-                    showOther: false,
-                    validation: { type: 'none' },
-                    pii: '',
-                    className: '',
-                    required: true,
-                    enabled: true,
-                    style: { textAlign: 'left' },
-                    key: 'checkbox-1',
-                    question: 'Question',
-                    placeholder: '',
-                    hint: 'Optional Hint',
-                    options: [
-                        { key: 'yes', label: 'Yes', value: { text: 'Yes', valueType: 'String' } }
-                    ],
-                    itemType: 'Checkbox',
-                    grid: 12
-                }
-            }
-        }
-    },
-    items: [{ id: 'unziq_zzMslCMlE9xGbfS' }]
-}
 export const Form = () => {
     const args = {
         smartyTags: {
@@ -98,9 +59,29 @@ export const Form = () => {
         ],
         template: Templates.Form
     }
-    const [state, setState] = React.useState(initialValue)
+    const [state, setState] = useStore<DndState>('form-state', createDndState())
     React.useEffect(() => {
         console.log(state)
     }, [state])
     return <DndEditor {...args} value={state} onChange={setState} />
+}
+export const FormRenderer = () => {
+    const [state] = useStore<DndState>('form-state', createDndState())
+    const [initialValues, setInitialValues] = useStore('form-initialValues', {})
+    React.useEffect(() => {
+        console.log(state)
+    }, [state])
+    React.useEffect(() => {
+        console.log(initialValues)
+    }, [initialValues])
+    return (
+        <LocalizationProvider dateAdapter={MomentUtils}>
+            <Renderer
+                state={state}
+                initialValues={initialValues}
+                onChange={setInitialValues}
+                formId="asdasdasd"
+            />
+        </LocalizationProvider>
+    )
 }

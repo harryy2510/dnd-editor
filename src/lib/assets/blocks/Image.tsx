@@ -20,7 +20,7 @@ export default {
     settings: [
         {
             id: 'image-1',
-            label: <Trans>Image - 1</Trans>,
+            label: <Trans>Image</Trans>,
             type: 'image',
             settings: Image.settings
         }

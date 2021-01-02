@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import React from 'react'
 import { DndBlockItem, RenderProps } from '../../types'
+import { getFormikKey } from '../../utils'
 import Checkbox from '../components/Checkbox'
 import { CheckCircleOutline } from '@material-ui/icons'
 import { set } from 'lodash-es'
@@ -11,11 +12,15 @@ export default {
     icon: CheckCircleOutline,
     parent: 'form-elements',
     render: (renderProps) => {
-        return Checkbox.render(renderProps, 'checkbox-1', renderProps.name)
+        return Checkbox.render(renderProps, 'checkbox-1', getFormikKey(renderProps, 'checkbox-1'))
     },
     validationSchema: (renderProps: RenderProps) => {
         const schema: any = {}
-        set(schema, renderProps.name || '', Checkbox.validationSchema?.(renderProps, 'checkbox-1'))
+        set(
+            schema,
+            getFormikKey(renderProps, 'checkbox-1'),
+            Checkbox.validationSchema?.(renderProps, 'checkbox-1')
+        )
         return schema
     },
     export: () => '',
@@ -27,7 +32,7 @@ export default {
     settings: [
         {
             id: 'checkbox-1',
-            label: <Trans>Checkbox 1</Trans>,
+            label: <Trans>Checkbox</Trans>,
             type: 'form-elements',
             settings: Checkbox.settings
         }
