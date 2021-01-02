@@ -17,7 +17,9 @@ export default {
         }
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`
-        let formikProps: any = {}
+        let formikProps: any = {
+            value: null
+        }
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
             formikProps = getFormikProps(formKey, formik, (value: Date) => {
@@ -30,9 +32,7 @@ export default {
             if (Array.isArray(formikProps.value)) {
                 formik.setFieldValue(formKey, formikProps.value[0])
             }
-            formikProps.value = formikProps.value?.text
-                ? new Date(formikProps.value?.text)
-                : new Date()
+            formikProps.value = formikProps.value?.text ? new Date(formikProps.value?.text) : null
             formikProps.helperText = formikProps.helperText?.text || state?.hint
             formikProps.onChange = (date: Date) =>
                 formik.setFieldValue(formKey, { text: date.toISOString(), valueType: 'String' })
