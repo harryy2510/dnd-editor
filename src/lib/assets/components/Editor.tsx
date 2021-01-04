@@ -52,7 +52,6 @@ const Editor: React.FC<Props> = ({ value, onChange, ...props }) => {
 
     // const containerRef = React.useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>
     // const editorRef = React.useRef<any>()
-    const textRef = React.useRef(value ?? '')
 
     // const popupState = usePopupState({
     //     popupId,
@@ -63,11 +62,6 @@ const Editor: React.FC<Props> = ({ value, onChange, ...props }) => {
     //     variant: 'popper'
     // })
 
-    React.useEffect(() => {
-        if (value !== textRef.current) {
-            onChange?.(textRef.current)
-        }
-    }, [textRef.current])
     // const handleTagInsert = (tag: string) => {
     //     menuState.close()
     //     const model = editorRef.current?.editor.model
@@ -135,8 +129,8 @@ const Editor: React.FC<Props> = ({ value, onChange, ...props }) => {
 
             <WysiwygEditor
                 suggestions={suggestions}
-                value={textRef.current}
-                onChange={(value) => (textRef.current = value)}
+                value={value}
+                onChange={onChange}
                 {...props}
                 // ref={editorRef}
                 // editor={BalloonEditor}
