@@ -41,7 +41,7 @@ export default {
         hint: '',
         className: '',
         multiple: false,
-        required: true,
+        required: false,
         enabled: true
     },
     settings: [

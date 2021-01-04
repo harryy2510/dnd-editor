@@ -62,7 +62,7 @@ export default {
         characterLimit: null,
         pii: '',
         className: '',
-        required: true,
+        required: false,
         enabled: true,
         grid: 12,
         itemType: 'Input',

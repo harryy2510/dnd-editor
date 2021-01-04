@@ -143,7 +143,7 @@ export default {
         validation: { type: 'none' },
         pii: '',
         className: '',
-        required: true,
+        required: false,
         enabled: true,
         itemType: 'Checkbox',
         style: {

@@ -66,7 +66,7 @@ export default {
             { key: 'option-1', label: 'Option 1', value: { text: 'Option 1', valueType: 'String' } }
         ],
         className: '',
-        required: true,
+        required: false,
         enabled: true,
         itemType: 'Dropdown',
         style: {
