@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.91](https://github.com/harryy2510/dnd-editor/compare/v0.1.90...v0.1.91) (2021-01-09)
+
+
+### Features
+
+* country component with auto complete ([#12](https://github.com/harryy2510/dnd-editor/issues/12)) ([e588cb4](https://github.com/harryy2510/dnd-editor/commit/e588cb4420480f79649962535f2a19e8f7cc920a))
+
+
+### Bug Fixes
+
+* appoinment block not updating ([543cd41](https://github.com/harryy2510/dnd-editor/commit/543cd4108ab79e3d99a73817c54d7f936cbe1582))
+
 ### [0.1.90](https://github.com/harryy2510/dnd-editor/compare/v0.1.89...v0.1.90) (2021-01-04)
 
 
