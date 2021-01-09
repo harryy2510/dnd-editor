@@ -6,7 +6,7 @@ import TextInput from '../components/TextInput'
 import { Business } from '@material-ui/icons'
 import { Grid } from '@material-ui/core'
 import { useCountries as getCountries } from '../../utils'
-import Dropdown from '../components/Dropdown'
+import Country from '../components/Country'
 
 export default {
     id: 'address',
@@ -40,7 +40,7 @@ export default {
                     {TextInput.render(renderProps, 'postal', getFormikKey(renderProps, 'postal'))}
                 </Grid>
                 <Grid item xs={6}>
-                    {Dropdown.render(renderProps, 'country', getFormikKey(renderProps, 'country'))}
+                    {Country.render(renderProps, 'country', getFormikKey(renderProps, 'country'))}
                 </Grid>
             </Grid>
         )
@@ -67,7 +67,7 @@ export default {
             renderProps,
             'postal'
         )
-        schema[getFormikKey(renderProps, 'country')] = Dropdown.validationSchema?.(
+        schema[getFormikKey(renderProps, 'country')] = Country.validationSchema?.(
             renderProps,
             'country'
         )
@@ -104,11 +104,10 @@ export default {
             grid: 6
         },
         country: {
-            ...Dropdown.initialValues,
+            ...Country.initialValues,
             question: 'Country',
             formKey: '',
-            grid: 6,
-            options: getCountries()
+            grid: 6
         }
     },
     settings: [
@@ -146,7 +145,7 @@ export default {
             id: 'country',
             label: <Trans>Country</Trans>,
             type: 'form-elements',
-            settings: Dropdown.settings
+            settings: Country.settings
         }
     ],
     type: 'block'
