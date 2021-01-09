@@ -2,7 +2,7 @@ import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { TextField } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
 import { FormikValues, useFormikContext } from 'formik'
@@ -32,11 +32,11 @@ export default {
             }
             formikProps.value = formikProps.value?.text
         }
-        const onChange = (event) => {
-            const value = event.target.textContent
+        const onChange = (event: React.ChangeEvent<{}>) => {
+            const value = (event.target as any).textContent
             formik.setFieldValue(formKey, { text: value, valueType: 'String' })
         }
-        const textField = (props) => (
+        const textField = (props: AutocompleteRenderInputParams) => (
             <TextField
                 {...props}
                 size="small"
