@@ -139,6 +139,10 @@ export default `
                     border: none;
                     padding: 2px 5px;
                 }
+                
+                .ifCondition {
+                    display: none
+                }
     
                 .ql-align-center {
                     text-align: center;

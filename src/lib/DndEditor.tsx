@@ -18,6 +18,7 @@ import { useDeepCompare } from '@harryy/rehooks'
 import FormElement from './assets/blocks/FormElement'
 import { LocalizationProvider } from '@material-ui/pickers'
 import MomentUtils from '@material-ui/pickers/adapter/moment'
+import './DndEditor.scss'
 
 export interface DndEditorProps {
     value?: Partial<DndState>

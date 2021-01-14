@@ -35,7 +35,9 @@ export const Mail = () => {
             'Customer.Email': 'Customer Email',
             'Appointment.ServiceName': 'Appointment ServiceName',
             'Appointment.StaffName': 'Appointment StaffName',
-            'Appointment.Time': 'Appointment Time'
+            'Appointment.Time': 'Appointment Time',
+            branding: true,
+            footer: '<h1>hello</h1>'
         },
         template: Templates.Mail
     }
@@ -43,13 +45,15 @@ export const Mail = () => {
     React.useEffect(() => {
         console.log(state)
     }, [state])
-    return <DndEditor {...args} value={state} onChange={setState} />
+    return <DndEditor {...args} value={state} onHtmlChange={console.log} onChange={setState} />
 }
 
 export const Form = () => {
     const args = {
         smartyTags: {
-            'Appointment.ServiceName': 'Appointment ServiceName'
+            'Appointment.ServiceName': 'Appointment ServiceName',
+            branding: true,
+            footer: '<h1>hello</h1>'
         },
         items: [
             FormElements,
