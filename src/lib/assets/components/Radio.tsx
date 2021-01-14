@@ -74,30 +74,6 @@ export default {
                                 label={option.label}
                             />
                         ))}
-                    {state?.showOther && (
-                        <FormControlLabel
-                            key={'other'}
-                            control={
-                                <Radio
-                                    checked={formikProps?.value === formikProps.inputValue}
-                                    onClick={() => formikProps.onChange?.(formikProps.inputValue)}
-                                />
-                            }
-                            label={
-                                <Grid container spacing={2}>
-                                    <Grid item>
-                                        <Trans>Other</Trans>
-                                    </Grid>
-                                    <Input
-                                        type="text"
-                                        placeholder="Custom option"
-                                        defaultValue={formikProps.inputValue}
-                                        onBlur={(e) => formikProps.setInputValue(e.target.value)}
-                                    />
-                                </Grid>
-                            }
-                        />
-                    )}
                 </FormGroup>
                 <FormHelperText>{formikProps.helperText || state?.hint}</FormHelperText>
             </FormControl>
@@ -132,12 +108,6 @@ export default {
         { id: 'pii', type: 'labeledTextInput', grid: 12, label: <Trans>PII</Trans> },
         { id: 'className', type: 'labeledTextInput', grid: 12, label: <Trans>Class name</Trans> },
         { id: 'options', type: 'inputOptions', grid: 12, label: <Trans>Options</Trans> },
-        {
-            id: 'showOther',
-            type: 'labeledSwitch',
-            grid: 12,
-            label: <Trans>Show other option with custom text</Trans>
-        },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],
