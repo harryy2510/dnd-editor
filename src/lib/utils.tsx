@@ -220,8 +220,7 @@ export const exportToHtml = (renderProps: RenderProps): string => {
     const head = document.getElementById('google-fonts')?.outerHTML ?? ''
     const replacer = {
         '{{head}}': head,
-        '{{body}}': body,
-        '{{footer}}': ''
+        '{{body}}': body
     }
     let template = emailTemplate
     forEach(replacer, (value, key) => {

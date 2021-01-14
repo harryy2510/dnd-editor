@@ -20,7 +20,12 @@ export default {
         const stateItem = renderProps.state.entities.mail
         return `
             <div style="${styleToCss(stateItem?.values?.outer?.style)}">
-                <div style="${styleToCss(stateItem?.values?.inner?.style)}">${children}</div>
+                <div style="${styleToCss(stateItem?.values?.inner?.style)}">
+                    ${children}
+                     {% if branding %}
+                        {{footer}}
+                     {% endif %}
+                </div>
             </div>
         `
     },
