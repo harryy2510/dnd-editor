@@ -170,7 +170,7 @@ export default `
         </head>
     
         <body>
-            {{body}} {{footer}}
+            {{body}}
         </body>
     </html>
 
