@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.93](https://github.com/harryy2510/dnd-editor/compare/v0.1.92...v0.1.93) (2021-01-14)
+
+
+### Bug Fixes
+
+* unable to update other field for selections ([#13](https://github.com/harryy2510/dnd-editor/issues/13)) ([a515b41](https://github.com/harryy2510/dnd-editor/commit/a515b419ec46607dcac319a4ebda7cbf452cfc4a))
+
 ### [0.1.92](https://github.com/harryy2510/dnd-editor/compare/v0.1.91...v0.1.92) (2021-01-09)
 
 
