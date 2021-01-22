@@ -357,7 +357,7 @@ const customItems: DndItem[] = [
 ]
 
 function App() {
-    const [value, setValue] = useStore<DndState>('dnd-test-4', createDndState())
+    const [value, setValue] = useStore<DndState>('dnd-test-5', createDndState())
     const [submission, setSubmission] = useStore<DndState>('submission', createDndState())
     const theme = React.useMemo(
         () => createMuiTheme({ typography: { fontFamily: '"Poppins", sans-serif' } }),
@@ -445,7 +445,8 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <Renderer
+                <DndEditor smartyTags={smartyTags} items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]} value={value} onChange={setValue} />
+<!--                 <Renderer
                     smartyTags={smartyTags}
                     state={value}
                     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
@@ -456,7 +457,7 @@ function App() {
                 />
                 <MuiButton type="submit" form="intake-form" value="Submit">
                     Submit
-                </MuiButton>
+                </MuiButton> -->
             </Box>
         </ThemeProvider>
     )
