@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Grid } from '@material-ui/core'
+import { Box, Button, Grid } from '@material-ui/core'
 import { useFormikContext } from 'formik'
 import { keyBy, map } from 'lodash-es'
 import React from 'react'
@@ -33,7 +33,8 @@ const operatorOptions: DropdownOption[] = [
 ]
 
 const ConditionRule: React.FC = () => {
-    const { values } = useFormikContext<Condition>()
+    const { values, setFieldValue } = useFormikContext<Condition>()
+    console.log(values)
     const {
         smartyTags,
         state: { entities, items }
@@ -52,6 +53,7 @@ const ConditionRule: React.FC = () => {
         )
     const flatFormFields = [].concat.apply([], formFields)
     fields = fields.concat(flatFormFields)
+    values.rules = values.rules ?? [{ id: '', operator: 'EQUAL', value: '' }]
     return (
         <>
             <Grid item xs={12}>
@@ -65,23 +67,55 @@ const ConditionRule: React.FC = () => {
             </Grid>
             {Boolean(values.display && values.display !== 'ALWAYS') && (
                 <>
-                    <Grid item xs={12}>
-                        <Field
-                            name="rules.0.id"
-                            Component={Dropdown}
-                            options={fields}
-                            placeholder="Select Field"
-                        />
-                        <Field
-                            name="rules.0.operator"
-                            defaultValue="EQUAL"
-                            Component={Dropdown}
-                            options={operatorOptions}
-                        />
-                        <Field name="rules.0.value" Component={Input} placeholder="Value" />
-                    </Grid>
+                    {(values.rules ?? []).map((rule, index) => (
+                        <Grid item xs={12} key={JSON.stringify(rule) + index}>
+                            <Field
+                                name={`rules.${index}.id`}
+                                Component={Dropdown}
+                                options={fields}
+                                placeholder="Select Field"
+                            />
+                            <Field
+                                name={`rules.${index}.operator`}
+                                defaultValue="EQUAL"
+                                Component={Dropdown}
+                                options={operatorOptions}
+                            />
+                            <Field
+                                name={`rules.${index}.value`}
+                                Component={Input}
+                                placeholder="Value"
+                            />
+                            {values.rules.length > 1 && (
+                                <Box textAlign="right">
+                                    <Button
+                                        color="secondary"
+                                        onClick={() => {
+                                            values.rules.splice(index, 1)
+                                            console.log(values.rules)
+                                            setFieldValue('rules', values.rules)
+                                        }}
+                                    >
+                                        remove
+                                    </Button>
+                                </Box>
+                            )}
+                        </Grid>
+                    ))}
                 </>
             )}
+            <Button
+                color="primary"
+                variant="text"
+                onClick={() =>
+                    setFieldValue(
+                        'rules',
+                        values.rules.concat([{ id: '', operator: 'EQUAL', value: '' }])
+                    )
+                }
+            >
+                add more
+            </Button>
         </>
     )
 }
@@ -103,6 +137,7 @@ const ConditionSettings: React.FC<Props> = (props) => {
         }
     ]
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
+    console.log('values', values)
 
     return (
         <SettingsBase

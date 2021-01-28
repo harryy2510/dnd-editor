@@ -12,15 +12,18 @@ import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
 import emailTemplate from './emailTemplate'
 import {
+    BooleanFormValue,
     Condition,
     DndItem,
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
-    FormValue,
+    NumberFormValue,
     Primitive,
     RenderProps,
-    StringFormValue
+    StringFormValue,
+    FormValue,
+    ConditionOperator
 } from './types'
 import TextInput from './assets/components/TextInput'
 import Checkbox from './assets/components/Checkbox'
@@ -666,24 +669,48 @@ export const checkForDiplayCondition = (
     sampleData: any
 ) => {
     if (condition && condition.display === 'DISPLAY' && condition.rules) {
-        const { id, operator, value } = condition.rules[0]
-        if (!sampleData) {
-            return false
-        }
-        // const [blockKey, itemKey] = id.split('.')
-        // let formValue = get(formik.values, blockKey)
-        // formValue = !!itemKey ? get(formValue, itemKey) : value
-        const formValue = sampleData[id] || ''
-        switch (operator) {
-            case 'EQUAL':
-                return formValue !== value
-            case 'NOT_EQUAL':
-                return formValue === value
-            case 'IN':
-                return !(value as string).split(',').filter((v) => v === formValue)
-        }
+        const sampleDataCheck = condition.rules.some(({ id, operator, value }) => {
+            const sampleDataValue = get(sampleData, id)
+            if (!sampleDataValue) {
+                return true
+            }
+            return canShowFormElement(sampleDataValue, operator, String(value))
+        })
+        const formDataCheck = condition.rules.some(({ id, operator, value }) => {
+            const [blockKey, itemKey] = id.split('.')
+            let formValue = get(formik.values, `${itemKey}/${blockKey}`)
+            if (!formValue) {
+                return false
+            }
+            formValue = formValue.length ? formValue : [formValue]
+            formValue = getFormValue(formValue[0])
+            return canShowFormElement(formValue, operator, String(value))
+        })
+        return sampleDataCheck && formDataCheck
     }
     return true
+}
+
+const canShowFormElement = (formValue: string, operator: ConditionOperator, value: string) => {
+    switch (operator) {
+        case 'EQUAL':
+            return formValue === value
+        case 'NOT_EQUAL':
+            return formValue !== value
+        case 'IN':
+            return !(value as string).split(',').filter((v) => v === formValue)
+    }
+}
+
+const getFormValue = (formData: FormValue) => {
+    switch (formData.valueType) {
+        case 'String':
+            return (formData as StringFormValue).text
+        case 'Number':
+            return (formData as NumberFormValue).number
+        case 'Boolean':
+            return (formData as BooleanFormValue).boolean
+    }
 }
 
 export const getFormElementItemComponent = (type: string) => {
