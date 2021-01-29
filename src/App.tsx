@@ -16,14 +16,7 @@ import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
 import Divider from './lib/assets/components/Divider'
 
-const smartyTags = {
-    'Customer.FirstName': 'Customer FirstName',
-    'Customer.LastName': 'Customer LastName',
-    'Customer.Email': 'Customer Email',
-    ServiceName: 'Appointment ServiceName',
-    'Appointment.StaffName': 'Appointment StaffName',
-    'Appointment.Time': 'Appointment Time'
-}
+const smartyTags = {}
 
 const sampleData = {
     Customer: {

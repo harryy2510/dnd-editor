@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 import { RenderProps } from '../types'
-import { checkForDiplayCondition } from '../utils'
+import { checkForDiplayCondition, checkForLinkingCondition } from '../utils'
 import Container from '../assets/Container'
 
 type Props = {
@@ -13,12 +13,16 @@ const FormElements: React.FC<Props> = ({ renderProps }) => {
     return (
         <div>
             {renderProps.state.items
-                ?.filter((item) =>
-                    checkForDiplayCondition(
-                        renderProps.state.entities[item.id].values.__condition,
-                        formik,
-                        renderProps.sampleData
-                    )
+                ?.filter(
+                    (item) =>
+                        checkForLinkingCondition(
+                            renderProps.state.entities[item.id].values.__condition,
+                            renderProps.sampleData
+                        ) &&
+                        checkForDiplayCondition(
+                            renderProps.state.entities[item.id].values.__displayCondition,
+                            formik
+                        )
                 )
                 .map((item) => {
                     const stateItem = renderProps.state.entities[item.id]

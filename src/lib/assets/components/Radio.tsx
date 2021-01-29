@@ -41,11 +41,11 @@ export default {
             const hasOther = !state?.options.find(
                 (option: InputOption) => option.label === formikProps.value
             )
-            const [inputValue, setInputValue] = useState(hasOther ? formikProps.value : '')
+            // const [inputValue, setInputValue] = useState(hasOther ? formikProps.value : '')
             formikProps.onChange = (value: string | boolean) => {
                 formik.setFieldValue(formKey, { text: value, valueType: 'String' })
             }
-            formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
+            // formikProps = { ...formikProps, ...{ inputValue, setInputValue } }
             formikProps.onControlClick = () => {}
         }
 

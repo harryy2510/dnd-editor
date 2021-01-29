@@ -23,7 +23,8 @@ import {
     RenderProps,
     StringFormValue,
     FormValue,
-    ConditionOperator
+    ConditionOperator,
+    ConditionRule
 } from './types'
 import TextInput from './assets/components/TextInput'
 import Checkbox from './assets/components/Checkbox'
@@ -663,30 +664,35 @@ export const getFormikProps = (
     return formikProps
 }
 
-export const checkForDiplayCondition = (
-    condition: Condition,
-    formik: FormikContextType<unknown>,
-    sampleData: any
-) => {
+export const checkForLinkingCondition = (condition: Condition, sampleData: any) => {
     if (condition && condition.display === 'DISPLAY' && condition.rules) {
-        const sampleDataCheck = condition.rules.some(({ id, operator, value }) => {
+        const check = ({ id, operator, value }: ConditionRule) => {
             const sampleDataValue = get(sampleData, id)
             if (!sampleDataValue) {
                 return true
             }
             return canShowFormElement(sampleDataValue, operator, String(value))
-        })
-        const formDataCheck = condition.rules.some(({ id, operator, value }) => {
-            const [blockKey, itemKey] = id.split('.')
-            let formValue = get(formik.values, `${itemKey}/${blockKey}`)
+        }
+        return condition.type === 'OR' ? condition.rules.some(check) : condition.rules.every(check)
+    }
+    return true
+}
+
+export const checkForDiplayCondition = (
+    condition: Condition,
+    formik: FormikContextType<unknown>
+) => {
+    if (condition && condition.display === 'DISPLAY' && condition.rules) {
+        const check = ({ id, operator, value }: ConditionRule) => {
+            let formValue = get(formik.values, id)
             if (!formValue) {
                 return false
             }
             formValue = formValue.length ? formValue : [formValue]
             formValue = getFormValue(formValue[0])
             return canShowFormElement(formValue, operator, String(value))
-        })
-        return sampleDataCheck && formDataCheck
+        }
+        return condition.type === 'OR' ? condition.rules.some(check) : condition.rules.every(check)
     }
     return true
 }
@@ -698,7 +704,9 @@ const canShowFormElement = (formValue: string, operator: ConditionOperator, valu
         case 'NOT_EQUAL':
             return formValue !== value
         case 'IN':
-            return !(value as string).split(',').filter((v) => v === formValue)
+            return (value as string).split(',').some((v) => v === formValue)
+        case 'NOT_IN':
+            return (value as string).split(',').every((v) => v !== formValue)
     }
 }
 

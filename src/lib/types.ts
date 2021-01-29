@@ -43,7 +43,7 @@ export type SettingComponentType =
     | 'inputOptions'
 
 export type GroupRenderMode = 'container' | 'heading' | 'hidden'
-export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN'
+export type ConditionOperator = 'EQUAL' | 'NOT_EQUAL' | 'IN' | 'NOT_IN'
 export type ConditionType = 'AND' | 'OR'
 export type ConditionDisplay = 'ALWAYS' | 'DISPLAY'
 export type ConditionRule = {
@@ -92,6 +92,7 @@ export type DndItemSetting = {
     label: React.ReactNode
     type: SettingItemType
     settings?: DndComponentSetting[]
+    component?: React.ReactElement
 }
 
 export type DndContainerItem = {

@@ -109,6 +109,7 @@ const SettingsBase: React.FC<Props> = ({
                                 <Form className={classes.form}>
                                     <Grid container spacing={2}>
                                         {children ||
+                                            setting.component ||
                                             setting.settings?.map((st, i) => (
                                                 <Grid item xs={st.grid ?? 12} key={i}>
                                                     <Field name={st.id} {...st} />
