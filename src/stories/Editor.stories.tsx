@@ -27,69 +27,69 @@ export default {
     ]
 } as Meta
 
-// export const Mail = () => {
-//     const args = {
-//         smartyTags: {
-//             'Customer.FirstName': 'Customer FirstName',
-//             'Customer.LastName': 'Customer LastName',
-//             'Customer.Email': 'Customer Email',
-//             'Appointment.ServiceName': 'Appointment ServiceName',
-//             'Appointment.StaffName': 'Appointment StaffName',
-//             'Appointment.Time': 'Appointment Time',
-//             branding: true,
-//             footer: '<h1>hello</h1>'
-//         },
-//         template: Templates.Mail
-//     }
-//     const [state, setState] = useStore<DndState>('mail-state', createDndState())
-//     React.useEffect(() => {
-//         console.log(state)
-//     }, [state])
-//     return <DndEditor {...args} value={state} onHtmlChange={console.log} onChange={setState} />
-// }
+export const Mail = () => {
+    const args = {
+        smartyTags: {
+            'Customer.FirstName': 'Customer FirstName',
+            'Customer.LastName': 'Customer LastName',
+            'Customer.Email': 'Customer Email',
+            'Appointment.ServiceName': 'Appointment ServiceName',
+            'Appointment.StaffName': 'Appointment StaffName',
+            'Appointment.Time': 'Appointment Time',
+            branding: true,
+            footer: '<h1>hello</h1>'
+        },
+        template: Templates.Mail
+    }
+    const [state, setState] = useStore<DndState>('mail-state', createDndState())
+    React.useEffect(() => {
+        console.log(state)
+    }, [state])
+    return <DndEditor {...args} value={state} onHtmlChange={console.log} onChange={setState} />
+}
 
-// export const Form = () => {
-//     const args = {
-//         smartyTags: {
-//             'Appointment.ServiceName': 'Appointment ServiceName',
-//             branding: true,
-//             footer: '<h1>hello</h1>'
-//         },
-//         items: [
-//             FormElements,
-//             Blocks.Divider,
-//             ...Object.values(Blocks).filter(
-//                 (block: DndBlockItem) => block.parent === 'form-elements'
-//             )
-//         ],
-//         template: Templates.Form
-//     }
-//     const [state, setState] = useStore<DndState>('form-state', createDndState())
-//     React.useEffect(() => {
-//         console.log(state)
-//     }, [state])
-//     return <DndEditor {...args} value={state} onChange={setState} />
-// }
-// export const FormRenderer = () => {
-//     const [state] = useStore<DndState>('form-state', createDndState())
-//     const [initialValues, setInitialValues] = useStore('form-initialValues', {})
-//     React.useEffect(() => {
-//         console.log(state)
-//     }, [state])
-//     React.useEffect(() => {
-//         console.log(initialValues)
-//     }, [initialValues])
-//     return (
-//         <LocalizationProvider dateAdapter={MomentUtils}>
-//             <Button form="asdasdasd" type="submit">
-//                 Submit
-//             </Button>
-//             <Renderer
-//                 state={state}
-//                 initialValues={initialValues}
-//                 onChange={setInitialValues}
-//                 formId="asdasdasd"
-//             />
-//         </LocalizationProvider>
-//     )
-// }
+export const Form = () => {
+    const args = {
+        smartyTags: {
+            'Appointment.ServiceName': 'Appointment ServiceName',
+            branding: true,
+            footer: '<h1>hello</h1>'
+        },
+        items: [
+            FormElements,
+            Blocks.Divider,
+            ...Object.values(Blocks).filter(
+                (block: DndBlockItem) => block.parent === 'form-elements'
+            )
+        ],
+        template: Templates.Form
+    }
+    const [state, setState] = useStore<DndState>('form-state', createDndState())
+    React.useEffect(() => {
+        console.log(state)
+    }, [state])
+    return <DndEditor {...args} value={state} onChange={setState} />
+}
+export const FormRenderer = () => {
+    const [state] = useStore<DndState>('form-state', createDndState())
+    const [initialValues, setInitialValues] = useStore('form-initialValues', {})
+    React.useEffect(() => {
+        console.log(state)
+    }, [state])
+    React.useEffect(() => {
+        console.log(initialValues)
+    }, [initialValues])
+    return (
+        <LocalizationProvider dateAdapter={MomentUtils}>
+            <Button form="asdasdasd" type="submit">
+                Submit
+            </Button>
+            <Renderer
+                state={state}
+                initialValues={initialValues}
+                onChange={setInitialValues}
+                formId="asdasdasd"
+            />
+        </LocalizationProvider>
+    )
+}

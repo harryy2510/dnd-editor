@@ -65,7 +65,8 @@ export default {
         required: false,
         enabled: true,
         grid: 12,
-        itemType: 'Country',
+        itemType: 'Input',
+        inputType: 'country',
         style: {
             textAlign: 'left'
         }
