@@ -40,9 +40,9 @@ export default {
                 (value: StringFormValue) =>
                     !!state.options.find((o: InputOption) => o.label !== value.text)
             )
-            const [inputValue, setInputValue] = useState(
-                otherOption?.length > 0 ? otherOption[0]?.text : ''
-            )
+            // const [inputValue, setInputValue] = useState(
+            //     otherOption?.length > 0 ? otherOption[0]?.text : ''
+            // )
             formikProps.onChange = (option: string, checked: boolean) => {
                 let oldValue: StringFormValue[] = formikProps.value.filter(
                     (formValue: StringFormValue) => formValue.text !== option
@@ -50,7 +50,7 @@ export default {
                 if (checked) oldValue = [{ text: option, valueType: 'String' }, ...oldValue]
                 formik.setFieldValue(formKey, oldValue)
             }
-            formikProps = { ...formikProps, inputValue }
+            // formikProps = { ...formikProps, inputValue }
             formikProps.onOtherCheckboxChange = (checked: boolean, inputValue: string) => {
                 let oldValue: StringFormValue[] = formikProps.value.filter(
                     (value: StringFormValue) =>
@@ -65,7 +65,7 @@ export default {
                         state.options.find((o: InputOption) => o.label !== value.text)
                 )
                 formikProps.onOtherCheckboxChange(oldValue.length !== 0, newInputValue)
-                setInputValue(newInputValue)
+                // setInputValue(newInputValue)
             }
             formikProps.value.forEach(
                 (value: FormValue) => (checked[(value as StringFormValue).text] = true)
