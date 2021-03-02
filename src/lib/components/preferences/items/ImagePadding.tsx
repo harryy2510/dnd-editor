@@ -27,6 +27,7 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
 const ImagePadding: React.FC<InputProps> = (props) => {
     const classes = useStyles()
     const values = (props.value as string).split(' ') ?? []
+    const initialValues = React.useRef<Array<string>>(values).current
     const handleChange = (index: number) => (value: any = '0px') => {
         const newValues = [...values]
         newValues[index] = value
@@ -43,7 +44,11 @@ const ImagePadding: React.FC<InputProps> = (props) => {
                 props.onChange('0px')
                 break
             default:
-                props.onChange('0px 0px 0px 0px')
+                if (initialValues.length > 1) {
+                    props.onChange(initialValues.join(' '))
+                } else {
+                    props.onChange('0px 0px 0px 0px')
+                }
         }
     }
     return (
