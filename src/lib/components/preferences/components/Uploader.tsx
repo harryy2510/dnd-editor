@@ -1,6 +1,15 @@
 import { Trans } from '@lingui/macro'
-import { Box, CircularProgress, CircularProgressProps, Theme, Typography } from '@material-ui/core'
-import { CloudUploadOutlined } from '@material-ui/icons'
+import {
+    Box,
+    Button,
+    CircularProgress,
+    CircularProgressProps,
+    IconButton,
+    Theme,
+    Tooltip,
+    Typography
+} from '@material-ui/core'
+import { CloudUploadOutlined, DeleteOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import React from 'react'
@@ -99,6 +108,12 @@ const useStyles = makeStyles(
             backgroundColor: action.active,
             color: background.default,
             padding: spacing(0.5)
+        },
+        button: {
+            top: spacing(-3.5),
+            right: 0,
+            position: 'absolute',
+            textTransform: 'none'
         }
     })
 )
@@ -160,8 +175,19 @@ const Uploader: React.FC<StyledTextFieldProps> = (props) => {
             setProgress(false)
         }
     }, [props.value])
+    const removeImage = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        props.onChange('')
+    }
     return (
         <div className={classes.container}>
+            {!!imgSrc.current && (
+                <Button onClick={removeImage} size="small" className={classes.button}>
+                    <Typography color="error" variant="caption">
+                        <Trans>Remove Image</Trans>
+                    </Typography>
+                </Button>
+            )}
             <input
                 onChange={handleImageEvent}
                 accept="image/*"
