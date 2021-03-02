@@ -38,7 +38,7 @@ const operatorOptions: DropdownOption[] = [
 
 const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
     const { values, setFieldValue } = useFormikContext<Condition>()
-    console.log(values)
+   
     const {
         smartyTags,
         state: { entities, items }
@@ -115,7 +115,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                                         color="secondary"
                                         onClick={() => {
                                             values.rules.splice(index, 1)
-                                            console.log(values.rules)
+                                            
                                             setFieldValue('rules', values.rules)
                                         }}
                                     >

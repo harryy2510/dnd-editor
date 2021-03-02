@@ -73,11 +73,15 @@ interface Props {
 const Field: React.FC<Props> = ({ name, type, Component: _Component, ...props }) => {
     const Component = _Component || (type && fields[type])
     const formik = useFormikContext()
+    
     let formikProps: any = {}
     if (formik) {
         formikProps.value = get(formik.values, name)
         formikProps.onChange = (value: Primitive) => formik.setFieldValue(name, value, true)
+        formikProps.error = Boolean(get(formik.errors, name))
+        formikProps.helperText = Boolean(get(formik.errors, name)) ? get(formik.errors, name) : null
     }
+
     if (Component) {
         return <Component {...props} {...formikProps} />
     }

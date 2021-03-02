@@ -16,17 +16,51 @@ export interface ValidationProps extends Omit<DropdownProps, 'value' | 'onChange
     onChange: (value: ValidationValue) => void
 }
 const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, ...props }) => {
+
+    const [error, setError] = React.useState(false)
+    const [helperText, setHelperText] = React.useState("")
     const selectedValidationType = value.key
     const selectedValidation = validations[selectedValidationType]
     const showInput = selectedValidation.showInput
     const inputString = selectedValidation.toString?.(value.formValue)
     const handleOnChange = (type: any, value = '') => {
-        const newValidation = validations[type]
-        const formValue = newValidation.toFormValue?.(value)
-        onChange({
-            key: newValidation.id,
-            formValue: formValue
-        })
+        if (!Boolean(value)) {
+            const newValidation = validations[type]
+            const formValue = newValidation.toFormValue?.(value)
+            onChange({
+                key: newValidation.id,
+                formValue: formValue
+            })
+        } else {
+            setError(false)
+            setHelperText("")
+            if (type === "MinLength" || "MaxLength") {
+
+                const a: any = value
+                if (a > 0 || typeof a === "number" || null) {
+                    const newValidation = validations[type]
+                    const formValue = newValidation.toFormValue?.(value)
+                    
+                    onChange({
+                        key: newValidation.id,
+                        formValue: formValue
+                    })
+
+                } else {
+                    setError(true)
+
+                    setHelperText("Please enter a number greater than 0")
+                }
+
+            } else {
+                const newValidation = validations[type]
+                const formValue = newValidation.toFormValue?.(value)
+                onChange({
+                    key: newValidation.id,
+                    formValue: formValue
+                })
+            }
+        }
     }
     return (
         <>
@@ -41,9 +75,12 @@ const Validation: React.FC<ValidationProps> = ({ validations, onChange, value, .
                 <LabeledTextInput
                     label={<Trans>Validation value</Trans>}
                     value={inputString || ''}
+                    error={error}
+                    helperText={error ? helperText : null}
                     onChange={(inputValue) => handleOnChange(value.key, inputValue as string)}
                 ></LabeledTextInput>
-            )}
+            )
+            }
         </>
     )
 }
