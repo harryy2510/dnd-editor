@@ -45,7 +45,14 @@ export const Mail = () => {
     React.useEffect(() => {
         console.log(state)
     }, [state])
-    return <DndEditor value={state} onHtmlChange={console.log} onChange={setState} />
+    return (
+        <DndEditor
+            value={state}
+            onHtmlChange={console.log}
+            onSendEmail={console.log}
+            onChange={setState}
+        />
+    )
 }
 
 export const Form = () => {

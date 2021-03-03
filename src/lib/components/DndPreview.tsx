@@ -26,13 +26,15 @@ const useStyles = makeStyles(
             bottom: spacing(2),
             overflow: 'hidden',
             zIndex: 1,
-            right: spacing(60)
+            right: spacing(41)
         },
         button: {
             backgroundColor: getContrastText(background.default),
             color: background.default,
             padding: spacing(1),
             opacity: 0.5,
+            width: spacing(21),
+            margin: spacing(0, 1),
             '&:hover': {
                 opacity: 0.8
             }
