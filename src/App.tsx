@@ -16,14 +16,7 @@ import { DndItem, DndState, RenderProps } from './lib/types'
 import { createDndState, styleToCss } from './lib/utils'
 import Divider from './lib/assets/components/Divider'
 
-const smartyTags = {
-    'Customer.FirstName': 'Customer FirstName',
-    'Customer.LastName': 'Customer LastName',
-    'Customer.Email': 'Customer Email',
-    ServiceName: 'Appointment ServiceName',
-    'Appointment.StaffName': 'Appointment StaffName',
-    'Appointment.Time': 'Appointment Time'
-}
+const smartyTags = {}
 
 const sampleData = {
     Customer: {
@@ -364,25 +357,6 @@ function App() {
         []
     )
 
-    // <DndEditor
-    //     smartyTags={smartyTags}
-    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-    //     value={value}
-    //     onChange={setValue}
-    //     sampleData={sampleData}
-    // />
-    // <Renderer
-    //     smartyTags={smartyTags}
-    //     state={value}
-    //     items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
-    //     initialValues={{}
-    //     onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
-    //     formId="intake-form"
-    //     sampleData={sampleData}
-    // />
-    // <MuiButton type="submit" form="intake-form" value="Submit">
-    //     Submit
-    // </MuiButton>
     const sub = {
         Z4gtE1nTSMnqpXulhwJ12$addressLine1: [
             {
@@ -445,8 +419,37 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                <DndEditor smartyTags={smartyTags} items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]} value={value} onChange={setValue} />
+                {
+                    <DndEditor
+                        smartyTags={smartyTags}
+                        items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+                        value={value}
+                        onChange={setValue}
+                        sampleData={sampleData}
+                    />
+                }
 
+                {/* {JSON.stringify(smartyTags, null, 2)}
+                {
+                    <>
+                        <Renderer
+                            smartyTags={smartyTags}
+                            state={value}
+                            items={[
+                                ...Object.values(Groups),
+                                ...Object.values(Blocks),
+                                ...customItems
+                            ]}
+                            initialValues={{}}
+                            onSubmit={(value) => console.log(JSON.stringify(value, null, 2))}
+                            formId="intake-form"
+                            sampleData={sampleData}
+                        />
+                        <MuiButton type="submit" form="intake-form" value="Submit">
+                            Submit
+                        </MuiButton>
+                    </>
+                } */}
             </Box>
         </ThemeProvider>
     )

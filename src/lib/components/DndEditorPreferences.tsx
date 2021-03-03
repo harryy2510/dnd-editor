@@ -118,13 +118,12 @@ const DndEditorPreferences: React.FC = () => {
         []
 
     const showContainerTab = groupedSettings.length > 1
-    const showConditionTab = Boolean(Object.keys(smartyTags ?? {})?.length)
 
     const availableSettings = React.useMemo(
         () => [
             ...groupedSettings,
             ...(activeItem && showContainerTab ? ['container'] : []),
-            ...(activeItem && showConditionTab ? ['condition'] : []),
+            ...(activeItem ? ['condition'] : []),
             'template'
         ],
         [active]
@@ -147,10 +146,8 @@ const DndEditorPreferences: React.FC = () => {
                     }
                     break
                 case 'condition':
-                    if (showConditionTab) {
-                        setTab('condition')
-                        setExpanded('__condition')
-                    }
+                    setTab('condition')
+                    setExpanded('__condition')
                     break
                 default:
                     setTab((data?.type as SettingItemType) ?? 'template')

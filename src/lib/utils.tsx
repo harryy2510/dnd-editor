@@ -12,15 +12,19 @@ import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
 import emailTemplate from './emailTemplate'
 import {
+    BooleanFormValue,
     Condition,
     DndItem,
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
-    FormValue,
+    NumberFormValue,
     Primitive,
     RenderProps,
-    StringFormValue
+    StringFormValue,
+    FormValue,
+    ConditionOperator,
+    ConditionRule
 } from './types'
 import TextInput from './assets/components/TextInput'
 import Checkbox from './assets/components/Checkbox'
@@ -81,6 +85,7 @@ export const updateItem = (renderProps: RenderProps, id: string, update: FormikV
 }
 
 export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
+    // console.log(newItem)
     const id = nanoid()
     const newState: DndState = {
         entities: {
@@ -93,8 +98,11 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
                     { __container: Container[renderProps.template.id].initialValues },
                     newItem.initialValues
                 ),
-                parent: { id: newItem.id, type: newItem.type }
-            }
+                parent: { id: newItem.id, type: newItem.type },
+
+            },
+
+
         },
         items: [
             ...renderProps.state.items,
@@ -201,9 +209,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
                 ${conditionStart}
                     <div style="position: relative">
                         ${Container[renderProps.template.id].export(
-                            updatedRenderProps,
-                            renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-                        )}
+                updatedRenderProps,
+                renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+            )}
                     </div>
                 ${conditionEnd}
             `
@@ -213,9 +221,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
 export const exportToHtml = (renderProps: RenderProps): string => {
     const body = `
         ${renderProps.template.export(
-            renderProps,
-            exportItems(renderProps.state.items, renderProps)
-        )}
+        renderProps,
+        exportItems(renderProps.state.items, renderProps)
+    )}
     `
     const head = document.getElementById('google-fonts')?.outerHTML ?? ''
     const replacer = {
@@ -239,16 +247,16 @@ export const createDndState = (
         entities: {
             ...(template
                 ? {
-                      [template.id]: {
-                          parent: {
-                              id: template.id,
-                              type: template.type
-                          },
-                          id: template.id,
-                          name: template.id,
-                          values: template.initialValues ?? {}
-                      }
-                  }
+                    [template.id]: {
+                        parent: {
+                            id: template.id,
+                            type: template.type
+                        },
+                        id: template.id,
+                        name: template.id,
+                        values: template.initialValues ?? {}
+                    }
+                }
                 : {}),
             ...(initialState?.entities ?? {})
         }
@@ -660,30 +668,61 @@ export const getFormikProps = (
     return formikProps
 }
 
-export const checkForDiplayCondition = (
-    condition: Condition,
-    formik: FormikContextType<unknown>,
-    sampleData: any
-) => {
+export const checkForLinkingCondition = (condition: Condition, sampleData: any) => {
     if (condition && condition.display === 'DISPLAY' && condition.rules) {
-        const { id, operator, value } = condition.rules[0]
-        if (!sampleData) {
-            return false
+        const check = ({ id, operator, value }: ConditionRule) => {
+            const sampleDataValue = get(sampleData, id)
+            if (!sampleDataValue) {
+                return true
+            }
+            return canShowFormElement(sampleDataValue, operator, String(value))
         }
-        // const [blockKey, itemKey] = id.split('.')
-        // let formValue = get(formik.values, blockKey)
-        // formValue = !!itemKey ? get(formValue, itemKey) : value
-        const formValue = sampleData[id] || ''
-        switch (operator) {
-            case 'EQUAL':
-                return formValue !== value
-            case 'NOT_EQUAL':
-                return formValue === value
-            case 'IN':
-                return !(value as string).split(',').filter((v) => v === formValue)
-        }
+        return condition.type === 'OR' ? condition.rules.some(check) : condition.rules.every(check)
     }
     return true
+}
+
+export const checkForDiplayCondition = (
+    condition: Condition,
+    formik: FormikContextType<unknown>
+) => {
+    if (condition && condition.display === 'DISPLAY' && condition.rules) {
+        const check = ({ id, operator, value }: ConditionRule) => {
+            let formValue = get(formik.values, id)
+            if (!formValue) {
+                return false
+            }
+            formValue = formValue.length ? formValue : [formValue]
+            formValue = getFormValue(formValue[0])
+            return canShowFormElement(formValue, operator, String(value))
+        }
+        return condition.type === 'OR' ? condition.rules.some(check) : condition.rules.every(check)
+    }
+    return true
+}
+
+const canShowFormElement = (formValue: string, operator: ConditionOperator, value: string) => {
+    switch (operator) {
+        case 'EQUAL':
+            return formValue === value
+        case 'NOT_EQUAL':
+            return formValue !== value
+        case 'IN':
+            return (value as string).split(',').some((v) => v === formValue)
+        case 'NOT_IN':
+            return (value as string).split(',').every((v) => v !== formValue)
+    }
+}
+
+const getFormValue = (formData: FormValue) => {
+    switch (formData.valueType) {
+        case 'String':
+            return (formData as StringFormValue).text
+        case 'Number':
+            return (formData as NumberFormValue).number
+        case 'Boolean':
+            return (formData as BooleanFormValue).boolean
+    }
 }
 
 export const getFormElementItemComponent = (type: string) => {
@@ -957,4 +996,20 @@ export const useCountries = () => {
         'Zambia',
         'Zimbabwe'
     ]
+}
+
+export const useSettingsValidations = (id: String | undefined) => {
+   
+    if (id === "text-input-1" || "multiline-1" || "dropdown-1" || "checkbox-1" || "radio-input-1" || "number-1" || "date-picker-1") {
+        return yup.object().shape({
+            question: yup
+                .string()
+                .max(500, (`Max 500 characters allowed` as unknown) as string),
+            placeholder: yup.string().max(100, (`Maximum 100 characters allowed` as unknown) as string),
+            hint: yup.string().max(100, (`Maximum 100 characters allowed` as unknown) as string),
+            characterLimit: yup.number().nullable().min(0, (`Minimum limit can be 0` as unknown) as string).max(100, (`Maximum 100 characters allowed` as unknown) as string),
+        })
+    }
+
+    return null
 }
