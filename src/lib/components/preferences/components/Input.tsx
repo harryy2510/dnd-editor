@@ -7,7 +7,7 @@ import StyledTextField, { StyledTextFieldProps } from './StyledTextField'
 const useStyles = makeStyles(({ spacing }: Theme) => ({
     container: {
         width: '100%',
-        marginBottom: spacing(1)
+        margin: spacing(1, 0)
     }
 }))
 

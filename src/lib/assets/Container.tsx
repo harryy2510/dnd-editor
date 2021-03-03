@@ -93,7 +93,12 @@ const defaultContainer: DndContainerItem = {
                 { id: 'style.backgroundImage', type: 'image', grid: 12 },
                 { id: 'style.padding', type: 'imagePadding', grid: 12 },
                 { id: 'style.textAlign', type: 'align', grid: 12 },
-                { id: 'style.backgroundColor', type: 'backgroundColor', grid: 12 }
+                {
+                    id: 'style.backgroundColor',
+                    type: 'backgroundColor',
+                    grid: 12,
+                    hideIfSet: 'style.backgroundImage'
+                }
             ],
             label: <Trans>Container</Trans>,
             type: 'container'
