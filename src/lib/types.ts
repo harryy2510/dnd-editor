@@ -85,6 +85,8 @@ export type DndComponentSetting = {
     grid?: GridSize
     id: string
     label?: React.ReactElement
+    //hideIfSet hides the settings if other setting is set. Container uses this field
+    hideIfSet?: string
 }
 
 export type DndItemSetting = {

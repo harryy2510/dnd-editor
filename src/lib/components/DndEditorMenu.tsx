@@ -13,8 +13,7 @@ const useStyles = makeStyles(({ spacing, zIndex }: Theme) => ({
         padding: spacing(4, 0)
     },
     popper: {
-        zIndex: zIndex.tooltip,
-        marginLeft: -140
+        zIndex: zIndex.tooltip
     }
 }))
 
