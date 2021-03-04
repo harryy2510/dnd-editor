@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/harryy2510/dnd-editor/compare/v0.2.4...v0.2.5) (2021-03-04)
+
+
+### Features
+
+* select new block on click ([d0e671f](https://github.com/harryy2510/dnd-editor/commit/d0e671fce02a4f95ce082e60e8c9c95e55b2a524))
+
 ### [0.2.4](https://github.com/harryy2510/dnd-editor/compare/v0.2.3...v0.2.4) (2021-03-04)
 
 
