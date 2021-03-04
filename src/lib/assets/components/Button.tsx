@@ -24,7 +24,7 @@ export default {
                 style={state?.style}
                 {...props}
             >
-                <SimpleInput value={state?.label} onChange={handleChange} />
+                <SimpleInput value={state?.label} onChange={handleChange} style={state?.style} />
             </a>
         )
     },
