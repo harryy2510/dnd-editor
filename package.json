@@ -1,6 +1,6 @@
 {
     "name": "@harryy/dnd-editor",
-    "version": "0.1.97",
+    "version": "0.2.1",
     "private": true,
     "scripts": {
         "start": "react-app-rewired start",
