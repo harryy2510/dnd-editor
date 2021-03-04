@@ -62,6 +62,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
         )
     const flatFormFields = [].concat.apply([], formFields)
     fields = type === 'linking' ? fields : flatFormFields
+    const label = type === 'linking' ? <Trans>Smarty Tag</Trans> : <Trans>Field</Trans>
     values.rules = values.rules ?? [{ id: '', operator: 'EQUAL', value: '' }]
     return (
         <>
@@ -72,6 +73,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                     defaultValue="ALWAYS"
                     SelectProps={{ displayEmpty: true }}
                     options={displayOptions}
+                    label={<Trans>Type of Condition</Trans>}
                 />
             </Grid>
             {Boolean(values.display && values.display !== 'ALWAYS') && (
@@ -97,12 +99,14 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                                 Component={Dropdown}
                                 options={fields}
                                 placeholder="Select Field"
+                                label={label}
                             />
                             <Field
                                 name={`rules.${index}.operator`}
                                 defaultValue="EQUAL"
                                 Component={Dropdown}
                                 options={operatorOptions}
+                                label={<Trans>Operator</Trans>}
                             />
                             <Field
                                 name={`rules.${index}.value`}
