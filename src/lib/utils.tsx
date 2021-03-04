@@ -1,7 +1,7 @@
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { FormikValues, FormikContextType } from 'formik'
-import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
+import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get, keys } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
@@ -86,8 +86,7 @@ export const updateItem = (renderProps: RenderProps, id: string, update: FormikV
 }
 
 export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
-    // console.log(newItem)
-    const id = nanoid()
+    const id = `block-${renderProps.state.items.length + 1}`
     const newState: DndState = {
         entities: {
             ...renderProps.state.entities,
