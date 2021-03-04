@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://github.com/harryy2510/dnd-editor/compare/v0.2.7...v0.2.8) (2021-03-04)
+
+
+### Bug Fixes
+
+* button styles not working issue ([7b2e039](https://github.com/harryy2510/dnd-editor/commit/7b2e039d6358e12cfac250e6a2278b8c48d48c98))
+
 ### [0.2.7](https://github.com/harryy2510/dnd-editor/compare/v0.2.6...v0.2.7) (2021-03-04)
 
 
