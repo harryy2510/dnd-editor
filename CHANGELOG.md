@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/harryy2510/dnd-editor/compare/v0.2.5...v0.2.6) (2021-03-04)
+
+
+### Features
+
+* conditions settings displayed on template basis ([2170541](https://github.com/harryy2510/dnd-editor/commit/217054156568327d0e7e78d113464db6c6bbb9e5))
+
 ### [0.2.5](https://github.com/harryy2510/dnd-editor/compare/v0.2.4...v0.2.5) (2021-03-04)
 
 
