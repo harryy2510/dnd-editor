@@ -1,5 +1,7 @@
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
+import { Box, Theme, Tooltip } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { DndContainerItem, RenderProps } from '../types'
 import { styleToCss } from '../utils'
@@ -31,6 +33,35 @@ const Mail: Partial<DndContainerItem> = {
             textAlign: 'left'
         }
     }
+}
+
+const useStyles = makeStyles(({ typography: { caption } }: Theme) => ({
+    label: {
+        '& .subtitle': {
+            display: 'none',
+            fontSize: caption.fontSize
+        },
+        '&:hover': {
+            '& .subtitle': {
+                display: 'block'
+            }
+        }
+    }
+}))
+
+const Label: React.FC = () => {
+    const classes = useStyles()
+
+    return (
+        <div className={classes.label}>
+            <div>
+                <Trans>Container</Trans>
+            </div>
+            <div className="subtitle">
+                <Trans> Control the background, alignment and padding of the selected block </Trans>
+            </div>
+        </div>
+    )
 }
 
 const defaultContainer: DndContainerItem = {
@@ -100,7 +131,7 @@ const defaultContainer: DndContainerItem = {
                     hideIfSet: 'style.backgroundImage'
                 }
             ],
-            label: <Trans>Container</Trans>,
+            label: <Label />,
             type: 'container'
         }
     ]
