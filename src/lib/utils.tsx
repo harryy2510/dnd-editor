@@ -620,6 +620,10 @@ export const useFonts = () => {
         {
             label: 'Source Sans Pro',
             id: 'Source Sans Pro'
+        },
+        {
+            label: 'Helvetica',
+            id: 'Helvetica'
         }
     ]
     return {
@@ -999,7 +1003,7 @@ export const useCountries = () => {
 }
 
 export const useSettingsValidations = (id: String | undefined) => {
-   
+
     if (id === "text-input-1" || "multiline-1" || "dropdown-1" || "checkbox-1" || "radio-input-1" || "number-1" || "date-picker-1") {
         return yup.object().shape({
             question: yup
