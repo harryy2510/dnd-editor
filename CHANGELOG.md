@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/harryy2510/dnd-editor/compare/v0.2.3...v0.2.4) (2021-03-04)
+
+
+### Features
+
+* serif Helvetica ([75ab316](https://github.com/harryy2510/dnd-editor/commit/75ab316deaea27a7a20a3ea52a37c936946dc882))
+
 ### [0.2.3](https://github.com/harryy2510/dnd-editor/compare/v0.2.1...v0.2.3) (2021-03-04)
 
 ### [0.2.2](https://github.com/harryy2510/dnd-editor/compare/v0.2.1...v0.2.2) (2021-03-04)
