@@ -12,7 +12,7 @@ import clsx from 'clsx'
 import { bindHover, bindPopper, usePopupState } from 'material-ui-popup-state/hooks'
 import React from 'react'
 import PubSub from '@harryy/pubsub'
-import { DndBlockItem, RenderProps } from '../types'
+import { DndBlockItem, RenderProps, SettingItemType } from '../types'
 import { conditionBuilder, removeItem } from '../utils'
 
 interface Props extends RenderProps, React.HTMLAttributes<HTMLDivElement> {}
@@ -122,6 +122,24 @@ const DndItemPreview: React.FC<Props> = React.forwardRef<HTMLDivElement, Props>(
         const isActive = active === item?.id
         const stateItem = item && state.entities[item.id]
         const parentItem = stateItem && (itemsMap[stateItem.parent.id] as DndBlockItem)
+
+        React.useEffect(() => {
+            if (item) {
+                const subId = PubSub.subscribe(item.id, (data) => {
+                    if (data?.data && data.data.item.id === item.id) {
+                        const el: HTMLElement | null = document.querySelector(
+                            `[data-id="${item.id}"]`
+                        )
+                        if (el) {
+                            popupState.open(el as HTMLElement)
+                            onActiveChange(item.id)
+                        }
+                    }
+                })
+
+                return () => PubSub.unsubscribe(subId)
+            }
+        }, [])
 
         const hasCondition = Boolean(
             stateItem?.values?.__condition &&
