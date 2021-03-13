@@ -1,5 +1,6 @@
-import React from 'react'
 import PubSub from '@harryy/pubsub'
+import { omit } from 'lodash-es'
+import React from 'react'
 import { DndComponentItem, RenderProps } from '../../types'
 import { styleToCss, updateItem } from '../../utils'
 import SimpleInput from './SimpleInput'
@@ -17,6 +18,7 @@ export default {
             PubSub.publish('component/click', { type: 'button', data: id })
         }
         const props = state?.url ? { href: state.url } : {}
+        const inputStyles = omit(state?.style, 'width')
         return (
             <a
                 id={`${renderProps.item.id}-${id}`}
@@ -24,7 +26,7 @@ export default {
                 style={state?.style}
                 {...props}
             >
-                <SimpleInput value={state?.label} onChange={handleChange} style={state?.style} />
+                <SimpleInput value={state?.label} onChange={handleChange} style={inputStyles} />
             </a>
         )
     },
