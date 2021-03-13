@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.11](https://github.com/harryy2510/dnd-editor/compare/v0.2.10...v0.2.11) (2021-03-13)
+
+
+### Bug Fixes
+
+* remove width style from input in button ([faede06](https://github.com/harryy2510/dnd-editor/commit/faede06c4e277c83741a52860212307eec4aaec1))
+
 ### [0.2.10](https://github.com/harryy2510/dnd-editor/compare/v0.2.9...v0.2.10) (2021-03-11)
 
 ### [0.2.9](https://github.com/harryy2510/dnd-editor/compare/v0.2.8...v0.2.9) (2021-03-10)
