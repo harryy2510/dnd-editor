@@ -1,5 +1,5 @@
 import PubSub from '@harryy/pubsub'
-import { omit } from 'lodash-es'
+import { omit, pick } from 'lodash-es'
 import React from 'react'
 import { DndComponentItem, RenderProps } from '../../types'
 import { styleToCss, updateItem } from '../../utils'
@@ -18,7 +18,14 @@ export default {
             PubSub.publish('component/click', { type: 'button', data: id })
         }
         const props = state?.url ? { href: state.url } : {}
-        const inputStyles = omit(state?.style, 'width')
+        const inputStyles = pick(state?.style, [
+            'fontSize',
+            'fontWeight',
+            'lineHeight',
+            'letterSpacing',
+            'color',
+            'fontFamily'
+        ])
         return (
             <a
                 id={`${renderProps.item.id}-${id}`}
