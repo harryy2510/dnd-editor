@@ -27,11 +27,12 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
 const ImagePadding: React.FC<InputProps> = (props) => {
     const classes = useStyles()
     const values = (props.value as string).split(' ') ?? []
-    const initialValues = React.useRef<Array<string>>(values).current
+    const ref = React.useRef<Array<string>>(values)
     const handleChange = (index: number) => (value: any = '0px') => {
         const newValues = [...values]
         newValues[index] = value
         props.onChange(newValues.join(' '))
+        ref.current = newValues
     }
     const options: ToggleButtonOption[] = [
         { id: 'merge', label: <Trans>Merge Edges</Trans> },
@@ -44,8 +45,8 @@ const ImagePadding: React.FC<InputProps> = (props) => {
                 props.onChange('0px')
                 break
             default:
-                if (initialValues.length > 1) {
-                    props.onChange(initialValues.join(' '))
+                if (ref.current.length > 1) {
+                    props.onChange(ref.current.join(' '))
                 } else {
                     props.onChange('0px 0px 0px 0px')
                 }

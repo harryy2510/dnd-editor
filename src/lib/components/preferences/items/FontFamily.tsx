@@ -30,13 +30,25 @@ const useFontFamily = (value: string) => {
 const FontFamily: React.FC<DropdownProps> = (props) => {
     const value = useFontFamily(props.value)
     const { fontFamily } = useFonts()
-    const options: DropdownOption[] = fontFamily.map((family) => ({
-        ...family,
-        id: `${family.id}, sans-serif`,
-        style: {
-            fontFamily: `${family.id}, sans-serif`
+    const options: DropdownOption[] = fontFamily.map((family) => {
+        if (family.id === 'Helvetica') {
+            return {
+                ...family,
+                id: `${family.id}, serif`,
+                style: {
+                    fontFamily: `${family.id}, serif`
+                }
+            }
         }
-    }))
+
+        return {
+            ...family,
+            id: `${family.id}, sans-serif`,
+            style: {
+                fontFamily: `${family.id}, sans-serif`
+            }
+        }
+    })
 
     return (
         <Dropdown label={<Trans>Font Family</Trans>} {...props} options={options} value={value} />

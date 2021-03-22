@@ -1,6 +1,7 @@
+import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { FormikValues, FormikContextType } from 'formik'
-import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get } from 'lodash-es'
+import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get, keys } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
@@ -85,8 +86,7 @@ export const updateItem = (renderProps: RenderProps, id: string, update: FormikV
 }
 
 export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
-    // console.log(newItem)
-    const id = nanoid()
+    const id = `block-${renderProps.state.items.length + 1}`
     const newState: DndState = {
         entities: {
             ...renderProps.state.entities,
@@ -98,11 +98,8 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
                     { __container: Container[renderProps.template.id].initialValues },
                     newItem.initialValues
                 ),
-                parent: { id: newItem.id, type: newItem.type },
-
-            },
-
-
+                parent: { id: newItem.id, type: newItem.type }
+            }
         },
         items: [
             ...renderProps.state.items,
@@ -114,6 +111,14 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
 
     renderProps.setState(newState)
     renderProps.onActiveChange(id)
+    setTimeout(() => {
+        PubSub.publish(id, {
+            data: {
+                item: newState.entities[id]
+            },
+            type: id
+        })
+    }, 500)
 }
 
 export const setList = (renderProps: RenderProps) => (newState: DndStateItemEntity[]) => {
@@ -209,9 +214,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
                 ${conditionStart}
                     <div style="position: relative">
                         ${Container[renderProps.template.id].export(
-                updatedRenderProps,
-                renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-            )}
+                            updatedRenderProps,
+                            renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+                        )}
                     </div>
                 ${conditionEnd}
             `
@@ -221,9 +226,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
 export const exportToHtml = (renderProps: RenderProps): string => {
     const body = `
         ${renderProps.template.export(
-        renderProps,
-        exportItems(renderProps.state.items, renderProps)
-    )}
+            renderProps,
+            exportItems(renderProps.state.items, renderProps)
+        )}
     `
     const head = document.getElementById('google-fonts')?.outerHTML ?? ''
     const replacer = {
@@ -247,16 +252,16 @@ export const createDndState = (
         entities: {
             ...(template
                 ? {
-                    [template.id]: {
-                        parent: {
-                            id: template.id,
-                            type: template.type
-                        },
-                        id: template.id,
-                        name: template.id,
-                        values: template.initialValues ?? {}
-                    }
-                }
+                      [template.id]: {
+                          parent: {
+                              id: template.id,
+                              type: template.type
+                          },
+                          id: template.id,
+                          name: template.id,
+                          values: template.initialValues ?? {}
+                      }
+                  }
                 : {}),
             ...(initialState?.entities ?? {})
         }
@@ -620,6 +625,10 @@ export const useFonts = () => {
         {
             label: 'Source Sans Pro',
             id: 'Source Sans Pro'
+        },
+        {
+            label: 'Helvetica',
+            id: 'Helvetica'
         }
     ]
     return {
@@ -999,15 +1008,26 @@ export const useCountries = () => {
 }
 
 export const useSettingsValidations = (id: String | undefined) => {
-   
-    if (id === "text-input-1" || "multiline-1" || "dropdown-1" || "checkbox-1" || "radio-input-1" || "number-1" || "date-picker-1") {
+    if (
+        id === 'text-input-1' ||
+        'multiline-1' ||
+        'dropdown-1' ||
+        'checkbox-1' ||
+        'radio-input-1' ||
+        'number-1' ||
+        'date-picker-1'
+    ) {
         return yup.object().shape({
-            question: yup
+            question: yup.string().max(500, (`Max 500 characters allowed` as unknown) as string),
+            placeholder: yup
                 .string()
-                .max(500, (`Max 500 characters allowed` as unknown) as string),
-            placeholder: yup.string().max(100, (`Maximum 100 characters allowed` as unknown) as string),
+                .max(100, (`Maximum 100 characters allowed` as unknown) as string),
             hint: yup.string().max(100, (`Maximum 100 characters allowed` as unknown) as string),
-            characterLimit: yup.number().nullable().min(0, (`Minimum limit can be 0` as unknown) as string).max(100, (`Maximum 100 characters allowed` as unknown) as string),
+            characterLimit: yup
+                .number()
+                .nullable()
+                .min(0, (`Minimum limit can be 0` as unknown) as string)
+                .max(100, (`Maximum 100 characters allowed` as unknown) as string)
         })
     }
 

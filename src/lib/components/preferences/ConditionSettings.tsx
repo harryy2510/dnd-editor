@@ -38,7 +38,7 @@ const operatorOptions: DropdownOption[] = [
 
 const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
     const { values, setFieldValue } = useFormikContext<Condition>()
-   
+
     const {
         smartyTags,
         state: { entities, items }
@@ -62,6 +62,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
         )
     const flatFormFields = [].concat.apply([], formFields)
     fields = type === 'linking' ? fields : flatFormFields
+    const label = type === 'linking' ? <Trans>Smarty Tag</Trans> : <Trans>Field</Trans>
     values.rules = values.rules ?? [{ id: '', operator: 'EQUAL', value: '' }]
     return (
         <>
@@ -72,6 +73,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                     defaultValue="ALWAYS"
                     SelectProps={{ displayEmpty: true }}
                     options={displayOptions}
+                    label={<Trans>Type of Condition</Trans>}
                 />
             </Grid>
             {Boolean(values.display && values.display !== 'ALWAYS') && (
@@ -97,12 +99,14 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                                 Component={Dropdown}
                                 options={fields}
                                 placeholder="Select Field"
+                                label={label}
                             />
                             <Field
                                 name={`rules.${index}.operator`}
                                 defaultValue="EQUAL"
                                 Component={Dropdown}
                                 options={operatorOptions}
+                                label={<Trans>Operator</Trans>}
                             />
                             <Field
                                 name={`rules.${index}.value`}
@@ -115,7 +119,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                                         color="secondary"
                                         onClick={() => {
                                             values.rules.splice(index, 1)
-                                            
+
                                             setFieldValue('rules', values.rules)
                                         }}
                                     >
@@ -143,6 +147,25 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
     )
 }
 
+const linkingCondition: DndItemSetting = {
+    id: '__condition',
+    settings: [],
+    label: <Trans>Linking Condition</Trans>,
+    type: 'template',
+    component: <ConditionRule type="linking" />
+}
+const displayCondition: DndItemSetting = {
+    id: '__displayCondition',
+    settings: [],
+    label: <Trans>Display Condition</Trans>,
+    type: 'template',
+    component: <ConditionRule type="display" />
+}
+const conditionSettings: Record<string, DndItemSetting[]> = {
+    mail: [linkingCondition],
+    form: [linkingCondition, displayCondition]
+}
+
 const ConditionSettings: React.FC<Props> = (props) => {
     const editorContext = useDndEditorContext()
     const activeItem = editorContext.active
@@ -151,22 +174,7 @@ const ConditionSettings: React.FC<Props> = (props) => {
     if (!activeItem || !editorContext.active) {
         return null
     }
-    const settings: DndItemSetting[] = [
-        {
-            id: '__condition',
-            settings: [],
-            label: <Trans>Linking Condition</Trans>,
-            type: 'template',
-            component: <ConditionRule type="linking" />
-        },
-        {
-            id: '__displayCondition',
-            settings: [],
-            label: <Trans>Display Condition</Trans>,
-            type: 'template',
-            component: <ConditionRule type="display" />
-        }
-    ]
+    const settings: DndItemSetting[] = conditionSettings[editorContext.template.id]
     const values = editorContext.state.entities[editorContext.active]?.values ?? {}
 
     return (
