@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.12](https://github.com/harryy2510/dnd-editor/compare/v0.1.99...v0.2.12) (2021-03-23)
+
+
+### Features
+
+* conditions settings displayed on template basis ([2170541](https://github.com/harryy2510/dnd-editor/commit/217054156568327d0e7e78d113464db6c6bbb9e5))
+* label on condition settings ([576cbf4](https://github.com/harryy2510/dnd-editor/commit/576cbf405e4de4fcb2a2a1ba1cdc2dc50c9eed07))
+* select new block on click ([d0e671f](https://github.com/harryy2510/dnd-editor/commit/d0e671fce02a4f95ce082e60e8c9c95e55b2a524))
+* serif Helvetica ([75ab316](https://github.com/harryy2510/dnd-editor/commit/75ab316deaea27a7a20a3ea52a37c936946dc882))
+
+
+### Bug Fixes
+
+* button styles not working issue ([7b2e039](https://github.com/harryy2510/dnd-editor/commit/7b2e039d6358e12cfac250e6a2278b8c48d48c98))
+* image padding on change ([2992664](https://github.com/harryy2510/dnd-editor/commit/2992664f60ddbba80f1d6ad6f8c20667de095db0))
+* pass font related styles to text input in button ([a286443](https://github.com/harryy2510/dnd-editor/commit/a286443ebe7879ab5cfef9971aa83fc2ce6ca0c1))
+* remove width style from input in button ([faede06](https://github.com/harryy2510/dnd-editor/commit/faede06c4e277c83741a52860212307eec4aaec1))
+* renderer state update ([44524e2](https://github.com/harryy2510/dnd-editor/commit/44524e28d588f2d3fa2246568db46e96c0951326))
+
 ### [0.2.11](https://github.com/harryy2510/dnd-editor/compare/v0.2.10...v0.2.11) (2021-03-13)
 
 
