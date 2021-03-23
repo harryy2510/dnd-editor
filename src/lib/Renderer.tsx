@@ -1,5 +1,5 @@
 import { keyBy } from 'lodash-es'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Blocks from './assets/blocks'
 import FormElement from './assets/blocks/FormElement'
 import * as Groups from './assets/groups'
@@ -18,20 +18,24 @@ export interface RendererProps extends FormRendererProps {
 }
 
 const Renderer: React.FC<RendererProps> = ({
-    state,
+    state: initialState,
     items = [],
     smartyTags,
     sampleData,
     template,
     ...props
 }) => {
+    const [state, setState] = useState(initialState)
+    useEffect(() => {
+        setState(initialState)
+    }, [initialState])
     const itemsMap = { ...React.useMemo(() => keyBy(items, 'id'), [items]), element: FormElement }
     const editorContextProps: DndEditorContextProps = {
         active: null,
         onActiveChange: () => {},
         template,
         itemsMap,
-        setState: () => {},
+        setState,
         state,
         items,
         smartyTags,
