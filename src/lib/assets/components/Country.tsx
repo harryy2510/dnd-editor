@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField } from '@material-ui/core'
+import { InputLabel, TextField } from '@material-ui/core'
 import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
@@ -37,18 +37,22 @@ export default {
             formik.setFieldValue(formKey, { text: value, valueType: 'String' })
         }
         const textField = (props: AutocompleteRenderInputParams) => (
-            <TextField
-                {...props}
-                size="small"
-                id={`${renderProps?.item?.id}-${id}`}
-                type={state?.inputType || 'text'}
-                variant="outlined"
-                fullWidth
-                label={<Trans>Country</Trans>}
-                value={state?.defaultValue}
-                {...formikProps}
-                onChange={noop}
-            />
+            <>
+                <InputLabel>
+                    <Trans>Country</Trans>
+                </InputLabel>
+                <TextField
+                    {...props}
+                    size="small"
+                    id={`${renderProps?.item?.id}-${id}`}
+                    type={state?.inputType || 'text'}
+                    variant="outlined"
+                    fullWidth
+                    value={state?.defaultValue}
+                    {...formikProps}
+                    onChange={noop}
+                />
+            </>
         )
         const options = useCountries()
         return (
