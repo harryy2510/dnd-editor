@@ -1,13 +1,19 @@
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { FormikValues, FormikContextType } from 'formik'
-import { cloneDeep, forEach, isEqual, merge, omit, omitBy, set, get, keys } from 'lodash-es'
+import { FormikContextType, FormikValues } from 'formik'
+import juice from 'juice'
+import { cloneDeep, forEach, get, isEqual, merge, omit, omitBy, set } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import React from 'react'
 // @ts-ignore
 import reactToCSS from 'react-style-object-to-css'
-import juice from 'juice'
 import * as yup from 'yup'
+import Checkbox from './assets/components/Checkbox'
+import Country from './assets/components/Country'
+import Date from './assets/components/Date'
+import Dropdown from './assets/components/Dropdown'
+import Radio from './assets/components/Radio'
+import TextInput from './assets/components/TextInput'
 
 import Container from './assets/Container'
 import DndItemPreview from './components/DndItemPreview'
@@ -15,24 +21,18 @@ import emailTemplate from './emailTemplate'
 import {
     BooleanFormValue,
     Condition,
+    ConditionOperator,
+    ConditionRule,
     DndItem,
     DndState,
     DndStateItemEntity,
     DndTemplateItem,
+    FormValue,
     NumberFormValue,
     Primitive,
     RenderProps,
-    StringFormValue,
-    FormValue,
-    ConditionOperator,
-    ConditionRule
+    StringFormValue
 } from './types'
-import TextInput from './assets/components/TextInput'
-import Checkbox from './assets/components/Checkbox'
-import Radio from './assets/components/Radio'
-import Dropdown from './assets/components/Dropdown'
-import Date from './assets/components/Date'
-import Country from './assets/components/Country'
 
 export const removeItem = (renderProps: RenderProps, id?: string) => {
     if (id) {
@@ -214,9 +214,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
                 ${conditionStart}
                     <div style="position: relative">
                         ${Container[renderProps.template.id].export(
-                            updatedRenderProps,
-                            renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-                        )}
+                updatedRenderProps,
+                renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+            )}
                     </div>
                 ${conditionEnd}
             `
@@ -226,9 +226,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
 export const exportToHtml = (renderProps: RenderProps): string => {
     const body = `
         ${renderProps.template.export(
-            renderProps,
-            exportItems(renderProps.state.items, renderProps)
-        )}
+        renderProps,
+        exportItems(renderProps.state.items, renderProps)
+    )}
     `
     const head = document.getElementById('google-fonts')?.outerHTML ?? ''
     const replacer = {
@@ -252,16 +252,16 @@ export const createDndState = (
         entities: {
             ...(template
                 ? {
-                      [template.id]: {
-                          parent: {
-                              id: template.id,
-                              type: template.type
-                          },
-                          id: template.id,
-                          name: template.id,
-                          values: template.initialValues ?? {}
-                      }
-                  }
+                    [template.id]: {
+                        parent: {
+                            id: template.id,
+                            type: template.type
+                        },
+                        id: template.id,
+                        name: template.id,
+                        values: template.initialValues ?? {}
+                    }
+                }
                 : {}),
             ...(initialState?.entities ?? {})
         }
@@ -347,7 +347,7 @@ export const useValidations = () => {
             validation: (input: any) => ({
                 matches: { regex: input?.[0]?.text },
                 errors: {
-                    matches: "Input doesn't match the regex pattern."
+                    matches: 'Input doesn\'t match the regex pattern.'
                 }
             }),
             toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
@@ -406,7 +406,7 @@ export const useValidations = () => {
             validation: (input: any) => ({
                 matches: { regex: input?.[0]?.text },
                 errors: {
-                    matches: "Input doesn't match the regex pattern."
+                    matches: 'Input doesn\'t match the regex pattern.'
                 }
             }),
             toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
@@ -455,20 +455,164 @@ export const useFonts = () => {
     ]
     const fontFamily = [
         {
+            label: 'Abril FatFace',
+            id: 'Abril FatFace'
+        },
+        {
             label: 'Alegreya',
             id: 'Alegreya'
+        },
+        {
+            label: 'Archivo',
+            id: 'Archivo'
+        },
+        {
+            label: 'Arvo',
+            id: 'Arvo'
         },
         {
             label: 'B612',
             id: 'B612'
         },
         {
+            label: 'BioRhyme',
+            id: 'BioRhyme'
+        },
+        {
+            label: 'Cardo',
+            id: 'Cardo'
+        },
+        {
+            label: 'Concert One',
+            id: 'Concert One'
+        },
+        {
+            label: 'Cormorant',
+            id: 'Cormorant'
+        },
+        {
+            label: 'Crimson Text',
+            id: 'Crimson Text'
+        },
+        {
+            label: 'Exo 2',
+            id: 'Exo 2'
+        },
+        {
+            label: 'Fira Sans',
+            id: 'Fira Sans'
+        },
+        {
+            label: 'Fjalla One',
+            id: 'Fjalla One'
+        },
+        {
+            label: 'Frank Ruhl Libre',
+            id: 'Frank Ruhl Libre'
+        },
+        {
+            label: 'Helvetica',
+            id: 'Helvetica'
+        },
+        {
+            label: 'IBM Plex',
+            id: 'IBM Plex'
+        },
+        {
+            label: 'Karla',
+            id: 'Karla'
+        },
+        {
+            label: 'Lato',
+            id: 'Lato'
+        },
+        {
+            label: 'Lora',
+            id: 'Lora'
+        },
+        {
+            label: 'Merriweather',
+            id: 'Merriweather'
+        },
+        {
+            label: 'Montserrat',
+            id: 'Montserrat'
+        },
+        {
             label: 'Muli',
             id: 'Muli'
         },
         {
+            label: 'Noto Sans',
+            id: 'Noto Sans'
+        },
+        {
+            label: 'Nunito',
+            id: 'Nunito'
+        },
+        {
+            label: 'Old Standard TT',
+            id: 'Old Standard TT'
+        },
+        {
+            label: 'Open Sans',
+            id: 'Open Sans'
+        },
+        {
+            label: 'Oswald',
+            id: 'Oswald'
+        },
+        {
+            label: 'Oxygen',
+            id: 'Oxygen'
+        },
+        {
+            label: 'PT Sans',
+            id: 'PT Sans'
+        },
+        {
+            label: 'PT Serif',
+            id: 'PT Serif'
+        },
+        {
+            label: 'Playfair Display',
+            id: 'Playfair Display'
+        },
+        {
+            label: 'Poppins',
+            id: 'Poppins'
+        },
+        {
+            label: 'Rakkas',
+            id: 'Rakkas'
+        },
+        {
+            label: 'Roboto',
+            id: 'Roboto'
+        },
+        {
+            label: 'Rubik',
+            id: 'Rubik'
+        },
+        {
+            label: 'Source Sans Pro',
+            id: 'Source Sans Pro'
+        },
+        {
+            label: 'Source Sans',
+            id: 'Source Sans'
+        },
+        {
+            label: 'Spectral',
+            id: 'Spectral'
+        },
+        {
             label: 'Titillium Web',
             id: 'Titillium Web'
+        },
+        {
+            label: 'Ubuntu',
+            id: 'Ubuntu'
         },
         {
             label: 'Varela',
@@ -479,156 +623,12 @@ export const useFonts = () => {
             id: 'Vollkorn'
         },
         {
-            label: 'IBM Plex',
-            id: 'IBM Plex'
-        },
-        {
-            label: 'Crimson Text',
-            id: 'Crimson Text'
-        },
-        {
-            label: 'BioRhyme',
-            id: 'BioRhyme'
-        },
-        {
-            label: 'Karla',
-            id: 'Karla'
-        },
-        {
-            label: 'Lora',
-            id: 'Lora'
-        },
-        {
-            label: 'Frank Ruhl Libre',
-            id: 'Frank Ruhl Libre'
-        },
-        {
-            label: 'Playfair Display',
-            id: 'Playfair Display'
-        },
-        {
-            label: 'Archivo',
-            id: 'Archivo'
-        },
-        {
-            label: 'Spectral',
-            id: 'Spectral'
-        },
-        {
-            label: 'Fjalla One',
-            id: 'Fjalla One'
-        },
-        {
-            label: 'Roboto',
-            id: 'Roboto'
-        },
-        {
-            label: 'Montserrat',
-            id: 'Montserrat'
-        },
-        {
-            label: 'Rubik',
-            id: 'Rubik'
-        },
-        {
-            label: 'Source Sans',
-            id: 'Source Sans'
-        },
-        {
-            label: 'Cardo',
-            id: 'Cardo'
-        },
-        {
-            label: 'Cormorant',
-            id: 'Cormorant'
-        },
-        {
             label: 'Work Sans',
             id: 'Work Sans'
         },
         {
-            label: 'Rakkas',
-            id: 'Rakkas'
-        },
-        {
-            label: 'Concert One',
-            id: 'Concert One'
-        },
-        {
             label: 'Yatra One',
             id: 'Yatra One'
-        },
-        {
-            label: 'Arvo',
-            id: 'Arvo'
-        },
-        {
-            label: 'Lato',
-            id: 'Lato'
-        },
-        {
-            label: 'Abril FatFace',
-            id: 'Abril FatFace'
-        },
-        {
-            label: 'Ubuntu',
-            id: 'Ubuntu'
-        },
-        {
-            label: 'PT Serif',
-            id: 'PT Serif'
-        },
-        {
-            label: 'Old Standard TT',
-            id: 'Old Standard TT'
-        },
-        {
-            label: 'Oswald',
-            id: 'Oswald'
-        },
-        {
-            label: 'PT Sans',
-            id: 'PT Sans'
-        },
-        {
-            label: 'Poppins',
-            id: 'Poppins'
-        },
-        {
-            label: 'Fira Sans',
-            id: 'Fira Sans'
-        },
-        {
-            label: 'Nunito',
-            id: 'Nunito'
-        },
-        {
-            label: 'Oxygen',
-            id: 'Oxygen'
-        },
-        {
-            label: 'Exo 2',
-            id: 'Exo 2'
-        },
-        {
-            label: 'Open Sans',
-            id: 'Open Sans'
-        },
-        {
-            label: 'Merriweather',
-            id: 'Merriweather'
-        },
-        {
-            label: 'Noto Sans',
-            id: 'Noto Sans'
-        },
-        {
-            label: 'Source Sans Pro',
-            id: 'Source Sans Pro'
-        },
-        {
-            label: 'Helvetica',
-            id: 'Helvetica'
         }
     ]
     return {
