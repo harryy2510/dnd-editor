@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/harryy2510/dnd-editor/compare/v0.4.3...v0.4.4) (2021-04-13)
+
+
+### Bug Fixes
+
+* font families sorted alphabetically ([71286b0](https://github.com/harryy2510/dnd-editor/commit/71286b06de3c61cafd3efb11f7001de7cf344dc9))
+* version ([c21e9af](https://github.com/harryy2510/dnd-editor/commit/c21e9af03d13097a4cbd0e02d024b339a49bb9cb))
+
 ### [0.2.14](https://github.com/harryy2510/dnd-editor/compare/v0.2.13...v0.2.14) (2021-04-12)
 
 ### [0.2.13](https://github.com/harryy2510/dnd-editor/compare/v0.2.12...v0.2.13) (2021-04-12)
