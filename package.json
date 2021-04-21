@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "@harryy/pubsub": "^0.1.8",
-        "@harryy/wysiwyg-editor": "^0.1.20",
+        "@harryy/wysiwyg-editor": "^0.1.21",
         "@lingui/core": "^2.9.2",
         "@lingui/react": "^2.9.2",
         "@material-ui/core": "^4.11.3",

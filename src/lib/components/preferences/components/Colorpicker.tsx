@@ -30,7 +30,8 @@ export interface ColorpickerProps extends Omit<SketchPickerProps, 'value' | 'onC
 const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...props }) => {
     const popupState = usePopupState({
         popupId: nanoid(),
-        variant: 'popover'
+        variant: 'popover',
+        disableAutoFocus: true
     })
     const classes = useStyles()
     const startAdornment = (

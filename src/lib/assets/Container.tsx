@@ -1,6 +1,6 @@
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { Box, Theme, Tooltip } from '@material-ui/core'
+import { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { DndContainerItem, RenderProps } from '../types'

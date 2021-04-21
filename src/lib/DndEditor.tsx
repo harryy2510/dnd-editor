@@ -26,7 +26,7 @@ export interface DndEditorProps {
     onSendEmail?: (emails: string[], html: string) => Promise<any>
     items?: DndItem[]
     template?: DndTemplateItem
-    smartyTags?: Record<string, string>
+    smartyTags?: Record<string, any>
     sampleData?: any
 }
 
