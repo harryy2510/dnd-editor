@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/harryy2510/dnd-editor/compare/v0.4.4...v0.4.5) (2021-04-21)
+
+
+### Bug Fixes
+
+* backspace delete smarty tag ([497c7c9](https://github.com/harryy2510/dnd-editor/commit/497c7c9f78ee5b43650f2a9acd25a46fb8c5cd0e))
+
 ### [0.4.4](https://github.com/harryy2510/dnd-editor/compare/v0.4.3...v0.4.4) (2021-04-13)
 
 
