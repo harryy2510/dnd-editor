@@ -32,8 +32,7 @@ type ConditionType = 'linking' | 'display'
 const operatorOptions: DropdownOption[] = [
     { id: 'EQUAL', label: <Trans>Equals</Trans> },
     { id: 'NOT_EQUAL', label: <Trans>Does not equals</Trans> },
-    { id: 'IN', label: <Trans>Contains</Trans> },
-    { id: 'NOT_IN', label: <Trans>Does not contains</Trans> }
+    { id: 'IN', label: <Trans>Contains</Trans> }
 ]
 
 const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
