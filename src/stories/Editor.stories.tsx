@@ -57,7 +57,7 @@ export const Mail = () => {
     return (
         <DndEditor
             value={state}
-            // onHtmlChange={console.log}
+            onHtmlChange={console.log}
             // onSendEmail={console.log}
             onChange={setState}
             {...args}
