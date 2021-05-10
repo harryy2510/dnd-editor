@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/harryy2510/dnd-editor/compare/v0.4.6...v0.4.7) (2021-05-10)
+
+
+### Features
+
+* added button width setting ([bb8a24c](https://github.com/harryy2510/dnd-editor/commit/bb8a24ce1a70e921ef2fe552e748616ed78042c1))
+
 ### [0.4.6](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.4.6) (2021-05-10)
 
 
