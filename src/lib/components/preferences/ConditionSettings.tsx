@@ -118,8 +118,7 @@ const ConditionRule: React.FC<{ type: ConditionType }> = ({ type }) => {
                                         color="secondary"
                                         onClick={() => {
                                             values.rules.splice(index, 1)
-
-                                            setFieldValue('rules', values.rules)
+                                            setFieldValue('rules', [...values.rules])
                                         }}
                                     >
                                         remove

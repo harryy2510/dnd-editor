@@ -196,7 +196,7 @@ export const conditionBuilder = (condition: Condition | undefined) => {
                 return result.join(' ')
             })
         if (rules?.length) {
-            result.conditionText = `${rules.join(' and ')}`
+            result.conditionText = `${rules.join(` ${condition.type.toLowerCase()} `)}`
             result.conditionStart = `{% if ${result.conditionText} %}`
             result.conditionEnd = '{% endif %}'
         }
@@ -214,9 +214,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
                 ${conditionStart}
                     <div style="position: relative">
                         ${Container[renderProps.template.id].export(
-                updatedRenderProps,
-                renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
-            )}
+                            updatedRenderProps,
+                            renderProps.itemsMap[stateItem.parent.id]?.export?.(updatedRenderProps)
+                        )}
                     </div>
                 ${conditionEnd}
             `
@@ -226,9 +226,9 @@ export const exportItems = (items: DndStateItemEntity[] = [], renderProps: Rende
 export const exportToHtml = (renderProps: RenderProps): string => {
     const body = `
         ${renderProps.template.export(
-        renderProps,
-        exportItems(renderProps.state.items, renderProps)
-    )}
+            renderProps,
+            exportItems(renderProps.state.items, renderProps)
+        )}
     `
     const head = document.getElementById('google-fonts')?.outerHTML ?? ''
     const replacer = {
@@ -252,16 +252,16 @@ export const createDndState = (
         entities: {
             ...(template
                 ? {
-                    [template.id]: {
-                        parent: {
-                            id: template.id,
-                            type: template.type
-                        },
-                        id: template.id,
-                        name: template.id,
-                        values: template.initialValues ?? {}
-                    }
-                }
+                      [template.id]: {
+                          parent: {
+                              id: template.id,
+                              type: template.type
+                          },
+                          id: template.id,
+                          name: template.id,
+                          values: template.initialValues ?? {}
+                      }
+                  }
                 : {}),
             ...(initialState?.entities ?? {})
         }
@@ -347,7 +347,7 @@ export const useValidations = () => {
             validation: (input: any) => ({
                 matches: { regex: input?.[0]?.text },
                 errors: {
-                    matches: 'Input doesn\'t match the regex pattern.'
+                    matches: "Input doesn't match the regex pattern."
                 }
             }),
             toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
@@ -406,7 +406,7 @@ export const useValidations = () => {
             validation: (input: any) => ({
                 matches: { regex: input?.[0]?.text },
                 errors: {
-                    matches: 'Input doesn\'t match the regex pattern.'
+                    matches: "Input doesn't match the regex pattern."
                 }
             }),
             toFormValue: (input: string) => [{ text: input, valueType: 'String' }] as FormValue[],
