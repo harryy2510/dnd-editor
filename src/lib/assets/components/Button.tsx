@@ -83,6 +83,8 @@ export default {
         { id: 'style.borderRadius', type: 'borderRadius', grid: 12 },
         { id: 'style.borderWidth', type: 'border', grid: 4 },
         { id: 'style.borderColor', type: 'borderColor', grid: 8 },
-        { id: 'style.padding', type: 'padding', grid: 12 }
+        { id: 'style.padding', type: 'padding', grid: 12 },
+        { id: 'style.width', type: 'width', grid: 12 }
+
     ]
 } as DndComponentItem

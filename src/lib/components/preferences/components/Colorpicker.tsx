@@ -33,13 +33,14 @@ const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...pr
         variant: 'popover',
         disableAutoFocus: true
     })
+    const [color, setColor] = React.useState(value)
     const classes = useStyles()
     const startAdornment = (
         <InputAdornment position="start">
             <span className={classes.icon} style={{ backgroundColor: value }} />
         </InputAdornment>
     )
-
+    console.log(value)
     const colorPicker = (
         <Popover {...bindPopover(popupState)}>
             <SketchPicker
@@ -47,7 +48,9 @@ const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...pr
                 styles={{ default: { picker: { boxShadow: 'none' } } }}
                 {...props}
                 color={value}
-                onChange={(e) => onChange(e.hex)}
+                onChange={(e) => {
+                    setColor(e.hex)
+                    onChange(e.hex)}}
             />
         </Popover>
     )
@@ -64,7 +67,7 @@ const Colorpicker: React.FC<ColorpickerProps> = ({ label, value, onChange, ...pr
                     }
                 }}
                 placeholder="Default"
-                value={value}
+                value={color}
                 onChange={onChange}
                 {...bindTrigger(popupState)}
                 clearable

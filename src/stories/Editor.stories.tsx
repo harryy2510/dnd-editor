@@ -33,11 +33,20 @@ export const Mail = () => {
             'Customer.FirstName': 'Customer FirstName',
             'Customer.LastName': 'Customer LastName',
             'Customer.Email': 'Customer Email',
+            'Customer.Tags': 'Customer Tags',
             'Appointment.ServiceName': 'Appointment ServiceName',
             'Appointment.StaffName': 'Appointment StaffName',
             'Appointment.Time': 'Appointment Time',
             branding: true,
             footer: '<h1>hello</h1>'
+        },
+        sampleData: {
+            Customer: {
+                FirstName: 'Anuj',
+                LastName: 'Gupta',
+                Email: 'anuj@appointy.com',
+                Tags: ['new', 'punctual']
+            }
         },
         template: Templates.Mail
     }
@@ -48,7 +57,7 @@ export const Mail = () => {
     return (
         <DndEditor
             value={state}
-            // onHtmlChange={console.log}
+            onHtmlChange={console.log}
             // onSendEmail={console.log}
             onChange={setState}
             {...args}
