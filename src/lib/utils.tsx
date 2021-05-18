@@ -86,7 +86,7 @@ export const updateItem = (renderProps: RenderProps, id: string, update: FormikV
 }
 
 export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
-    const id = `block-${renderProps.state.items.length + 1}`
+    const id = `block-${renderProps.state.items.length + 1}/${nanoid()}`
     const newState: DndState = {
         entities: {
             ...renderProps.state.entities,

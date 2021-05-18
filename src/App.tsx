@@ -419,7 +419,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box position="absolute" top={0} right={0} bottom={0} left={0}>
-                {
+                {/* {
                     <DndEditor
                         smartyTags={smartyTags}
                         items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
@@ -427,9 +427,9 @@ function App() {
                         onChange={setValue}
                         sampleData={sampleData}
                     />
-                }
+                } */}
 
-                {/* {JSON.stringify(smartyTags, null, 2)}
+                {/* {JSON.stringify(smartyTags, null, 2)} */}
                 {
                     <>
                         <Renderer
@@ -449,7 +449,7 @@ function App() {
                             Submit
                         </MuiButton>
                     </>
-                } */}
+                }
             </Box>
         </ThemeProvider>
     )
