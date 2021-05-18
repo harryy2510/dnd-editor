@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.8](https://github.com/harryy2510/dnd-editor/compare/v0.4.5...v0.4.8) (2021-05-18)
+
+
+### Features
+
+* added button width setting ([bb8a24c](https://github.com/harryy2510/dnd-editor/commit/bb8a24ce1a70e921ef2fe552e748616ed78042c1))
+
+
+### Bug Fixes
+
+* and or operator ([46dd56f](https://github.com/harryy2510/dnd-editor/commit/46dd56fe13372d1d08015f6bde31b7e3dda4a596))
+* multiple forms with similar block ids ([#20](https://github.com/harryy2510/dnd-editor/issues/20)) ([e203d09](https://github.com/harryy2510/dnd-editor/commit/e203d09dafbd5bff9d078a5fc4b84e4fcd548434))
+* remove does not contain operator as liquid does not provide it ([6cfc567](https://github.com/harryy2510/dnd-editor/commit/6cfc567caefdfbf7074d7452aa3f87f3e2afffd4))
+
 ### [0.4.5](https://github.com/harryy2510/dnd-editor/compare/v0.4.4...v0.4.5) (2021-04-21)
 
 
