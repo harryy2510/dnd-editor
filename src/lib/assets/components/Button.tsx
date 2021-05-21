@@ -1,5 +1,6 @@
 import PubSub from '@harryy/pubsub'
-import { omit, pick } from 'lodash-es'
+import { Trans } from '@lingui/macro'
+import { pick } from 'lodash-es'
 import React from 'react'
 import { DndComponentItem, RenderProps } from '../../types'
 import { styleToCss, updateItem } from '../../utils'
@@ -42,6 +43,51 @@ export default {
             return null
         }
         const state = renderProps.state.entities[renderProps.item.id]?.values?.[id]
+
+        if (state?.outlook) {
+            const allStyles = state?.style
+            const outerStyles = pick(allStyles, [
+                'boxSizing',
+                'boxShadow',
+                'textAlign',
+                'display',
+                'backgroundColor',
+                'borderRadius',
+                'borderWidth',
+                'borderStyle',
+                'borderColor',
+                'width'
+            ])
+            const innerStyles = pick(allStyles, [
+                'boxSizing',
+                'textDecoration',
+                'fontSize',
+                'lineHeight',
+                'fontWeight',
+                'letterSpacing',
+                'color',
+                'padding',
+                'textAlign',
+                'display',
+                'width'
+            ])
+            return `
+        <table>
+            <tbody>
+                <tr>
+                    <td style="${styleToCss(outerStyles)}">
+                        <a style="${styleToCss(innerStyles)}" ${
+                state?.url ? 'href="' + state.url + '"' : ''
+            }>
+                            ${state?.label}
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        `
+        }
+
         return `
             <a style="${styleToCss(state?.style)}" ${state?.url ? 'href="' + state.url + '"' : ''}>
                 ${state?.label}
@@ -68,7 +114,8 @@ export default {
             padding: '14px 28px 14px 28px',
             textAlign: 'center',
             display: 'inline-block'
-        }
+        },
+        outlook: false
     },
     settings: [
         { id: 'url', type: 'url', grid: 12 },
@@ -84,7 +131,7 @@ export default {
         { id: 'style.borderWidth', type: 'border', grid: 4 },
         { id: 'style.borderColor', type: 'borderColor', grid: 8 },
         { id: 'style.padding', type: 'padding', grid: 12 },
-        { id: 'style.width', type: 'width', grid: 12 }
-
+        { id: 'style.width', type: 'width', grid: 12 },
+        { id: 'outlook', type: 'labeledSwitch', grid: 12, label: <Trans>Outlook</Trans> }
     ]
 } as DndComponentItem

@@ -99,6 +99,21 @@ const defaultContainer: DndContainerItem = {
                 ? { backgroundImage: `url(${state.style.backgroundImage})` }
                 : {})
         }
+
+        if (state?.outlook) {
+            return ` 
+                <table style="width: 100%">
+                    <tbody>
+                        <tr>
+                            <td style="${styleToCss(modifiedStyle)}">
+                                ${children}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            `
+        }
+
         return `
             <div style="${styleToCss(modifiedStyle)}">
                 ${children}
@@ -115,7 +130,8 @@ const defaultContainer: DndContainerItem = {
             width: '100%',
             boxSizing: 'border-box',
             textAlign: 'center'
-        }
+        },
+        outlook: false
     },
     settings: [
         {
@@ -129,7 +145,8 @@ const defaultContainer: DndContainerItem = {
                     type: 'backgroundColor',
                     grid: 12,
                     hideIfSet: 'style.backgroundImage'
-                }
+                },
+                { id: 'outlook', type: 'labeledSwitch', grid: 12, label: <Trans>Outlook</Trans> }
             ],
             label: <Label />,
             type: 'container'
