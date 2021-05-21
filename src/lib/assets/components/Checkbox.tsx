@@ -79,7 +79,9 @@ export default {
                 onClick={formikProps.onControlClick}
                 error={formikProps?.error}
             >
-                <FormLabel component="legend">{labelText}</FormLabel>
+                <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                    Country
+                </FormLabel>
                 <FormGroup>
                     {state?.options
                         ?.filter((option: InputOption) => option.label.length > 0)

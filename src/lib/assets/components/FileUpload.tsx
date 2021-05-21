@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { Grid, FormHelperText, InputLabel } from '@material-ui/core'
+import { Grid, FormHelperText, FormLabel } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import Uploader from '../../components/preferences/components/Uploader'
 
@@ -24,11 +24,13 @@ export default {
                 onClick={handleClick}
             >
                 <Grid item xs={12}>
-                    <InputLabel htmlFor="my-input">{labelText}</InputLabel>
+                    <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                        {labelText}
+                    </FormLabel>
                 </Grid>
                 <Uploader value="" onChange={() => {}} />
                 <Grid item xs={12}>
-                    <FormHelperText id="my-helper-text">{state?.hint}</FormHelperText>
+                    <FormHelperText>{state?.hint}</FormHelperText>
                 </Grid>
             </Grid>
         )
