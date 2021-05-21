@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.8](https://github.com/harryy2510/dnd-editor/compare/v0.4.7...v0.4.8) (2021-05-21)
+
+
+### Features
+
+* outlook switch ([0291c5e](https://github.com/harryy2510/dnd-editor/commit/0291c5ec2c37e4ec81574d8f30ded21c98c0ca13))
+
+
+### Bug Fixes
+
+* multiple forms with similar block ids ([#20](https://github.com/harryy2510/dnd-editor/issues/20)) ([e203d09](https://github.com/harryy2510/dnd-editor/commit/e203d09dafbd5bff9d078a5fc4b84e4fcd548434))
+
 ### [0.4.7](https://github.com/harryy2510/dnd-editor/compare/v0.4.6...v0.4.7) (2021-05-10)
 
 
