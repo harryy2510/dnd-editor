@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.11](https://github.com/harryy2510/dnd-editor/compare/v0.4.8...v0.4.11) (2021-05-24)
+
+
+### Features
+
+* outlook switch in render ([25389ba](https://github.com/harryy2510/dnd-editor/commit/25389ba1fe4582978198a5234ce91099f51307d7))
+
+
+### Bug Fixes
+
+* backspace delete smarty tag ([497c7c9](https://github.com/harryy2510/dnd-editor/commit/497c7c9f78ee5b43650f2a9acd25a46fb8c5cd0e))
+* label ([2b20885](https://github.com/harryy2510/dnd-editor/commit/2b2088564d86bd6ece3b9678bc9e26569452d098))
+
 ### [0.4.10](https://github.com/harryy2510/dnd-editor/compare/v0.4.9...v0.4.10) (2021-05-21)
 
 
