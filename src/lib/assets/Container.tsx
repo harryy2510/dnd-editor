@@ -82,6 +82,19 @@ const defaultContainer: DndContainerItem = {
                 ? { backgroundImage: `url(${state.style.backgroundImage})` }
                 : {})
         }
+
+        if (state?.outlook) {
+            return (
+                <table style={{ width: '100%' }}>
+                    <tbody>
+                        <tr>
+                            <td style={modifiedStyle}>{children}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }
+
         return (
             <div onClick={handleClick} style={modifiedStyle}>
                 {children}

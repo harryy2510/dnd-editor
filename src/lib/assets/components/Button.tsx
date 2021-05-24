@@ -27,6 +27,59 @@ export default {
             'color',
             'fontFamily'
         ])
+
+        if (state?.outlook) {
+            const allStyles = state?.style
+            const outerStyles = pick(allStyles, [
+                'boxSizing',
+                'boxShadow',
+                'textAlign',
+                'display',
+                'backgroundColor',
+                'borderRadius',
+                'borderWidth',
+                'borderStyle',
+                'borderColor',
+                'width'
+            ])
+            const innerStyles = pick(allStyles, [
+                'boxSizing',
+                'textDecoration',
+                'fontSize',
+                'lineHeight',
+                'fontWeight',
+                'letterSpacing',
+                'color',
+                'padding',
+                'textAlign',
+                'display',
+                'width'
+            ])
+
+            return (
+                <table style={{ display: 'inline-block' }}>
+                    <tbody>
+                        <tr>
+                            <td style={outerStyles}>
+                                <a
+                                    id={`${renderProps.item.id}-${id}`}
+                                    onClick={handleClick}
+                                    style={innerStyles}
+                                    {...props}
+                                >
+                                    <SimpleInput
+                                        value={state?.label}
+                                        onChange={handleChange}
+                                        style={inputStyles}
+                                    />
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }
+
         return (
             <a
                 id={`${renderProps.item.id}-${id}`}
@@ -72,7 +125,7 @@ export default {
                 'width'
             ])
             return `
-        <table>
+        <table style="display: inline-block">
             <tbody>
                 <tr>
                     <td style="${styleToCss(outerStyles)}">
