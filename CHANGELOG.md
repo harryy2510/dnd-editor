@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com/harryy2510/dnd-editor/compare/v0.4.10...v0.4.12) (2021-05-24)
+
+
+### Features
+
+* file uploader ([c0695d9](https://github.com/harryy2510/dnd-editor/commit/c0695d92ca34c5633c1a03c3623eb68df6dd884c))
+* outlook switch in render ([25389ba](https://github.com/harryy2510/dnd-editor/commit/25389ba1fe4582978198a5234ce91099f51307d7))
+
 ### [0.4.11](https://github.com/harryy2510/dnd-editor/compare/v0.4.8...v0.4.11) (2021-05-24)
 
 
