@@ -196,7 +196,9 @@ export const conditionBuilder = (condition: Condition | undefined) => {
                 return result.join(' ')
             })
         if (rules?.length) {
-            result.conditionText = `${rules.join(` ${condition.type.toLowerCase()} `)}`
+            result.conditionText = condition.type
+                ? `${rules.join(` ${condition.type.toLowerCase()} `)}`
+                : rules[0]
             result.conditionStart = `{% if ${result.conditionText} %}`
             result.conditionEnd = '{% endif %}'
         }
