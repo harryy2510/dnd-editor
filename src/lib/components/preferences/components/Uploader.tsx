@@ -4,12 +4,10 @@ import {
     Button,
     CircularProgress,
     CircularProgressProps,
-    IconButton,
     Theme,
-    Tooltip,
     Typography
 } from '@material-ui/core'
-import { CloudUploadOutlined, DeleteOutlined } from '@material-ui/icons'
+import { CloudUploadOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import React from 'react'

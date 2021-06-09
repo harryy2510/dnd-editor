@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { TextField } from '@material-ui/core'
+import { FormLabel, TextField } from '@material-ui/core'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
 import { FormikValues, useFormikContext } from 'formik'
@@ -42,10 +42,12 @@ export default {
         }
         return (
             <div onClick={handleClick}>
+                <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                    {labelText}
+                </FormLabel>
                 <DatePicker
                     disableMaskedInput
                     inputFormat="MMM DD, YYYY"
-                    label={labelText}
                     value={formikProps.value}
                     onChange={formikProps.onChange || noop}
                     renderInput={(props) => (
@@ -55,7 +57,6 @@ export default {
                             fullWidth
                             variant="outlined"
                             size="small"
-                            label={labelText}
                         />
                     )}
                 />

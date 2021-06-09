@@ -79,7 +79,9 @@ const Field: React.FC<Props> = ({ name, type, Component: _Component, hideIfSet, 
         formikProps.value = get(formik.values, name)
         formikProps.onChange = (value: Primitive) => formik.setFieldValue(name, value, true)
         formikProps.error = Boolean(get(formik.errors, name))
-        formikProps.helperText = Boolean(get(formik.errors, name)) ? get(formik.errors, name) : null
+        formikProps.helperText = Boolean(get(formik.errors, name))
+            ? get(formik.errors, name)
+            : props.helperText
         if (hideIfSet && Boolean(get(formik.values, hideIfSet))) {
             return null
         }

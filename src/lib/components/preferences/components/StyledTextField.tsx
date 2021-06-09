@@ -1,6 +1,6 @@
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField/TextField'
 import { CloseOutlined } from '@material-ui/icons'
-import React, { ReactText } from 'react'
+import React from 'react'
 import { IconButton, InputAdornment, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
@@ -35,7 +35,6 @@ const useStyles = makeStyles(({ palette: { divider, action }, spacing }: Theme) 
             margin: 0,
             fontSize: 11,
             fontWeight: 500,
-            textAlign: 'center',
             opacity: 0.72
         }
     },

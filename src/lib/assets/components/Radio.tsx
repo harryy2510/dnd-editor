@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import {
@@ -7,8 +7,6 @@ import {
     FormControl,
     FormLabel,
     FormHelperText,
-    Input,
-    Grid,
     Radio
 } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
@@ -57,7 +55,9 @@ export default {
                 onClick={formikProps.onControlClick}
                 error={formikProps?.error}
             >
-                <FormLabel component="legend">{labelText}</FormLabel>
+                <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                    {labelText}
+                </FormLabel>
                 <FormGroup>
                     {state?.options
                         ?.filter((option: InputOption) => option.label.length > 0)

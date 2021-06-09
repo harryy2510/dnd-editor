@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { InputLabel, TextField } from '@material-ui/core'
+import { FormLabel, InputLabel, TextField } from '@material-ui/core'
 import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
@@ -38,9 +38,9 @@ export default {
         }
         const textField = (props: AutocompleteRenderInputParams) => (
             <>
-                <InputLabel>
-                    <Trans>Country</Trans>
-                </InputLabel>
+                <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                    Country
+                </FormLabel>
                 <TextField
                     {...props}
                     size="small"

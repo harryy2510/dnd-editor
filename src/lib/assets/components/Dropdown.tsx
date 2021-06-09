@@ -1,7 +1,7 @@
 import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import { InputLabel, MenuItem, TextField } from '@material-ui/core'
+import { FormLabel, MenuItem, TextField } from '@material-ui/core'
 import { DndComponentItem, RenderProps } from '../../types'
 import { getComponentState, getFormikProps } from '../../utils'
 import * as yup from 'yup'
@@ -31,7 +31,9 @@ export default {
         }
         return (
             <div onClick={handleClick}>
-                <InputLabel>{labelText}</InputLabel>
+                <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
+                    {labelText}
+                </FormLabel>
                 <TextField
                     size="small"
                     id={`${renderProps?.item?.id}-${id}`}

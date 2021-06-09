@@ -2,6 +2,81 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com/harryy2510/dnd-editor/compare/v0.4.10...v0.4.12) (2021-05-24)
+
+
+### Features
+
+* file uploader ([c0695d9](https://github.com/harryy2510/dnd-editor/commit/c0695d92ca34c5633c1a03c3623eb68df6dd884c))
+* outlook switch in render ([25389ba](https://github.com/harryy2510/dnd-editor/commit/25389ba1fe4582978198a5234ce91099f51307d7))
+
+### [0.4.11](https://github.com/harryy2510/dnd-editor/compare/v0.4.8...v0.4.11) (2021-05-24)
+
+
+### Features
+
+* outlook switch in render ([25389ba](https://github.com/harryy2510/dnd-editor/commit/25389ba1fe4582978198a5234ce91099f51307d7))
+
+
+### Bug Fixes
+
+* backspace delete smarty tag ([497c7c9](https://github.com/harryy2510/dnd-editor/commit/497c7c9f78ee5b43650f2a9acd25a46fb8c5cd0e))
+* label ([2b20885](https://github.com/harryy2510/dnd-editor/commit/2b2088564d86bd6ece3b9678bc9e26569452d098))
+
+### [0.4.10](https://github.com/harryy2510/dnd-editor/compare/v0.4.9...v0.4.10) (2021-05-21)
+
+
+### Features
+
+* outlook switch ([0291c5e](https://github.com/harryy2510/dnd-editor/commit/0291c5ec2c37e4ec81574d8f30ded21c98c0ca13))
+
+
+### Bug Fixes
+
+* label ([2b20885](https://github.com/harryy2510/dnd-editor/commit/2b2088564d86bd6ece3b9678bc9e26569452d098))
+
+### [0.4.8](https://github.com/harryy2510/dnd-editor/compare/v0.4.7...v0.4.8) (2021-05-21)
+
+
+### Features
+
+* outlook switch ([0291c5e](https://github.com/harryy2510/dnd-editor/commit/0291c5ec2c37e4ec81574d8f30ded21c98c0ca13))
+
+
+### Bug Fixes
+
+* multiple forms with similar block ids ([#20](https://github.com/harryy2510/dnd-editor/issues/20)) ([e203d09](https://github.com/harryy2510/dnd-editor/commit/e203d09dafbd5bff9d078a5fc4b84e4fcd548434))
+
+### [0.4.9](https://github.com/harryy2510/dnd-editor/compare/v0.4.8...v0.4.9) (2021-05-18)
+
+### [0.4.8](https://github.com/harryy2510/dnd-editor/compare/v0.4.5...v0.4.8) (2021-05-18)
+
+
+### Features
+
+* added button width setting ([bb8a24c](https://github.com/harryy2510/dnd-editor/commit/bb8a24ce1a70e921ef2fe552e748616ed78042c1))
+
+
+### Bug Fixes
+
+* and or operator ([46dd56f](https://github.com/harryy2510/dnd-editor/commit/46dd56fe13372d1d08015f6bde31b7e3dda4a596))
+* multiple forms with similar block ids ([#20](https://github.com/harryy2510/dnd-editor/issues/20)) ([e203d09](https://github.com/harryy2510/dnd-editor/commit/e203d09dafbd5bff9d078a5fc4b84e4fcd548434))
+* remove does not contain operator as liquid does not provide it ([6cfc567](https://github.com/harryy2510/dnd-editor/commit/6cfc567caefdfbf7074d7452aa3f87f3e2afffd4))
+
+### [0.4.5](https://github.com/harryy2510/dnd-editor/compare/v0.4.4...v0.4.5) (2021-04-21)
+
+
+### Bug Fixes
+
+* backspace delete smarty tag ([497c7c9](https://github.com/harryy2510/dnd-editor/commit/497c7c9f78ee5b43650f2a9acd25a46fb8c5cd0e))
+
+### [0.4.7](https://github.com/harryy2510/dnd-editor/compare/v0.4.6...v0.4.7) (2021-05-10)
+
+
+### Features
+
+* added button width setting ([bb8a24c](https://github.com/harryy2510/dnd-editor/commit/bb8a24ce1a70e921ef2fe552e748616ed78042c1))
+
 ### [0.4.6](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.4.6) (2021-05-10)
 
 
