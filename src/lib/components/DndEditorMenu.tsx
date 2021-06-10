@@ -76,11 +76,11 @@ const DndEditorMenu: React.FC = () => {
                     keepMounted={false}
                     onMouseLeave={() => popupState.close()}
                 >
-                    {({ TransitionProps }) => (
-                        <Fade {...TransitionProps}>
-                            <MenuHoverList listItems={hoveredItems} handleAddItem={handleAddItem} />
-                        </Fade>
-                    )}
+                    {/* {({ TransitionProps }) => ( */}
+                    {/* <Fade {...TransitionProps}> */}
+                    <MenuHoverList listItems={hoveredItems} handleAddItem={handleAddItem} />
+                    {/* </Fade>
+                    )} */}
                 </Popper>
                 {sortBy(groupedItems.group, 'priority')
                     .filter((item) => groupedBlocks[item.id])
