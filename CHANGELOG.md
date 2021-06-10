@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.14](https://github.com/harryy2510/dnd-editor/compare/v0.4.13...v0.4.14) (2021-06-10)
+
+
+### Bug Fixes
+
+* multiple forms with similar block ids ([fd2957b](https://github.com/harryy2510/dnd-editor/commit/fd2957b80058f57b3a7ca55823a791d430ec8e88))
+* styled input props ([c03cfc6](https://github.com/harryy2510/dnd-editor/commit/c03cfc6da5ac16f80008ed9472e27c74c3258ab3))
+
 ### [0.4.13](https://github.com/harryy2510/dnd-editor/compare/v0.4.11...v0.4.13) (2021-06-09)
 
 
