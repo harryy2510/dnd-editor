@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.15](https://github.com/harryy2510/dnd-editor/compare/v0.4.12...v0.4.15) (2021-06-11)
+
+
+### Features
+
+* file uploader ([be5284d](https://github.com/harryy2510/dnd-editor/commit/be5284d7f200e780d53d004a051f7e900a3f8554))
+
+
+### Bug Fixes
+
+* condition error ([2a8b10f](https://github.com/harryy2510/dnd-editor/commit/2a8b10f14b90b85cc138e14b1f5ad3357ff3c8c9))
+* file upload ([0086440](https://github.com/harryy2510/dnd-editor/commit/00864405d15a6602452a3093aad284ef25dd3ab5))
+* menu close ([3124334](https://github.com/harryy2510/dnd-editor/commit/3124334e20968dda537d5a849b04ee526bb8f6b1))
+* multiple forms with similar block ids ([fd2957b](https://github.com/harryy2510/dnd-editor/commit/fd2957b80058f57b3a7ca55823a791d430ec8e88))
+* smarty tag fix ([d10769f](https://github.com/harryy2510/dnd-editor/commit/d10769fc6abbfefd9064fde1f027909f11ddd2c8))
+* styled input props ([c03cfc6](https://github.com/harryy2510/dnd-editor/commit/c03cfc6da5ac16f80008ed9472e27c74c3258ab3))
+
 ### [0.4.14](https://github.com/harryy2510/dnd-editor/compare/v0.4.13...v0.4.14) (2021-06-10)
 
 
