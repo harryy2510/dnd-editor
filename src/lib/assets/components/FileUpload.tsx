@@ -40,7 +40,6 @@ export default {
                         {labelText}
                     </FormLabel>
                 </Grid>
-
                 <Uploader
                     id={`${renderProps?.item?.id}-${id}`}
                     accept={state.accept}

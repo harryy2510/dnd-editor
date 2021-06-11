@@ -11,8 +11,10 @@ import { get } from 'lodash-es'
 export default {
     render: (renderProps: RenderProps, id: string, formKey: string) => {
         const handleClick = (ev: React.MouseEvent) => {
-            ev.preventDefault()
-            PubSub.publish('component/click', { type: 'form-elements', data: id })
+            if (renderProps.buildermode) {
+                ev.preventDefault()
+                PubSub.publish('component/click', { type: 'form-elements', data: id })
+            }
         }
         const state = getComponentState(renderProps, id)
         const labelText = `${state?.question}${state?.required ? '*' : ''}`

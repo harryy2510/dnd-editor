@@ -180,7 +180,7 @@ const extensions = [
 
 const Uploader: React.FC<
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-> = (props) => {
+> = ({ value, onChange, name, ...props }) => {
     const fileRef = React.useRef<globalThis.File>()
     const [progress, setProgress] = React.useState(false)
     const [, forceUpdate] = useState({})
@@ -201,8 +201,7 @@ const Uploader: React.FC<
                 .then((response) => response.json())
                 .then((response) => {
                     fileRef.current = file
-                    console.log({ response })
-                    props.onChange?.({ target: { value: response.file, name: props.name } } as any)
+                    onChange?.({ target: { value: response.file, name } } as any)
                     setProgress(false)
                 })
                 .catch((error) => {
@@ -216,7 +215,7 @@ const Uploader: React.FC<
     const removeFile = (e: React.MouseEvent) => {
         e.stopPropagation()
         fileRef.current = undefined
-        props.onChange?.({ target: { value: '', name: props.name } } as any)
+        onChange?.({ target: { value: '', name } } as any)
         forceUpdate({})
     }
 
