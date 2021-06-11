@@ -16,7 +16,11 @@ const useStyles = makeStyles(
         transitions,
         zIndex
     }: Theme) => ({
-        hovered: {},
+        hovered: {
+            minWidth: spacing(35),
+            backgroundColor: grey[600],
+            color: 'white !important'
+        },
         heading: {
             ...caption,
             marginBottom: spacing(1),
@@ -36,7 +40,7 @@ const useStyles = makeStyles(
             width: '100%',
             textAlign: 'left',
             padding: spacing(0.5),
-            '&:hover, &$hovered': {
+            '&:hover': {
                 minWidth: spacing(35),
                 backgroundColor: grey[600],
                 color: 'white'
