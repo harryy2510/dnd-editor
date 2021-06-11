@@ -15,9 +15,11 @@ export default {
         const handleClick = () => {
             PubSub.publish('component/click', { type: 'text', data: id })
         }
+        const active = renderProps.active && renderProps.item.id === renderProps.active
         return (
             <div id={`${renderProps.item.id}-${id}`} onClick={handleClick} style={state?.style}>
                 <Editor
+                    className={active ? 'active' : ''}
                     value={state?.label}
                     onChange={handleChange}
                     readOnly={!renderProps.buildermode}
