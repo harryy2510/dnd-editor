@@ -100,7 +100,7 @@ const StyledTextField: React.FC<StyledTextFieldProps> = ({
                     )
                 }
             }}
-            value={value}
+            defaultValue={value}
             {...changeHandler}
         />
     )
