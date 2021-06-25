@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import { merge, noop } from 'lodash-es'
 import React from 'react'
 import { DndEditor, Renderer } from './lib'
+import FormElements from './lib/assets/groups/FormElements'
 import * as Blocks from './lib/assets/blocks'
 import Button from './lib/assets/components/Button'
 import Image from './lib/assets/components/Image'
@@ -422,7 +423,7 @@ function App() {
                 {
                     <DndEditor
                         smartyTags={smartyTags}
-                        items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems]}
+                        items={[...Object.values(Groups), ...Object.values(Blocks), ...customItems, FormElements]}
                         value={value}
                         onChange={setValue}
                         sampleData={sampleData}
