@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.18](https://github.com/harryy2510/dnd-editor/compare/v0.4.17...v0.4.18) (2021-07-07)
+
+
+### Bug Fixes
+
+* checkBox label ([c445ef7](https://github.com/harryy2510/dnd-editor/commit/c445ef75d719a7af2bb58c63e088b747a5bdafec))
+
 ### [0.4.17](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.4.17) (2021-06-25)
 
 
