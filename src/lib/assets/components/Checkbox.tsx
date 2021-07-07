@@ -29,7 +29,7 @@ export default {
         let formikProps: any = {
             onControlClick: handleClick,
             inputValue: '',
-            setInputValue: () => {}
+            setInputValue: () => { }
         }
         const formik = useFormikContext<FormikValues>()
         const checked: any = {}
@@ -80,7 +80,7 @@ export default {
                 error={formikProps?.error}
             >
                 <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
-                    Country
+                    {labelText}
                 </FormLabel>
                 <FormGroup>
                     {state?.options
