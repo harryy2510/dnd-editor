@@ -161,7 +161,7 @@ const displayCondition: DndItemSetting = {
 }
 const conditionSettings: Record<string, DndItemSetting[]> = {
     mail: [linkingCondition],
-    form: [linkingCondition, displayCondition]
+    form: [displayCondition]
 }
 
 const ConditionSettings: React.FC<Props> = (props) => {
