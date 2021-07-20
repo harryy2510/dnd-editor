@@ -122,13 +122,13 @@ export const addItem = (renderProps: RenderProps, newItem: DndItem) => {
 }
 
 export const setList = (renderProps: RenderProps) => (newState: DndStateItemEntity[]) => {
-    const rawItemIndex = newState.findIndex((item) => Boolean(((item as unknown) as DndItem).type))
+    const rawItemIndex = newState.findIndex((item) => Boolean((item as unknown as DndItem).type))
     const updatedNewState = cloneDeep(newState).map((item) => omit(item, 'layoutId'))
     const updatedNewEntities = {
         ...renderProps.state.entities
     }
     if (rawItemIndex > -1) {
-        const rawItem = (newState[rawItemIndex] as unknown) as DndItem
+        const rawItem = newState[rawItemIndex] as unknown as DndItem
         const id = nanoid()
         updatedNewState[rawItemIndex] = {
             id
@@ -428,8 +428,7 @@ export const useValidations = () => {
         {
             label: <Trans>Url</Trans>,
             id: 'url',
-            value:
-                '(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})'
+            value: '(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})'
         },
         { label: <Trans>Numeric</Trans>, id: 'numeric', value: '^[0-9]$' },
         { label: <Trans>Custom regex</Trans>, id: 'regex' }
@@ -719,7 +718,10 @@ const canShowFormElement = (formValue: string, operator: ConditionOperator, valu
         case 'NOT_EQUAL':
             return formValue !== value
         case 'IN':
-            return (value as string).split(',').some((v) => v === formValue)
+            return (
+                (value as string).split(',').some((v) => v === formValue) ||
+                (formValue as string).includes(value)
+            )
         case 'NOT_IN':
             return (value as string).split(',').every((v) => v !== formValue)
     }
@@ -1020,16 +1022,16 @@ export const useSettingsValidations = (id: String | undefined) => {
         'date-picker-1'
     ) {
         return yup.object().shape({
-            question: yup.string().max(500, (`Max 500 characters allowed` as unknown) as string),
+            question: yup.string().max(500, `Max 500 characters allowed` as unknown as string),
             placeholder: yup
                 .string()
-                .max(100, (`Maximum 100 characters allowed` as unknown) as string),
-            hint: yup.string().max(100, (`Maximum 100 characters allowed` as unknown) as string),
+                .max(100, `Maximum 100 characters allowed` as unknown as string),
+            hint: yup.string().max(100, `Maximum 100 characters allowed` as unknown as string),
             characterLimit: yup
                 .number()
                 .nullable()
-                .min(0, (`Minimum limit can be 0` as unknown) as string)
-                .max(100, (`Maximum 100 characters allowed` as unknown) as string)
+                .min(0, `Minimum limit can be 0` as unknown as string)
+                .max(100, `Maximum 100 characters allowed` as unknown as string)
         })
     }
 
