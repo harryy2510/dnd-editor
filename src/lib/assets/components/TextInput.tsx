@@ -114,6 +114,9 @@ export default {
         schema = state?.characterLimit
             ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
             : schema
+        if (!state?.required) {
+            return yup.object().shape({ text: schema }).nullable()
+        }
         return yup.object().shape({ text: schema })
     }
 } as DndComponentItem
