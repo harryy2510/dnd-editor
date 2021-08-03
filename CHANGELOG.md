@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.20](https://github.com/harryy2510/dnd-editor/compare/v0.4.18...v0.4.20) (2021-08-03)
+
+
+### Bug Fixes
+
+* fixed includes condition ([9f43515](https://github.com/harryy2510/dnd-editor/commit/9f435158302c5334eec717b4eabcf26c5c328855))
+* make text input schema nullable if not required ([b31e725](https://github.com/harryy2510/dnd-editor/commit/b31e7256249681e81cf61ce032252fa16905b244))
+* removed linking condition for intake form ([fb8e297](https://github.com/harryy2510/dnd-editor/commit/fb8e297bff35e56704ebaf9ea8d9698d08cf760c))
+
 ### [0.4.19](https://github.com/harryy2510/dnd-editor/compare/v0.1.35...v0.4.19) (2021-07-13)
 
 
