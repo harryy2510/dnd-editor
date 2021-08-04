@@ -719,8 +719,9 @@ const canShowFormElement = (formValue: string, operator: ConditionOperator, valu
             return formValue !== value
         case 'IN':
             return (
-                (value as string).split(',').some((v) => v === formValue) ||
-                (formValue as string).includes(value)
+                !!formValue &&
+                ((value as string).split(',').some((v) => v === formValue) ||
+                    (formValue as string).includes(value))
             )
         case 'NOT_IN':
             return (value as string).split(',').every((v) => v !== formValue)
