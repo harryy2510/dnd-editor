@@ -190,6 +190,13 @@ const Uploader: React.FC<
     const handleChangeEvent = (ev: React.ChangeEvent<HTMLInputElement>) => {
         const file = ev.target.files?.[0]
         if (file) {
+            if (file.size > 3145728) {
+                errorRef.current = 'File size cannot exceed more than 3MB'
+                setVisible(true)
+                return
+            }
+
+            console.log(file)
             setProgress(true)
             const formData = new FormData()
             formData.append('file', file)
@@ -275,7 +282,9 @@ const Uploader: React.FC<
                     <div className={classes.placeholder}>
                         <CloudUploadOutlined className={classes.icon} />
                         <Typography variant="caption">
-                            <Trans>Drag and drop or click to upload</Trans>
+                            <Trans>
+                                Drag and drop or click to upload, file size should be less than 3MB
+                            </Trans>
                         </Typography>
                     </div>
                 </>
