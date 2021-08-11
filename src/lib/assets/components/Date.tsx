@@ -1,13 +1,13 @@
-import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { FormLabel, TextField } from '@material-ui/core'
+import { DatePicker } from '@material-ui/pickers'
+import { FormikValues, useFormikContext } from 'formik'
+import { get, noop } from 'lodash-es'
+import React from 'react'
 import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
-import { FormikValues, useFormikContext } from 'formik'
-import { getFormikProps, getComponentState, useValidations } from '../../utils'
-import { get, noop } from 'lodash-es'
-import { DatePicker } from '@material-ui/pickers'
+import { getComponentState, getFormikProps, useValidations } from '../../utils'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey: string) => {
@@ -40,6 +40,7 @@ export default {
                     valueType: 'String'
                 })
         }
+        const error = (formik?.errors?.[formKey] as any)?.text
         return (
             <div onClick={handleClick}>
                 <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
@@ -57,6 +58,8 @@ export default {
                             fullWidth
                             variant="outlined"
                             size="small"
+                            error={Boolean(error)}
+                            helperText={error}
                         />
                     )}
                 />
@@ -120,9 +123,9 @@ export default {
             parentSchema ||
             yup.string()
         schema = state?.required ? schema.required('Required field') : schema
-        schema = state?.characterLimit
-            ? schema.max(state?.characterLimit, `Character limit is ${state?.characterLimit}`)
-            : schema
+        if (!state?.required) {
+            return yup.object().shape({ text: schema }).nullable()
+        }
         return yup.object().shape({ text: schema })
     }
 } as DndComponentItem

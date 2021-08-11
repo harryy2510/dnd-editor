@@ -1,10 +1,9 @@
 import { Trans } from '@lingui/macro'
+import { RadioButtonChecked } from '@material-ui/icons'
 import React from 'react'
 import { DndBlockItem } from '../../types'
 import { getFormikKey } from '../../utils'
 import Radio from '../components/Radio'
-import { RadioButtonChecked } from '@material-ui/icons'
-import { set } from 'lodash-es'
 
 export default {
     id: 'radio-input',
@@ -15,10 +14,9 @@ export default {
         Radio.render(renderProps, 'radio-input-1', getFormikKey(renderProps, 'radio-input-1')),
     validationSchema: (renderProps: any) => {
         const schema: any = {}
-        set(
-            schema,
-            getFormikKey(renderProps, 'radio-input-1'),
-            Radio.validationSchema?.(renderProps, 'radio-input-1')
+        schema[getFormikKey(renderProps, 'radio-input-1')] = Radio.validationSchema?.(
+            renderProps,
+            'radio-input-1'
         )
         return schema
     },

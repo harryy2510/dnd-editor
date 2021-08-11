@@ -1,21 +1,13 @@
-import React, { useState } from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import {
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
-    FormControl,
-    FormLabel,
-    FormHelperText,
-    Input,
-    Grid
-} from '@material-ui/core'
-import { DndComponentItem, FormValue, RenderProps, StringFormValue } from '../../types'
-import * as yup from 'yup'
-import { getComponentState, getFormikProps } from '../../utils'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel } from '@material-ui/core'
 import { FormikValues, useFormikContext } from 'formik'
+import { get } from 'lodash-es'
+import React from 'react'
+import * as yup from 'yup'
 import { InputOption } from '../../components/preferences/items/InputOptions'
+import { DndComponentItem, FormValue, RenderProps, StringFormValue } from '../../types'
+import { getComponentState, getFormikProps, useValidations } from '../../utils'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -29,7 +21,7 @@ export default {
         let formikProps: any = {
             onControlClick: handleClick,
             inputValue: '',
-            setInputValue: () => { }
+            setInputValue: () => {}
         }
         const formik = useFormikContext<FormikValues>()
         const checked: any = {}
@@ -138,6 +130,17 @@ export default {
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
     ],
     validationSchema: (renderProps, id, parentSchema) => {
-        return yup.array()
+        const state = getComponentState(renderProps, id)
+        const { validations } = useValidations()
+        const validation = get(validations, state?.validation.key)
+        let schema =
+            validation?.validation?.(validation.toString(state?.validation.formValue)) ||
+            parentSchema ||
+            yup.string()
+        schema = yup.array().of(yup.object().shape({ text: schema }))
+        if (!state?.required) {
+            return schema.nullable()
+        }
+        return schema.min(1, 'Required field')
     }
 } as DndComponentItem

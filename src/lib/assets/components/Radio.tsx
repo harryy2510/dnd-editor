@@ -1,19 +1,13 @@
-import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
-import {
-    FormGroup,
-    FormControlLabel,
-    FormControl,
-    FormLabel,
-    FormHelperText,
-    Radio
-} from '@material-ui/core'
-import { DndComponentItem, RenderProps } from '../../types'
-import * as yup from 'yup'
-import { getComponentState, getFormikProps } from '../../utils'
+import { FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Radio } from '@material-ui/core'
 import { FormikValues, useFormikContext } from 'formik'
+import { get } from 'lodash-es'
+import React from 'react'
+import * as yup from 'yup'
 import { InputOption } from '../../components/preferences/items/InputOptions'
+import { DndComponentItem, RenderProps } from '../../types'
+import { getComponentState, getFormikProps, useValidations } from '../../utils'
 
 export default {
     render: (renderProps: RenderProps, id: string, formKey) => {
@@ -47,6 +41,8 @@ export default {
             formikProps.onControlClick = () => {}
         }
 
+        console.log(formikProps)
+
         return (
             <FormControl
                 fullWidth
@@ -75,7 +71,7 @@ export default {
                             />
                         ))}
                 </FormGroup>
-                <FormHelperText>{formikProps.helperText || state?.hint}</FormHelperText>
+                <FormHelperText>{formikProps.helperText?.text || state?.hint}</FormHelperText>
             </FormControl>
         )
     },
@@ -113,7 +109,15 @@ export default {
     ],
     validationSchema: (renderProps, id) => {
         const state = getComponentState(renderProps, id)
-        let schema: any = yup.object()
-        return schema
+        const { validations } = useValidations()
+        const validation = get(validations, state?.validation.key)
+        let schema =
+            validation?.validation?.(validation.toString(state?.validation.formValue)) ||
+            yup.string()
+        schema = state?.required ? schema.required('Required field') : schema
+        if (!state?.required) {
+            return yup.object().shape({ text: schema }).nullable()
+        }
+        return yup.object().shape({ text: schema })
     }
 } as DndComponentItem
