@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.24](https://github.com/harryy2510/dnd-editor/compare/v0.4.23...v0.4.24) (2021-08-11)
+
+
+### Features
+
+* validation in datepicker, radio and checkbox ([b58a145](https://github.com/harryy2510/dnd-editor/commit/b58a145f3ba14a11ab64326e854d0a43ecdc5d68))
+* validation in file upload and multiline ([6cb98f2](https://github.com/harryy2510/dnd-editor/commit/6cb98f2700f32200ca7c4e45df28d91f3cd22d91))
+
 ### [0.4.23](https://github.com/harryy2510/dnd-editor/compare/v0.4.22...v0.4.23) (2021-08-09)
 
 
