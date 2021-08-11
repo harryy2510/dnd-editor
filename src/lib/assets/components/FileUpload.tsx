@@ -3,6 +3,7 @@ import React from 'react'
 import PubSub from '@harryy/pubsub'
 import { Trans } from '@lingui/macro'
 import { Grid, FormHelperText, FormLabel, Link } from '@material-ui/core'
+import * as yup from 'yup'
 import { DndComponentItem, RenderProps } from '../../types'
 import { getComponentState, getFormikProps } from '../../utils'
 import Uploader from '../libs/Uploader'
@@ -43,6 +44,7 @@ export default {
                 <Uploader
                     id={`${renderProps?.item?.id}-${id}`}
                     accept={state.accept}
+                    error={formikProps?.helperText?.text}
                     {...formikProps}
                 />
                 <Grid item xs={12}>
@@ -85,5 +87,14 @@ export default {
         },
         { id: 'required', type: 'labeledSwitch', grid: 12, label: <Trans>Required</Trans> },
         { id: 'enabled', type: 'labeledSwitch', grid: 12, label: <Trans>Enabled</Trans> }
-    ]
+    ],
+    validationSchema: (renderProps, id, parentSchema) => {
+        const state = getComponentState(renderProps, id)
+        let schema: any = yup.string()
+        schema = state?.required ? schema.required('Required field') : schema
+        if (!state?.required) {
+            return yup.object().shape({ text: schema }).nullable()
+        }
+        return yup.object().shape({ text: schema })
+    }
 } as DndComponentItem

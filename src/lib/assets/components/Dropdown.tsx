@@ -106,6 +106,9 @@ export default {
         const state = getComponentState(renderProps, id)
         let schema: any = yup.string()
         schema = state?.required ? schema.required('Required field') : schema
+        if (!state?.required) {
+            return yup.object().shape({ text: schema }).nullable()
+        }
         return yup.object().shape({ text: schema })
     }
 } as DndComponentItem

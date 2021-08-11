@@ -19,7 +19,7 @@ function formatFileSize(bytes: number, decimalPoint: number = 2) {
 const useStyles = makeStyles(
     ({
         spacing,
-        palette: { divider, action, text, background },
+        palette: { divider, action, text, background, error },
         shape: { borderRadius },
         transitions
     }: Theme) => ({
@@ -34,6 +34,10 @@ const useStyles = makeStyles(
             justifyContent: 'center',
             flexDirection: 'column',
             color: text.hint
+        },
+        error: {
+            borderColor: error.main,
+            color: error.main
         },
         overlay: {
             position: 'absolute',
@@ -179,8 +183,10 @@ const extensions = [
 ]
 
 const Uploader: React.FC<
-    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-> = ({ value, onChange, name, ...props }) => {
+    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+        error?: string
+    }
+> = ({ value, onChange, name, error, ...props }) => {
     const fileRef = React.useRef<globalThis.File>()
     const [progress, setProgress] = React.useState(false)
     const [, forceUpdate] = useState({})
@@ -232,22 +238,21 @@ const Uploader: React.FC<
               extensions.includes(ext) ? ext : 'file'
           }.svg`
         : ''
-
     return (
-        <div className={classes.container}>
+        <div className={clsx(classes.container, !!error && classes.error)}>
             <Snackbar autoHideDuration={3000} open={visible} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
                     {errorRef.current}
                 </Alert>
-            </Snackbar>
+            </Snackbar>{' '}
             {fileRef.current && (
                 <Button onClick={removeFile} size="small" className={classes.button}>
                     <Typography color="error" variant="caption">
                         <Trans>Remove File</Trans>
                     </Typography>
                 </Button>
-            )}
-            <input {...props} onChange={handleChangeEvent} type="file" className={classes.input} />
+            )}{' '}
+            <input {...props} onChange={handleChangeEvent} type="file" className={classes.input} />{' '}
             {fileRef.current ? (
                 <>
                     <div className={clsx(classes.overlay, classes.darkOverlay)}>
