@@ -16,7 +16,7 @@ export default {
             PubSub.publish('component/click', { type: 'form-elements', data: id })
         }
         const state = getComponentState(renderProps, id)
-        const labelText = `${state?.question}${state?.required ? '*' : ''}`
+        const labelText = state?.required ? '*' : ''
         let formikProps: any = {}
         const formik = useFormikContext<FormikValues>()
         if (formik && formKey) {
@@ -39,7 +39,8 @@ export default {
         const textField = (props: AutocompleteRenderInputParams) => (
             <>
                 <FormLabel component="legend" style={{ marginBottom: 4, display: 'block' }}>
-                    Country
+                    <Trans>Country</Trans>
+                    {labelText}
                 </FormLabel>
                 <TextField
                     {...props}
