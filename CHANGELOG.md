@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.25](https://github.com/harryy2510/dnd-editor/compare/v0.4.24...v0.4.25) (2021-09-07)
+
+
+### Bug Fixes
+
+* show asterik in country if required ([dd8e3ba](https://github.com/harryy2510/dnd-editor/commit/dd8e3ba56a147be25bdd593d4279ecb491f60c85))
+
 ### [0.4.24](https://github.com/harryy2510/dnd-editor/compare/v0.4.23...v0.4.24) (2021-08-11)
 
 
