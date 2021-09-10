@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.26](https://github.com/harryy2510/dnd-editor/compare/v0.4.25...v0.4.26) (2021-09-10)
+
+
+### Bug Fixes
+
+* liquid js version ([23090f0](https://github.com/harryy2510/dnd-editor/commit/23090f043bfef6cb4b3ee13f8e4d394059d1a8a4))
+
 ### [0.4.25](https://github.com/harryy2510/dnd-editor/compare/v0.4.24...v0.4.25) (2021-09-07)
 
 
