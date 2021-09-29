@@ -81,7 +81,7 @@ export default {
         required: false,
         enabled: true,
         grid: 12,
-        itemType: 'Input',
+        itemType: 'Date',
         validation: { key: 'none' },
         style: {
             textAlign: 'left'
