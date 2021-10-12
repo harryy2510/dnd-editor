@@ -25,7 +25,7 @@ export default {
             formikProps = getFormikProps(formKey, formik, (value: Date) => {
                 return {
                     text: value?.toISOString?.() ?? null,
-                    valueType: 'String'
+                    valueType: 'Timestamp'
                 }
             })
             formikProps.helperText = formikProps.helperText?.text || state?.hint
@@ -37,7 +37,7 @@ export default {
             formikProps.onChange = (date: Date) =>
                 formik.setFieldValue(formKey, {
                     text: date?.toISOString?.() ?? '',
-                    valueType: 'String'
+                    valueType: 'Timestamp'
                 })
         }
         const error = (formik?.errors?.[formKey] as any)?.text
@@ -81,7 +81,7 @@ export default {
         required: false,
         enabled: true,
         grid: 12,
-        itemType: 'Date',
+        itemType: 'Datepicker',
         validation: { key: 'none' },
         style: {
             textAlign: 'left'
